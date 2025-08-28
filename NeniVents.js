@@ -88077,7 +88077,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.StartButton,this,"OnClick","StartButtonClick");
         this.WebSpeechRecognition1.SetParentComponent(this);
         this.WebSpeechRecognition1.SetName("WebSpeechRecognition1");
-        this.WebSpeechRecognition1.SetLanguage("en-UK");
+        this.WebSpeechRecognition1.SetLanguage("es-ES");
         this.WebSpeechRecognition1.FCommands.Clear();
         var $with = this.WebSpeechRecognition1.FCommands.Add$1();
         $with.SetValue("Nombre");
