@@ -87700,6 +87700,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.StartButton = null;
       this.FStarted = false;
       this.FFirst = false;
+      this.currcontrol = 0;
       this.listadatos = null;
     };
     this.$final = function () {
@@ -87782,6 +87783,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPanel1.SetElementClassName("");
       this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
       this.FFirst = true;
+      this.currcontrol = -1;
     };
     this.WebFormCloseQuery = function (Sender, CanClose) {
     };
@@ -87796,15 +87798,19 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     };
     this.WebSpeechRecognition1Commands0Command = function (Sender, Parameters) {
       this.edNombre.SetFocus();
+      this.currcontrol = 1;
     };
     this.WebSpeechRecognition1Commands1Command = function (Sender, Parameters) {
       this.edArticulo.SetFocus();
+      this.currcontrol = 2;
     };
     this.WebSpeechRecognition1Commands2Command = function (Sender, Parameters) {
       this.edImporte.SetFocus();
+      this.currcontrol = 3;
     };
     this.WebSpeechRecognition1Commands3Command = function (Sender, Parameters) {
       this.edventasuba.SetFocus();
+      this.currcontrol = 4;
     };
     this.WebSpeechRecognition1Start = function (Sender) {
       this.FStarted = true;
@@ -87814,6 +87820,22 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     this.WebSpeechRecognition1End = function (Sender) {
       this.FStarted = false;
       this.StartButton.SetMaterialGlyph("mic_off");
+    };
+    this.WebSpeechRecognition1NoResultMatch = function (Sender, Phrases) {
+      var $tmp = this.currcontrol;
+      if ($tmp === 1) {
+        this.edNombre.SetText(Phrases.Get(0))}
+       else if ($tmp === 2) {
+        this.edArticulo.SetText(Phrases.Get(0))}
+       else if ($tmp === 3) {
+        this.edImporte.SetText(Phrases.Get(0))}
+       else if ($tmp === 4) this.edventasuba.SetText(Phrases.Get(0));
+    };
+    this.WebSpeechRecognition1Commands4Command = function (Sender, Parameters) {
+      this.btnAgregar.Click();
+    };
+    this.WebSpeechRecognition1Commands5Command = function (Sender, Parameters) {
+      this.btnCerrar.Click();
     };
     this.LoadDFMValues = function () {
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
@@ -88096,8 +88118,14 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         $with3.FTag = 0;
         $with3.SetEvent(this,"OnCommand","WebSpeechRecognition1Commands3Command");
         var $with4 = this.WebSpeechRecognition1.FCommands.Add$1();
-        $with4.SetValue("draw :color :shape");
+        $with4.SetValue("agregar");
         $with4.FTag = 0;
+        $with4.SetEvent(this,"OnCommand","WebSpeechRecognition1Commands4Command");
+        var $with5 = this.WebSpeechRecognition1.FCommands.Add$1();
+        $with5.SetValue("cerrar");
+        $with5.FTag = 0;
+        $with5.SetEvent(this,"OnCommand","WebSpeechRecognition1Commands5Command");
+        this.SetEvent$1(this.WebSpeechRecognition1,this,"OnNoResultMatch","WebSpeechRecognition1NoResultMatch");
         this.SetEvent$1(this.WebSpeechRecognition1,this,"OnStart","WebSpeechRecognition1Start");
         this.SetEvent$1(this.WebSpeechRecognition1,this,"OnEnd","WebSpeechRecognition1End");
         this.WebSpeechRecognition1.SetLeft(79);
@@ -88153,6 +88181,9 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addMethod("WebSpeechRecognition1Commands3Command",0,[["Sender",pas.System.$rtti["TObject"]],["Parameters",pas.Classes.$rtti["TStrings"]]]);
     $r.addMethod("WebSpeechRecognition1Start",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebSpeechRecognition1End",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebSpeechRecognition1NoResultMatch",0,[["Sender",pas.System.$rtti["TObject"]],["Phrases",pas.Classes.$rtti["TStrings"]]]);
+    $r.addMethod("WebSpeechRecognition1Commands4Command",0,[["Sender",pas.System.$rtti["TObject"]],["Parameters",pas.Classes.$rtti["TStrings"]]]);
+    $r.addMethod("WebSpeechRecognition1Commands5Command",0,[["Sender",pas.System.$rtti["TObject"]],["Parameters",pas.Classes.$rtti["TStrings"]]]);
   });
   this.Form3 = null;
   $mod.$implcode = function () {
@@ -89778,6 +89809,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var mes = 0;
       var dia = 0;
       var sfechadia = "";
+      var datoshoja = "";
       fechahoy = pas.SysUtils.Now();
       pas.SysUtils.DecodeDate(fechahoy,{get: function () {
           return anio;
@@ -89818,14 +89850,14 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           }
        */
       
-      
+      /*
       
       //  ********* Compartir datos como ARCHIVO de texto  *********
       //(Json no es permitido en algunos navegadores)
       
          const txtdata = JSON.stringify(jsonData);
       
-         const testFile = new File([txtdata], "test.txt", { type: "text/plain" });
+        const testFile = new File([txtdata], "archivo.txt", { type: "text/plain" });
        //  const data = { files: [testFile] };
       
        if ( window.navigator.share) {
@@ -89839,7 +89871,15 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           .catch((error) => console.error('Error compartir archivo:', error));
        } else {
           console.log('Web Share API not supported in this browser.');
-       };
+       }
+      
+      */
+      
+      
+        const txtdata = JSON.stringify(jsonData);
+        datoshoja=txtdata;
+        // Assume 'fileContent' is a string containing the text file's content;
+      pas["WEBLib.Forms"].Application.DownloadTextFile(datoshoja,sfechadia + ".txt");
     };
     this.CargarTXTa1Click = function (Sender) {
       var $Self = this;
@@ -90769,11 +90809,11 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.Compartir2,this,"OnClick","Compartir2Click");
         this.CompartirJSON1.SetParentComponent(this.WebMainMenu1);
         this.CompartirJSON1.SetName("CompartirJSON1");
-        this.CompartirJSON1.SetCaption("Compartir  TXT");
+        this.CompartirJSON1.SetCaption("Archivar Pedidos");
         this.SetEvent$1(this.CompartirJSON1,this,"OnClick","CompartirJSON1Click");
         this.CargarTXTa1.SetParentComponent(this.WebMainMenu1);
         this.CargarTXTa1.SetName("CargarTXTa1");
-        this.CargarTXTa1.SetCaption("Cargar TXT ");
+        this.CargarTXTa1.SetCaption("Abrir Pedidos");
         this.SetEvent$1(this.CargarTXTa1,this,"OnClick","CargarTXTa1Click");
         this.WebLocalTextFile1.SetParentComponent(this);
         this.WebLocalTextFile1.SetName("WebLocalTextFile1");
