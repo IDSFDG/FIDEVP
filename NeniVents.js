@@ -89070,8 +89070,6 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
        var activeRowCount = table.getDataCount(key);
        rowcountt =activeRowCount;
        //console.log('activeRowCount',activeRowCount);
-      this.Registrar1Click(Sender);
-      return;
       if ((keyhoja === "uno") && (rowcountt === 0)) this.Consultas1Click(Sender);
     };
     this.AnlisisGrfico1Click = async function (Sender) {
@@ -89622,6 +89620,20 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     this.uno1Click = function (Sender) {
       this.Registrar1Click(Sender);
     };
+    this.WebDivDblClick = function (Sender) {
+      var keyhoja = "";
+      var rowcountt = 0;
+      var table = Tabulator.findTable("#tabExample")[0];
+      // table.alert("Libreta digital, Tocar para agregar renglones");
+       var sheet = table.getSheet();
+       var key = sheet.getKey();
+      // alert(key);
+       keyhoja=key;
+       var activeRowCount = table.getDataCount(key);
+       rowcountt =activeRowCount;
+       //console.log('activeRowCount',activeRowCount);
+      this.Registrar1Click(Sender);
+    };
     this.ValidarUsuarioActivo = async function (u, p) {
       var Result = false;
       var ustr = "";
@@ -89973,6 +89985,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebDiv.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebDiv.SetRole("");
         this.SetEvent$1(this.WebDiv,this,"OnClick","WebDivClick");
+        this.SetEvent$1(this.WebDiv,this,"OnDblClick","WebDivDblClick");
         this.SetEvent$1(this.WebDiv,this,"OnMouseMove","WebDivMouseMove");
         this.WebMemo1.SetParentComponent(this.WebDiv);
         this.WebMemo1.SetName("WebMemo1");
@@ -90880,6 +90893,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addMethod("tres1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("cuatroClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("uno1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebDivDblClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
   this.Form1 = null;
   $mod.$implcode = function () {
