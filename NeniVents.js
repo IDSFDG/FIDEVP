@@ -88029,10 +88029,8 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.uno1 = null;
       this.dos1 = null;
       this.tres1 = null;
-      this.cuatro1111111111 = null;
-      this.otraopcionmaslarga1 = null;
-      this.otraopcionmaslarga2 = null;
-      this.otraopcionaunmasmaslargalargalarga1 = null;
+      this.cuatro = null;
+      this.comparte = null;
       this.N3 = null;
       this.Salir2 = null;
       this.minimizo = false;
@@ -88112,10 +88110,8 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.uno1 = undefined;
       this.dos1 = undefined;
       this.tres1 = undefined;
-      this.cuatro1111111111 = undefined;
-      this.otraopcionmaslarga1 = undefined;
-      this.otraopcionmaslarga2 = undefined;
-      this.otraopcionaunmasmaslargalargalarga1 = undefined;
+      this.cuatro = undefined;
+      this.comparte = undefined;
       this.N3 = undefined;
       this.Salir2 = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
@@ -89611,8 +89607,20 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     this.Salir2Click = function (Sender) {
       this.Salir1Click(Sender);
     };
-    this.otraopcionaunmasmaslargalargalarga1Click = function (Sender) {
+    this.comparteClick = function (Sender) {
       this.Compartir2Click(Sender);
+    };
+    this.dos1Click = function (Sender) {
+      this.Consultas1Click(Sender);
+    };
+    this.tres1Click = function (Sender) {
+      this.Estudios1Click(Sender);
+    };
+    this.cuatroClick = function (Sender) {
+      this.LimpiarHoja2Click(Sender);
+    };
+    this.uno1Click = function (Sender) {
+      this.Registrar1Click(Sender);
     };
     this.ValidarUsuarioActivo = async function (u, p) {
       var Result = false;
@@ -89855,10 +89863,8 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.uno1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.dos1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.tres1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.cuatro1111111111 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.otraopcionmaslarga1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.otraopcionmaslarga2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.otraopcionaunmasmaslargalargalarga1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.cuatro = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.comparte = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.N3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.Salir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.WebDiv.BeforeLoadDFMValues();
@@ -89935,10 +89941,8 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.uno1.BeforeLoadDFMValues();
       this.dos1.BeforeLoadDFMValues();
       this.tres1.BeforeLoadDFMValues();
-      this.cuatro1111111111.BeforeLoadDFMValues();
-      this.otraopcionmaslarga1.BeforeLoadDFMValues();
-      this.otraopcionmaslarga2.BeforeLoadDFMValues();
-      this.otraopcionaunmasmaslargalargalarga1.BeforeLoadDFMValues();
+      this.cuatro.BeforeLoadDFMValues();
+      this.comparte.BeforeLoadDFMValues();
       this.N3.BeforeLoadDFMValues();
       this.Salir2.BeforeLoadDFMValues();
       try {
@@ -90019,6 +90023,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPanel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebPanel3.SetShowHint(true);
         this.WebPanel3.SetTabOrder(1);
+        this.WebPanel3.SetVisible(false);
         this.WebPanel4.SetParentComponent(this);
         this.WebPanel4.SetName("WebPanel4");
         this.WebPanel4.SetLeft(0);
@@ -90153,9 +90158,9 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.lbminimizar,this,"OnChange","lbminimizarChange");
         this.WebSpeedButton1.SetParentComponent(this.WebPanel4);
         this.WebSpeedButton1.SetName("WebSpeedButton1");
-        this.WebSpeedButton1.SetLeft(652);
+        this.WebSpeedButton1.SetLeft(648);
         this.WebSpeedButton1.SetTop(0);
-        this.WebSpeedButton1.SetWidth(49);
+        this.WebSpeedButton1.SetWidth(53);
         this.WebSpeedButton1.SetHeight(48);
         this.WebSpeedButton1.SetAlign(pas["WEBLib.Controls"].TAlign.alRight);
         this.WebSpeedButton1.SetColorEx(-1);
@@ -90460,6 +90465,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMainMenu1.FFont.SetHeight(-12);
         this.WebMainMenu1.FFont.SetName("Segoe UI");
         this.WebMainMenu1.FFont.SetStyle({});
+        this.WebMainMenu1.SetVisible(false);
         this.WebMainMenu1.SetLeft(496);
         this.WebMainMenu1.SetTop(112);
         this.Archivo1.SetParentComponent(this.WebMainMenu1);
@@ -90624,26 +90630,24 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPopupMenu1.SetTop(176);
         this.uno1.SetParentComponent(this.WebPopupMenu1);
         this.uno1.SetName("uno1");
-        this.uno1.SetCaption("uno");
+        this.uno1.SetCaption("Agregar Renglones");
+        this.SetEvent$1(this.uno1,this,"OnClick","uno1Click");
         this.dos1.SetParentComponent(this.WebPopupMenu1);
         this.dos1.SetName("dos1");
-        this.dos1.SetCaption("dos");
+        this.dos1.SetCaption("Abrir Hoja");
+        this.SetEvent$1(this.dos1,this,"OnClick","dos1Click");
         this.tres1.SetParentComponent(this.WebPopupMenu1);
         this.tres1.SetName("tres1");
-        this.tres1.SetCaption("tres");
-        this.cuatro1111111111.SetParentComponent(this.WebPopupMenu1);
-        this.cuatro1111111111.SetName("cuatro1111111111");
-        this.cuatro1111111111.SetCaption("cuatro");
-        this.otraopcionmaslarga1.SetParentComponent(this.WebPopupMenu1);
-        this.otraopcionmaslarga1.SetName("otraopcionmaslarga1");
-        this.otraopcionmaslarga1.SetCaption("otra opcion mas larga");
-        this.otraopcionmaslarga2.SetParentComponent(this.WebPopupMenu1);
-        this.otraopcionmaslarga2.SetName("otraopcionmaslarga2");
-        this.otraopcionmaslarga2.SetCaption("otra opcion aun mas mas larga");
-        this.otraopcionaunmasmaslargalargalarga1.SetParentComponent(this.WebPopupMenu1);
-        this.otraopcionaunmasmaslargalargalarga1.SetName("otraopcionaunmasmaslargalargalarga1");
-        this.otraopcionaunmasmaslargalargalarga1.SetCaption("Compartir");
-        this.SetEvent$1(this.otraopcionaunmasmaslargalargalarga1,this,"OnClick","otraopcionaunmasmaslargalargalarga1Click");
+        this.tres1.SetCaption("Guardar Hoja");
+        this.SetEvent$1(this.tres1,this,"OnClick","tres1Click");
+        this.cuatro.SetParentComponent(this.WebPopupMenu1);
+        this.cuatro.SetName("cuatro");
+        this.cuatro.SetCaption("Limpiar Hoja");
+        this.SetEvent$1(this.cuatro,this,"OnClick","cuatroClick");
+        this.comparte.SetParentComponent(this.WebPopupMenu1);
+        this.comparte.SetName("comparte");
+        this.comparte.SetCaption("Compartir");
+        this.SetEvent$1(this.comparte,this,"OnClick","comparteClick");
         this.N3.SetParentComponent(this.WebPopupMenu1);
         this.N3.SetName("N3");
         this.N3.SetCaption("-");
@@ -90726,10 +90730,8 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.uno1.AfterLoadDFMValues();
         this.dos1.AfterLoadDFMValues();
         this.tres1.AfterLoadDFMValues();
-        this.cuatro1111111111.AfterLoadDFMValues();
-        this.otraopcionmaslarga1.AfterLoadDFMValues();
-        this.otraopcionmaslarga2.AfterLoadDFMValues();
-        this.otraopcionaunmasmaslargalargalarga1.AfterLoadDFMValues();
+        this.cuatro.AfterLoadDFMValues();
+        this.comparte.AfterLoadDFMValues();
         this.N3.AfterLoadDFMValues();
         this.Salir2.AfterLoadDFMValues();
       };
@@ -90811,10 +90813,8 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addField("uno1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
     $r.addField("dos1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
     $r.addField("tres1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("cuatro1111111111",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("otraopcionmaslarga1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("otraopcionmaslarga2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("otraopcionaunmasmaslargalargalarga1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("cuatro",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("comparte",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
     $r.addField("N3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
     $r.addField("Salir2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
     $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
@@ -90875,7 +90875,11 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addMethod("WebDivMouseMove",0,[["Sender",pas.System.$rtti["TObject"]],["Shift",pas.Classes.$rtti["TShiftState"]],["X",rtl.longint],["Y",rtl.longint]]);
     $r.addMethod("WebSpeedButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("Salir2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("otraopcionaunmasmaslargalargalarga1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("comparteClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("dos1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("tres1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("cuatroClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("uno1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
   this.Form1 = null;
   $mod.$implcode = function () {
