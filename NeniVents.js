@@ -87380,11 +87380,13 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.chkEntregado = null;
       this.WebLabel5 = null;
       this.edventasuba = null;
-      this.btnAgregar = null;
       this.WebLabel6 = null;
       this.edPagado = null;
       this.WebLabel7 = null;
       this.edEntregado = null;
+      this.edAgregar = null;
+      this.btnAgregar = null;
+      this.lbAgregar = null;
       this.listadatos = null;
     };
     this.$final = function () {
@@ -87402,11 +87404,13 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.chkEntregado = undefined;
       this.WebLabel5 = undefined;
       this.edventasuba = undefined;
-      this.btnAgregar = undefined;
       this.WebLabel6 = undefined;
       this.edPagado = undefined;
       this.WebLabel7 = undefined;
       this.edEntregado = undefined;
+      this.edAgregar = undefined;
+      this.btnAgregar = undefined;
+      this.lbAgregar = undefined;
       this.listadatos = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
     };
@@ -87481,6 +87485,10 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebScrollBox1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
       this.WebPanel1.SetElementClassName("");
       this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
+      if (!pas["WEBLib.Forms"].Application.GetIsMobile()) {
+        this.lbAgregar.SetVisible(false);
+        this.edAgregar.SetVisible(false);
+      };
     };
     this.WebFormCloseQuery = function (Sender, CanClose) {
     };
@@ -87513,7 +87521,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       if (Key.get() === 13) this.edEntregado.SetFocus();
     };
     this.edEntregadoKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.btnAgregar.SetFocus();
+      if (Key.get() === 13) this.edAgregar.SetFocus();
     };
     this.edImporteKeyPress = function (Sender, Key) {
       var nKey = 0;
@@ -87551,6 +87559,14 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.edEntregado.SetText(rtext);
       };
     };
+    this.edAgregarChange = function (Sender) {
+      var cmdChange = "";
+      cmdChange = pas.SysUtils.UpperCase(this.edAgregar.GetText());
+      if (cmdChange === "AGREGA") {
+        this.btnAgregar.Click();
+        this.edAgregar.SetText("");
+      };
+    };
     this.LoadDFMValues = function () {
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
       this.WebScrollBox1 = pas["WEBLib.ExtCtrls"].TScrollBox.$create("Create$2",["scroll-INFO"]);
@@ -87561,6 +87577,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebLabel5 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
       this.WebLabel6 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
       this.WebLabel7 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.lbAgregar = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
       this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
       this.btnCerrar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.btnAgregar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
@@ -87572,6 +87589,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.edventasuba = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
       this.edPagado = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
       this.edEntregado = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.edAgregar = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
       this.WebScrollBox1.BeforeLoadDFMValues();
       this.WebLabel1.BeforeLoadDFMValues();
       this.WebLabel2.BeforeLoadDFMValues();
@@ -87580,6 +87598,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebLabel5.BeforeLoadDFMValues();
       this.WebLabel6.BeforeLoadDFMValues();
       this.WebLabel7.BeforeLoadDFMValues();
+      this.lbAgregar.BeforeLoadDFMValues();
       this.WebPanel1.BeforeLoadDFMValues();
       this.btnCerrar.BeforeLoadDFMValues();
       this.btnAgregar.BeforeLoadDFMValues();
@@ -87591,11 +87610,12 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.edventasuba.BeforeLoadDFMValues();
       this.edPagado.BeforeLoadDFMValues();
       this.edEntregado.BeforeLoadDFMValues();
+      this.edAgregar.BeforeLoadDFMValues();
       try {
         this.SetName("Form3");
         this.SetLeft(400);
         this.SetWidth(251);
-        this.SetHeight(459);
+        this.SetHeight(505);
         this.SetCaption("Libreta Digital (Registro)");
         this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
         this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
@@ -87613,7 +87633,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebScrollBox1.SetLeft(0);
         this.WebScrollBox1.SetTop(0);
         this.WebScrollBox1.SetWidth(251);
-        this.WebScrollBox1.SetHeight(459);
+        this.WebScrollBox1.SetHeight(505);
         this.WebScrollBox1.SetElementClassName("card");
         this.WebScrollBox1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebScrollBox1.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsSingle);
@@ -87698,10 +87718,23 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebLabel7.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
         this.WebLabel7.SetHeightPercent(100.000000000000000000);
         this.WebLabel7.SetWidthPercent(100.000000000000000000);
+        this.lbAgregar.SetParentComponent(this.WebScrollBox1);
+        this.lbAgregar.SetName("lbAgregar");
+        this.lbAgregar.SetLeft(3);
+        this.lbAgregar.SetTop(354);
+        this.lbAgregar.SetWidth(84);
+        this.lbAgregar.SetHeight(18);
+        this.lbAgregar.SetCaption("Diga Agrega:");
+        this.lbAgregar.SetColorEx(65535);
+        this.lbAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.lbAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbAgregar.SetHeightPercent(100.000000000000000000);
+        this.lbAgregar.SetTransparent(false);
+        this.lbAgregar.SetWidthPercent(100.000000000000000000);
         this.WebPanel1.SetParentComponent(this.WebScrollBox1);
         this.WebPanel1.SetName("WebPanel1");
         this.WebPanel1.SetLeft(0);
-        this.WebPanel1.SetTop(408);
+        this.WebPanel1.SetTop(454);
         this.WebPanel1.SetWidth(251);
         this.WebPanel1.SetHeight(51);
         this.WebPanel1.SetElementClassName("card");
@@ -87712,7 +87745,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPanel1.SetTabOrder(0);
         this.btnCerrar.SetParentComponent(this.WebPanel1);
         this.btnCerrar.SetName("btnCerrar");
-        this.btnCerrar.SetLeft(135);
+        this.btnCerrar.SetLeft(144);
         this.btnCerrar.SetTop(10);
         this.btnCerrar.SetWidth(81);
         this.btnCerrar.SetHeight(25);
@@ -87725,7 +87758,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.btnCerrar,this,"OnClick","btnCerrarClick");
         this.btnAgregar.SetParentComponent(this.WebPanel1);
         this.btnAgregar.SetName("btnAgregar");
-        this.btnAgregar.SetLeft(25);
+        this.btnAgregar.SetLeft(31);
         this.btnAgregar.SetTop(10);
         this.btnAgregar.SetWidth(81);
         this.btnAgregar.SetHeight(25);
@@ -87783,8 +87816,8 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.edImporte,this,"OnKeyPress","edImporteKeyPress");
         this.chkPagado.SetParentComponent(this.WebScrollBox1);
         this.chkPagado.SetName("chkPagado");
-        this.chkPagado.SetLeft(143);
-        this.chkPagado.SetTop(345);
+        this.chkPagado.SetLeft(165);
+        this.chkPagado.SetTop(272);
         this.chkPagado.SetWidth(86);
         this.chkPagado.SetHeight(22);
         this.chkPagado.SetCaption("Pagado");
@@ -87802,8 +87835,8 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.chkPagado,this,"OnKeyDown","chkPagadoKeyDown");
         this.chkEntregado.SetParentComponent(this.WebScrollBox1);
         this.chkEntregado.SetName("chkEntregado");
-        this.chkEntregado.SetLeft(144);
-        this.chkEntregado.SetTop(373);
+        this.chkEntregado.SetLeft(162);
+        this.chkEntregado.SetTop(314);
         this.chkEntregado.SetWidth(86);
         this.chkEntregado.SetHeight(22);
         this.chkEntregado.SetCaption("Entregado");
@@ -87868,6 +87901,21 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.edEntregado.SetWidthPercent(100.000000000000000000);
         this.SetEvent$1(this.edEntregado,this,"OnKeyDown","edEntregadoKeyDown");
         this.SetEvent$1(this.edEntregado,this,"OnKeyPress","edEntregadoKeyPress");
+        this.edAgregar.SetParentComponent(this.WebScrollBox1);
+        this.edAgregar.SetName("edAgregar");
+        this.edAgregar.SetLeft(108);
+        this.edAgregar.SetTop(351);
+        this.edAgregar.SetWidth(101);
+        this.edAgregar.SetHeight(22);
+        this.edAgregar.SetChildOrderEx(17);
+        this.edAgregar.SetElementClassName("form-control");
+        this.edAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edAgregar.SetHeightPercent(100.000000000000000000);
+        this.edAgregar.SetPattern("AGREGAR");
+        this.edAgregar.SetShowHint(false);
+        this.edAgregar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edAgregar,this,"OnChange","edAgregarChange");
       } finally {
         this.WebScrollBox1.AfterLoadDFMValues();
         this.WebLabel1.AfterLoadDFMValues();
@@ -87877,6 +87925,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebLabel5.AfterLoadDFMValues();
         this.WebLabel6.AfterLoadDFMValues();
         this.WebLabel7.AfterLoadDFMValues();
+        this.lbAgregar.AfterLoadDFMValues();
         this.WebPanel1.AfterLoadDFMValues();
         this.btnCerrar.AfterLoadDFMValues();
         this.btnAgregar.AfterLoadDFMValues();
@@ -87888,6 +87937,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.edventasuba.AfterLoadDFMValues();
         this.edPagado.AfterLoadDFMValues();
         this.edEntregado.AfterLoadDFMValues();
+        this.edAgregar.AfterLoadDFMValues();
       };
     };
     rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
@@ -87907,11 +87957,13 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addField("chkEntregado",pas["WEBLib.StdCtrls"].$rtti["TCheckBox"]);
     $r.addField("WebLabel5",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
     $r.addField("edventasuba",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("btnAgregar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
     $r.addField("WebLabel6",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
     $r.addField("edPagado",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
     $r.addField("WebLabel7",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
     $r.addField("edEntregado",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("edAgregar",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("btnAgregar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("lbAgregar",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
     $r.addMethod("btnCerrarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("btnAgregarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
@@ -87931,6 +87983,7 @@ rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addMethod("edventasubaKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
     $r.addMethod("edPagadoKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
     $r.addMethod("edEntregadoKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
+    $r.addMethod("edAgregarChange",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
   this.Form3 = null;
   $mod.$implcode = function () {
@@ -103715,7 +103768,853 @@ rtl.module("Unit5",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
   });
   this.Form5 = null;
 });
-rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5"],function () {
+rtl.module("Unit6",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.ExtCtrls"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TForm6",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebHTMLDiv1 = null;
+      this.WebScrollRegistro = null;
+      this.WebLabel3 = null;
+      this.WebLabel4 = null;
+      this.WebLabel5 = null;
+      this.WebLabel6 = null;
+      this.WebLabel7 = null;
+      this.edNombre = null;
+      this.edImporte = null;
+      this.edventasuba = null;
+      this.edArticulo = null;
+      this.WebPanel1 = null;
+      this.lbusuario2 = null;
+      this.lbusuario = null;
+      this.btnAgregar = null;
+      this.btnCerrar = null;
+      this.edRen = null;
+      this.btnEliminar = null;
+      this.WebMessageDlg1 = null;
+      this.radioTipo = null;
+    };
+    this.$final = function () {
+      this.WebHTMLDiv1 = undefined;
+      this.WebScrollRegistro = undefined;
+      this.WebLabel3 = undefined;
+      this.WebLabel4 = undefined;
+      this.WebLabel5 = undefined;
+      this.WebLabel6 = undefined;
+      this.WebLabel7 = undefined;
+      this.edNombre = undefined;
+      this.edImporte = undefined;
+      this.edventasuba = undefined;
+      this.edArticulo = undefined;
+      this.WebPanel1 = undefined;
+      this.lbusuario2 = undefined;
+      this.lbusuario = undefined;
+      this.btnAgregar = undefined;
+      this.btnCerrar = undefined;
+      this.edRen = undefined;
+      this.btnEliminar = undefined;
+      this.WebMessageDlg1 = undefined;
+      this.radioTipo = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebFormCreate = function (Sender) {
+      this.IniciarHoja({p: this, get: function () {
+          return this.p.WebScrollRegistro;
+        }, set: function (v) {
+          this.p.WebScrollRegistro = v;
+        }});
+    };
+    this.IniciarHoja = function (WebScrollRegistro) {
+      var selpacid = "";
+      var selpacnom = "";
+      var opcpdf = "";
+      var editCheck = function(cell){
+          //cell - the cell component for the editable cell
+          //get row data
+          var data = cell.getRow().getData();
+         // return data.age > 18; // only allow the name cell to be edited if the age is over 18
+        // return false // no editable
+        return true // editable
+      };
+      //********************************************************************************
+       //********************************************************************************
+        var sheetDataConsulta = [];
+      
+      
+       //********************************************************************************
+       //********************************************************************************
+           var sheets = [
+          {
+            name:'huno',
+            title:"Registro",
+            key:"uno",
+            rows:10,
+           // rows:0,
+            columns:7,
+            data:[],
+        },
+      
+         {
+            name:'hdos',
+            title:"Gastos",
+            key:"dos",
+           // rows:10,
+            rows:10,
+            columns:3,
+            data:[],
+        },
+      
+      ];
+               var table = new Tabulator("#example-table",
+      
+           {
+           //footerElement: "<div class='custom-footer'>Total Items: <span id='total-items'></span></div>",
+      
+         dependencies:{
+              XLSX:XLSX,
+          },
+        htmlOutputConfig:{
+              columnHeaders:true, //do not include column headers in HTML table
+              columnGroups:false, //do not include column groups in column headers for HTML table
+              rowHeaders:true, //do not include row headers in HTML table
+              rowGroups:false, //do not include row groups in HTML table
+              columnCalcs:true, //do not include column calcs in HTML table
+              dataTree:false, //do not include data tree in HTML table
+              formatCells:false, //show raw cell values without formatter
+          },
+        columnDefaults:{
+              headerTooltip:function(e, cell, onRendered){
+                  //e - mouseover event
+                  //cell - cell component
+                  //onRendered - onRendered callback registration function
+      
+                  var el = document.createElement("div");
+                  el.style.backgroundColor = "red";
+                  el.innerText = column.getDefinition().title;
+      
+                  return el;
+              },
+          },
+          downloadEncoder:function(fileContents, mimeType){
+      
+               //fileContents - the unencoded contents of the file
+              //mimeType - the suggested mime type for the output
+      
+              //alert('downloadEncoder');
+              //custom action to send blob to server could be included here
+      
+      
+              var miBlob = new Blob([fileContents], {type:mimeType});
+              const blobUrl = URL.createObjectURL(miBlob);
+      
+      
+      
+          // OK       abrir blob
+      
+              window.open(blobUrl);
+      
+      
+           //return new Blob([fileContents], {type:mimeType}); //must return a blob to proceed with the download, return false to abort download
+      
+           // return false, no descargar el archivo.
+           return false;
+         },
+         // importFormat:"csv",
+         // autoColumns:true,
+          downloadConfig:{
+              columnHeaders:true, //do not include column headers in downloaded table
+              columnGroups:false, //do not include column groups in column headers for downloaded table
+              rowHeaders:false, //do not include row headers in downloaded table
+              rowGroups:false, //do not include row groups in downloaded table
+              columnCalcs:false, //do not include column calcs in downloaded table
+              dataTree:false, //do not include data tree in downloaded table
+          },
+      
+          printAsHtml:true, //enable html table printing
+          printStyled:true, //copy Tabulator styling to HTML table
+       printConfig:{
+              columnHeaders:true, //do not include column headers in printed table
+              columnGroups:false, //do not include column groups in column headers for printed table
+              rowHeaders:false, //do not include row headers in printed table
+              rowGroups:false, //do not include row groups in printed table
+              columnCalcs:false, //do not include column calcs in printed table
+              dataTree:false, //do not include data tree in printed table
+              formatCells:false, //show raw cell values without formatter
+          },
+      rowFormatter:function(row){
+      
+            // alert('rowformatter');
+           // console.log(row.getData());    //OK
+              if((row.getData()._id % 2 ) > 0){
+                 // console.log ('rowformatter');
+                //  row.getElement().classList.add("Modern"); //mark rows with age greater than or equal to 18 as successful;
+             // row.getElement().style.backgroundColor = "#d5f7d7"; //apply css change to row element
+             // row.getElement().style.backgroundColor = "#7cbfb2";
+             // row.getElement().style.backgroundColor = "#b87cbf"; // Gine
+            //  row.getElement().classList.add("table-danger");
+              }
+          },
+       // bottomCalcFormatter:"money", bottomCalcFormatterParams :{symbol:"$", precision:2}},
+      
+      
+            selectableRows:false,
+          pagination:false,
+         // paginationElement:paginacionSCR, //build pagination controls in this element
+      
+         // responsiveLayout:true, // enable responsive layouts
+         // responsiveLayout:"collapse", // collapse columns that no longer fit on the table into a list under the row
+         // responsiveLayout:"hide",
+        // layout:"fitDataStretch",
+      
+      
+       //     rowHeader:{field:"_id", hozAlign:"center", headerSort:false, title:"Sel.Ren.", headerWordWrap:true},
+       // height:"211px",
+       //   height:"100%",
+          height:"311px",
+          height:"85%",
+        spreadsheet:true,
+        //spreadsheetRows:10,
+        spreadsheetRows:0,
+        spreadsheetColumns:6,
+        spreadsheetColumnDefinition:{editable:editCheck,editor:"input"},
+        spreadsheetColumnDefinition:{editable:true,editor:"input"},
+      
+          spreadsheetSheets:sheets,        // DEFINICION HOJAS ARREGLO
+          spreadsheetSheetTabs:true,
+        //  spreadsheetSheetTabsElement:"#table-tabs", //insert tabs in element with id of table-tabs
+      
+      
+        editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
+      
+        spreadsheetColumnDefinition:{editor:"input"}, //add an input editor to every cell
+        rowHeight:50, //set rows to 40px height
+      
+           index:"rc",
+          keybindings:true,
+        },
+      );
+      
+         table.on("rowAdded", function(row){
+          //row - row component
+           console.log(row);
+           console.log(row.getData());
+           var ddata =row.getData();
+           //console.log('data',ddata);
+           //console.log('rc',ddata.rc);
+          // row.scrollToRow();
+          //table.scrollToRow(row.getIndex(), "center", false);
+          row.scrollTo("bottom", true);
+      });
+         table.on("tableBuilt", function(){
+      
+          });
+      
+      table.on("rowClick", function(e, row) {
+      
+      
+            var rowIndex = row.getIndex();
+             var rowPosition = row.getPosition();
+           console.log('index',rowIndex)
+           console.log('pos',rowPosition);
+      
+         //alert('row click');
+           // alert(row);
+         // alert(' identifica'+row.getData().Identifica);
+      
+        //iden=row.getData().Identifica;
+       var iden=row.getData();
+          //alert(' iden'+iden);
+          console.log(iden);
+          console.log('idenA',iden.A);
+          console.log('idenA',iden.B);
+          selpacid = iden.A
+          selpacnom = iden.B
+          console.log('id',selpacid);
+       //   alert('paciente');
+       //   alert(selpacid);
+      
+         //edPaciente.value = selpacid;
+         //edPacNombre.value =selpacnom;
+        // alert (edPacNombre.value);
+       //  table.setFilter('B like '+edPacNombre.value);
+      
+       /*
+         if (confirm("Desea eliminar registro "+rowPosition.toString()+" ?")) {
+             row.delete();
+         }
+      
+      
+       // Pendiente actualizar , porque las columnas del Grid son editables
+        if (confirm("Desea actualizar registro "+rowPosition.toString()+" ?"))
+        {;
+      WebScrollRegistro.get().SetVisible(true);
+      const editBox = document.getElementById("rowsel");
+           // Set the text content of the editbox
+           console.log(row);
+            editBox.value = rowPosition;
+      
+      
+           const btnregi = document.getElementById("btnregistrar");
+           btnregi.innerText ='Actualizar';
+      
+      
+          // const btnregd = document.getElementById("btndel");
+          // btnregd.hidden="";
+      
+          // const scrreg = document.getElementById("scrollregistro");
+          // scrreg.display="inline-block";
+         //  console.log(scrreg);
+      
+           var rowData = row.getData();
+           console.log(rowData);
+           const cliente = document.getElementById("cliente");
+           cliente.value=rowData.nombre;
+           const producto = document.getElementById("producto");
+           producto.value=rowData.articulo;
+           const importe = document.getElementById("importe");
+           importe.value=rowData.importe;
+           const vds = document.getElementById("vds");
+           vds.value=rowData.vds;
+           }
+        */;
+      });
+        table.on("sheetUpdated", function(sheet){
+          //sheet - sheet component for sheet
+        //  alert('sheetUpdated');
+      });
+      
+      table.on("rowDblClick", function(e, row){
+          //e - the click event object
+          //row - row component
+        // alert('rowDblClick');
+        var idren=row.getData();
+        console.log('renglon',idren, idren.rc);
+        var rennum = idren.rc;
+      
+         if (confirm("Desea eliminar renglón: "+rennum.toString()+" ?")) {
+             row.delete();
+         }
+      });
+      
+       //********************************************************************************
+       //********************************************************************************
+      
+             table.on("sheetLoaded", function(sheet){
+      
+          //sheet - sheet component for sheet
+             var key = sheet.getKey();
+          var   keyhoja=key;
+        // end;
+        //    if (keyhoja = 'uno') then ActualizaTitulosCol('uno');
+        //    if (keyhoja = 'dos') then ActualizaTitulosCol('dos');
+        // asm
+          switch(keyhoja) {
+        case 'uno':
+          // code block
+            table.updateColumnDefinition("A", {title:"#",field:"rc",width:1, headerTooltip:"Registro, seleccion para eliminarlo" ,editor:false}) //change the title on the name column
+            table.updateColumnDefinition("B", {title:"Cliente",field:"nombre",width:80, headerTooltip:"Cliente",editor:true}) //change the title on the name column
+            table.updateColumnDefinition("C", {title:"Producto",field:"articulo",width:80, headerTooltip:"Producto",editor:true}) //change the title on the name column
+            table.updateColumnDefinition("D", {title:"$Precio",field:"importe",width:70, headerTooltip:"Precio",editor:true,bottomCalc:"sum",
+          formatter:"money", formatterParams:{
+          decimal:".",
+          thousand:",",
+          symbol:"$",
+          negativeSign:true,
+          precision:2},
+          bottomCalcFormatter:"money", bottomCalcFormatterParams :{symbol:"$", precision:2}},
+             {field: "importe",   bottomCalc:"sum",   responsive:0,
+                title: "Total", width:200, headerFilter:false ,resizable: true,formatter:"money", formatterParams:{
+          decimal:".",
+          thousand:",",
+          symbol:"$",
+          negativeSign:true,
+          precision:2}
+          }) //change the title on the name column
+            table.updateColumnDefinition("E", {title:"P.",width:30,field:"pagado",editor:true,formatter:"tickCross", headerTooltip:"Pagado"}) //change the title on the name column
+            table.updateColumnDefinition("F", {title:"E.",width:30,field:"entregado",editor:true,formatter:"tickCross", headerTooltip:"Entregado"}) //change the title on the name column
+            table.updateColumnDefinition("G", {title:"VD/S",field:"vds",width:68 ,resizable:false, headerTooltip:"Venta/Subasta",editor:true}) //change the title on the name column
+      
+      
+          break;
+        case 'dos':
+          // code block
+            table.updateColumnDefinition("A", {title:"#",field:"rc",width:1}) //change the title on the name column
+            table.updateColumnDefinition("B", {title:"Concepto",field:"concepto",width:230, headerTooltip:"Concepto"}) //change the title on the name column
+            table.updateColumnDefinition("C", {title:"$Importe",field:"importe",width:100, resizable:false, headerTooltip:"Importe",bottomCalc:"sum",
+          formatter:"money", formatterParams:{
+          decimal:".",
+          thousand:",",
+          symbol:"$",
+          negativeSign:true,
+          precision:2},
+          bottomCalcFormatter:"money", bottomCalcFormatterParams :{symbol:"$", precision:2}},
+             {field: "importe",   bottomCalc:"sum",   responsive:0,
+                title: "Total", width:200, headerFilter:false ,resizable: true,formatter:"money", formatterParams:{
+          decimal:".",
+          thousand:",",
+          symbol:"$",
+          negativeSign:true,
+          precision:2}
+            }) //change the title on the name column
+          break;
+          default:
+          // code block
+      
+      }
+      
+      });
+       //********************************************************************************
+       //********************************************************************************;
+    };
+    this.EditHoja = function () {
+      var dateEditor = function(cell, onRendered, success, cancel){
+          //cell - the cell component for the editable cell
+          //onRendered - function to call when the editor has been rendered
+          //success - function to call to pass thesuccessfully updated value to Tabulator
+          //cancel - function to call to abort the edit and return to a normal cell
+      
+          //create and style input
+          var cellValue = luxon.DateTime.fromFormat(cell.getValue(), "dd/MM/yyyy").toFormat("yyyy-MM-dd"),
+          input = document.createElement("input");
+      
+          input.setAttribute("type", "date");
+      
+          input.style.padding = "4px";
+          input.style.width = "100%";
+          input.style.boxSizing = "border-box";
+      
+          input.value = cellValue;
+      
+          onRendered(function(){
+              input.focus();
+              input.style.height = "100%";
+          });
+      
+          function onChange(){
+              if(input.value != cellValue){
+                  success(luxon.DateTime.fromFormat(input.value, "yyyy-MM-dd").toFormat("dd/MM/yyyy"));
+              }else{
+                  cancel();
+              }
+          }
+      
+          //submit new value on blur or change
+          input.addEventListener("blur", onChange);
+      
+          //submit new value on enter
+          input.addEventListener("keydown", function(e){
+              if(e.keyCode == 13){
+                  onChange();
+              }
+      
+              if(e.keyCode == 27){
+                  cancel();
+              }
+          });
+      
+          return input;
+      };
+      
+      
+      //Build Tabulator
+      var table = new Tabulator("#example-table", {
+          height:"311px",
+          columns:[
+              {title:"Name", field:"name", width:150, editor:"input"},
+              {title:"Location", field:"location", width:130, editor:"list", editorParams:{autocomplete:"true", allowEmpty:true,listOnEmpty:true, valuesLookup:true}},
+              {title:"Progress", field:"progress", sorter:"number", hozAlign:"left", formatter:"progress", width:140, editor:true},
+              {title:"Gender", field:"gender", editor:"list", editorParams:{values:{"male":"Male", "female":"Female", "unknown":"Unknown"}}},
+              {title:"Rating", field:"rating",  formatter:"star", hozAlign:"center", width:100, editor:true},
+              {title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date", width:140, editor:dateEditor},
+              {title:"Driver", field:"car", hozAlign:"center", editor:true, formatter:"tickCross"},
+          ],
+      });
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebScrollRegistro = pas["WEBLib.ExtCtrls"].TScrollBox.$create("Create$2",["scrollregistro"]);
+      this.WebLabel3 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel4 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel5 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel6 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel7 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.edNombre = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["cliente"]);
+      this.edImporte = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["importe"]);
+      this.edventasuba = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["vds"]);
+      this.edArticulo = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["producto"]);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.lbusuario2 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.lbusuario = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.btnAgregar = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btnregistrar"]);
+      this.btnCerrar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.edRen = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["rowsel"]);
+      this.btnEliminar = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btndel"]);
+      this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
+      this.radioTipo = pas["WEBLib.StdCtrls"].TRadioGroup.$create("Create$1",[this]);
+      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["example-table"]);
+      this.WebScrollRegistro.BeforeLoadDFMValues();
+      this.WebLabel3.BeforeLoadDFMValues();
+      this.WebLabel4.BeforeLoadDFMValues();
+      this.WebLabel5.BeforeLoadDFMValues();
+      this.WebLabel6.BeforeLoadDFMValues();
+      this.WebLabel7.BeforeLoadDFMValues();
+      this.edNombre.BeforeLoadDFMValues();
+      this.edImporte.BeforeLoadDFMValues();
+      this.edventasuba.BeforeLoadDFMValues();
+      this.edArticulo.BeforeLoadDFMValues();
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.lbusuario2.BeforeLoadDFMValues();
+      this.lbusuario.BeforeLoadDFMValues();
+      this.btnAgregar.BeforeLoadDFMValues();
+      this.btnCerrar.BeforeLoadDFMValues();
+      this.edRen.BeforeLoadDFMValues();
+      this.btnEliminar.BeforeLoadDFMValues();
+      this.WebMessageDlg1.BeforeLoadDFMValues();
+      this.radioTipo.BeforeLoadDFMValues();
+      this.WebHTMLDiv1.BeforeLoadDFMValues();
+      try {
+        this.SetName("Form6");
+        this.SetWidth(640);
+        this.SetHeight(480);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebScrollRegistro.SetParentComponent(this);
+        this.WebScrollRegistro.SetName("WebScrollRegistro");
+        this.WebScrollRegistro.SetLeft(0);
+        this.WebScrollRegistro.SetTop(180);
+        this.WebScrollRegistro.SetWidth(640);
+        this.WebScrollRegistro.SetHeight(300);
+        this.WebScrollRegistro.SetElementClassName("card");
+        this.WebScrollRegistro.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebScrollRegistro.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsSingle);
+        this.WebScrollRegistro.SetChildOrderEx(3);
+        this.WebScrollRegistro.SetColor(16376827);
+        this.WebScrollRegistro.SetScrollBars(pas["WEBLib.Controls"].TScrollStyle.ssHorizontal);
+        this.WebScrollRegistro.SetVisible(false);
+        this.WebLabel3.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel3.SetName("WebLabel3");
+        this.WebLabel3.SetLeft(0);
+        this.WebLabel3.SetTop(0);
+        this.WebLabel3.SetWidth(640);
+        this.WebLabel3.SetHeight(18);
+        this.WebLabel3.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebLabel3.SetAlignment(pas.Classes.TAlignment.taCenter);
+        this.WebLabel3.SetCaption("Hoja de registro de PRODUCTOS");
+        this.WebLabel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel3.FFont.FCharset = 1;
+        this.WebLabel3.FFont.SetColor(65793);
+        this.WebLabel3.FFont.SetHeight(-15);
+        this.WebLabel3.FFont.SetName("Tahoma");
+        this.WebLabel3.FFont.SetStyle(rtl.createSet(pas["WEBLib.Graphics"].TFontStyle.fsBold,pas["WEBLib.Graphics"].TFontStyle.fsUnderline));
+        this.WebLabel3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel3.SetHeightPercent(100.000000000000000000);
+        this.WebLabel3.SetParentFont(false);
+        this.WebLabel3.SetWidthPercent(100.000000000000000000);
+        this.WebLabel4.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel4.SetName("WebLabel4");
+        this.WebLabel4.SetLeft(24);
+        this.WebLabel4.SetTop(35);
+        this.WebLabel4.SetWidth(47);
+        this.WebLabel4.SetHeight(18);
+        this.WebLabel4.SetCaption("Cliente:");
+        this.WebLabel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel4.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel4.SetHeightPercent(100.000000000000000000);
+        this.WebLabel4.SetWidthPercent(100.000000000000000000);
+        this.WebLabel5.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel5.SetName("WebLabel5");
+        this.WebLabel5.SetLeft(24);
+        this.WebLabel5.SetTop(76);
+        this.WebLabel5.SetWidth(62);
+        this.WebLabel5.SetHeight(18);
+        this.WebLabel5.SetCaption("Producto:");
+        this.WebLabel5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel5.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel5.SetHeightPercent(100.000000000000000000);
+        this.WebLabel5.SetWidthPercent(100.000000000000000000);
+        this.WebLabel6.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel6.SetName("WebLabel6");
+        this.WebLabel6.SetLeft(24);
+        this.WebLabel6.SetTop(136);
+        this.WebLabel6.SetWidth(71);
+        this.WebLabel6.SetHeight(18);
+        this.WebLabel6.SetCaption("Importe $:");
+        this.WebLabel6.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel6.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel6.SetHeightPercent(100.000000000000000000);
+        this.WebLabel6.SetWidthPercent(100.000000000000000000);
+        this.WebLabel7.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel7.SetName("WebLabel7");
+        this.WebLabel7.SetLeft(183);
+        this.WebLabel7.SetTop(110);
+        this.WebLabel7.SetWidth(203);
+        this.WebLabel7.SetHeight(18);
+        this.WebLabel7.SetCaption("Venta Directa o Subasta (V/S):");
+        this.WebLabel7.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel7.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel7.SetHeightPercent(100.000000000000000000);
+        this.WebLabel7.SetVisible(false);
+        this.WebLabel7.SetWidthPercent(100.000000000000000000);
+        this.edNombre.SetParentComponent(this.WebScrollRegistro);
+        this.edNombre.SetName("edNombre");
+        this.edNombre.SetLeft(98);
+        this.edNombre.SetTop(32);
+        this.edNombre.SetWidth(303);
+        this.edNombre.SetHeight(22);
+        this.edNombre.SetChildOrderEx(3);
+        this.edNombre.SetElementClassName("form-control");
+        this.edNombre.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edNombre.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edNombre.SetHeightPercent(100.000000000000000000);
+        this.edNombre.FRequiredText = "cliente";
+        this.edNombre.SetTabOrder(2);
+        this.edNombre.SetWidthPercent(100.000000000000000000);
+        this.edImporte.SetParentComponent(this.WebScrollRegistro);
+        this.edImporte.SetName("edImporte");
+        this.edImporte.SetLeft(98);
+        this.edImporte.SetTop(132);
+        this.edImporte.SetWidth(87);
+        this.edImporte.SetHeight(22);
+        this.edImporte.SetChildOrderEx(3);
+        this.edImporte.SetEditType(pas["WEBLib.StdCtrls"].TEditType.weNumeric);
+        this.edImporte.SetElementClassName("form-control");
+        this.edImporte.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edImporte.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edImporte.SetHeightPercent(100.000000000000000000);
+        this.edImporte.SetTabOrder(4);
+        this.edImporte.SetWidthPercent(100.000000000000000000);
+        this.edventasuba.SetParentComponent(this.WebScrollRegistro);
+        this.edventasuba.SetName("edventasuba");
+        this.edventasuba.SetLeft(191);
+        this.edventasuba.SetTop(134);
+        this.edventasuba.SetWidth(65);
+        this.edventasuba.SetHeight(22);
+        this.edventasuba.SetChildOrderEx(3);
+        this.edventasuba.SetElementClassName("form-control");
+        this.edventasuba.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edventasuba.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edventasuba.SetHeightPercent(100.000000000000000000);
+        this.edventasuba.SetMaxLength(1);
+        this.edventasuba.SetTabOrder(5);
+        this.edventasuba.SetVisible(false);
+        this.edventasuba.SetWidthPercent(100.000000000000000000);
+        this.edArticulo.SetParentComponent(this.WebScrollRegistro);
+        this.edArticulo.SetName("edArticulo");
+        this.edArticulo.SetLeft(98);
+        this.edArticulo.SetTop(76);
+        this.edArticulo.SetWidth(303);
+        this.edArticulo.SetHeight(22);
+        this.edArticulo.SetChildOrderEx(3);
+        this.edArticulo.SetElementClassName("form-control");
+        this.edArticulo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edArticulo.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edArticulo.SetHeightPercent(100.000000000000000000);
+        this.edArticulo.FRequiredText = "cliente";
+        this.edArticulo.SetTabOrder(3);
+        this.edArticulo.SetWidthPercent(100.000000000000000000);
+        this.WebPanel1.SetParentComponent(this.WebScrollRegistro);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(208);
+        this.WebPanel1.SetWidth(640);
+        this.WebPanel1.SetHeight(92);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel1.SetChildOrderEx(11);
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel1.SetTabOrder(4);
+        this.lbusuario2.SetParentComponent(this.WebPanel1);
+        this.lbusuario2.SetName("lbusuario2");
+        this.lbusuario2.SetLeft(512);
+        this.lbusuario2.SetTop(56);
+        this.lbusuario2.SetWidth(5);
+        this.lbusuario2.SetHeight(18);
+        this.lbusuario2.SetCaption(".");
+        this.lbusuario2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.lbusuario2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbusuario2.SetHeightPercent(100.000000000000000000);
+        this.lbusuario2.SetVisible(false);
+        this.lbusuario2.SetWidthPercent(100.000000000000000000);
+        this.lbusuario.SetParentComponent(this.WebPanel1);
+        this.lbusuario.SetName("lbusuario");
+        this.lbusuario.SetLeft(512);
+        this.lbusuario.SetTop(40);
+        this.lbusuario.SetWidth(5);
+        this.lbusuario.SetHeight(18);
+        this.lbusuario.SetCaption(".");
+        this.lbusuario.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.lbusuario.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbusuario.SetHeightPercent(100.000000000000000000);
+        this.lbusuario.SetVisible(false);
+        this.lbusuario.SetWidthPercent(100.000000000000000000);
+        this.btnAgregar.SetParentComponent(this.WebPanel1);
+        this.btnAgregar.SetName("btnAgregar");
+        this.btnAgregar.SetLeft(113);
+        this.btnAgregar.SetTop(3);
+        this.btnAgregar.SetWidth(96);
+        this.btnAgregar.SetHeight(25);
+        this.btnAgregar.SetCaption("Agregar");
+        this.btnAgregar.SetChildOrderEx(2);
+        this.btnAgregar.SetElementClassName("btn btn-primary");
+        this.btnAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnAgregar.SetHeightPercent(100.000000000000000000);
+        this.btnAgregar.SetTabOrder(6);
+        this.btnAgregar.SetWidthPercent(100.000000000000000000);
+        this.btnCerrar.SetParentComponent(this.WebPanel1);
+        this.btnCerrar.SetName("btnCerrar");
+        this.btnCerrar.SetLeft(215);
+        this.btnCerrar.SetTop(3);
+        this.btnCerrar.SetWidth(96);
+        this.btnCerrar.SetHeight(25);
+        this.btnCerrar.SetCaption("Terminar");
+        this.btnCerrar.SetChildOrderEx(1);
+        this.btnCerrar.SetElementClassName("btn btn-primary");
+        this.btnCerrar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnCerrar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnCerrar.SetHeightPercent(100.000000000000000000);
+        this.btnCerrar.SetTabOrder(7);
+        this.btnCerrar.SetWidthPercent(100.000000000000000000);
+        this.edRen.SetParentComponent(this.WebPanel1);
+        this.edRen.SetName("edRen");
+        this.edRen.SetLeft(620);
+        this.edRen.SetTop(16);
+        this.edRen.SetWidth(57);
+        this.edRen.SetHeight(22);
+        this.edRen.SetChildOrderEx(3);
+        this.edRen.SetElementClassName("form-control");
+        this.edRen.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edRen.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edRen.SetHeightPercent(100.000000000000000000);
+        this.edRen.SetText(".");
+        this.edRen.SetVisible(false);
+        this.edRen.SetWidthPercent(100.000000000000000000);
+        this.btnEliminar.SetParentComponent(this.WebPanel1);
+        this.btnEliminar.SetName("btnEliminar");
+        this.btnEliminar.SetLeft(352);
+        this.btnEliminar.SetTop(3);
+        this.btnEliminar.SetWidth(96);
+        this.btnEliminar.SetHeight(25);
+        this.btnEliminar.SetCaption("Eliminar");
+        this.btnEliminar.SetChildOrderEx(3);
+        this.btnEliminar.SetElementClassName("btn btn-light");
+        this.btnEliminar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnEliminar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnEliminar.SetHeightPercent(100.000000000000000000);
+        this.btnEliminar.SetVisible(false);
+        this.btnEliminar.SetWidthPercent(100.000000000000000000);
+        this.WebMessageDlg1.SetParentComponent(this.WebPanel1);
+        this.WebMessageDlg1.SetName("WebMessageDlg1");
+        this.WebMessageDlg1.SetLeft(551);
+        this.WebMessageDlg1.SetTop(6);
+        this.WebMessageDlg1.SetWidth(24);
+        this.WebMessageDlg1.SetHeight(24);
+        this.WebMessageDlg1.FButtons = {};
+        this.WebMessageDlg1.FOpacity = 0.200000000000000000;
+        this.WebMessageDlg1.FElementButtonClassName = "btn";
+        this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
+        this.WebMessageDlg1.FElementTitleClassName = "text-body";
+        this.WebMessageDlg1.FElementContentClassName = "text-body";
+        this.radioTipo.SetParentComponent(this.WebScrollRegistro);
+        this.radioTipo.SetName("radioTipo");
+        this.radioTipo.SetLeft(201);
+        this.radioTipo.SetTop(115);
+        this.radioTipo.SetWidth(185);
+        this.radioTipo.SetHeight(84);
+        this.radioTipo.SetElementClassName("custom-control custom-radio");
+        this.radioTipo.SetCaption("Venta o Subasta");
+        this.radioTipo.SetChildOrderEx(10);
+        this.radioTipo.SetColumns(1);
+        this.radioTipo.FElementButtonClassName = "custom-control-input";
+        this.radioTipo.FElementGroupClassName = "modal-content";
+        this.radioTipo.FElementLabelClassName = "custom-control-label";
+        this.radioTipo.FElementLegendClassName = "h6";
+        this.radioTipo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.radioTipo.FFont.FCharset = 1;
+        this.radioTipo.FFont.SetColor(65793);
+        this.radioTipo.FFont.SetHeight(-13);
+        this.radioTipo.FFont.SetName("Tahoma");
+        this.radioTipo.FFont.SetStyle({});
+        this.radioTipo.SetItemIndex(0);
+        this.radioTipo.FItems.BeginUpdate();
+        try {
+          this.radioTipo.FItems.Clear();
+          this.radioTipo.FItems.Add("(V)enta");
+          this.radioTipo.FItems.Add("(S)ubasta");
+        } finally {
+          this.radioTipo.FItems.EndUpdate();
+        };
+        this.radioTipo.SetParentFont(false);
+        this.radioTipo.SetRole("");
+        this.radioTipo.SetTabOrder(5);
+        this.WebHTMLDiv1.SetParentComponent(this);
+        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
+        this.WebHTMLDiv1.SetLeft(0);
+        this.WebHTMLDiv1.SetTop(0);
+        this.WebHTMLDiv1.SetWidth(614);
+        this.WebHTMLDiv1.SetHeight(446);
+        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebHTMLDiv1.SetRole("");
+      } finally {
+        this.WebScrollRegistro.AfterLoadDFMValues();
+        this.WebLabel3.AfterLoadDFMValues();
+        this.WebLabel4.AfterLoadDFMValues();
+        this.WebLabel5.AfterLoadDFMValues();
+        this.WebLabel6.AfterLoadDFMValues();
+        this.WebLabel7.AfterLoadDFMValues();
+        this.edNombre.AfterLoadDFMValues();
+        this.edImporte.AfterLoadDFMValues();
+        this.edventasuba.AfterLoadDFMValues();
+        this.edArticulo.AfterLoadDFMValues();
+        this.WebPanel1.AfterLoadDFMValues();
+        this.lbusuario2.AfterLoadDFMValues();
+        this.lbusuario.AfterLoadDFMValues();
+        this.btnAgregar.AfterLoadDFMValues();
+        this.btnCerrar.AfterLoadDFMValues();
+        this.edRen.AfterLoadDFMValues();
+        this.btnEliminar.AfterLoadDFMValues();
+        this.WebMessageDlg1.AfterLoadDFMValues();
+        this.radioTipo.AfterLoadDFMValues();
+        this.WebHTMLDiv1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("WebScrollRegistro",pas["WEBLib.ExtCtrls"].$rtti["TScrollBox"]);
+    $r.addField("WebLabel3",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebLabel4",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebLabel5",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebLabel6",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebLabel7",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edNombre",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("edImporte",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("edventasuba",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("edArticulo",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("lbusuario2",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("lbusuario",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("btnAgregar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("btnCerrar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("edRen",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("btnEliminar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
+    $r.addField("radioTipo",pas["WEBLib.StdCtrls"].$rtti["TRadioGroup"]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.Form6 = null;
+});
+rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6"],function () {
   "use strict";
   var $mod = this;
   $mod.$implcode = function () {
