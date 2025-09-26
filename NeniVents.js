@@ -98123,7 +98123,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
       this.Exportarpdf1.BeforeLoadDFMValues();
       try {
         this.SetName("frmAltaRen");
-        this.SetWidth(483);
+        this.SetWidth(300);
         this.SetHeight(470);
         this.SetEvent(this,"OnCreate","WebFormCreate");
         this.SetEvent(this,"OnShow","WebFormShow");
@@ -98143,7 +98143,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.WebPanel1.SetName("WebPanel1");
         this.WebPanel1.SetLeft(0);
         this.WebPanel1.SetTop(0);
-        this.WebPanel1.SetWidth(483);
+        this.WebPanel1.SetWidth(300);
         this.WebPanel1.SetHeight(413);
         this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebPanel1.SetChildOrderEx(3);
@@ -98152,7 +98152,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.WebResponsiveGrid1.SetName("WebResponsiveGrid1");
         this.WebResponsiveGrid1.SetLeft(0);
         this.WebResponsiveGrid1.SetTop(0);
-        this.WebResponsiveGrid1.SetWidth(483);
+        this.WebResponsiveGrid1.SetWidth(300);
         this.WebResponsiveGrid1.SetHeight(413);
         this.WebResponsiveGrid1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebResponsiveGrid1.SetChildOrderEx(1);
@@ -98162,19 +98162,19 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.WebResponsiveGrid1.FOptions.SetItemColor(15125759);
         this.WebResponsiveGrid1.FOptions.SetItemHeight(250);
         this.WebResponsiveGrid1.FOptions.SetItemPadding(10);
-        this.WebResponsiveGrid1.FOptions.SetItemWidthMin(250);
+        this.WebResponsiveGrid1.FOptions.SetItemWidthMin(200);
         this.WebPanel3.SetParentComponent(this);
         this.WebPanel3.SetName("WebPanel3");
         this.WebPanel3.SetLeft(0);
         this.WebPanel3.SetTop(413);
-        this.WebPanel3.SetWidth(483);
+        this.WebPanel3.SetWidth(300);
         this.WebPanel3.SetHeight(57);
         this.WebPanel3.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
         this.WebPanel3.SetChildOrderEx(2);
         this.WebPanel3.SetTabOrder(2);
         this.btnAgregarRen.SetParentComponent(this.WebPanel3);
         this.btnAgregarRen.SetName("btnAgregarRen");
-        this.btnAgregarRen.SetLeft(99);
+        this.btnAgregarRen.SetLeft(11);
         this.btnAgregarRen.SetTop(19);
         this.btnAgregarRen.SetWidth(134);
         this.btnAgregarRen.SetHeight(25);
@@ -98186,7 +98186,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.SetEvent$1(this.btnAgregarRen,this,"OnClick","btnAgregarRenClick");
         this.btnCerrar.SetParentComponent(this.WebPanel3);
         this.btnCerrar.SetName("btnCerrar");
-        this.btnCerrar.SetLeft(263);
+        this.btnCerrar.SetLeft(175);
         this.btnCerrar.SetTop(19);
         this.btnCerrar.SetWidth(106);
         this.btnCerrar.SetHeight(25);
@@ -100538,6 +100538,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         if (mr === 6) $Self.Estudios1Click(newform);
       };
       function AfterCreate(AForm) {
+        newform.btnAgregar.SetCaption("Agregar");
         newform.SetTop(rtl.trunc(($mod.Form1.GetClientHeight() - newform.GetHeight()) / 2));
         newform.SetLeft(rtl.trunc(($mod.Form1.GetClientWidth() - newform.GetWidth()) / 1));
         newform.SetLeft(newform.GetLeft() - 10);
@@ -101665,11 +101666,11 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPopupMenu1.SetTop(176);
         this.uno1.SetParentComponent(this.WebPopupMenu1);
         this.uno1.SetName("uno1");
-        this.uno1.SetCaption("Agregar Renglones");
+        this.uno1.SetCaption("Agregar Renglón");
         this.SetEvent$1(this.uno1,this,"OnClick","uno1Click");
         this.uno11.SetParentComponent(this.WebPopupMenu1);
         this.uno11.SetName("uno11");
-        this.uno11.SetCaption("Agregar Renglones2");
+        this.uno11.SetCaption("Agregar Renglones");
         this.SetEvent$1(this.uno11,this,"OnClick","uno11Click");
         this.dos1.SetParentComponent(this.WebPopupMenu1);
         this.dos1.SetName("dos1");
