@@ -87359,5822 +87359,6 @@ rtl.module("WEBLib.Buttons",["System","Classes","SysUtils","WEBLib.Controls","We
     });
   };
 },["WEBLib.WebTools","Math"]);
-rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.ExtCtrls"],function () {
-  "use strict";
-  var $mod = this;
-  var $impl = $mod.$impl;
-  rtl.createClass(this,"TForm3",pas["WEBLib.Forms"].TForm,function () {
-    this.$init = function () {
-      pas["WEBLib.Forms"].TForm.$init.call(this);
-      this.WebScrollBox1 = null;
-      this.WebLabel1 = null;
-      this.WebPanel1 = null;
-      this.btnCerrar = null;
-      this.WebLabel2 = null;
-      this.edNombre = null;
-      this.WebLabel3 = null;
-      this.edArticulo = null;
-      this.WebLabel4 = null;
-      this.edImporte = null;
-      this.chkPagado = null;
-      this.chkEntregado = null;
-      this.WebLabel5 = null;
-      this.edventasuba = null;
-      this.WebLabel6 = null;
-      this.edPagado = null;
-      this.WebLabel7 = null;
-      this.edEntregado = null;
-      this.edAgregar = null;
-      this.btnAgregar = null;
-      this.lbAgregar = null;
-      this.listadatos = null;
-    };
-    this.$final = function () {
-      this.WebScrollBox1 = undefined;
-      this.WebLabel1 = undefined;
-      this.WebPanel1 = undefined;
-      this.btnCerrar = undefined;
-      this.WebLabel2 = undefined;
-      this.edNombre = undefined;
-      this.WebLabel3 = undefined;
-      this.edArticulo = undefined;
-      this.WebLabel4 = undefined;
-      this.edImporte = undefined;
-      this.chkPagado = undefined;
-      this.chkEntregado = undefined;
-      this.WebLabel5 = undefined;
-      this.edventasuba = undefined;
-      this.WebLabel6 = undefined;
-      this.edPagado = undefined;
-      this.WebLabel7 = undefined;
-      this.edEntregado = undefined;
-      this.edAgregar = undefined;
-      this.btnAgregar = undefined;
-      this.lbAgregar = undefined;
-      this.listadatos = undefined;
-      pas["WEBLib.Forms"].TForm.$final.call(this);
-    };
-    this.btnCerrarClick = function (Sender) {
-      var table = Tabulator.findTable("#tabExample")[0];
-      table.clearAlert();
-      this.Close();
-    };
-    this.btnAgregarClick = function (Sender) {
-      var datosstr = "";
-      var pagado = "";
-      var entregado = "";
-      var src = "";
-      var irc = 0;
-      var maxRegs = 0;
-      if ((this.edNombre.GetText() === "") || (this.edArticulo.GetText() === "") || (this.edImporte.GetText() === "")) {
-        this.edNombre.SetFocus();
-        this.chkPagado.SetChecked(false);
-        this.chkEntregado.SetChecked(false);
-        return;
-      };
-      maxRegs = 101;
-      pagado = "false";
-      entregado = "false";
-      if (this.chkPagado.GetChecked()) pagado = "true";
-      if (this.chkEntregado.GetChecked()) entregado = "true";
-      pagado = this.edPagado.GetText();
-      entregado = this.edEntregado.GetText();
-      datosstr = '{"nombre":' + String.fromCharCode(34) + this.edNombre.GetText() + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + this.edArticulo.GetText() + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + this.edImporte.GetText() + String.fromCharCode(34) + "," + '"pagado":' + String.fromCharCode(34) + pagado + String.fromCharCode(34) + "," + '"entregado":' + String.fromCharCode(34) + entregado + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + this.edventasuba.GetText() + String.fromCharCode(34) + "}";
-      this.listadatos.Add(datosstr);
-      var table = Tabulator.findTable("#tabExample")[0];
-      console.log('tabla',table);
-      var rowCount = table.getDataCount();
-      irc =   rowCount+1;
-      src = pas.SysUtils.IntToStr(irc);
-      datosstr = '{"rc":' + String.fromCharCode(34) + src + String.fromCharCode(34) + "," + '"nombre":' + String.fromCharCode(34) + this.edNombre.GetText() + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + this.edArticulo.GetText() + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + this.edImporte.GetText() + String.fromCharCode(34) + "," + '"pagado":' + String.fromCharCode(34) + pagado + String.fromCharCode(34) + "," + '"entregado":' + String.fromCharCode(34) + entregado + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + this.edventasuba.GetText() + String.fromCharCode(34) + "}";
-      var table = Tabulator.findTable("#tabExample")[0];
-            var tabledata = [];   // se puede eliminar
-            var obj=JSON.parse(datosstr);   // se puede eliminar
-            tabledata.push(obj);  // se puede eliminar
-            //console.log(tabledata);
-            var rowCount = table.getDataCount()+1;
-           // alert(rowCount);
-            // if (rowCount < 101)
-             if (rowCount < maxRegs);
-            {
-             table.addRow(datosstr)
-                  .then(function(row){
-                      //row - the row component for the row updated or added
-                   row.scrollTo();
-      
-                  //run code after data has been updated
-                  })
-                 .catch(function(error){
-                       //handle error updating data
-                  });
-      
-           }  //if  rowCount;
-      this.edNombre.SetText("");
-      this.edArticulo.SetText("");
-      this.edImporte.SetText("");
-      this.edventasuba.SetText("");
-      this.chkPagado.SetChecked(false);
-      this.chkEntregado.SetChecked(false);
-      this.edPagado.SetText("");
-      this.edEntregado.SetText("");
-      this.edNombre.SetFocus();
-    };
-    this.WebFormCreate = function (Sender) {
-      this.listadatos = pas.Classes.TStringList.$create("Create$1");
-      this.WebScrollBox1.SetElementClassName("");
-      this.WebScrollBox1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
-      this.WebPanel1.SetElementClassName("");
-      this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
-      if (!pas["WEBLib.Forms"].Application.GetIsMobile()) {
-        this.lbAgregar.SetVisible(false);
-        this.edAgregar.SetVisible(false);
-      };
-    };
-    this.WebFormCloseQuery = function (Sender, CanClose) {
-    };
-    this.edventasubaExit = function (Sender) {
-    };
-    this.chkPagadoExit = function (Sender) {
-    };
-    this.chkEntregadoExit = function (Sender) {
-      this.btnAgregar.SetFocus();
-    };
-    this.edNombreKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.edArticulo.SetFocus();
-    };
-    this.edArticuloKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.edImporte.SetFocus();
-    };
-    this.edImporteKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.edventasuba.SetFocus();
-    };
-    this.edventasubaKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.edPagado.SetFocus();
-    };
-    this.chkPagadoKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.chkEntregado.SetFocus();
-    };
-    this.chkEntregadoKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.btnAgregar.SetFocus();
-    };
-    this.edPagadoKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.edEntregado.SetFocus();
-    };
-    this.edEntregadoKeyDown = function (Sender, Key, Shift) {
-      if (Key.get() === 13) this.edAgregar.SetFocus();
-    };
-    this.edImporteKeyPress = function (Sender, Key) {
-      var nKey = 0;
-      nKey = Key.get().charCodeAt();
-      if (!(nKey in rtl.createSet(8,9,12,13,46,48,49,50,51,52,53,54,55,56,57))) {
-        Key.set("\x00");
-        this.edImporte.SetText("");
-      };
-      if (nKey === 13) this.edventasuba.SetFocus();
-    };
-    this.edventasubaKeyPress = function (Sender, Key) {
-      var rtext = "";
-      rtext = this.edventasuba.GetText();
-      rtext = "";
-      if (!(Key.get().charCodeAt() in rtl.createSet(86,118,83,115))) {
-        Key.set("\x00");
-        this.edventasuba.SetText(rtext);
-      };
-    };
-    this.edPagadoKeyPress = function (Sender, Key) {
-      var rtext = "";
-      rtext = this.edPagado.GetText();
-      rtext = "";
-      if (!(Key.get().charCodeAt() in rtl.createSet(78,110,83,115))) {
-        Key.set("\x00");
-        this.edPagado.SetText(rtext);
-      };
-    };
-    this.edEntregadoKeyPress = function (Sender, Key) {
-      var rtext = "";
-      rtext = this.edEntregado.GetText();
-      rtext = "";
-      if (!(Key.get().charCodeAt() in rtl.createSet(78,110,83,115))) {
-        Key.set("\x00");
-        this.edEntregado.SetText(rtext);
-      };
-    };
-    this.edAgregarChange = function (Sender) {
-      var cmdChange = "";
-      cmdChange = pas.SysUtils.UpperCase(this.edAgregar.GetText());
-      if (cmdChange === "AGREGA") {
-        this.btnAgregar.Click();
-        this.edAgregar.SetText("");
-      };
-    };
-    this.LoadDFMValues = function () {
-      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
-      this.WebScrollBox1 = pas["WEBLib.ExtCtrls"].TScrollBox.$create("Create$2",["scroll-INFO"]);
-      this.WebLabel1 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel2 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel3 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel4 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel5 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel6 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel7 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.lbAgregar = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
-      this.btnCerrar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.btnAgregar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.edNombre = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
-      this.edArticulo = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
-      this.edImporte = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
-      this.chkPagado = pas["WEBLib.StdCtrls"].TCheckBox.$create("Create$1",[this]);
-      this.chkEntregado = pas["WEBLib.StdCtrls"].TCheckBox.$create("Create$1",[this]);
-      this.edventasuba = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
-      this.edPagado = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
-      this.edEntregado = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
-      this.edAgregar = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
-      this.WebScrollBox1.BeforeLoadDFMValues();
-      this.WebLabel1.BeforeLoadDFMValues();
-      this.WebLabel2.BeforeLoadDFMValues();
-      this.WebLabel3.BeforeLoadDFMValues();
-      this.WebLabel4.BeforeLoadDFMValues();
-      this.WebLabel5.BeforeLoadDFMValues();
-      this.WebLabel6.BeforeLoadDFMValues();
-      this.WebLabel7.BeforeLoadDFMValues();
-      this.lbAgregar.BeforeLoadDFMValues();
-      this.WebPanel1.BeforeLoadDFMValues();
-      this.btnCerrar.BeforeLoadDFMValues();
-      this.btnAgregar.BeforeLoadDFMValues();
-      this.edNombre.BeforeLoadDFMValues();
-      this.edArticulo.BeforeLoadDFMValues();
-      this.edImporte.BeforeLoadDFMValues();
-      this.chkPagado.BeforeLoadDFMValues();
-      this.chkEntregado.BeforeLoadDFMValues();
-      this.edventasuba.BeforeLoadDFMValues();
-      this.edPagado.BeforeLoadDFMValues();
-      this.edEntregado.BeforeLoadDFMValues();
-      this.edAgregar.BeforeLoadDFMValues();
-      try {
-        this.SetName("Form3");
-        this.SetLeft(400);
-        this.SetWidth(251);
-        this.SetHeight(505);
-        this.SetCaption("Libreta Digital (Registro)");
-        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
-        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.FFont.FCharset = 1;
-        this.FFont.SetColor(65793);
-        this.FFont.SetHeight(-15);
-        this.FFont.SetName("Tahoma");
-        this.FFont.SetStyle({});
-        this.SetParentFont(false);
-        this.FShowClose = false;
-        this.SetEvent(this,"OnCloseQuery","WebFormCloseQuery");
-        this.SetEvent(this,"OnCreate","WebFormCreate");
-        this.WebScrollBox1.SetParentComponent(this);
-        this.WebScrollBox1.SetName("WebScrollBox1");
-        this.WebScrollBox1.SetLeft(0);
-        this.WebScrollBox1.SetTop(0);
-        this.WebScrollBox1.SetWidth(251);
-        this.WebScrollBox1.SetHeight(505);
-        this.WebScrollBox1.SetElementClassName("card");
-        this.WebScrollBox1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.WebScrollBox1.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsSingle);
-        this.WebScrollBox1.SetChildOrderEx(1);
-        this.WebScrollBox1.SetColor(16376827);
-        this.WebLabel1.SetParentComponent(this.WebScrollBox1);
-        this.WebLabel1.SetName("WebLabel1");
-        this.WebLabel1.SetLeft(0);
-        this.WebLabel1.SetTop(0);
-        this.WebLabel1.SetWidth(251);
-        this.WebLabel1.SetHeight(18);
-        this.WebLabel1.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
-        this.WebLabel1.SetAlignment(pas.Classes.TAlignment.taCenter);
-        this.WebLabel1.SetCaption("Agregar Renglones ");
-        this.WebLabel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel1.SetHeightPercent(100.000000000000000000);
-        this.WebLabel1.SetWidthPercent(100.000000000000000000);
-        this.WebLabel2.SetParentComponent(this.WebScrollBox1);
-        this.WebLabel2.SetName("WebLabel2");
-        this.WebLabel2.SetLeft(0);
-        this.WebLabel2.SetTop(32);
-        this.WebLabel2.SetWidth(104);
-        this.WebLabel2.SetHeight(18);
-        this.WebLabel2.SetCaption("Nombre Cliente:");
-        this.WebLabel2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel2.SetHeightPercent(100.000000000000000000);
-        this.WebLabel2.SetWidthPercent(100.000000000000000000);
-        this.WebLabel3.SetParentComponent(this.WebScrollBox1);
-        this.WebLabel3.SetName("WebLabel3");
-        this.WebLabel3.SetLeft(3);
-        this.WebLabel3.SetTop(100);
-        this.WebLabel3.SetWidth(62);
-        this.WebLabel3.SetHeight(18);
-        this.WebLabel3.SetCaption("Producto:");
-        this.WebLabel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel3.SetHeightPercent(100.000000000000000000);
-        this.WebLabel3.SetWidthPercent(100.000000000000000000);
-        this.WebLabel4.SetParentComponent(this.WebScrollBox1);
-        this.WebLabel4.SetName("WebLabel4");
-        this.WebLabel4.SetLeft(3);
-        this.WebLabel4.SetTop(160);
-        this.WebLabel4.SetWidth(43);
-        this.WebLabel4.SetHeight(18);
-        this.WebLabel4.SetCaption("Precio:");
-        this.WebLabel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel4.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel4.SetHeightPercent(100.000000000000000000);
-        this.WebLabel4.SetWidthPercent(100.000000000000000000);
-        this.WebLabel5.SetParentComponent(this.WebScrollBox1);
-        this.WebLabel5.SetName("WebLabel5");
-        this.WebLabel5.SetLeft(3);
-        this.WebLabel5.SetTop(232);
-        this.WebLabel5.SetWidth(156);
-        this.WebLabel5.SetHeight(18);
-        this.WebLabel5.SetCaption("Venta Directa / Subasta");
-        this.WebLabel5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel5.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel5.SetHeightPercent(100.000000000000000000);
-        this.WebLabel5.SetWidthPercent(100.000000000000000000);
-        this.WebLabel6.SetParentComponent(this.WebScrollBox1);
-        this.WebLabel6.SetName("WebLabel6");
-        this.WebLabel6.SetLeft(3);
-        this.WebLabel6.SetTop(273);
-        this.WebLabel6.SetWidth(53);
-        this.WebLabel6.SetHeight(18);
-        this.WebLabel6.SetCaption("Pagado:");
-        this.WebLabel6.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel6.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel6.SetHeightPercent(100.000000000000000000);
-        this.WebLabel6.SetWidthPercent(100.000000000000000000);
-        this.WebLabel7.SetParentComponent(this.WebScrollBox1);
-        this.WebLabel7.SetName("WebLabel7");
-        this.WebLabel7.SetLeft(3);
-        this.WebLabel7.SetTop(315);
-        this.WebLabel7.SetWidth(71);
-        this.WebLabel7.SetHeight(18);
-        this.WebLabel7.SetCaption("Entregado:");
-        this.WebLabel7.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel7.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel7.SetHeightPercent(100.000000000000000000);
-        this.WebLabel7.SetWidthPercent(100.000000000000000000);
-        this.lbAgregar.SetParentComponent(this.WebScrollBox1);
-        this.lbAgregar.SetName("lbAgregar");
-        this.lbAgregar.SetLeft(3);
-        this.lbAgregar.SetTop(354);
-        this.lbAgregar.SetWidth(84);
-        this.lbAgregar.SetHeight(18);
-        this.lbAgregar.SetCaption("Diga Agrega:");
-        this.lbAgregar.SetColorEx(65535);
-        this.lbAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.lbAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.lbAgregar.SetHeightPercent(100.000000000000000000);
-        this.lbAgregar.SetTransparent(false);
-        this.lbAgregar.SetWidthPercent(100.000000000000000000);
-        this.WebPanel1.SetParentComponent(this.WebScrollBox1);
-        this.WebPanel1.SetName("WebPanel1");
-        this.WebPanel1.SetLeft(0);
-        this.WebPanel1.SetTop(454);
-        this.WebPanel1.SetWidth(251);
-        this.WebPanel1.SetHeight(51);
-        this.WebPanel1.SetElementClassName("card");
-        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
-        this.WebPanel1.SetChildOrderEx(2);
-        this.WebPanel1.SetColor(12632256);
-        this.WebPanel1.FElementBodyClassName = "card-body";
-        this.WebPanel1.SetTabOrder(0);
-        this.btnCerrar.SetParentComponent(this.WebPanel1);
-        this.btnCerrar.SetName("btnCerrar");
-        this.btnCerrar.SetLeft(144);
-        this.btnCerrar.SetTop(10);
-        this.btnCerrar.SetWidth(81);
-        this.btnCerrar.SetHeight(25);
-        this.btnCerrar.SetCaption("Cerrar");
-        this.btnCerrar.SetElementClassName("btn btn-light");
-        this.btnCerrar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.btnCerrar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.btnCerrar.SetHeightPercent(100.000000000000000000);
-        this.btnCerrar.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.btnCerrar,this,"OnClick","btnCerrarClick");
-        this.btnAgregar.SetParentComponent(this.WebPanel1);
-        this.btnAgregar.SetName("btnAgregar");
-        this.btnAgregar.SetLeft(31);
-        this.btnAgregar.SetTop(10);
-        this.btnAgregar.SetWidth(81);
-        this.btnAgregar.SetHeight(25);
-        this.btnAgregar.SetCaption(".");
-        this.btnAgregar.SetChildOrderEx(1);
-        this.btnAgregar.SetElementClassName("btn btn-light");
-        this.btnAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.btnAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.btnAgregar.SetHeightPercent(100.000000000000000000);
-        this.btnAgregar.SetTabOrder(106);
-        this.btnAgregar.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.btnAgregar,this,"OnClick","btnAgregarClick");
-        this.edNombre.SetParentComponent(this.WebScrollBox1);
-        this.edNombre.SetName("edNombre");
-        this.edNombre.SetLeft(3);
-        this.edNombre.SetTop(56);
-        this.edNombre.SetWidth(222);
-        this.edNombre.SetHeight(22);
-        this.edNombre.SetChildOrderEx(3);
-        this.edNombre.SetElementClassName("form-control");
-        this.edNombre.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edNombre.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edNombre.SetHeightPercent(100.000000000000000000);
-        this.edNombre.SetTabOrder(100);
-        this.edNombre.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edNombre,this,"OnKeyDown","edNombreKeyDown");
-        this.edArticulo.SetParentComponent(this.WebScrollBox1);
-        this.edArticulo.SetName("edArticulo");
-        this.edArticulo.SetLeft(3);
-        this.edArticulo.SetTop(124);
-        this.edArticulo.SetWidth(222);
-        this.edArticulo.SetHeight(22);
-        this.edArticulo.SetChildOrderEx(3);
-        this.edArticulo.SetElementClassName("form-control");
-        this.edArticulo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edArticulo.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edArticulo.SetHeightPercent(100.000000000000000000);
-        this.edArticulo.SetTabOrder(101);
-        this.edArticulo.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edArticulo,this,"OnKeyDown","edArticuloKeyDown");
-        this.edImporte.SetParentComponent(this.WebScrollBox1);
-        this.edImporte.SetName("edImporte");
-        this.edImporte.SetLeft(3);
-        this.edImporte.SetTop(184);
-        this.edImporte.SetWidth(222);
-        this.edImporte.SetHeight(22);
-        this.edImporte.SetChildOrderEx(3);
-        this.edImporte.SetElementClassName("form-control");
-        this.edImporte.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edImporte.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edImporte.SetHeightPercent(100.000000000000000000);
-        this.edImporte.SetTabOrder(102);
-        this.edImporte.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edImporte,this,"OnKeyDown","edImporteKeyDown");
-        this.SetEvent$1(this.edImporte,this,"OnKeyPress","edImporteKeyPress");
-        this.chkPagado.SetParentComponent(this.WebScrollBox1);
-        this.chkPagado.SetName("chkPagado");
-        this.chkPagado.SetLeft(165);
-        this.chkPagado.SetTop(272);
-        this.chkPagado.SetWidth(86);
-        this.chkPagado.SetHeight(22);
-        this.chkPagado.SetCaption("Pagado");
-        this.chkPagado.SetChildOrderEx(8);
-        this.chkPagado.SetElementClassName("custom-control custom-checkbox");
-        this.chkPagado.FElementButtonClassName = "custom-control-input";
-        this.chkPagado.FElementLabelClassName = "custom-control-label";
-        this.chkPagado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.chkPagado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.chkPagado.SetHeightPercent(100.000000000000000000);
-        this.chkPagado.SetTabOrder(104);
-        this.chkPagado.SetVisible(false);
-        this.chkPagado.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.chkPagado,this,"OnExit","chkPagadoExit");
-        this.SetEvent$1(this.chkPagado,this,"OnKeyDown","chkPagadoKeyDown");
-        this.chkEntregado.SetParentComponent(this.WebScrollBox1);
-        this.chkEntregado.SetName("chkEntregado");
-        this.chkEntregado.SetLeft(162);
-        this.chkEntregado.SetTop(314);
-        this.chkEntregado.SetWidth(86);
-        this.chkEntregado.SetHeight(22);
-        this.chkEntregado.SetCaption("Entregado");
-        this.chkEntregado.SetChildOrderEx(8);
-        this.chkEntregado.SetElementClassName("custom-control custom-checkbox");
-        this.chkEntregado.FElementButtonClassName = "custom-control-input";
-        this.chkEntregado.FElementLabelClassName = "custom-control-label";
-        this.chkEntregado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.chkEntregado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.chkEntregado.SetHeightPercent(100.000000000000000000);
-        this.chkEntregado.SetTabOrder(105);
-        this.chkEntregado.SetVisible(false);
-        this.chkEntregado.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.chkEntregado,this,"OnExit","chkEntregadoExit");
-        this.SetEvent$1(this.chkEntregado,this,"OnKeyDown","chkEntregadoKeyDown");
-        this.edventasuba.SetParentComponent(this.WebScrollBox1);
-        this.edventasuba.SetName("edventasuba");
-        this.edventasuba.SetLeft(179);
-        this.edventasuba.SetTop(232);
-        this.edventasuba.SetWidth(46);
-        this.edventasuba.SetHeight(22);
-        this.edventasuba.SetChildOrderEx(3);
-        this.edventasuba.SetElementClassName("form-control");
-        this.edventasuba.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edventasuba.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edventasuba.SetHeightPercent(100.000000000000000000);
-        this.edventasuba.SetMaxLength(1);
-        this.edventasuba.SetTabOrder(103);
-        this.edventasuba.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edventasuba,this,"OnExit","edventasubaExit");
-        this.SetEvent$1(this.edventasuba,this,"OnKeyDown","edventasubaKeyDown");
-        this.SetEvent$1(this.edventasuba,this,"OnKeyPress","edventasubaKeyPress");
-        this.edPagado.SetParentComponent(this.WebScrollBox1);
-        this.edPagado.SetName("edPagado");
-        this.edPagado.SetLeft(84);
-        this.edPagado.SetTop(270);
-        this.edPagado.SetWidth(53);
-        this.edPagado.SetHeight(22);
-        this.edPagado.SetChildOrderEx(3);
-        this.edPagado.SetElementClassName("form-control");
-        this.edPagado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edPagado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edPagado.SetHeightPercent(100.000000000000000000);
-        this.edPagado.SetMaxLength(1);
-        this.edPagado.SetTabOrder(104);
-        this.edPagado.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edPagado,this,"OnKeyDown","edPagadoKeyDown");
-        this.SetEvent$1(this.edPagado,this,"OnKeyPress","edPagadoKeyPress");
-        this.edEntregado.SetParentComponent(this.WebScrollBox1);
-        this.edEntregado.SetName("edEntregado");
-        this.edEntregado.SetLeft(84);
-        this.edEntregado.SetTop(315);
-        this.edEntregado.SetWidth(53);
-        this.edEntregado.SetHeight(22);
-        this.edEntregado.SetChildOrderEx(3);
-        this.edEntregado.SetElementClassName("form-control");
-        this.edEntregado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edEntregado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edEntregado.SetHeightPercent(100.000000000000000000);
-        this.edEntregado.SetMaxLength(1);
-        this.edEntregado.SetTabOrder(105);
-        this.edEntregado.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edEntregado,this,"OnKeyDown","edEntregadoKeyDown");
-        this.SetEvent$1(this.edEntregado,this,"OnKeyPress","edEntregadoKeyPress");
-        this.edAgregar.SetParentComponent(this.WebScrollBox1);
-        this.edAgregar.SetName("edAgregar");
-        this.edAgregar.SetLeft(108);
-        this.edAgregar.SetTop(351);
-        this.edAgregar.SetWidth(101);
-        this.edAgregar.SetHeight(22);
-        this.edAgregar.SetChildOrderEx(17);
-        this.edAgregar.SetElementClassName("form-control");
-        this.edAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edAgregar.SetHeightPercent(100.000000000000000000);
-        this.edAgregar.SetPattern("AGREGAR");
-        this.edAgregar.SetShowHint(false);
-        this.edAgregar.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edAgregar,this,"OnChange","edAgregarChange");
-      } finally {
-        this.WebScrollBox1.AfterLoadDFMValues();
-        this.WebLabel1.AfterLoadDFMValues();
-        this.WebLabel2.AfterLoadDFMValues();
-        this.WebLabel3.AfterLoadDFMValues();
-        this.WebLabel4.AfterLoadDFMValues();
-        this.WebLabel5.AfterLoadDFMValues();
-        this.WebLabel6.AfterLoadDFMValues();
-        this.WebLabel7.AfterLoadDFMValues();
-        this.lbAgregar.AfterLoadDFMValues();
-        this.WebPanel1.AfterLoadDFMValues();
-        this.btnCerrar.AfterLoadDFMValues();
-        this.btnAgregar.AfterLoadDFMValues();
-        this.edNombre.AfterLoadDFMValues();
-        this.edArticulo.AfterLoadDFMValues();
-        this.edImporte.AfterLoadDFMValues();
-        this.chkPagado.AfterLoadDFMValues();
-        this.chkEntregado.AfterLoadDFMValues();
-        this.edventasuba.AfterLoadDFMValues();
-        this.edPagado.AfterLoadDFMValues();
-        this.edEntregado.AfterLoadDFMValues();
-        this.edAgregar.AfterLoadDFMValues();
-      };
-    };
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-    var $r = this.$rtti;
-    $r.addField("WebScrollBox1",pas["WEBLib.ExtCtrls"].$rtti["TScrollBox"]);
-    $r.addField("WebLabel1",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("btnCerrar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("WebLabel2",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edNombre",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebLabel3",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edArticulo",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebLabel4",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edImporte",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("chkPagado",pas["WEBLib.StdCtrls"].$rtti["TCheckBox"]);
-    $r.addField("chkEntregado",pas["WEBLib.StdCtrls"].$rtti["TCheckBox"]);
-    $r.addField("WebLabel5",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edventasuba",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebLabel6",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edPagado",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebLabel7",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edEntregado",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("edAgregar",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("btnAgregar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("lbAgregar",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addMethod("btnCerrarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("btnAgregarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebFormCloseQuery",0,[["Sender",pas.System.$rtti["TObject"]],["CanClose",rtl.boolean,1]]);
-    $r.addMethod("edventasubaExit",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("chkPagadoExit",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("chkEntregadoExit",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("edNombreKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("edArticuloKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("edImporteKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("edventasubaKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("chkPagadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("chkEntregadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("edPagadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("edEntregadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
-    $r.addMethod("edImporteKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
-    $r.addMethod("edventasubaKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
-    $r.addMethod("edPagadoKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
-    $r.addMethod("edEntregadoKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
-    $r.addMethod("edAgregarChange",0,[["Sender",pas.System.$rtti["TObject"]]]);
-  });
-  this.Form3 = null;
-  $mod.$implcode = function () {
-    $impl.maximoRegistros = 101;
-    $impl.validateInputType = function (inputType, Achar) {
-      var Result = false;
-      var Fresult = false;
-      Fresult = true;
-      console.log(Achar);
-      if (inputType === "jdFloat") {
-        if (!(Achar.charCodeAt() in rtl.createSet(null,48,57,110))) Fresult = false;
-      } else if (inputType === "onlyletters") if (!(Achar.charCodeAt() in rtl.createSet(null,97,122,null,65,90))) Fresult = false;
-      Result = Fresult;
-      return Result;
-    };
-  };
-},[]);
-rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.ExtCtrls","WEBLib.REST","WEBLib.JQCtrls","WEBLib.SideMenu","WEBLib.Menus","WEBLib.Menus","uCargarConsultas","WEBLib.Cookies","WEBLib.Storage","WEBLib.LocalFiles","DB","WEBLib.IndexedDb","WEBLib.Imaging.pngImage","WEBLib.Buttons"],function () {
-  "use strict";
-  var $mod = this;
-  var $impl = $mod.$impl;
-  rtl.createClass(this,"TForm1",pas["WEBLib.Forms"].TForm,function () {
-    this.$init = function () {
-      pas["WEBLib.Forms"].TForm.$init.call(this);
-      this.WebHttpRequest1 = null;
-      this.WebMemo1 = null;
-      this.WebDiv = null;
-      this.WebPanel3 = null;
-      this.WebPanel4 = null;
-      this.WebMainMenu1 = null;
-      this.WebButton9 = null;
-      this.PDF2 = null;
-      this.PDF3 = null;
-      this.Exportar1 = null;
-      this.Exportar2 = null;
-      this.WebPanel5 = null;
-      this.Archivo1 = null;
-      this.Pacientes1 = null;
-      this.Consultas1 = null;
-      this.Estudios1 = null;
-      this.Analisis1 = null;
-      this.Editar1 = null;
-      this.Copiar1 = null;
-      this.Copiar2 = null;
-      this.Cortar1 = null;
-      this.Exportar3 = null;
-      this.ExportarPDF1 = null;
-      this.Excel1 = null;
-      this.Expotar1 = null;
-      this.Descargar1 = null;
-      this.WebLabel1 = null;
-      this.edPacNombre = null;
-      this.Imprimir1 = null;
-      this.Graficar1 = null;
-      this.Graficas1 = null;
-      this.WebButton11 = null;
-      this.WebButton12 = null;
-      this.WebButton13 = null;
-      this.AnlisisGrfico1 = null;
-      this.Salir1 = null;
-      this.LimpiarHoja1 = null;
-      this.lbarchivo = null;
-      this.WebScrollRegistro = null;
-      this.Registrar1 = null;
-      this.LimpiarHoja2 = null;
-      this.WebLabel3 = null;
-      this.WebLabel4 = null;
-      this.edNombre = null;
-      this.WebLabel5 = null;
-      this.WebLabel6 = null;
-      this.edImporte = null;
-      this.WebLabel7 = null;
-      this.edventasuba = null;
-      this.N1 = null;
-      this.N2 = null;
-      this.ExportaraPDF1 = null;
-      this.edArticulo = null;
-      this.WebPanel1 = null;
-      this.btnAgregar = null;
-      this.btnCerrar = null;
-      this.edRen = null;
-      this.btnEliminar = null;
-      this.radioTipo = null;
-      this.lbusuario2 = null;
-      this.lbusuario = null;
-      this.WebMessageDlg1 = null;
-      this.lbminimizar = null;
-      this.Compartir1 = null;
-      this.CompartirPDF21 = null;
-      this.compartirpdf31 = null;
-      this.Compartir2 = null;
-      this.WebLocalTextFile1 = null;
-      this.PedidosDbClientDataset1 = null;
-      this.WebSpeedButton1 = null;
-      this.WebPopupMenu1 = null;
-      this.uno1 = null;
-      this.dos1 = null;
-      this.tres1 = null;
-      this.cuatro = null;
-      this.comparte = null;
-      this.N3 = null;
-      this.Salir2 = null;
-      this.minimizo = false;
-    };
-    this.$final = function () {
-      this.WebHttpRequest1 = undefined;
-      this.WebMemo1 = undefined;
-      this.WebDiv = undefined;
-      this.WebPanel3 = undefined;
-      this.WebPanel4 = undefined;
-      this.WebMainMenu1 = undefined;
-      this.WebButton9 = undefined;
-      this.PDF2 = undefined;
-      this.PDF3 = undefined;
-      this.Exportar1 = undefined;
-      this.Exportar2 = undefined;
-      this.WebPanel5 = undefined;
-      this.Archivo1 = undefined;
-      this.Pacientes1 = undefined;
-      this.Consultas1 = undefined;
-      this.Estudios1 = undefined;
-      this.Analisis1 = undefined;
-      this.Editar1 = undefined;
-      this.Copiar1 = undefined;
-      this.Copiar2 = undefined;
-      this.Cortar1 = undefined;
-      this.Exportar3 = undefined;
-      this.ExportarPDF1 = undefined;
-      this.Excel1 = undefined;
-      this.Expotar1 = undefined;
-      this.Descargar1 = undefined;
-      this.WebLabel1 = undefined;
-      this.edPacNombre = undefined;
-      this.Imprimir1 = undefined;
-      this.Graficar1 = undefined;
-      this.Graficas1 = undefined;
-      this.WebButton11 = undefined;
-      this.WebButton12 = undefined;
-      this.WebButton13 = undefined;
-      this.AnlisisGrfico1 = undefined;
-      this.Salir1 = undefined;
-      this.LimpiarHoja1 = undefined;
-      this.lbarchivo = undefined;
-      this.WebScrollRegistro = undefined;
-      this.Registrar1 = undefined;
-      this.LimpiarHoja2 = undefined;
-      this.WebLabel3 = undefined;
-      this.WebLabel4 = undefined;
-      this.edNombre = undefined;
-      this.WebLabel5 = undefined;
-      this.WebLabel6 = undefined;
-      this.edImporte = undefined;
-      this.WebLabel7 = undefined;
-      this.edventasuba = undefined;
-      this.N1 = undefined;
-      this.N2 = undefined;
-      this.ExportaraPDF1 = undefined;
-      this.edArticulo = undefined;
-      this.WebPanel1 = undefined;
-      this.btnAgregar = undefined;
-      this.btnCerrar = undefined;
-      this.edRen = undefined;
-      this.btnEliminar = undefined;
-      this.radioTipo = undefined;
-      this.lbusuario2 = undefined;
-      this.lbusuario = undefined;
-      this.WebMessageDlg1 = undefined;
-      this.lbminimizar = undefined;
-      this.Compartir1 = undefined;
-      this.CompartirPDF21 = undefined;
-      this.compartirpdf31 = undefined;
-      this.Compartir2 = undefined;
-      this.WebLocalTextFile1 = undefined;
-      this.PedidosDbClientDataset1 = undefined;
-      this.WebSpeedButton1 = undefined;
-      this.WebPopupMenu1 = undefined;
-      this.uno1 = undefined;
-      this.dos1 = undefined;
-      this.tres1 = undefined;
-      this.cuatro = undefined;
-      this.comparte = undefined;
-      this.N3 = undefined;
-      this.Salir2 = undefined;
-      pas["WEBLib.Forms"].TForm.$final.call(this);
-    };
-    this.WebButton1Click = function (Sender) {
-      var sheetData = [
-        [9937,	"",	"",	7749,	9816,	4355,	8279,	"",	""],
-        [2380,	"",	6977,	8896,	4012,	3803,	5408,	3415,	3056],
-        [9180,	"",	39,	9445,	3917,	"",	18,	5239,	2516],
-        [1924,	8734,	1819,	1838,	2330,	7921,	9219,	"",	3537],
-        ["",	8665,	5875,	9732,	1926,	"",	9743,	8388,   ""],
-        [7040,	4861,	2988,	5584,	2344,	9749,	8872,	9177,	6246],
-        [6334,	1674,	2967,	"",	9353,	396,	6006,	8572 , ""],
-        [6359,	"",	2580,	5723,	9801,	554,	1044,	5266,	8532],
-        [7278,	6971,	2232,	5720,	5665,	7231,	1165,	"",	168],
-      ];
-      
-      
-      sheetData = [
-      [12115,"ANA LAURA MENESES RODRIGUEZ"],
-      [12116,"ANA LIDIA PAEZ TAMEZ"],
-      [12117,"MARICELA GALLEGOS RODRIGUEZ"],
-      [12118,"YADIRA ROTHSCHILD HERBERT"],
-      [12119,"SAMANTHA GONZALEZ RENDON"],
-      [12120,"DAMARIS QINTANILLA LOPEZ"],
-      [12121,"ANA CAROLINA TREVIÑO HERRERA"],
-      [12122,"MARTHA PEREZ FUENTES"],
-      [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÑO"],
-      [12124,"CYNTHIA VAZQUEZ FUENTES"],
-      
-      ];
-      
-      
-      
-      //Build Tabulator
-      var table = new Tabulator("#tabExample", {
-        // debugInvalidOptions:false,
-        height:"211px",
-      
-      
-        spreadsheet:true,
-        spreadsheetRows:10,
-        spreadsheetColumns:2,
-        spreadsheetColumnDefinition:{editor:"input"},       // editable
-        spreadsheetColumnDefinition:{editor:""},     // no editable
-        spreadsheetData:sheetData,
-        spreadsheetSheetTabs:true, //show spreadsheet tabs in footer
-      
-        rowHeader:{field:"_id", hozAlign:"center", headerSort:false, frozen:true},
-      
-        editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
-      });
-    };
-    this.WebButton2Click = function (Sender) {
-      var sheetData =[ [12115,"ANA LAURA MENESES RODRIGUEZ"], [12116,"ANA LIDIA PAEZ TAMEZ"],
-       [12117,"MARICELA GALLEGOS RODRIGUEZ"], [12118,"YADIRA ROTHSCHILD HERBERT"],
-       [12119,"SAMANTHA GONZALEZ RENDON"],
-       [12120,"DAMARIS QINTANILLA LOPEZ"],
-        [12121,"ANA CAROLINA TREVIÃ‘O HERRERA"],
-         [12122,"MARTHA PEREZ FUENTES"],
-         [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÃ‘O"],
-          [12124,"CYNTHIA VAZQUEZ FUENTES"],];
-      
-      var table = new Tabulator("#tabExample", {
-          spreadsheet:true,
-      
-        //spreadsheetData:sheetData,
-        //  ajaxURL:"http://localhost/WebAppi2/simedic/pacientesarr", //url endpoint for sheet data
-      
-          ajaxURL:"https://able-mackerel-briefly.ngrok-free.app/WebAppi2/simedic/pacientesarr",
-      
-      
-          //ajaxConfig:"GET",  //ajax HTTP request type
-          //ajaxContentType:"json", // send parameters to the server as a JSON encoded string
-      
-      });
-    };
-    this.WebButton3Click = function (Sender) {
-      var strresponse = "";
-      var i = 0;
-      var strA = "";
-      var charArray = rtl.arraySetLength(null,"\x00",1);
-      var strArray = [];
-      this.WebHttpRequest1.FURL = "http://192.168.0.115/WebAppi2/simedic/pacientesarr";
-      this.WebHttpRequest1.Execute(null);
-    };
-    this.WebButton4Click = function (Sender) {
-      var mrespuesta = "";
-      mrespuesta = "[" + this.WebMemo1.GetText() + "];";
-      console.log('respuesta:',mrespuesta);
-                   var sheetData = mrespuesta;
-                   var sheeData2 = [[12115,"ANA LAURA MENESES RODRIGUEZ"],
-      [12116,"ANA LIDIA PAEZ TAMEZ"],
-      [12117,"MARICELA GALLEGOS RODRIGUEZ"],
-      [12118,"YADIRA ROTHSCHILD HERBERT"],
-      [12119,"SAMANTHA GONZALEZ RENDON"],
-      [12120,"DAMARIS QINTANILLA LOPEZ"],
-      [12121,"ANA CAROLINA TREVIÃ‘O HERRERA"],
-      [12122,"MARTHA PEREZ FUENTES"],
-      [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÃ‘O"],
-      [12124,"CYNTHIA VAZQUEZ FUENTES"],];
-      
-      
-           // var sheetData =[ [12115,"ANA LAURA MENESES RODRIGUEZ"], [12116,"ANA LIDIA PAEZ TAMEZ"], [12117,"MARICELA GALLEGOS RODRIGUEZ"], [12118,"YADIRA ROTHSCHILD HERBERT"], [12119,"SAMANTHA GONZALEZ RENDON"], [12120,"DAMARIS QINTANILLA LOPEZ"], [12121,"ANA CAROLINA TREVIÃ‘O HERRERA"], [12122,"MARTHA PEREZ FUENTES"], [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÃ‘O"], [12124,"CYNTHIA VAZQUEZ FUENTES"],];
-                  console.log('sheetData:',sheetData);
-      
-                  var table = new Tabulator("#tabExample", {
-                  key:"info",
-                  spreadsheet:true,
-                // spreadsheetData:sheeData2,
-                 });
-      var table = Tabulator.findTable("#tabExample")[0];
-      table.setSheetData("info", sheetData);
-    };
-    this.WebHttpRequest1Response = function (Sender, AResponse) {
-      var i = 0;
-      var w = 0;
-      var strA = "";
-      var charArray = rtl.arraySetLength(null,"\x00",1);
-      var strArray = [];
-      var respuestaapi = "";
-      var strresponse = "";
-      var astrresponse = "";
-      var selpacid = "";
-      var selpacnom = "";
-      var el = null;
-    };
-    this.WebButton5Click = function (Sender) {
-      var sheetDef = {
-          title:"New Sheet",
-          key:"new",
-          data:[
-              [2380,	"",	6977,	8896,	4012,	3803,	5408,	3415,	3056],
-              [9180,	"",	39,	9445,	3917,	"",	18,	5239,	2516],
-              [1924,	8734,	1819,	1838,	2330,	7921,	9219,	"",	3537],
-          ]
-      };
-      
-       var table = Tabulator.findTable("#tabExample")[0];
-       var sheet = table.addSheet(sheetDef);
-    };
-    this.WebButton6Click = function (Sender) {
-      var table = Tabulator.findTable("#tabExample")[0];
-      //table.updateColumnDefinition("A", {title:"Updated A"}) //change the title on the name column
-      table.hideColumn("_id");
-    };
-    this.btn_imprimirClick = function (Sender) {
-      var table = Tabulator.findTable("#tabExample")[0];
-       table.print(false, true);
-      // table.print("active",true);
-    };
-    this.btn_exportarClick = function (Sender) {
-      var fechahoy = 0.0;
-      var fechafincookie = 0.0;
-      var anio = 0;
-      var mes = 0;
-      var dia = 0;
-      var sfechadia = "";
-      var nomarch = "";
-      var Cookies = null;
-      var PDFCookie = null;
-      fechahoy = pas.SysUtils.Now();
-      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
-          return anio;
-        }, set: function (v) {
-          anio = v;
-        }},{get: function () {
-          return mes;
-        }, set: function (v) {
-          mes = v;
-        }},{get: function () {
-          return dia;
-        }, set: function (v) {
-          dia = v;
-        }});
-      sfechadia = pas.SysUtils.DateToStr(fechahoy);
-      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
-      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
-          return sfechadia;
-        }, set: function (v) {
-          sfechadia = v;
-        }});
-      Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
-      try {
-        PDFCookie = Cookies.Find("PDF");
-        if (!(PDFCookie == null)) Cookies.Delete$2("PDF");
-        Cookies.Add$2("PDF","E");
-        Cookies.SetCookies();
-      } finally {
-        Cookies = rtl.freeLoc(Cookies);
-      };
-      Tabulator.extendModule("download", "downloaders", {
-          string:function(columns, data, options){
-              var fileContents = data.toString();
-              return 'data:application/txt;charset=utf-8,' + encodeURIComponent(fileContents);
-          }
-      });
-      
-      
-        var table = Tabulator.findTable("#tabExample")[0];
-      
-        // table.download("csv", "data.csv", {delimiter:"."}); //  OK download a CSV file that uses a fullstop (.) delimiter
-        var opcion = "E"
-      
-      
-      
-         table.download("pdf",nomarch);
-         //table.download("pdf","data.pdf");
-        // table.downloadToTab("pdf");
-    };
-    this.btn_exportallClick = function (Sender) {
-      alert('entro exportall');
-      
-       alert('entro exportbtn');
-      
-      
-      
-       // var table = Tabulator.findTable("#tabExample")[0];
-       // console.log('table',table);
-       // var data1 = table.getSheetData("uno");
-       // console.log(data1);
-      
-        const tabledata1 = [
-          {id: 1, name: "Oli ", money: "0", col: "red", dob: ""},
-          {id: 2, name: "Mary ", money: "0", col: "blue", dob: "14/05/1982"},
-          {id: 3, name: "Christine ", money: "0", col: "green", dob: "22/05/1982"},
-          {id: 4, name: "Brendon ", money: "0", col: "orange", dob: "01/08/1980"},
-          {id: 5, name: "Margret ", money: "0", col: "yellow", dob: "31/01/1999"},
-        ];
-      
-        const tabledata2 = [
-          {id: 1, name: " Bob", money: "12", col: "red", dob: ""},
-          {id: 2, name: " May", money: "1", col: "blue", dob: "14/05/1982"},
-          {id: 3, name: " Lobowski", money: "42", col: "green", dob: "22/05/1982"},
-          {id: 4, name: "Brendon ", money: "0", col: "orange", dob: "01/08/1980"},
-          {id: 5, name: " Marmajuke", money: "16", col: "yellow", dob: "31/01/1999"},
-        ];
-      
-        const table0 = new Tabulator("#tableZero", {
-          layout: "fitDataFill", //fit columns to width of table (optional)
-          autoColumns: true,
-        });
-      
-        const table1 = new Tabulator("#tableOne", {
-          data: tabledata1, //assign data to table
-          layout: "fitDataFill", //fit columns to width of table (optional)
-          autoColumns: true,
-        });
-      
-          const table2 = new Tabulator("#tableTwo", {
-          data: tabledata2, //assign data to table
-          layout: "fitDataFill", //fit columns to width of table (optional)
-          autoColumns: true,
-        });
-      
-      var sheets = {
-      "Example Data1": table1,
-          "Example Data2": table2
-      };
-      
-          downloadXlxs = function(){
-          alert(' downloadXlxs');
-      table0.download("xlsx", "data.xlsx", {sheets:sheets});
-      };
-    };
-    this.WebButton7Click = function (Sender) {
-      //alert('llama funcion');
-    };
-    this.WebButton8Click = function (Sender) {
-      downloadXlxs();
-    };
-    this.WebButton10Click = function (Sender) {
-      downloadPdfs();
-    };
-    this.Pacientes1Click = function (Sender) {
-      pas.uCargarConsultas.CargarVentas();
-      return;
-      var table = Tabulator.findTable("#tabExample")[0];
-      table.activeSheet("uno");
-    };
-    this.Consultas1Click = function (Sender) {
-      var $Self = this;
-      var nomarch = "";
-      var nomarchcookie = "";
-      var guardarCookie = null;
-      var valorRegistroCookie = "";
-      var opcionGuardar = 0;
-      var LLocalStorage = null;
-      var jsonData = "";
-      var i = 0;
-      this.edRen.SetText(".");
-      nomarch = "";
-      opcionGuardar = 6;
-      var $tmp = opcionGuardar;
-      if ($tmp === 1) {
-        nomarchcookie = $impl.RegistroCookie.Find("nombrearchivo").FValue;
-        if ($impl.RegistroCookie.GetCount() === 1) {
-          pas["WEBLib.Dialogs"].ShowMessage("No hay nada registrado aún");
-          return;
-        };
-        nomarchcookie = $impl.RegistroCookie.Find("nombrearchivo").FValue;
-        if (nomarchcookie.length > 0) guardarCookie = $impl.RegistroCookie.Find(nomarchcookie);
-        if (!(guardarCookie == null)) {
-          $impl.RegistroCookie.GetCookies();
-          valorRegistroCookie = this.GetCookie(nomarchcookie);
-          console.log('archivo cookie abrir',nomarchcookie);
-          console.log('valor cookie abrir',valorRegistroCookie);
-          var table = Tabulator.findTable("#tabExample")[0];
-          table.setData(valorRegistroCookie);
-        };
-      } else if ($tmp === 2) {
-        this.WebLocalTextFile1.FFilter.Clear();
-        this.WebLocalTextFile1.FFilter.Add$2("Text files","text/plain","*.txt");
-        this.WebLocalTextFile1.OpenFile$1(function (AText) {
-          $Self.WebMemo1.FLines.SetTextStr(AText);
-          jsonData = AText;
-          var table = Tabulator.findTable("#tabExample")[0];
-          table.setData(jsonData);
-        });
-      } else if ($tmp === 3) {
-        LLocalStorage = pas["WEBLib.Storage"].TLocalStorage.$create("Create");
-        try {
-          valorRegistroCookie = LLocalStorage.GetValues(nomarchcookie);
-        } finally {
-          LLocalStorage = rtl.freeLoc(LLocalStorage);
-        };
-        var table = Tabulator.findTable("#tabExample")[0];
-        table.setData(valorRegistroCookie);
-      } else if ($tmp === 5) {
-        var table = Tabulator.findTable("#tabExample")[0];
-              // table.import("json", ".json")
-               table.import("json",".*")
-              .then(() => {
-                  //file successfully imported
-               })
-               .catch(() => {
-            //something went wrong
-              })
-        
-        
-              table.on("importImported", function(data){
-            //data - array of row data
-              //var rowCount = table.getDataCount()+1;
-             // console.log('rowcount',rowCount);
-              console.log('data',data);
-               //data.pop();
-              //console.log('data1',data);
-              var l =data.length;
-              for (var i = 0; i < l; i++) {
-                 console.log(data[i].rc);
-                 if (data[i].rc === undefined)
-                 {
-                    data.splice(i);
-                 }
-               }
-        
-              });
-      } else if ($tmp === 6) {
-        valorRegistroCookie = "";
-        var arregs =[];
-        this.PedidosDbClientDataset1.First();
-        if (!this.PedidosDbClientDataset1.GetEOF()) {
-          valorRegistroCookie = this.PedidosDbClientDataset1.FieldByName("pedidolibreta").GetAsString();
-          // alert('registro',valorRegistroCookie);
-          //console.log('valor', valorRegistroCookie);
-          var table = Tabulator.findTable("#tabExample")[0];
-          table.setData(valorRegistroCookie);
-        };
-      };
-    };
-    this.Estudios1Click = async function (Sender) {
-      var $Self = this;
-      var sfechadia = "";
-      var fechahoy = 0.0;
-      var fechafincookie = 0.0;
-      var p = 0;
-      var p1 = 0;
-      var anio = 0;
-      var mes = 0;
-      var dia = 0;
-      var nomarch = "";
-      var nomarchcookie = "";
-      var guardarCookie = null;
-      var valorCookie = "";
-      var LLocalStorage = null;
-      var opcionGuardar = 0;
-      var filehandle = undefined;
-      var i = 0;
-      var lendatos = 0;
-      filehandle = this.WebLocalTextFile1.FFileHandle;
-      opcionGuardar = 6;
-      this.edRen.SetText(".");
-      lendatos = 0;
-      fechahoy = pas.SysUtils.Now();
-      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
-          return anio;
-        }, set: function (v) {
-          anio = v;
-        }},{get: function () {
-          return mes;
-        }, set: function (v) {
-          mes = v;
-        }},{get: function () {
-          return dia;
-        }, set: function (v) {
-          dia = v;
-        }});
-      sfechadia = pas.SysUtils.DateToStr(fechahoy);
-      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
-      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
-          return sfechadia;
-        }, set: function (v) {
-          sfechadia = v;
-        }});
-      nomarchcookie = nomarch;
-      nomarchcookie = $impl.NomRegistroCookie;
-      valorCookie ='';
-      var table = Tabulator.findTable("#tabExample")[0];
-      var array = table.getData();
-      var json = JSON.stringify(array);
-      console.log('datos tabla',json);
-      valorCookie=json;
-      lendatos=array.length;
-      if (lendatos === 0) return;
-      var $tmp = opcionGuardar;
-      if ($tmp === 1) {
-        guardarCookie = $impl.RegistroCookie.Find(nomarchcookie);
-        console.log(guardarCookie);
-        if (!(guardarCookie == null)) {
-          $impl.RegistroCookie.Delete$2(nomarch);
-          $impl.RegistroCookie.Delete$2("nombrearchivo");
-        };
-        fechafincookie = fechahoy + 7;
-        $impl.RegistroCookie.Add$1(nomarchcookie,valorCookie,fechafincookie);
-        $impl.RegistroCookie.Add$1("nombrearchivo",nomarchcookie,fechafincookie);
-        pas.SysUtils.DecodeDate(fechafincookie,{get: function () {
-            return anio;
-          }, set: function (v) {
-            anio = v;
-          }},{get: function () {
-            return mes;
-          }, set: function (v) {
-            mes = v;
-          }},{get: function () {
-            return dia;
-          }, set: function (v) {
-            dia = v;
-          }});
-        console.log('archivo cookie guardar',nomarchcookie);
-        console.log('valor cookie guardar',valorCookie);
-        console.log('fecha expira',fechafincookie, anio, mes, dia);
-        $impl.RegistroCookie.SetCookies();
-      } else if ($tmp === 2) {
-        pas["WEBLib.Forms"].Application.DownloadTextFile(valorCookie,"PedidoSemana.txt");
-      } else if ($tmp === 3) {
-        LLocalStorage = pas["WEBLib.Storage"].TLocalStorage.$create("Create");
-        try {
-          LLocalStorage.SetValues(nomarchcookie,valorCookie);
-        } finally {
-          LLocalStorage = rtl.freeLoc(LLocalStorage);
-        };
-      } else if ($tmp === 4) {}
-      else if ($tmp === 5) {
-        valorCookie ='';
-        var table = Tabulator.findTable("#tabExample")[0];
-        var array = table.getData();
-        var json = JSON.stringify(array);
-        console.log('datos tabla',json);
-        valorCookie=json;
-        console.log('FileHandle ');
-        console.log(filehandle);
-        this.WebLocalTextFile1.FText = valorCookie;
-        if (filehandle == null) {
-          this.WebLocalTextFile1.SaveAsFile$1(function () {
-            pas["WEBLib.Dialogs"].ShowMessage("File succesfully saved");
-          });
-        } else this.WebLocalTextFile1.Save();
-      } else if ($tmp === 6) {
-        var pruebaDatos =[];
-        valorCookie ='';
-        var table = Tabulator.findTable("#tabExample")[0];
-        var array = table.getData();
-        var json = JSON.stringify(array);
-        console.log('datos tabla',json);
-        valorCookie=json;
-        if (!this.PedidosDbClientDataset1.IsEmpty()) {
-          this.PedidosDbClientDataset1.EmptyDataSet();
-          this.PedidosDbClientDataset1.ApplyUpdates();
-        };
-        this.PedidosDbClientDataset1.Append();
-        this.PedidosDbClientDataset1.FieldByName("pedidolibreta").SetAsString(valorCookie);
-        this.PedidosDbClientDataset1.FieldByName("fecha").SetAsString(pas.SysUtils.DateToStr(pas.SysUtils.Now()));
-        this.PedidosDbClientDataset1.Post();
-      };
-    };
-    this.Analisis1Click = function (Sender) {
-      var table = Tabulator.findTable("#tabExample")[0];
-      table.activeSheet("cuatro");
-    };
-    this.ExportarPDF1Click = function (Sender) {
-      this.btn_exportarClick(Sender);
-    };
-    this.Expotar1Click = function (Sender) {
-      $('#exportbtn').click();
-    };
-    this.Descargar1Click = function (Sender) {
-      this.WebButton8Click(Sender);
-    };
-    this.WebFormCreate = function (Sender) {
-      var usr = "";
-      var usr2 = "";
-      var fechahoy = 0.0;
-      var anio = 0;
-      var mes = 0;
-      var dia = 0;
-      var sfechadia = "";
-      var nomarch = "";
-      var valorRegistroCookie = "";
-      $impl.popmenuwidth = this.maximoPopupTexto();
-      fechahoy = pas.SysUtils.Now();
-      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
-          return anio;
-        }, set: function (v) {
-          anio = v;
-        }},{get: function () {
-          return mes;
-        }, set: function (v) {
-          mes = v;
-        }},{get: function () {
-          return dia;
-        }, set: function (v) {
-          dia = v;
-        }});
-      sfechadia = pas.SysUtils.DateToStr(fechahoy);
-      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
-      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
-          return sfechadia;
-        }, set: function (v) {
-          sfechadia = v;
-        }});
-      this.minimizo = false;
-      this.lbminimizar.SetText("");
-      usr = this.GetCookie("usr");
-      this.lbusuario.SetCaption(usr);
-      this.WebPanel4.SetVisible(false);
-      pas.uCargarConsultas.IniciarHoja({p: this, get: function () {
-          return this.p.WebScrollRegistro;
-        }, set: function (v) {
-          this.p.WebScrollRegistro = v;
-        }});
-      this.WebPanel4.GetElementHandle().style.setProperty("overflow","visible");
-      this.WebPanel4.SetVisible(true);
-      this.WebPanel4.FElementBodyClassName = "";
-      this.WebPanel4.SetElementClassName("");
-      this.WebPanel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
-      $impl.RegistroCookie = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
-      $impl.RegistroCookie.GetCookies();
-      $impl.NomRegistroCookie = "VENTASEMANA";
-      this.lbarchivo.SetText($impl.NomRegistroCookie);
-      this.lbarchivo.SetText($impl.NomRegistroCookie + ". Tocar sobre libreta para agregar");
-      document.addEventListener("visibilitychange", function() {
-        if (document.visibilityState === "hidden") {
-          // The page is hidden, which could mean the browser is minimized or in a background tab
-          console.log("Browser or tab is hidden/minimized.");
-          // Perform actions like pausing animations, saving state, etc.
-      
-          const myElement = document.getElementById('elminimiza');
-        //  myElement.innerHTML = 'minimiza';
-          myElement.value = 'minimiza';
-        } else {
-          // The page is visible again
-          console.log("Browser or tab is visible.");
-          // Resume activities
-        }
-      });
-      this.PedidosDbClientDataset1.FFieldDefs.Clear();
-      this.PedidosDbClientDataset1.FFieldDefs.Add$5("id",pas.DB.TFieldType.ftInteger);
-      this.PedidosDbClientDataset1.FFieldDefs.Add$5("pedidolibreta",pas.DB.TFieldType.ftString);
-      this.PedidosDbClientDataset1.FFieldDefs.Add$5("fecha",pas.DB.TFieldType.ftString);
-    };
-    this.Imprimir1Click = function (Sender) {
-      this.edRen.SetText(".");
-      this.btn_imprimirClick(Sender);
-    };
-    this.Graficas1Click = async function (Sender) {
-    };
-    this.Graficar2Click = function (Sender) {
-      this.Graficas1Click(Sender);
-    };
-    this.Sqlite1Click = function (Sender) {
-      var s = "";
-    };
-    this.WebButton11Click = function (Sender) {
-      var editCheck = function(cell){
-          //cell - the cell component for the editable cell
-          //get row data
-          var data = cell.getRow().getData();
-         // return data.age > 18; // only allow the name cell to be edited if the age is over 18
-         return false // no editable
-       // return true // editable
-      };
-      //********************************************************************************
-       //********************************************************************************
-        var sheetDataConsulta = [];
-      
-        const xhr = new XMLHttpRequest();
-      
-      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
-      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
-      xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/BD_SIMEDIC_G.db', true);
-      alert('1');
-      xhr.responseType = 'arraybuffer';
-      alert('2');
-      xhr.onload = e => {
-        const uInt8Array = new Uint8Array(xhr.response);
-         alert('3');
-        const db = new SQL.Database(uInt8Array);
-         alert('4');
-      
-       //********************************************************************************
-       //SELECT SQL *********************************************************************
-       //********************************************************************************
-       // const contents = db.exec("SELECT identificador as clave,nombre,rfc FROM TAB_PROSPECTOS WHERE identificador > 100");
-      //  const contents = db.exec("SELECT id,nombre FROM tabla1");
-       const  contents = db.exec("SELECT identificador,clave,nombre FROM [pacientes-pruebas];");
-      
-       //********************************************************************************
-       //********************************************************************************
-      
-         alert('5');
-        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
-        console.log('contents');
-        console.log(contents);
-        console.log(contents[0].columns);
-        console.log(contents[0].values);
-      
-       // longitud de la arreglo tabla SQLite
-        var len = contents[0].values.length;
-        for (let i = 0; i < len; i++) {
-           //var obj = JSON.parse (contents[0].values[i]);
-           var obj = contents[0].values[i];
-           console.log(i,contents[0].values[i]);  // valus
-           sheetDataConsulta.push(obj);
-        }
-      
-      
-       //********************************************************************************
-       //********************************************************************************
-        console.log('sheetdata');
-        console.log(sheetDataConsulta);
-      
-       //********************************************************************************
-       //********************************************************************************
-           var sheets = [
-          {
-            name:'huno',
-            title:"Pacientes",
-            key:"uno",
-            rows:len,
-            columns:3,
-            data:[],
-        },
-      {
-            name:'hdos',
-            title:"Consultas",
-            key:"dos",
-            rows:20,
-            columns:3,
-            data:[]
-        },   ,
-        {
-            name:'htres',
-            title:"Estudios",
-            key:"tres",
-            rows:20,
-            columns:3,
-            data:[]
-        },,
-        {
-            name:'hcuatro',
-            title:"Analisis",
-            key:"cuatro",
-            rows:20,
-            columns:3,
-            data:[]
-        },
-      
-      ];
-               var table = new Tabulator("#tabExample",
-       {   dependencies:{
-              XLSX:XLSX,
-          },
-      
-      
-      rowFormatter:function(row){
-      
-            // alert('rowformatter');
-           // console.log(row.getData());    //OK
-              if((row.getData()._id % 2 ) > 0){
-                 // console.log ('rowformatter');
-                //  row.getElement().classList.add("Modern"); //mark rows with age greater than or equal to 18 as successful;
-             // row.getElement().style.backgroundColor = "#d5f7d7"; //apply css change to row element
-              row.getElement().style.backgroundColor = "#7cbfb2";
-              }
-          },
-          pagination:true, //enable pagination
-          paginationSize:10, // this option can take any positive integer value
-      
-          responsiveLayout:true, // enable responsive layouts
-          responsiveLayout:"collapse", // collapse columns that no longer fit on the table into a list under the row
-         // responsiveLayout:"hide",
-        // layout:"fitDataStretch",
-            rowHeader:{field:"_id", hozAlign:"center", headerSort:false, title:"Sel.Ren.", headerWordWrap:true},
-       // height:"211px",
-       //   height:"100%",
-          height:"70%",
-        spreadsheet:true,
-        spreadsheetRows:len,
-        spreadsheetColumns:3,
-        spreadsheetColumnDefinition:{editable:editCheck,editor:"input"},
-      
-      
-        //spreadsheetData:sheetData,             // OK
-      
-        //spreadsheetSheetTabs:true, //show spreadsheet tabs in footer    // OK
-      
-      
-          spreadsheetSheets:sheets,        // DEFINICION HOJAS ARREGLO
-          spreadsheetSheetTabs:true,
-         // spreadsheet:true,
-         // spreadsheetSheetTabsElement:"#table-tabs", //insert tabs in element with id of table-tabs
-      
-      
-          editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
-      
-      
-      
-        },);
-      
-         table.on("tableBuilt", function(){
-             table.activeSheet("uno"); //make the info sheet active
-             table.setSheetData("uno",sheetDataConsulta);       // API
-             alert (len);
-             console.log('columnas');
-             console.log(contents[0].columns);
-             console.log('columnas sperad');
-             var cols = table.getColumns() //get array of column components
-             console.log(cols);
-             var lenc = cols.length;
-             for (let i = 1; i < lenc; i++) {
-      
-               var col = cols[i];
-               var strtitle = contents[0].columns[i-1];
-               console.log(strtitle);
-               if (strtitle=="nombre")
-                   col.updateDefinition({title:strtitle,width:250}) //change the column title
-               else
-                  col.updateDefinition({title:strtitle, width:130}) //change the column title
-      
-                console.log(col);
-              }
-             });
-      
-       //********************************************************************************
-       //********************************************************************************
-      };
-      xhr.send();
-    };
-    this.WebButton12Click = function (Sender) {
-      var editCheck = function(cell){
-          //cell - the cell component for the editable cell
-          //get row data
-          var data = cell.getRow().getData();
-         // return data.age > 18; // only allow the name cell to be edited if the age is over 18
-         return false // no editable
-       // return true // editable
-      };
-      //********************************************************************************
-       //********************************************************************************
-        var sheetDataConsulta = [];
-      
-        const xhr = new XMLHttpRequest();
-      
-      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
-      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
-      xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/BD_SIMEDIC_G.db', true);
-      alert('1');
-      xhr.responseType = 'arraybuffer';
-      alert('2');
-      xhr.onload = e => {
-        const uInt8Array = new Uint8Array(xhr.response);
-         alert('3');
-        const db = new SQL.Database(uInt8Array);
-         alert('4');
-      
-       //********************************************************************************
-       //SELECT SQL *********************************************************************
-       //********************************************************************************
-       // const contents = db.exec("SELECT identificador as clave,nombre,rfc FROM TAB_PROSPECTOS WHERE identificador > 100");
-      //  const contents = db.exec("SELECT id,nombre FROM tabla1");
-       const  contents = db.exec("SELECT fecha,comentario,diagnosticon FROM ObtieneConsultasPacientes_2 where idpaciente = 11155;");
-      
-       //********************************************************************************
-       //********************************************************************************
-      
-         alert('5');
-        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
-        console.log('contents');
-        console.log(contents);
-        console.log(contents[0].columns);
-        console.log(contents[0].values);
-      
-       // longitud de la arreglo tabla SQLite
-        var len = contents[0].values.length;
-        for (let i = 0; i < len; i++) {
-           //var obj = JSON.parse (contents[0].values[i]);
-           var obj = contents[0].values[i];
-           console.log(i,contents[0].values[i]);  // valus
-           sheetDataConsulta.push(obj);
-        }
-      
-      
-       //********************************************************************************
-       //********************************************************************************
-        console.log('sheetdata');
-        console.log(sheetDataConsulta);
-      
-        var table = Tabulator.findTable("#tabExample")[0];
-        table.activeSheet("dos"); //make the info sheet active
-        table.setSheetData("dos",sheetDataConsulta);
-      
-             console.log('columnas');
-             console.log(contents[0].columns);
-             console.log('columnas sperad');
-             var cols = table.getColumns() //get array of column components
-             console.log(cols);
-             var lenc = cols.length;
-             for (let i = 1; i < lenc; i++) {
-      
-               var col = cols[i];
-               var strtitle = contents[0].columns[i-1];
-               console.log(strtitle);
-               if (strtitle=="nombre")
-                   col.updateDefinition({title:strtitle,width:250}) //change the column title
-               else
-                  col.updateDefinition({title:strtitle, width:130}) //change the column title
-      
-                console.log(col);
-              }
-      
-      
-       //********************************************************************************
-       //********************************************************************************
-      };
-      xhr.send();
-    };
-    this.WebButton13Click = function (Sender) {
-      var editCheck = function(cell){
-          //cell - the cell component for the editable cell
-          //get row data
-          var data = cell.getRow().getData();
-         // return data.age > 18; // only allow the name cell to be edited if the age is over 18
-         return false // no editable
-       // return true // editable
-      };
-      //********************************************************************************
-       //********************************************************************************
-        var sheetDataConsulta = [];
-      
-        const xhr = new XMLHttpRequest();
-      
-      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
-      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
-      xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/BD_SIMEDIC_G.db', true);
-      alert('1');
-      xhr.responseType = 'arraybuffer';
-      alert('2');
-      xhr.onload = e => {
-        const uInt8Array = new Uint8Array(xhr.response);
-         alert('3');
-        const db = new SQL.Database(uInt8Array);
-         alert('4');
-      
-       //********************************************************************************
-       //SELECT SQL *********************************************************************
-       //********************************************************************************
-       // const contents = db.exec("SELECT identificador as clave,nombre,rfc FROM TAB_PROSPECTOS WHERE identificador > 100");
-      //  const contents = db.exec("SELECT id,nombre FROM tabla1");
-       const  contents = db.exec("SELECT fecha,comentario,tipo FROM ObtieneEstudiosAnalisisPacientes_2 where idpaciente = 11154;");
-      
-       //********************************************************************************
-       //********************************************************************************
-      
-         alert('5');
-        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
-        console.log('contents');
-        console.log(contents);
-        console.log(contents[0].columns);
-        console.log(contents[0].values);
-      
-       // longitud de la arreglo tabla SQLite
-        var len = contents[0].values.length;
-        for (let i = 0; i < len; i++) {
-           //var obj = JSON.parse (contents[0].values[i]);
-           var obj = contents[0].values[i];
-           console.log(i,contents[0].values[i]);  // valus
-           sheetDataConsulta.push(obj);
-        }
-      
-      
-       //********************************************************************************
-       //********************************************************************************
-        console.log('sheetdata');
-        console.log(sheetDataConsulta);
-      
-        var table = Tabulator.findTable("#tabExample")[0];
-        table.activeSheet("tres"); //make the info sheet active
-        table.setSheetData("tres",sheetDataConsulta);
-      
-             console.log('columnas');
-             console.log(contents[0].columns);
-             console.log('columnas sperad');
-             var cols = table.getColumns() //get array of column components
-             console.log(cols);
-             var lenc = cols.length;
-             for (let i = 1; i < lenc; i++) {
-      
-               var col = cols[i];
-               var strtitle = contents[0].columns[i-1];
-               console.log(strtitle);
-               if (strtitle=="nombre")
-                   col.updateDefinition({title:strtitle,width:250}) //change the column title
-               else
-                  col.updateDefinition({title:strtitle, width:130}) //change the column title
-      
-                console.log(col);
-              }
-       //********************************************************************************
-       //********************************************************************************
-        
-      
-       //********************************************************************************
-       //********************************************************************************
-      };
-      xhr.send();
-    };
-    this.WebDivClick = function (Sender) {
-      var keyhoja = "";
-      var rowcountt = 0;
-      var table = Tabulator.findTable("#tabExample")[0];
-      // table.alert("Libreta digital, Tocar para agregar renglones");
-       var sheet = table.getSheet();
-       var key = sheet.getKey();
-      // alert(key);
-       keyhoja=key;
-       var activeRowCount = table.getDataCount(key);
-       rowcountt =activeRowCount;
-       //console.log('activeRowCount',activeRowCount);
-      if ((keyhoja === "uno") && (rowcountt === 0)) this.Consultas1Click(Sender);
-    };
-    this.AnlisisGrfico1Click = async function (Sender) {
-      //window.open('http://localhost/GraficadorPas/TMSWeb/Debug/Project1.html');
-      // window.open('https://idsfdg.github.io/GrafPrueba/');
-      return;
-    };
-    this.Salir1Click = async function (Sender) {
-      var mr = 0;
-      mr = await this.WebMessageDlg1.ShowDialog$2("Imprimir el resumen de su Venta Semanal?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes));
-      if (mr === 6) {
-        this.ExportaraPDF1Click(Sender);
-      };
-      this.Close();
-      pas["WEBLib.Forms"].Application.Terminate();
-    };
-    this.LimpiarHoja1Click = function (Sender) {
-      var table = Tabulator.findTable("#tabExample")[0];
-          table.clearSheet("uno"); //clear the data from the info sheet
-          var cols = table.getColumns() //get array of column components
-      
-      
-              //cols[0].updateDefinition({title:'Ren',width:5,headerTooltip:''});
-      
-           //   cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click para eliminar registro'});
-           cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click en registro, para eliminar.',
-              cellClick:function(e, cell)
-              {
-              console.log("cell click");
-              var row = cell.getRow();
-              var rowPosition = row.getPosition();
-              var cellvalue = cell.getValue();
-              if (confirm("Desea eliminar registro "+cellvalue.toString()+" ?")) {
-                row.delete();
-               }
-              }});
-              cols[1].updateDefinition({title:'Cliente', field:"nombre",width:90,responsive:0,headerTooltip:'Cliente',headerFilter:"input"});
-              cols[2].updateDefinition({title:'Producto',field:"articulo",width:100,responsive:0,headerTooltip:'Producto',headerFilter:"input"});
-              cols[3].updateDefinition({title:'$Precio',field:"importe",width:70,responsive:0,headerTooltip:'Precio',headerFilter:"input" , bottomCalc:"sum"});
-              cols[4].updateDefinition({title:'P.',width:30,headerTooltip:'Pagado',field:"pagado",editor:true,headerHozAlign:"left", formatter:"tickCross"});
-              cols[5].updateDefinition({title:'E.',width:30,headerTooltip:'Entregado',field:"entregado",editor:true, headerHozAlign:"left",formatter:"tickCross"});
-              cols[6].updateDefinition({title:'V/S',width:68,headerTooltip:'Vta.Directa /Subasta',field:"vds",headerHozAlign:"left",headerFilter:"input"});
-    };
-    this.LimpiarHoja2Click = function (Sender) {
-      this.edRen.SetText(".");
-      var table = Tabulator.findTable("#tabExample")[0];
-          table.clearSheet("uno"); //clear the data from the info sheet
-          var cols = table.getColumns() //get array of column components
-      
-          return;    // por sheetLoaded (Spreadsheet)
-      
-      
-              //cols[0].updateDefinition({title:'Ren',width:5,headerTooltip:''});
-      
-         //     cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click para eliminar registro'});
-         cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click en registro, para eliminar.',
-              cellClick:function(e, cell)
-              {
-              console.log("cell click");
-              var row = cell.getRow();
-              var rowPosition = row.getPosition();
-              var cellvalue = cell.getValue();
-              if (confirm("Desea eliminar registro "+cellvalue.toString()+" ?")) {
-                row.delete();
-               }
-              }});
-              cols[1].updateDefinition({title:'Cliente', field:"nombre",width:90,responsive:0,headerTooltip:'Cliente',headerFilter:"input"});
-              cols[2].updateDefinition({title:'Producto',field:"articulo",width:100,responsive:0,headerTooltip:'Producto',headerFilter:"input"});
-              cols[3].updateDefinition({title:'$Precio',field:"importe",width:70,responsive:0,headerTooltip:'Precio',headerFilter:"input"  , bottomCalc:"sum"});
-              cols[4].updateDefinition({title:'P.',width:30,headerTooltip:'Pagado',field:"pagado",editor:true, headerHozAlign:"left",formatter:"tickCross"});
-              cols[5].updateDefinition({title:'E.',width:30,headerTooltip:'Entregado',field:"entregado",editor:true,headerHozAlign:"left", formatter:"tickCross"});
-              cols[6].updateDefinition({title:'V/S',width:68,headerTooltip:'Vta.Directa /Subasta',field:"vds",headerHozAlign:"left",headerFilter:"input"});
-    };
-    this.Registrar1Click = function (Sender) {
-      this.cargarFormaCaptura(Sender);
-      return;
-      this.edRen.SetText(".");
-    };
-    this.btnCerrarClick = async function (Sender) {
-      var salvar = "";
-      var mr = 0;
-      var lendatos = 0;
-      var table = Tabulator.findTable("#tabExample")[0];
-      var array = table.getData();
-      lendatos=array.length;
-      if (lendatos === 0) return;
-      mr = await this.WebMessageDlg1.ShowDialog$2("Desea guardar su registro de productos ?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes,pas["WEBLib.Dialogs"].TMsgDlgBtn.mbNo));
-      if (mr === 6) this.Estudios1Click(Sender);
-      this.MuestraMenu(true);
-    };
-    this.ExportaraPDF1Click = function (Sender) {
-      this.edRen.SetText(".");
-      this.btn_exportarClick(Sender);
-      return;
-      var table = Tabulator.findTable("#tabExample")[0];
-       table.download("pdf", "data.pdf", {
-       orientation:"portrait", //set page orientation to portrait
-       title:"Dynamics Quotation Report", //add title to report
-       //jsPDF:{
-      //     unit:"in", //set units to inches
-      // },
-      // autoTable:{ //advanced table styling
-      //     styles: {
-      //         fillColor: [100, 255, 255]
-      //     },
-      //     columnStyles: {
-      //         id: {fillColor: 255}
-      //     },
-      //     margin: {top: 60},
-      // },
-       
-      });
-    };
-    this.btnAgregarClick = function (Sender) {
-      var datosstr = "";
-      var src = "";
-      var ren = "";
-      var irc = 0;
-      var i = 0;
-      var ventasubasta = "";
-      var maxRegs = 0;
-      ventasubasta = "V";
-      if (this.radioTipo.GetItemIndex() === 1) ventasubasta = "S";
-      maxRegs = 101;
-      var table = Tabulator.findTable("#tabExample")[0];
-      var rowCount = table.getDataCount();
-      irc =   rowCount+1;
-      src = pas.SysUtils.IntToStr(irc);
-      datosstr = '{"rc":' + String.fromCharCode(34) + src + String.fromCharCode(34) + "," + '"nombre":' + String.fromCharCode(34) + this.edNombre.GetText() + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + this.edArticulo.GetText() + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + this.edImporte.GetText() + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + ventasubasta + String.fromCharCode(34) + "}";
-      var table = Tabulator.findTable("#tabExample")[0];
-            var tabledata = [];   // se puede eliminar
-            var obj=JSON.parse(datosstr);   // se puede eliminar
-            tabledata.push(obj);  // se puede eliminar
-            //console.log(tabledata);
-            var rowCount = table.getDataCount()+1;
-           // alert(rowCount);
-            // if (rowCount < 101)
-             if (rowCount < maxRegs);
-            {
-             table.addRow(datosstr)
-                  .then(function(row){
-                      //row - the row component for the row updated or added
-                   row.scrollTo();
-      
-                  //run code after data has been updated
-                  })
-                 .catch(function(error){
-                       //handle error updating data
-                  });
-      
-           }  //if  rowCount
-      
-      
-          /*  if (rowCount < 11)
-            {
-              table.addData(tabledata, false)  //ADD true top of the table false bottom of the table
-                .then(function(rows){
-                 //rows - array of the row components for the rows updated or added
-      
-                //run code after data has been updated
-               // console.log(rows);
-               // rows.scrollTo("bottom", true);
-                 })
-                .catch(function(error){
-                 //handle error updating data
-                });
-            }
-            */;
-      this.edNombre.SetText("");
-      this.edArticulo.SetText("");
-      this.edImporte.SetText("");
-      this.edventasuba.SetText("");
-    };
-    this.WebPanel4Click = function (Sender) {
-    };
-    this.WebLabel2Click = function (Sender) {
-      var opc = false;
-      return;
-      this.cargarFormaCaptura(Sender);
-      opc = !this.WebScrollRegistro.FVisible;
-      this.MuestraMenu(opc);
-    };
-    this.edventasubaEnter = function (Sender) {
-      if (this.edventasuba.GetText().length === 0) {
-        this.edventasuba.SetText("V");
-        this.edventasuba.SetSelLength(0);
-      };
-    };
-    this.WebScrollRegistroClick = function (Sender) {
-      var i = 0;
-      i = 0;
-      // alert('click');
-    };
-    this.GetCookie = function (cookie_name) {
-      var Result = "";
-      var Cookies = null;
-      var Cookie = null;
-      Result = "";
-      Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
-      try {
-        Cookies.GetCookies();
-        Cookie = Cookies.Find(cookie_name);
-        if (Cookie != null) Result = Cookie.FValue;
-      } finally {
-        Cookies = rtl.freeLoc(Cookies);
-      };
-      return Result;
-    };
-    this.WebFormEnter = async function (Sender) {
-      var u = "";
-      var p = "";
-      var resultado = false;
-      var valorRegistroCookie = "";
-      u = this.lbusuario.FCaption;
-      const myElement = document.getElementById('elminimiza');
-      if (myElement.innerHTML == 'minimiza')
-      {
-        // alert('pedir validacion de usuario '+u);
-        // myElement.innerHTML='';
-        // let pp = prompt("Por favor captura su contraseña de usuario:");
-        // p=pp;
-      resultado = await this.ValidarUsuarioActivo(u,p);
-      };
-    };
-    this.lbminimizarChange = function (Sender) {
-      var ttxt = "";
-      ttxt = rtl.as(Sender,pas["WEBLib.StdCtrls"].TEdit).GetText();
-      if (ttxt === "minimiza") {
-        pas["WEBLib.Dialogs"].ShowMessage("va a grabar");
-        this.Estudios1Click(Sender);
-      };
-    };
-    this.Compartir1Click = function (Sender) {
-      var Cookies = null;
-      var PDFCookie = null;
-      Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
-      PDFCookie = Cookies.Find("PDF");
-      if (!(PDFCookie == null)) Cookies.Delete$2("PDF");
-      Cookies.Add$2("PDF","C");
-      var table = Tabulator.findTable("#tabExample")[0];
-            //var table = $("#tabExample").Tabulator("getHtml", "true"); //true option preserves current sort
-      
-            //var htmlTable = table.getHtml("active",false);
-            var htmlTable = table.getHtml("all",false);
-            var jsonData = table.getSheetData("uno");
-            // $('#html-table').append(table); $('#html-table>table').attr("id", "table");
-           var elem = $("#htmlTable");
-           //var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
-           const { jsPDF } = window.jspdf;
-      
-          // const doc = new jsPDF();
-           var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
-           //var res = doc.autoTableHtmlToJson(elem);
-           //console.log('res',res);
-           //doc.autotable(res.columns, res.data, { additional autotable options go in here - see website for details })
-          //doc.autotable(res.columns, res.data, { additional autotable options go in here - see website for details })
-      
-            console.log('htmltable',htmlTable);
-      
-         // doc.autoTable({ html:  '#html-table' })
-            const myElement = document.getElementById('tabExample');
-            console.log('element',myElement.innerHTML);
-            console.log('jsondata',jsonData);
-         //   doc.autoTable({ html:  myElement })
-         //  doc.save('myPDF.pdf'); 
-         //   doc.autoTable({ html:  'htmlTable' })
-      
-      
-          var specialElementHandlers = {
-          '#getPDF': function(element, renderer){
-            return true;
-          },
-          '.controls': function(element, renderer){
-            return true;
-          }
-        };
-      
-            // Convert HTML to PDF in JavaScript
-       //  var pdf_el=document.getElementById('tabExample');
-      //doc.html(  pdf_el , {x:20, y:75,maxWidth:200 , callback: function(doc_e){
-      //    doc_e.save("bbb.pdf");
-      //}});
-      
-      
-            // Convert HTML to PDF in JavaScript
-      
-         doc.html(htmlTable, {
-         callback: function (doc) {
-         //  doc.save();
-      
-           const pdfBlob = doc.output('blob');
-      
-           const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-            if ( window.navigator.share) {
-            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
-            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-      
-          window.navigator.share({
-              files: [file],
-              title: 'PDF Document',
-              text: 'Check out this PDF document!',
-          })
-          .then(() => console.log('PDF shared successfully'))
-          .catch((error) => console.error('Error sharing PDF:', error));
-      } else {
-          console.log('Web Share API not supported in this browser.');
-      }
-      
-         }
-      });
-      return;
-      console.log('cookie');
-           console.log(Cookies);
-           var table = Tabulator.findTable("#tabExample")[0];
-          table.download("pdf", "data.pdf", {
-          orientation:"portrait", //set page orientation to portrait
-          title:"Dynamics Quotation Report", //add title to report
-          //jsPDF:{
-         //     unit:"in", //set units to inches
-         // },
-         // autoTable:{ //advanced table styling
-         //     styles: {
-         //         fillColor: [100, 255, 255]
-         //     },
-         //     columnStyles: {
-         //         id: {fillColor: 255}
-         //     },
-         //     margin: {top: 60},
-         // },
-          documentProcessing:function(doc){
-              //carry out an action on the doc object
-      
-              // Assuming 'doc' is your jsPDF instance and you've added your AutoTable
-            const pdfBlob = doc.output('blob');
-      
-           const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-            if ( window.navigator.share) {
-            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
-            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-      
-          window.navigator.share({
-              files: [file],
-              title: 'PDF Document',
-              text: 'Check out this PDF document!',
-          })
-          .then(() => console.log('PDF shared successfully'))
-          .catch((error) => console.error('Error sharing PDF:', error));
-      } else {
-          console.log('Web Share API not supported in this browser.');
-      }
-          }
-         });
-    };
-    this.CompartirPDF21Click = function (Sender) {
-      var table = Tabulator.findTable("#tabExample")[0];
-            //var table = $("#tabExample").Tabulator("getHtml", "true"); //true option preserves current sort
-      
-             var columnas = table.getColumnDefinitions();
-             var renglones = table.getRows();
-             var allTableData = table.getData();
-             console.log('columnas',columnas);
-             for (let i = 0; i < columnas.length; i++) {
-              console.log("Iteration number:", i, columnas[i]);
-              console.log("Iteration number:", i, columnas[i].values[0]);
-      
-             }
-             console.log(allTableData);
-      
-      
-      
-           var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
-           var columns = [{ title: "ID", dataKey: "id" }, { title: "Name", dataKey: "name" }];
-              var rows = [
-                  { id: 1, name: "Item 1" },
-                  { id: 2, name: "Item 2" }
-              ];
-      
-      
-              //doc.autoTable(columns, rows);
-              doc.autoTable(columnas, rows);
-      
-          doc.save('table.pdf');
-    };
-    this.compartirpdf31Click = function (Sender) {
-      var fechahoy = 0.0;
-      var anio = 0;
-      var mes = 0;
-      var dia = 0;
-      var sfechadia = "";
-      fechahoy = pas.SysUtils.Now();
-      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
-          return anio;
-        }, set: function (v) {
-          anio = v;
-        }},{get: function () {
-          return mes;
-        }, set: function (v) {
-          mes = v;
-        }},{get: function () {
-          return dia;
-        }, set: function (v) {
-          dia = v;
-        }});
-      sfechadia = pas.SysUtils.DateToStr(fechahoy);
-      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
-      sfechadia = "Ventas_del_" + sfechadia;
-      var table = Tabulator.findTable("#tabExample")[0];
-            //var htmlTable = table.getHtml("active",false);
-            var htmlTable = table.getHtml("all",false);
-            var jsonData = table.getSheetData("uno");
-           // console.log('htmlTable',  htmlTable);
-            const { jsPDF } = window.jspdf;
-            var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
-      
-      
-           var specialElementHandlers = {
-           '#getPDF': function(element, renderer){
-             return true;
-           },
-           '.controls': function(element, renderer){
-             return true;
-           }
-         };
-      
-      
-         const myElement = document.getElementById('html-table');
-         myElement.innerHTML = htmlTable;
-        // console.log('myelement',myElement);
-         // OK
-         //doc.autoTable({ html: myElement.querySelector('table') });
-         //doc.save("aaa.pdf");
-         // fin ok
-       // https://phppot.com/javascript/jspdf-autotable/
-        //doc.autoTable({ html: myElement.querySelector('table') ,
-        //console.log('tablehtml',myElement.querySelector('table'));
-      
-         doc.autoTable({ html: myElement.querySelector('table')});
-         const pdfBlob = doc.output('blob');
-      
-        // const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-         const file = new File([pdfBlob], sfechadia, { type: 'application/pdf' });
-         if ( window.navigator.share) {
-            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
-            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-      
-          window.navigator.share({
-              files: [file],
-              title: 'PDF Document',
-              text: 'Check out this PDF document!',
-          })
-         .then(() => console.log('PDF compartido correctamente'))
-         .catch((error) => console.error('Error compartir PDF:', error));
-          } else {
-          console.log('Web Share API not supported in this browser.');
-      };
-    };
-    this.Compartir2Click = function (Sender) {
-      this.compartirpdf31Click(Sender);
-    };
-    this.lbarchivoClick = function (Sender) {
-      var keyhoja = "";
-      return;
-      var table = Tabulator.findTable("#tabExample")[0];
-       var sheet = table.getSheet();
-       var key = sheet.getKey();
-      // alert(key);
-       keyhoja=key;
-      if (keyhoja === "uno") this.Consultas1Click(Sender);
-    };
-    this.WebLocalTextFile1FileSave = function (Sender) {
-    };
-    this.WebFormShow = function (Sender) {
-      var $Self = this;
-      this.PedidosDbClientDataset1.Init(function () {
-        $Self.PedidosDbClientDataset1.SetActive(true);
-      });
-    };
-    this.WebScrollRegistroMouseEnter = function (Sender) {
-      this.MuestraMenu(false);
-    };
-    this.WebScrollRegistroMouseLeave = function (Sender) {
-      this.MuestraMenu(true);
-    };
-    this.cargarFormaCaptura = function (Sender) {
-      var $Self = this;
-      var newform = null;
-      var lendatos = 0;
-      var mr = 0;
-      async function AfterShowModal(AValue) {
-        var table = Tabulator.findTable("#tabExample")[0];
-        var array = table.getData();
-        lendatos=array.length;
-        if (lendatos === 0) return;
-        mr = await $Self.WebMessageDlg1.ShowDialog$2("Desea guardar su registro de productos ?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes,pas["WEBLib.Dialogs"].TMsgDlgBtn.mbNo));
-        if (mr === 6) $Self.Estudios1Click(newform);
-      };
-      function AfterCreate(AForm) {
-        newform.btnAgregar.SetCaption("Agregar");
-        newform.FShowClose = false;
-        newform.SetTop(rtl.trunc(($mod.Form1.GetClientHeight() - newform.GetHeight()) / 2));
-        newform.SetLeft(rtl.trunc(($mod.Form1.GetClientWidth() - newform.GetWidth()) / 1));
-        newform.SetLeft(newform.GetLeft() - 10);
-      };
-      newform = pas.Unit3.TForm3.$create("CreateNew$3",[AfterCreate]);
-      newform.FPopup = true;
-      newform.SetCaption("Registro form");
-      newform.SetBorder(pas["WEBLib.Forms"].TFormBorderStyle.fbDialog);
-      newform.FShowClose = false;
-      newform.ShowModal$1(AfterShowModal);
-    };
-    this.PedidosDbClientDataset1AfterOpen = function (DataSet) {
-      var Sender = null;
-      this.CargarRenglones();
-    };
-    this.WebDivMouseMove = function (Sender, Shift, X, Y) {
-      return;
-      var table = Tabulator.findTable("#tabExample")[0];
-        table.alert("Libreta digital, Tocar para agregar renglones");
-      
-          table.clearAlert();   // Clear Alert;
-    };
-    this.WebSpeedButton1Click = function (Sender) {
-      var r = null;
-      var vpopmenuwidth = 0.0;
-      var i = 0;
-      var w = 0.0;
-      var maxw = 0.0;
-      var s = "";
-      this.WebPopupMenu1.SetVisible(true);
-      r = this.WebSpeedButton1.GetElementHandle().getBoundingClientRect();
-      this.WebPopupMenu1.Popup(Math.round(r.left - $impl.popmenuwidth),Math.round(r.bottom));
-    };
-    this.Salir2Click = function (Sender) {
-      this.Salir1Click(Sender);
-    };
-    this.comparteClick = function (Sender) {
-      this.Compartir2Click(Sender);
-    };
-    this.dos1Click = function (Sender) {
-      this.Consultas1Click(Sender);
-    };
-    this.tres1Click = function (Sender) {
-      this.Estudios1Click(Sender);
-    };
-    this.cuatroClick = function (Sender) {
-      this.LimpiarHoja2Click(Sender);
-    };
-    this.uno1Click = function (Sender) {
-      this.Registrar1Click(Sender);
-    };
-    this.WebDivDblClick = function (Sender) {
-      var keyhoja = "";
-      var rowcountt = 0;
-      var table = Tabulator.findTable("#tabExample")[0];
-      // table.alert("Libreta digital, Tocar para agregar renglones");
-       var sheet = table.getSheet();
-       var key = sheet.getKey();
-      // alert(key);
-       keyhoja=key;
-       var activeRowCount = table.getDataCount(key);
-       rowcountt =activeRowCount;
-       //console.log('activeRowCount',activeRowCount);
-      this.Registrar1Click(Sender);
-    };
-    this.ValidarUsuarioActivo = async function (u, p) {
-      var Result = false;
-      var ustr = "";
-      var pstr = "";
-      var astr = "";
-      var jresult = false;
-      var Cookies = null;
-      Result = false;
-      jresult = false;
-      ustr = pas.SysUtils.TStringHelper.UpperCase(u);
-      //********************************************************************************
-       //********************************************************************************
-       //        const sqlPromise = initSqlJs({
-       //       locateFile: file => 'https://idsfdg.github.io/FIDEVALE/'
-       //     });
-       //        const dataPromise = fetch("//idsfdg.github.io/FIDEVALE/BD_Vale.db").then(res => res.arrayBuffer());
-       //        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
-       //        const db = new SQL.Database(new Uint8Array(buf));
-       //   alert('fech');
-       //********************************************************************************
-       //********************************************************************************
-      
-        const xhr = new XMLHttpRequest();
-      
-      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
-      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
-        xhr.open('GET', 'https://idsfdg.github.io/FIDEVALE/BD_Vale.db', true);
-      //alert('1');
-      xhr.responseType = 'arraybuffer';
-      //alert('2');
-       xhr.onload =  e => {
-        const uInt8Array = new Uint8Array(xhr.response);
-       // console.log  ('array',uInt8Array);
-      //   alert('3');
-        const db = new SQL.Database(uInt8Array);
-      //   alert('4');
-      
-       //********************************************************************************
-       //SELECT SQL *********************************************************************
-       //********************************************************************************
-      
-        const  contents =   db.exec("SELECT contrapwd,estado FROM tablausuarios where nombre = '"+ustr+"';");
-       //********************************************************************************
-       //********************************************************************************
-      
-        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
-         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-          // Request finished. Do processing here.
-      
-           var len = contents.length;
-           console.log('contents');
-          console.log(contents.length);
-           if (len > 0)
-           {
-            console.log(contents);
-            console.log('contents columns');
-            console.log(contents[0].columns);
-            console.log('contents values');
-            console.log(contents[0].values);
-            len = contents[0].values.length;
-            if (len > 0)
-            {
-             //  alert('usuario existe');
-               pstr= contents[0].values[0][0];
-               astr= contents[0].values[0][1];
-               console.log('pwd',pstr);
-               console.log('astr',astr);
-              // const edBox = document.getElementById("tabla");
-              // if (pstr==p  && astr=="1")  // El password ya lo solicito en la Formalogin
-               if (astr=="1")   // SOLAMENTE VALIDAR QUE EL USUARIO ESTE ACTIVO (pagado servicio)
-               {
-                  jresult=true;
-                 // WebMemo1.text = pwd+astr;
-      
-                 //Set the text content of the editbox
-                 //  edBox.value = "OK";
-               }
-               else
-               {
-                    jresult=false;
-                //   edBox.value = "NOT OK";
-               }
-      
-      
-            }
-         }
-        } // readyState
-        console.log('resultado 1',jresult);
-      //alert('5');
-      if (jresult === true) {
-        Result = true;
-      } else {
-        Result = false;
-        alert('Usuario, no cuenta con autorización para utilizar, al sistema.');
-        this.Salir1Click(this);
-      };
-      //********************************************************************************
-       //********************************************************************************
-      };
-      
-      xhr.send();
-      this.minimizo = false;
-      return Result;
-    };
-    this.MuestraMenu = function (opc) {
-      return;
-      if (opc === false) {
-        const element = document.getElementById('menuprincipal');
-        element.style.visibility = 'hidden';
-      } else if (opc === true) {
-        const element = document.getElementById('menuprincipal');
-        element.style.visibility = 'visible'; // Hides the element and removes its space;
-      };
-    };
-    this.CargarRenglones = function () {
-      var keyhoja = "";
-      var rowcountt = 0;
-      var Sender = null;
-      var table = Tabulator.findTable("#tabExample")[0];
-       var sheet = table.getSheet();
-       var key = sheet.getKey();
-      // alert(key);
-       keyhoja=key;
-       var activeRowCount = table.getDataCount(key);
-       rowcountt =activeRowCount;
-       //console.log('activeRowCount',activeRowCount);
-      if ((keyhoja === "uno") && (rowcountt === 0)) this.Consultas1Click(Sender);
-    };
-    this.maximoPopupTexto = function () {
-      var Result = 0.0;
-      var i = 0;
-      var l = 0;
-      var maxl = 0;
-      var s = "";
-      var maxs = "";
-      var bmp = null;
-      bmp = pas["WEBLib.Graphics"].TBitmap.$create("Create$3");
-      bmp.GetCanvas().FFont.Assign($mod.Form1.FFont);
-      Result = -1;
-      maxl = 0;
-      for (var $l = 0, $end = this.WebPopupMenu1.FItems.GetCount() - 1; $l <= $end; $l++) {
-        i = $l;
-        s = this.WebPopupMenu1.FItems.GetMenuItem(i).FCaption;
-        l = s.length;
-        if (l > maxl) {
-          maxl = l;
-          maxs = s;
-        };
-      };
-      Result = bmp.GetCanvas().TextWidth(maxs);
-      return Result;
-    };
-    this.MostrarHint = function () {
-      var ElemID = "";
-      var ToolText = "";
-      ElemID = this.WebDiv.GetID();
-      ToolText = this.WebDiv.FHint;
-      var div = document.getElementById(ElemID);
-      var tooltip = new bootstrap.Tooltip(div, {
-        title: ToolText,
-        placement: 'right', // 'top', 'bottom', 'left' also possible
-        customClass: 'MyCustomToolTipClass', // Optional: for custom CSS
-        delay: { show: 1000, hide: 250 } // Optional: delay for showing/hiding
-      });
-    };
-    this.LoadDFMValues = function () {
-      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
-      this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
-      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
-      this.WebPanel5 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
-      this.WebPanel3 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$2",["menuprincipal"]);
-      this.WebPanel4 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
-      this.WebLabel1 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebButton9 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.edPacNombre = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["edPacNombre"]);
-      this.WebButton11 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.WebButton12 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.WebButton13 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.lbarchivo = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["nomarchivo"]);
-      this.lbminimizar = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["elminimiza"]);
-      this.WebSpeedButton1 = pas["WEBLib.Buttons"].TSpeedButton.$create("Create$1",[this]);
-      this.WebScrollRegistro = pas["WEBLib.ExtCtrls"].TScrollBox.$create("Create$2",["scrollregistro"]);
-      this.WebLabel3 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel4 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel5 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel6 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.WebLabel7 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.edNombre = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["cliente"]);
-      this.edImporte = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["importe"]);
-      this.edventasuba = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["vds"]);
-      this.edArticulo = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["producto"]);
-      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
-      this.lbusuario2 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.lbusuario = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
-      this.btnAgregar = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btnregistrar"]);
-      this.btnCerrar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.edRen = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["rowsel"]);
-      this.btnEliminar = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btndel"]);
-      this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
-      this.radioTipo = pas["WEBLib.StdCtrls"].TRadioGroup.$create("Create$1",[this]);
-      this.WebHttpRequest1 = pas["WEBLib.REST"].THttpRequest.$create("Create$1",[this]);
-      this.WebMainMenu1 = pas["WEBLib.Menus"].TMainMenu.$create("Create$1",[this]);
-      this.Archivo1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Pacientes1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Registrar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Consultas1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Estudios1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Analisis1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.LimpiarHoja2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.N1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.ExportaraPDF1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Compartir1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.CompartirPDF21 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.compartirpdf31 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Imprimir1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.N2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Salir1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Editar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Copiar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Copiar2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Cortar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.LimpiarHoja1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Exportar3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.ExportarPDF1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Excel1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Expotar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Descargar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.PDF2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.PDF3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Exportar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Exportar2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Graficar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Graficas1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.AnlisisGrfico1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Compartir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.WebLocalTextFile1 = pas["WEBLib.LocalFiles"].TLocalTextFile.$create("Create$1",[this]);
-      this.PedidosDbClientDataset1 = pas["WEBLib.IndexedDb"].TIndexedDbClientDataset.$create("Create$1",[this]);
-      this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
-      this.uno1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.dos1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.tres1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.cuatro = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.comparte = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.N3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.Salir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
-      this.WebDiv.BeforeLoadDFMValues();
-      this.WebMemo1.BeforeLoadDFMValues();
-      this.WebPanel5.BeforeLoadDFMValues();
-      this.WebPanel3.BeforeLoadDFMValues();
-      this.WebPanel4.BeforeLoadDFMValues();
-      this.WebLabel1.BeforeLoadDFMValues();
-      this.WebButton9.BeforeLoadDFMValues();
-      this.edPacNombre.BeforeLoadDFMValues();
-      this.WebButton11.BeforeLoadDFMValues();
-      this.WebButton12.BeforeLoadDFMValues();
-      this.WebButton13.BeforeLoadDFMValues();
-      this.lbarchivo.BeforeLoadDFMValues();
-      this.lbminimizar.BeforeLoadDFMValues();
-      this.WebSpeedButton1.BeforeLoadDFMValues();
-      this.WebScrollRegistro.BeforeLoadDFMValues();
-      this.WebLabel3.BeforeLoadDFMValues();
-      this.WebLabel4.BeforeLoadDFMValues();
-      this.WebLabel5.BeforeLoadDFMValues();
-      this.WebLabel6.BeforeLoadDFMValues();
-      this.WebLabel7.BeforeLoadDFMValues();
-      this.edNombre.BeforeLoadDFMValues();
-      this.edImporte.BeforeLoadDFMValues();
-      this.edventasuba.BeforeLoadDFMValues();
-      this.edArticulo.BeforeLoadDFMValues();
-      this.WebPanel1.BeforeLoadDFMValues();
-      this.lbusuario2.BeforeLoadDFMValues();
-      this.lbusuario.BeforeLoadDFMValues();
-      this.btnAgregar.BeforeLoadDFMValues();
-      this.btnCerrar.BeforeLoadDFMValues();
-      this.edRen.BeforeLoadDFMValues();
-      this.btnEliminar.BeforeLoadDFMValues();
-      this.WebMessageDlg1.BeforeLoadDFMValues();
-      this.radioTipo.BeforeLoadDFMValues();
-      this.WebHttpRequest1.BeforeLoadDFMValues();
-      this.WebMainMenu1.BeforeLoadDFMValues();
-      this.Archivo1.BeforeLoadDFMValues();
-      this.Pacientes1.BeforeLoadDFMValues();
-      this.Registrar1.BeforeLoadDFMValues();
-      this.Consultas1.BeforeLoadDFMValues();
-      this.Estudios1.BeforeLoadDFMValues();
-      this.Analisis1.BeforeLoadDFMValues();
-      this.LimpiarHoja2.BeforeLoadDFMValues();
-      this.N1.BeforeLoadDFMValues();
-      this.ExportaraPDF1.BeforeLoadDFMValues();
-      this.Compartir1.BeforeLoadDFMValues();
-      this.CompartirPDF21.BeforeLoadDFMValues();
-      this.compartirpdf31.BeforeLoadDFMValues();
-      this.Imprimir1.BeforeLoadDFMValues();
-      this.N2.BeforeLoadDFMValues();
-      this.Salir1.BeforeLoadDFMValues();
-      this.Editar1.BeforeLoadDFMValues();
-      this.Copiar1.BeforeLoadDFMValues();
-      this.Copiar2.BeforeLoadDFMValues();
-      this.Cortar1.BeforeLoadDFMValues();
-      this.LimpiarHoja1.BeforeLoadDFMValues();
-      this.Exportar3.BeforeLoadDFMValues();
-      this.ExportarPDF1.BeforeLoadDFMValues();
-      this.Excel1.BeforeLoadDFMValues();
-      this.Expotar1.BeforeLoadDFMValues();
-      this.Descargar1.BeforeLoadDFMValues();
-      this.PDF2.BeforeLoadDFMValues();
-      this.PDF3.BeforeLoadDFMValues();
-      this.Exportar1.BeforeLoadDFMValues();
-      this.Exportar2.BeforeLoadDFMValues();
-      this.Graficar1.BeforeLoadDFMValues();
-      this.Graficas1.BeforeLoadDFMValues();
-      this.AnlisisGrfico1.BeforeLoadDFMValues();
-      this.Compartir2.BeforeLoadDFMValues();
-      this.WebLocalTextFile1.BeforeLoadDFMValues();
-      this.PedidosDbClientDataset1.BeforeLoadDFMValues();
-      this.WebPopupMenu1.BeforeLoadDFMValues();
-      this.uno1.BeforeLoadDFMValues();
-      this.dos1.BeforeLoadDFMValues();
-      this.tres1.BeforeLoadDFMValues();
-      this.cuatro.BeforeLoadDFMValues();
-      this.comparte.BeforeLoadDFMValues();
-      this.N3.BeforeLoadDFMValues();
-      this.Salir2.BeforeLoadDFMValues();
-      try {
-        this.SetName("Form1");
-        this.SetWidth(701);
-        this.SetHeight(480);
-        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
-        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.FFont.FCharset = 1;
-        this.FFont.SetColor(65793);
-        this.FFont.SetHeight(-15);
-        this.FFont.SetName("Tahoma");
-        this.FFont.SetStyle({});
-        this.FMenu = this.WebMainMenu1;
-        this.SetParentFont(false);
-        this.SetEvent(this,"OnCreate","WebFormCreate");
-        this.SetEvent(this,"OnEnter","WebFormEnter");
-        this.SetEvent(this,"OnShow","WebFormShow");
-        this.WebDiv.SetParentComponent(this);
-        this.WebDiv.SetName("WebDiv");
-        this.WebDiv.SetLeft(0);
-        this.WebDiv.SetTop(108);
-        this.WebDiv.SetWidth(701);
-        this.WebDiv.SetHeight(52);
-        this.WebDiv.SetElementClassName("table-striped");
-        this.WebDiv.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.WebDiv.SetChildOrderEx(1);
-        this.WebDiv.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebDiv.SetRole("");
-        this.SetEvent$1(this.WebDiv,this,"OnClick","WebDivClick");
-        this.SetEvent$1(this.WebDiv,this,"OnDblClick","WebDivDblClick");
-        this.SetEvent$1(this.WebDiv,this,"OnMouseMove","WebDivMouseMove");
-        this.WebMemo1.SetParentComponent(this.WebDiv);
-        this.WebMemo1.SetName("WebMemo1");
-        this.WebMemo1.SetLeft(16);
-        this.WebMemo1.SetTop(24);
-        this.WebMemo1.SetWidth(584);
-        this.WebMemo1.SetHeight(209);
-        this.WebMemo1.SetElementClassName("form-control");
-        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebMemo1.SetHeightPercent(100.000000000000000000);
-        this.WebMemo1.FLines.BeginUpdate();
-        try {
-          this.WebMemo1.FLines.Clear();
-          this.WebMemo1.FLines.Add("WebMemo1");
-        } finally {
-          this.WebMemo1.FLines.EndUpdate();
-        };
-        this.WebMemo1.SetSelLength(0);
-        this.WebMemo1.SetSelStart(0);
-        this.WebMemo1.SetTabOrder(1);
-        this.WebMemo1.SetVisible(false);
-        this.WebMemo1.SetWidthPercent(100.000000000000000000);
-        this.WebPanel5.SetParentComponent(this.WebDiv);
-        this.WebPanel5.SetName("WebPanel5");
-        this.WebPanel5.SetLeft(672);
-        this.WebPanel5.SetTop(56);
-        this.WebPanel5.SetWidth(150);
-        this.WebPanel5.SetHeight(60);
-        this.WebPanel5.SetElementClassName("card");
-        this.WebPanel5.SetCaption("WebPanel5");
-        this.WebPanel5.SetChildOrderEx(2);
-        this.WebPanel5.FElementBodyClassName = "card-body";
-        this.WebPanel5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPanel5.SetTabOrder(1);
-        this.WebPanel5.SetVisible(false);
-        this.WebPanel3.SetParentComponent(this);
-        this.WebPanel3.SetName("WebPanel3");
-        this.WebPanel3.SetLeft(0);
-        this.WebPanel3.SetTop(67);
-        this.WebPanel3.SetWidth(701);
-        this.WebPanel3.SetHeight(41);
-        this.WebPanel3.SetHint("Seleccione el menú para iniciar");
-        this.WebPanel3.SetElementClassName("card");
-        this.WebPanel3.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
-        this.WebPanel3.SetChildOrderEx(3);
-        this.WebPanel3.SetColor(12632256);
-        this.WebPanel3.FElementBodyClassName = "card-body";
-        this.WebPanel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPanel3.SetShowHint(true);
-        this.WebPanel3.SetTabOrder(1);
-        this.WebPanel3.SetVisible(false);
-        this.WebPanel4.SetParentComponent(this);
-        this.WebPanel4.SetName("WebPanel4");
-        this.WebPanel4.SetLeft(0);
-        this.WebPanel4.SetTop(0);
-        this.WebPanel4.SetWidth(701);
-        this.WebPanel4.SetHeight(67);
-        this.WebPanel4.SetElementClassName("card");
-        this.WebPanel4.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
-        this.WebPanel4.SetCaption("Libreta Digital registro de VENTAS Y SUBASTAS");
-        this.WebPanel4.SetChildOrderEx(1);
-        this.WebPanel4.SetColor(16577277);
-        this.WebPanel4.FElementBodyClassName = "card-body";
-        this.WebPanel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPanel4.SetTabOrder(2);
-        this.WebPanel4.SetVisible(false);
-        this.SetEvent$1(this.WebPanel4,this,"OnClick","WebPanel4Click");
-        this.WebLabel1.SetParentComponent(this.WebPanel4);
-        this.WebLabel1.SetName("WebLabel1");
-        this.WebLabel1.SetLeft(24);
-        this.WebLabel1.SetTop(31);
-        this.WebLabel1.SetWidth(63);
-        this.WebLabel1.SetHeight(18);
-        this.WebLabel1.SetCaption("Seleccion:");
-        this.WebLabel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel1.SetHeightPercent(100.000000000000000000);
-        this.WebLabel1.SetVisible(false);
-        this.WebLabel1.SetWidthPercent(100.000000000000000000);
-        this.WebButton9.SetParentComponent(this.WebPanel4);
-        this.WebButton9.SetName("WebButton9");
-        this.WebButton9.SetLeft(93);
-        this.WebButton9.SetTop(3);
-        this.WebButton9.SetWidth(96);
-        this.WebButton9.SetHeight(25);
-        this.WebButton9.SetCaption("JSON");
-        this.WebButton9.SetChildOrderEx(4);
-        this.WebButton9.SetElementClassName("btn btn-light");
-        this.WebButton9.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton9.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton9.SetHeightPercent(100.000000000000000000);
-        this.WebButton9.SetVisible(false);
-        this.WebButton9.SetWidthPercent(100.000000000000000000);
-        this.edPacNombre.SetParentComponent(this.WebPanel4);
-        this.edPacNombre.SetName("edPacNombre");
-        this.edPacNombre.SetLeft(510);
-        this.edPacNombre.SetTop(3);
-        this.edPacNombre.SetWidth(65);
-        this.edPacNombre.SetHeight(22);
-        this.edPacNombre.SetChildOrderEx(1);
-        this.edPacNombre.SetElementClassName("form-control");
-        this.edPacNombre.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edPacNombre.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edPacNombre.SetHeightPercent(100.000000000000000000);
-        this.edPacNombre.SetReadOnly(true);
-        this.edPacNombre.SetVisible(false);
-        this.edPacNombre.SetWidthPercent(100.000000000000000000);
-        this.WebButton11.SetParentComponent(this.WebPanel4);
-        this.WebButton11.SetName("WebButton11");
-        this.WebButton11.SetLeft(581);
-        this.WebButton11.SetTop(25);
-        this.WebButton11.SetWidth(96);
-        this.WebButton11.SetHeight(25);
-        this.WebButton11.SetCaption("SQLite Pac");
-        this.WebButton11.SetChildOrderEx(5);
-        this.WebButton11.SetElementClassName("btn btn-light");
-        this.WebButton11.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton11.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton11.SetHeightPercent(100.000000000000000000);
-        this.WebButton11.SetVisible(false);
-        this.WebButton11.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton11,this,"OnClick","WebButton11Click");
-        this.WebButton12.SetParentComponent(this.WebPanel4);
-        this.WebButton12.SetName("WebButton12");
-        this.WebButton12.SetLeft(479);
-        this.WebButton12.SetTop(37);
-        this.WebButton12.SetWidth(96);
-        this.WebButton12.SetHeight(25);
-        this.WebButton12.SetCaption("SQLite Consu.");
-        this.WebButton12.SetChildOrderEx(6);
-        this.WebButton12.SetElementClassName("btn btn-light");
-        this.WebButton12.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton12.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton12.SetHeightPercent(100.000000000000000000);
-        this.WebButton12.SetVisible(false);
-        this.WebButton12.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton12,this,"OnClick","WebButton12Click");
-        this.WebButton13.SetParentComponent(this.WebPanel4);
-        this.WebButton13.SetName("WebButton13");
-        this.WebButton13.SetLeft(581);
-        this.WebButton13.SetTop(25);
-        this.WebButton13.SetWidth(96);
-        this.WebButton13.SetHeight(25);
-        this.WebButton13.SetCaption("SQLite AnaEstu");
-        this.WebButton13.SetChildOrderEx(7);
-        this.WebButton13.SetElementClassName("btn btn-light");
-        this.WebButton13.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton13.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton13.SetHeightPercent(100.000000000000000000);
-        this.WebButton13.SetVisible(false);
-        this.WebButton13.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton13,this,"OnClick","WebButton13Click");
-        this.lbarchivo.SetParentComponent(this.WebPanel4);
-        this.lbarchivo.SetName("lbarchivo");
-        this.lbarchivo.SetLeft(0);
-        this.lbarchivo.SetTop(48);
-        this.lbarchivo.SetWidth(701);
-        this.lbarchivo.SetHeight(19);
-        this.lbarchivo.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
-        this.lbarchivo.SetAutoSize(true);
-        this.lbarchivo.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsNone);
-        this.lbarchivo.SetChildOrderEx(1);
-        this.lbarchivo.SetColor(16577277);
-        this.lbarchivo.SetEnabled(false);
-        this.lbarchivo.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.lbarchivo.SetHeightPercent(100.000000000000000000);
-        this.lbarchivo.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.lbarchivo,this,"OnClick","lbarchivoClick");
-        this.lbminimizar.SetParentComponent(this.WebPanel4);
-        this.lbminimizar.SetName("lbminimizar");
-        this.lbminimizar.SetLeft(8);
-        this.lbminimizar.SetTop(8);
-        this.lbminimizar.SetWidth(121);
-        this.lbminimizar.SetHeight(22);
-        this.lbminimizar.SetChildOrderEx(9);
-        this.lbminimizar.SetElementClassName("form-control");
-        this.lbminimizar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.lbminimizar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.lbminimizar.SetHeightPercent(100.000000000000000000);
-        this.lbminimizar.SetText("lbminimizar");
-        this.lbminimizar.SetVisible(false);
-        this.lbminimizar.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.lbminimizar,this,"OnChange","lbminimizarChange");
-        this.WebSpeedButton1.SetParentComponent(this.WebPanel4);
-        this.WebSpeedButton1.SetName("WebSpeedButton1");
-        this.WebSpeedButton1.SetLeft(648);
-        this.WebSpeedButton1.SetTop(0);
-        this.WebSpeedButton1.SetWidth(53);
-        this.WebSpeedButton1.SetHeight(48);
-        this.WebSpeedButton1.SetAlign(pas["WEBLib.Controls"].TAlign.alRight);
-        this.WebSpeedButton1.SetColorEx(-1);
-        this.WebSpeedButton1.SetElementClassName("btn btn-light");
-        this.WebSpeedButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebSpeedButton1.SetFlat(true);
-        this.WebSpeedButton1.FGlyph.LoadFromFile("Unit1.WebPanel4.WebSpeedButton1.Glyph.png");
-        this.WebSpeedButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebSpeedButton1.SetHeightPercent(100.000000000000000000);
-        this.WebSpeedButton1.SetTabOrder(7);
-        this.WebSpeedButton1.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebSpeedButton1,this,"OnClick","WebSpeedButton1Click");
-        this.WebScrollRegistro.SetParentComponent(this);
-        this.WebScrollRegistro.SetName("WebScrollRegistro");
-        this.WebScrollRegistro.SetLeft(0);
-        this.WebScrollRegistro.SetTop(160);
-        this.WebScrollRegistro.SetWidth(701);
-        this.WebScrollRegistro.SetHeight(300);
-        this.WebScrollRegistro.SetElementClassName("card");
-        this.WebScrollRegistro.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
-        this.WebScrollRegistro.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsSingle);
-        this.WebScrollRegistro.SetChildOrderEx(3);
-        this.WebScrollRegistro.SetColor(16376827);
-        this.WebScrollRegistro.SetScrollBars(pas["WEBLib.Controls"].TScrollStyle.ssHorizontal);
-        this.WebScrollRegistro.SetVisible(false);
-        this.SetEvent$1(this.WebScrollRegistro,this,"OnClick","WebScrollRegistroClick");
-        this.SetEvent$1(this.WebScrollRegistro,this,"OnMouseLeave","WebScrollRegistroMouseLeave");
-        this.SetEvent$1(this.WebScrollRegistro,this,"OnMouseEnter","WebScrollRegistroMouseEnter");
-        this.WebLabel3.SetParentComponent(this.WebScrollRegistro);
-        this.WebLabel3.SetName("WebLabel3");
-        this.WebLabel3.SetLeft(0);
-        this.WebLabel3.SetTop(0);
-        this.WebLabel3.SetWidth(701);
-        this.WebLabel3.SetHeight(18);
-        this.WebLabel3.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
-        this.WebLabel3.SetAlignment(pas.Classes.TAlignment.taCenter);
-        this.WebLabel3.SetCaption("Hoja de registro de PRODUCTOS");
-        this.WebLabel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel3.FFont.FCharset = 1;
-        this.WebLabel3.FFont.SetColor(65793);
-        this.WebLabel3.FFont.SetHeight(-15);
-        this.WebLabel3.FFont.SetName("Tahoma");
-        this.WebLabel3.FFont.SetStyle(rtl.createSet(pas["WEBLib.Graphics"].TFontStyle.fsBold,pas["WEBLib.Graphics"].TFontStyle.fsUnderline));
-        this.WebLabel3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel3.SetHeightPercent(100.000000000000000000);
-        this.WebLabel3.SetParentFont(false);
-        this.WebLabel3.SetWidthPercent(100.000000000000000000);
-        this.WebLabel4.SetParentComponent(this.WebScrollRegistro);
-        this.WebLabel4.SetName("WebLabel4");
-        this.WebLabel4.SetLeft(24);
-        this.WebLabel4.SetTop(35);
-        this.WebLabel4.SetWidth(47);
-        this.WebLabel4.SetHeight(18);
-        this.WebLabel4.SetCaption("Cliente:");
-        this.WebLabel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel4.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel4.SetHeightPercent(100.000000000000000000);
-        this.WebLabel4.SetWidthPercent(100.000000000000000000);
-        this.WebLabel5.SetParentComponent(this.WebScrollRegistro);
-        this.WebLabel5.SetName("WebLabel5");
-        this.WebLabel5.SetLeft(24);
-        this.WebLabel5.SetTop(76);
-        this.WebLabel5.SetWidth(62);
-        this.WebLabel5.SetHeight(18);
-        this.WebLabel5.SetCaption("Producto:");
-        this.WebLabel5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel5.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel5.SetHeightPercent(100.000000000000000000);
-        this.WebLabel5.SetWidthPercent(100.000000000000000000);
-        this.WebLabel6.SetParentComponent(this.WebScrollRegistro);
-        this.WebLabel6.SetName("WebLabel6");
-        this.WebLabel6.SetLeft(24);
-        this.WebLabel6.SetTop(136);
-        this.WebLabel6.SetWidth(71);
-        this.WebLabel6.SetHeight(18);
-        this.WebLabel6.SetCaption("Importe $:");
-        this.WebLabel6.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel6.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel6.SetHeightPercent(100.000000000000000000);
-        this.WebLabel6.SetWidthPercent(100.000000000000000000);
-        this.WebLabel7.SetParentComponent(this.WebScrollRegistro);
-        this.WebLabel7.SetName("WebLabel7");
-        this.WebLabel7.SetLeft(183);
-        this.WebLabel7.SetTop(110);
-        this.WebLabel7.SetWidth(203);
-        this.WebLabel7.SetHeight(18);
-        this.WebLabel7.SetCaption("Venta Directa o Subasta (V/S):");
-        this.WebLabel7.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebLabel7.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebLabel7.SetHeightPercent(100.000000000000000000);
-        this.WebLabel7.SetVisible(false);
-        this.WebLabel7.SetWidthPercent(100.000000000000000000);
-        this.edNombre.SetParentComponent(this.WebScrollRegistro);
-        this.edNombre.SetName("edNombre");
-        this.edNombre.SetLeft(98);
-        this.edNombre.SetTop(32);
-        this.edNombre.SetWidth(303);
-        this.edNombre.SetHeight(22);
-        this.edNombre.SetChildOrderEx(3);
-        this.edNombre.SetElementClassName("form-control");
-        this.edNombre.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edNombre.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edNombre.SetHeightPercent(100.000000000000000000);
-        this.edNombre.FRequiredText = "cliente";
-        this.edNombre.SetTabOrder(2);
-        this.edNombre.SetWidthPercent(100.000000000000000000);
-        this.edImporte.SetParentComponent(this.WebScrollRegistro);
-        this.edImporte.SetName("edImporte");
-        this.edImporte.SetLeft(98);
-        this.edImporte.SetTop(132);
-        this.edImporte.SetWidth(87);
-        this.edImporte.SetHeight(22);
-        this.edImporte.SetChildOrderEx(3);
-        this.edImporte.SetEditType(pas["WEBLib.StdCtrls"].TEditType.weNumeric);
-        this.edImporte.SetElementClassName("form-control");
-        this.edImporte.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edImporte.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edImporte.SetHeightPercent(100.000000000000000000);
-        this.edImporte.SetTabOrder(4);
-        this.edImporte.SetWidthPercent(100.000000000000000000);
-        this.edventasuba.SetParentComponent(this.WebScrollRegistro);
-        this.edventasuba.SetName("edventasuba");
-        this.edventasuba.SetLeft(191);
-        this.edventasuba.SetTop(134);
-        this.edventasuba.SetWidth(65);
-        this.edventasuba.SetHeight(22);
-        this.edventasuba.SetChildOrderEx(3);
-        this.edventasuba.SetElementClassName("form-control");
-        this.edventasuba.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edventasuba.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edventasuba.SetHeightPercent(100.000000000000000000);
-        this.edventasuba.SetMaxLength(1);
-        this.edventasuba.SetTabOrder(5);
-        this.edventasuba.SetVisible(false);
-        this.edventasuba.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.edventasuba,this,"OnEnter","edventasubaEnter");
-        this.edArticulo.SetParentComponent(this.WebScrollRegistro);
-        this.edArticulo.SetName("edArticulo");
-        this.edArticulo.SetLeft(98);
-        this.edArticulo.SetTop(76);
-        this.edArticulo.SetWidth(303);
-        this.edArticulo.SetHeight(22);
-        this.edArticulo.SetChildOrderEx(3);
-        this.edArticulo.SetElementClassName("form-control");
-        this.edArticulo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edArticulo.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edArticulo.SetHeightPercent(100.000000000000000000);
-        this.edArticulo.FRequiredText = "cliente";
-        this.edArticulo.SetTabOrder(3);
-        this.edArticulo.SetWidthPercent(100.000000000000000000);
-        this.WebPanel1.SetParentComponent(this.WebScrollRegistro);
-        this.WebPanel1.SetName("WebPanel1");
-        this.WebPanel1.SetLeft(0);
-        this.WebPanel1.SetTop(208);
-        this.WebPanel1.SetWidth(701);
-        this.WebPanel1.SetHeight(92);
-        this.WebPanel1.SetElementClassName("card");
-        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
-        this.WebPanel1.SetChildOrderEx(11);
-        this.WebPanel1.FElementBodyClassName = "card-body";
-        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPanel1.SetTabOrder(4);
-        this.lbusuario2.SetParentComponent(this.WebPanel1);
-        this.lbusuario2.SetName("lbusuario2");
-        this.lbusuario2.SetLeft(512);
-        this.lbusuario2.SetTop(56);
-        this.lbusuario2.SetWidth(5);
-        this.lbusuario2.SetHeight(18);
-        this.lbusuario2.SetCaption(".");
-        this.lbusuario2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.lbusuario2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.lbusuario2.SetHeightPercent(100.000000000000000000);
-        this.lbusuario2.SetVisible(false);
-        this.lbusuario2.SetWidthPercent(100.000000000000000000);
-        this.lbusuario.SetParentComponent(this.WebPanel1);
-        this.lbusuario.SetName("lbusuario");
-        this.lbusuario.SetLeft(512);
-        this.lbusuario.SetTop(40);
-        this.lbusuario.SetWidth(5);
-        this.lbusuario.SetHeight(18);
-        this.lbusuario.SetCaption(".");
-        this.lbusuario.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.lbusuario.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.lbusuario.SetHeightPercent(100.000000000000000000);
-        this.lbusuario.SetVisible(false);
-        this.lbusuario.SetWidthPercent(100.000000000000000000);
-        this.btnAgregar.SetParentComponent(this.WebPanel1);
-        this.btnAgregar.SetName("btnAgregar");
-        this.btnAgregar.SetLeft(113);
-        this.btnAgregar.SetTop(3);
-        this.btnAgregar.SetWidth(96);
-        this.btnAgregar.SetHeight(25);
-        this.btnAgregar.SetCaption("Agregar");
-        this.btnAgregar.SetElementClassName("btn btn-primary");
-        this.btnAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.btnAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.btnAgregar.SetHeightPercent(100.000000000000000000);
-        this.btnAgregar.SetTabOrder(6);
-        this.btnAgregar.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.btnAgregar,this,"OnClick","btnAgregarClick");
-        this.btnCerrar.SetParentComponent(this.WebPanel1);
-        this.btnCerrar.SetName("btnCerrar");
-        this.btnCerrar.SetLeft(215);
-        this.btnCerrar.SetTop(3);
-        this.btnCerrar.SetWidth(96);
-        this.btnCerrar.SetHeight(25);
-        this.btnCerrar.SetCaption("Terminar");
-        this.btnCerrar.SetChildOrderEx(1);
-        this.btnCerrar.SetElementClassName("btn btn-primary");
-        this.btnCerrar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.btnCerrar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.btnCerrar.SetHeightPercent(100.000000000000000000);
-        this.btnCerrar.SetTabOrder(7);
-        this.btnCerrar.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.btnCerrar,this,"OnClick","btnCerrarClick");
-        this.edRen.SetParentComponent(this.WebPanel1);
-        this.edRen.SetName("edRen");
-        this.edRen.SetLeft(620);
-        this.edRen.SetTop(16);
-        this.edRen.SetWidth(57);
-        this.edRen.SetHeight(22);
-        this.edRen.SetChildOrderEx(3);
-        this.edRen.SetElementClassName("form-control");
-        this.edRen.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edRen.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edRen.SetHeightPercent(100.000000000000000000);
-        this.edRen.SetText(".");
-        this.edRen.SetVisible(false);
-        this.edRen.SetWidthPercent(100.000000000000000000);
-        this.btnEliminar.SetParentComponent(this.WebPanel1);
-        this.btnEliminar.SetName("btnEliminar");
-        this.btnEliminar.SetLeft(352);
-        this.btnEliminar.SetTop(3);
-        this.btnEliminar.SetWidth(96);
-        this.btnEliminar.SetHeight(25);
-        this.btnEliminar.SetCaption("Eliminar");
-        this.btnEliminar.SetChildOrderEx(3);
-        this.btnEliminar.SetElementClassName("btn btn-light");
-        this.btnEliminar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.btnEliminar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.btnEliminar.SetHeightPercent(100.000000000000000000);
-        this.btnEliminar.SetVisible(false);
-        this.btnEliminar.SetWidthPercent(100.000000000000000000);
-        this.WebMessageDlg1.SetParentComponent(this.WebPanel1);
-        this.WebMessageDlg1.SetName("WebMessageDlg1");
-        this.WebMessageDlg1.SetLeft(551);
-        this.WebMessageDlg1.SetTop(6);
-        this.WebMessageDlg1.SetWidth(24);
-        this.WebMessageDlg1.SetHeight(24);
-        this.WebMessageDlg1.FButtons = {};
-        this.WebMessageDlg1.FOpacity = 0.200000000000000000;
-        this.WebMessageDlg1.FElementButtonClassName = "btn";
-        this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
-        this.WebMessageDlg1.FElementTitleClassName = "text-body";
-        this.WebMessageDlg1.FElementContentClassName = "text-body";
-        this.radioTipo.SetParentComponent(this.WebScrollRegistro);
-        this.radioTipo.SetName("radioTipo");
-        this.radioTipo.SetLeft(201);
-        this.radioTipo.SetTop(115);
-        this.radioTipo.SetWidth(185);
-        this.radioTipo.SetHeight(84);
-        this.radioTipo.SetElementClassName("custom-control custom-radio");
-        this.radioTipo.SetCaption("Venta o Subasta");
-        this.radioTipo.SetChildOrderEx(10);
-        this.radioTipo.SetColumns(1);
-        this.radioTipo.FElementButtonClassName = "custom-control-input";
-        this.radioTipo.FElementGroupClassName = "modal-content";
-        this.radioTipo.FElementLabelClassName = "custom-control-label";
-        this.radioTipo.FElementLegendClassName = "h6";
-        this.radioTipo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.radioTipo.FFont.FCharset = 1;
-        this.radioTipo.FFont.SetColor(65793);
-        this.radioTipo.FFont.SetHeight(-13);
-        this.radioTipo.FFont.SetName("Tahoma");
-        this.radioTipo.FFont.SetStyle({});
-        this.radioTipo.SetItemIndex(0);
-        this.radioTipo.FItems.BeginUpdate();
-        try {
-          this.radioTipo.FItems.Clear();
-          this.radioTipo.FItems.Add("(V)enta");
-          this.radioTipo.FItems.Add("(S)ubasta");
-        } finally {
-          this.radioTipo.FItems.EndUpdate();
-        };
-        this.radioTipo.SetParentFont(false);
-        this.radioTipo.SetRole("");
-        this.radioTipo.SetTabOrder(5);
-        this.WebHttpRequest1.SetParentComponent(this);
-        this.WebHttpRequest1.SetName("WebHttpRequest1");
-        this.SetEvent$1(this.WebHttpRequest1,this,"OnResponse","WebHttpRequest1Response");
-        this.WebHttpRequest1.SetLeft(616);
-        this.WebHttpRequest1.SetTop(105);
-        this.WebMainMenu1.SetParentComponent(this);
-        this.WebMainMenu1.SetName("WebMainMenu1");
-        this.WebMainMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
-        this.WebMainMenu1.FAppearance.FHamburgerMenu.SetVisible(pas["WEBLib.Menus"].TMainMenuHamburgerMenuVisible.hmAlways);
-        this.WebMainMenu1.FAppearance.SetSubmenuIndicator("&#9660;");
-        this.WebMainMenu1.FContainer$1 = this.WebPanel3;
-        this.WebMainMenu1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebMainMenu1.FFont.FCharset = 1;
-        this.WebMainMenu1.FFont.SetColor(65793);
-        this.WebMainMenu1.FFont.SetHeight(-12);
-        this.WebMainMenu1.FFont.SetName("Segoe UI");
-        this.WebMainMenu1.FFont.SetStyle({});
-        this.WebMainMenu1.SetVisible(false);
-        this.WebMainMenu1.SetLeft(496);
-        this.WebMainMenu1.SetTop(112);
-        this.Archivo1.SetParentComponent(this.WebMainMenu1);
-        this.Archivo1.SetName("Archivo1");
-        this.Archivo1.SetCaption("Libreta");
-        this.Pacientes1.SetParentComponent(this.Archivo1);
-        this.Pacientes1.SetName("Pacientes1");
-        this.Pacientes1.SetCaption("Nuevo");
-        this.Pacientes1.FVisible = false;
-        this.SetEvent$1(this.Pacientes1,this,"OnClick","Pacientes1Click");
-        this.Registrar1.SetParentComponent(this.Archivo1);
-        this.Registrar1.SetName("Registrar1");
-        this.Registrar1.SetCaption("Agregar Renglones");
-        this.SetEvent$1(this.Registrar1,this,"OnClick","Registrar1Click");
-        this.Consultas1.SetParentComponent(this.Archivo1);
-        this.Consultas1.SetName("Consultas1");
-        this.Consultas1.SetCaption("Abrir Hoja");
-        this.SetEvent$1(this.Consultas1,this,"OnClick","Consultas1Click");
-        this.Estudios1.SetParentComponent(this.Archivo1);
-        this.Estudios1.SetName("Estudios1");
-        this.Estudios1.SetCaption("Guardar Hoja");
-        this.SetEvent$1(this.Estudios1,this,"OnClick","Estudios1Click");
-        this.Analisis1.SetParentComponent(this.Archivo1);
-        this.Analisis1.SetName("Analisis1");
-        this.Analisis1.SetCaption("Analisis");
-        this.Analisis1.FVisible = false;
-        this.SetEvent$1(this.Analisis1,this,"OnClick","Analisis1Click");
-        this.LimpiarHoja2.SetParentComponent(this.Archivo1);
-        this.LimpiarHoja2.SetName("LimpiarHoja2");
-        this.LimpiarHoja2.SetCaption("Limpiar Hoja");
-        this.SetEvent$1(this.LimpiarHoja2,this,"OnClick","LimpiarHoja2Click");
-        this.N1.SetParentComponent(this.Archivo1);
-        this.N1.SetName("N1");
-        this.N1.SetCaption("-");
-        this.ExportaraPDF1.SetParentComponent(this.Archivo1);
-        this.ExportaraPDF1.SetName("ExportaraPDF1");
-        this.ExportaraPDF1.SetCaption("Exportar a PDF");
-        this.ExportaraPDF1.FVisible = false;
-        this.SetEvent$1(this.ExportaraPDF1,this,"OnClick","ExportaraPDF1Click");
-        this.Compartir1.SetParentComponent(this.Archivo1);
-        this.Compartir1.SetName("Compartir1");
-        this.Compartir1.SetCaption("Compartir PDF");
-        this.Compartir1.FVisible = false;
-        this.SetEvent$1(this.Compartir1,this,"OnClick","Compartir1Click");
-        this.CompartirPDF21.SetParentComponent(this.Archivo1);
-        this.CompartirPDF21.SetName("CompartirPDF21");
-        this.CompartirPDF21.SetCaption("Compartir PDF2");
-        this.CompartirPDF21.FVisible = false;
-        this.SetEvent$1(this.CompartirPDF21,this,"OnClick","CompartirPDF21Click");
-        this.compartirpdf31.SetParentComponent(this.Archivo1);
-        this.compartirpdf31.SetName("compartirpdf31");
-        this.compartirpdf31.SetCaption("Compartir PDF Tabla");
-        this.compartirpdf31.FVisible = false;
-        this.SetEvent$1(this.compartirpdf31,this,"OnClick","compartirpdf31Click");
-        this.Imprimir1.SetParentComponent(this.Archivo1);
-        this.Imprimir1.SetName("Imprimir1");
-        this.Imprimir1.SetCaption("Imprimir Hoja");
-        this.Imprimir1.FVisible = false;
-        this.SetEvent$1(this.Imprimir1,this,"OnClick","Imprimir1Click");
-        this.N2.SetParentComponent(this.Archivo1);
-        this.N2.SetName("N2");
-        this.N2.SetCaption("-");
-        this.Salir1.SetParentComponent(this.Archivo1);
-        this.Salir1.SetName("Salir1");
-        this.Salir1.SetCaption("Salir");
-        this.SetEvent$1(this.Salir1,this,"OnClick","Salir1Click");
-        this.Editar1.SetParentComponent(this.WebMainMenu1);
-        this.Editar1.SetName("Editar1");
-        this.Editar1.SetCaption("Editar");
-        this.Editar1.FVisible = false;
-        this.Copiar1.SetParentComponent(this.Editar1);
-        this.Copiar1.SetName("Copiar1");
-        this.Copiar1.SetCaption("Copiar");
-        this.Copiar1.FVisible = false;
-        this.Copiar2.SetParentComponent(this.Editar1);
-        this.Copiar2.SetName("Copiar2");
-        this.Copiar2.SetCaption("Pegar");
-        this.Copiar2.FVisible = false;
-        this.Cortar1.SetParentComponent(this.Editar1);
-        this.Cortar1.SetName("Cortar1");
-        this.Cortar1.SetCaption("Cortar");
-        this.Cortar1.FVisible = false;
-        this.LimpiarHoja1.SetParentComponent(this.Editar1);
-        this.LimpiarHoja1.SetName("LimpiarHoja1");
-        this.LimpiarHoja1.SetCaption("Limpiar Hoja");
-        this.SetEvent$1(this.LimpiarHoja1,this,"OnClick","LimpiarHoja1Click");
-        this.Exportar3.SetParentComponent(this.WebMainMenu1);
-        this.Exportar3.SetName("Exportar3");
-        this.Exportar3.SetCaption("Exportar");
-        this.Exportar3.FVisible = false;
-        this.ExportarPDF1.SetParentComponent(this.Exportar3);
-        this.ExportarPDF1.SetName("ExportarPDF1");
-        this.ExportarPDF1.SetCaption("PDF");
-        this.ExportarPDF1.FVisible = false;
-        this.SetEvent$1(this.ExportarPDF1,this,"OnClick","ExportarPDF1Click");
-        this.Excel1.SetParentComponent(this.Exportar3);
-        this.Excel1.SetName("Excel1");
-        this.Excel1.SetCaption("Excel");
-        this.Excel1.FVisible = false;
-        this.Expotar1.SetParentComponent(this.Excel1);
-        this.Expotar1.SetName("Expotar1");
-        this.Expotar1.SetCaption("Expotar");
-        this.SetEvent$1(this.Expotar1,this,"OnClick","Expotar1Click");
-        this.Descargar1.SetParentComponent(this.Excel1);
-        this.Descargar1.SetName("Descargar1");
-        this.Descargar1.SetCaption("Descargar");
-        this.SetEvent$1(this.Descargar1,this,"OnClick","Descargar1Click");
-        this.PDF2.SetParentComponent(this.WebMainMenu1);
-        this.PDF2.SetName("PDF2");
-        this.PDF2.SetCaption("PDF");
-        this.PDF2.FVisible = false;
-        this.PDF3.SetParentComponent(this.WebMainMenu1);
-        this.PDF3.SetName("PDF3");
-        this.PDF3.SetCaption("Excel");
-        this.PDF3.FVisible = false;
-        this.Exportar1.SetParentComponent(this.PDF3);
-        this.Exportar1.SetName("Exportar1");
-        this.Exportar1.SetCaption("Exportar");
-        this.Exportar2.SetParentComponent(this.PDF3);
-        this.Exportar2.SetName("Exportar2");
-        this.Exportar2.SetCaption("Descargar");
-        this.Graficar1.SetParentComponent(this.WebMainMenu1);
-        this.Graficar1.SetName("Graficar1");
-        this.Graficar1.SetCaption("Graficar");
-        this.Graficar1.FVisible = false;
-        this.Graficas1.SetParentComponent(this.Graficar1);
-        this.Graficas1.SetName("Graficas1");
-        this.Graficas1.SetCaption("Graficas");
-        this.SetEvent$1(this.Graficas1,this,"OnClick","Graficas1Click");
-        this.AnlisisGrfico1.SetParentComponent(this.Graficar1);
-        this.AnlisisGrfico1.SetName("AnlisisGrfico1");
-        this.AnlisisGrfico1.SetCaption("Análisis Gráfico");
-        this.SetEvent$1(this.AnlisisGrfico1,this,"OnClick","AnlisisGrfico1Click");
-        this.Compartir2.SetParentComponent(this.WebMainMenu1);
-        this.Compartir2.SetName("Compartir2");
-        this.Compartir2.SetCaption("Compartir");
-        this.SetEvent$1(this.Compartir2,this,"OnClick","Compartir2Click");
-        this.WebLocalTextFile1.SetParentComponent(this);
-        this.WebLocalTextFile1.SetName("WebLocalTextFile1");
-        this.SetEvent$1(this.WebLocalTextFile1,this,"OnFileSave","WebLocalTextFile1FileSave");
-        this.WebLocalTextFile1.SetLeft(408);
-        this.WebLocalTextFile1.SetTop(64);
-        this.PedidosDbClientDataset1.SetParentComponent(this);
-        this.PedidosDbClientDataset1.SetName("PedidosDbClientDataset1");
-        this.PedidosDbClientDataset1.FIDBDatabaseName = "BDPedidos";
-        this.PedidosDbClientDataset1.FIDBObjectStoreName = "Pedidos";
-        this.PedidosDbClientDataset1.FIDBKeyFieldName = "id";
-        this.PedidosDbClientDataset1.FIDBAutoIncrement = true;
-        this.PedidosDbClientDataset1.FAfterOpen = rtl.createCallback(this,"PedidosDbClientDataset1AfterOpen");
-        this.PedidosDbClientDataset1.SetLeft(480);
-        this.PedidosDbClientDataset1.SetTop(376);
-        this.WebPopupMenu1.SetParentComponent(this);
-        this.WebPopupMenu1.SetName("WebPopupMenu1");
-        this.WebPopupMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
-        this.WebPopupMenu1.FAppearance.SetSubmenuIndicator("&#9658;");
-        this.WebPopupMenu1.FFont.FCharset = 1;
-        this.WebPopupMenu1.FFont.SetColor(65793);
-        this.WebPopupMenu1.FFont.SetHeight(-12);
-        this.WebPopupMenu1.FFont.SetName("Segoe UI");
-        this.WebPopupMenu1.FFont.SetStyle({});
-        this.WebPopupMenu1.SetLeft(616);
-        this.WebPopupMenu1.SetTop(176);
-        this.uno1.SetParentComponent(this.WebPopupMenu1);
-        this.uno1.SetName("uno1");
-        this.uno1.SetCaption("Agregar Renglones");
-        this.SetEvent$1(this.uno1,this,"OnClick","uno1Click");
-        this.dos1.SetParentComponent(this.WebPopupMenu1);
-        this.dos1.SetName("dos1");
-        this.dos1.SetCaption("Abrir Hoja");
-        this.SetEvent$1(this.dos1,this,"OnClick","dos1Click");
-        this.tres1.SetParentComponent(this.WebPopupMenu1);
-        this.tres1.SetName("tres1");
-        this.tres1.SetCaption("Guardar Hoja");
-        this.SetEvent$1(this.tres1,this,"OnClick","tres1Click");
-        this.cuatro.SetParentComponent(this.WebPopupMenu1);
-        this.cuatro.SetName("cuatro");
-        this.cuatro.SetCaption("Limpiar Hoja");
-        this.SetEvent$1(this.cuatro,this,"OnClick","cuatroClick");
-        this.comparte.SetParentComponent(this.WebPopupMenu1);
-        this.comparte.SetName("comparte");
-        this.comparte.SetCaption("Compartir");
-        this.SetEvent$1(this.comparte,this,"OnClick","comparteClick");
-        this.N3.SetParentComponent(this.WebPopupMenu1);
-        this.N3.SetName("N3");
-        this.N3.SetCaption("-");
-        this.Salir2.SetParentComponent(this.WebPopupMenu1);
-        this.Salir2.SetName("Salir2");
-        this.Salir2.SetCaption("Salir");
-        this.SetEvent$1(this.Salir2,this,"OnClick","Salir2Click");
-      } finally {
-        this.WebDiv.AfterLoadDFMValues();
-        this.WebMemo1.AfterLoadDFMValues();
-        this.WebPanel5.AfterLoadDFMValues();
-        this.WebPanel3.AfterLoadDFMValues();
-        this.WebPanel4.AfterLoadDFMValues();
-        this.WebLabel1.AfterLoadDFMValues();
-        this.WebButton9.AfterLoadDFMValues();
-        this.edPacNombre.AfterLoadDFMValues();
-        this.WebButton11.AfterLoadDFMValues();
-        this.WebButton12.AfterLoadDFMValues();
-        this.WebButton13.AfterLoadDFMValues();
-        this.lbarchivo.AfterLoadDFMValues();
-        this.lbminimizar.AfterLoadDFMValues();
-        this.WebSpeedButton1.AfterLoadDFMValues();
-        this.WebScrollRegistro.AfterLoadDFMValues();
-        this.WebLabel3.AfterLoadDFMValues();
-        this.WebLabel4.AfterLoadDFMValues();
-        this.WebLabel5.AfterLoadDFMValues();
-        this.WebLabel6.AfterLoadDFMValues();
-        this.WebLabel7.AfterLoadDFMValues();
-        this.edNombre.AfterLoadDFMValues();
-        this.edImporte.AfterLoadDFMValues();
-        this.edventasuba.AfterLoadDFMValues();
-        this.edArticulo.AfterLoadDFMValues();
-        this.WebPanel1.AfterLoadDFMValues();
-        this.lbusuario2.AfterLoadDFMValues();
-        this.lbusuario.AfterLoadDFMValues();
-        this.btnAgregar.AfterLoadDFMValues();
-        this.btnCerrar.AfterLoadDFMValues();
-        this.edRen.AfterLoadDFMValues();
-        this.btnEliminar.AfterLoadDFMValues();
-        this.WebMessageDlg1.AfterLoadDFMValues();
-        this.radioTipo.AfterLoadDFMValues();
-        this.WebHttpRequest1.AfterLoadDFMValues();
-        this.WebMainMenu1.AfterLoadDFMValues();
-        this.Archivo1.AfterLoadDFMValues();
-        this.Pacientes1.AfterLoadDFMValues();
-        this.Registrar1.AfterLoadDFMValues();
-        this.Consultas1.AfterLoadDFMValues();
-        this.Estudios1.AfterLoadDFMValues();
-        this.Analisis1.AfterLoadDFMValues();
-        this.LimpiarHoja2.AfterLoadDFMValues();
-        this.N1.AfterLoadDFMValues();
-        this.ExportaraPDF1.AfterLoadDFMValues();
-        this.Compartir1.AfterLoadDFMValues();
-        this.CompartirPDF21.AfterLoadDFMValues();
-        this.compartirpdf31.AfterLoadDFMValues();
-        this.Imprimir1.AfterLoadDFMValues();
-        this.N2.AfterLoadDFMValues();
-        this.Salir1.AfterLoadDFMValues();
-        this.Editar1.AfterLoadDFMValues();
-        this.Copiar1.AfterLoadDFMValues();
-        this.Copiar2.AfterLoadDFMValues();
-        this.Cortar1.AfterLoadDFMValues();
-        this.LimpiarHoja1.AfterLoadDFMValues();
-        this.Exportar3.AfterLoadDFMValues();
-        this.ExportarPDF1.AfterLoadDFMValues();
-        this.Excel1.AfterLoadDFMValues();
-        this.Expotar1.AfterLoadDFMValues();
-        this.Descargar1.AfterLoadDFMValues();
-        this.PDF2.AfterLoadDFMValues();
-        this.PDF3.AfterLoadDFMValues();
-        this.Exportar1.AfterLoadDFMValues();
-        this.Exportar2.AfterLoadDFMValues();
-        this.Graficar1.AfterLoadDFMValues();
-        this.Graficas1.AfterLoadDFMValues();
-        this.AnlisisGrfico1.AfterLoadDFMValues();
-        this.Compartir2.AfterLoadDFMValues();
-        this.WebLocalTextFile1.AfterLoadDFMValues();
-        this.PedidosDbClientDataset1.AfterLoadDFMValues();
-        this.WebPopupMenu1.AfterLoadDFMValues();
-        this.uno1.AfterLoadDFMValues();
-        this.dos1.AfterLoadDFMValues();
-        this.tres1.AfterLoadDFMValues();
-        this.cuatro.AfterLoadDFMValues();
-        this.comparte.AfterLoadDFMValues();
-        this.N3.AfterLoadDFMValues();
-        this.Salir2.AfterLoadDFMValues();
-      };
-    };
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-    var $r = this.$rtti;
-    $r.addField("WebHttpRequest1",pas["WEBLib.REST"].$rtti["THttpRequest"]);
-    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
-    $r.addField("WebDiv",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
-    $r.addField("WebPanel3",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("WebPanel4",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("WebMainMenu1",pas["WEBLib.Menus"].$rtti["TMainMenu"]);
-    $r.addField("WebButton9",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("PDF2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("PDF3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Exportar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Exportar2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("WebPanel5",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("Archivo1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Pacientes1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Consultas1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Estudios1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Analisis1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Editar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Copiar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Copiar2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Cortar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Exportar3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("ExportarPDF1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Excel1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Expotar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Descargar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("WebLabel1",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edPacNombre",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("Imprimir1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Graficar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Graficas1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("WebButton11",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("WebButton12",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("WebButton13",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("AnlisisGrfico1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Salir1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("LimpiarHoja1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("lbarchivo",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebScrollRegistro",pas["WEBLib.ExtCtrls"].$rtti["TScrollBox"]);
-    $r.addField("Registrar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("LimpiarHoja2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("WebLabel3",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("WebLabel4",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edNombre",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebLabel5",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("WebLabel6",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edImporte",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebLabel7",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("edventasuba",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("N1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("N2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("ExportaraPDF1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("edArticulo",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("btnAgregar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("btnCerrar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("edRen",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("btnEliminar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("radioTipo",pas["WEBLib.StdCtrls"].$rtti["TRadioGroup"]);
-    $r.addField("lbusuario2",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("lbusuario",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
-    $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
-    $r.addField("lbminimizar",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("Compartir1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("CompartirPDF21",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("compartirpdf31",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Compartir2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("WebLocalTextFile1",pas["WEBLib.LocalFiles"].$rtti["TLocalTextFile"]);
-    $r.addField("PedidosDbClientDataset1",pas["WEBLib.IndexedDb"].$rtti["TIndexedDbClientDataset"]);
-    $r.addField("WebSpeedButton1",pas["WEBLib.Buttons"].$rtti["TSpeedButton"]);
-    $r.addField("WebPopupMenu1",pas["WEBLib.Menus"].$rtti["TPopupMenu"]);
-    $r.addField("uno1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("dos1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("tres1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("cuatro",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("comparte",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("N3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addField("Salir2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
-    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton3Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebHttpRequest1Response",0,[["Sender",pas.System.$rtti["TObject"]],["AResponse",rtl.string]]);
-    $r.addMethod("WebButton5Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton6Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("btn_imprimirClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("btn_exportarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("btn_exportallClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton7Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton8Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton10Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Pacientes1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Consultas1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Estudios1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
-    $r.addMethod("Analisis1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("ExportarPDF1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Expotar1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Descargar1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Imprimir1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Graficas1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
-    $r.addMethod("Graficar2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Sqlite1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton11Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton12Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton13Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebDivClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("AnlisisGrfico1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
-    $r.addMethod("Salir1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
-    $r.addMethod("LimpiarHoja1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("LimpiarHoja2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Registrar1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("btnCerrarClick",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
-    $r.addMethod("ExportaraPDF1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("btnAgregarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebPanel4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebLabel2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("edventasubaEnter",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebScrollRegistroClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("GetCookie",1,[["cookie_name",rtl.string]],rtl.string);
-    $r.addMethod("WebFormEnter",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
-    $r.addMethod("lbminimizarChange",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Compartir1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("CompartirPDF21Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("compartirpdf31Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Compartir2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("lbarchivoClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebLocalTextFile1FileSave",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebFormShow",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebScrollRegistroMouseEnter",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebScrollRegistroMouseLeave",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("cargarFormaCaptura",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("PedidosDbClientDataset1AfterOpen",0,[["DataSet",pas.DB.$rtti["TDataSet"]]]);
-    $r.addMethod("WebDivMouseMove",0,[["Sender",pas.System.$rtti["TObject"]],["Shift",pas.Classes.$rtti["TShiftState"]],["X",rtl.longint],["Y",rtl.longint]]);
-    $r.addMethod("WebSpeedButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("Salir2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("comparteClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("dos1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("tres1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("cuatroClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("uno1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebDivDblClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-  });
-  this.Form1 = null;
-  $mod.$implcode = function () {
-    $impl.popmenuwidth = 0.0;
-    $impl.maximoRegistros = 101;
-    $impl.RegistroCookie = null;
-    $impl.NomRegistroCookie = "";
-  };
-},["Unit3"]);
-rtl.module("WEBLib.Login",["System","Classes","SysUtils","Types","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.Graphics","WEBLib.Dialogs","Web"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.createClass(this,"TLoginPanel",pas["WEBLib.Controls"].TCustomControl,function () {
-    this.$init = function () {
-      pas["WEBLib.Controls"].TCustomControl.$init.call(this);
-      this.FPasswordLabel = "";
-      this.FOnLogin = null;
-      this.FUserLabel = "";
-      this.FPassword = "";
-      this.FCaptionLabel = "";
-      this.FUser = "";
-      this.FBorderColor$1 = 0;
-      this.FLoginLabel = "";
-      this.FElementButtonClassname = "";
-      this.FElementInputClassName = "";
-      this.FElementClassName$1 = "";
-      this.FUserInput = null;
-      this.FPasswordInput = null;
-      this.FUserLabelSpan = null;
-      this.FPasswordLabelSpan = null;
-      this.FButton = null;
-      this.FCaption$1 = null;
-      this.FElementCaptionClassName = "";
-      this.FPadding = 0;
-      this.FMargin = 0;
-      this.FElementLabelClassName = "";
-      this.FCreated = false;
-    };
-    this.$final = function () {
-      this.FOnLogin = undefined;
-      this.FUserInput = undefined;
-      this.FPasswordInput = undefined;
-      this.FUserLabelSpan = undefined;
-      this.FPasswordLabelSpan = undefined;
-      this.FButton = undefined;
-      this.FCaption$1 = undefined;
-      pas["WEBLib.Controls"].TCustomControl.$final.call(this);
-    };
-    this.SetPassword = function (Value) {
-      if (this.FPassword !== Value) {
-        this.FPassword = Value;
-        this.UpdateElementData();
-      };
-    };
-    this.SetPasswordLabel = function (Value) {
-      if (this.FPasswordLabel !== Value) {
-        this.FPasswordLabel = Value;
-        this.UpdateElementData();
-      };
-    };
-    this.SetUser = function (Value) {
-      if (this.FUser !== Value) {
-        this.FUser = Value;
-        this.UpdateElementData();
-      };
-    };
-    this.SetUserLabel = function (Value) {
-      if (this.FUserLabel !== Value) {
-        this.FUserLabel = Value;
-        this.UpdateElementData();
-      };
-    };
-    this.HandleLoginClick = function (Event) {
-      var Result = false;
-      Result = true;
-      this.DoLogin();
-      return Result;
-    };
-    this.HandlePasswordKeypress = function (Event) {
-      var Result = false;
-      Result = true;
-      if (Event.key === "Enter") this.DoLogin();
-      return Result;
-    };
-    this.GetPassword = function () {
-      var Result = "";
-      if (this.FPasswordInput != null) {
-        Result = rtl.asExt(this.FPasswordInput,HTMLInputElement).value}
-       else Result = this.FPassword;
-      return Result;
-    };
-    this.GetUser = function () {
-      var Result = "";
-      if (this.FUserInput != null) {
-        Result = rtl.asExt(this.FUserInput,HTMLInputElement).value}
-       else Result = this.FUser;
-      return Result;
-    };
-    this.SetBorderColor$1 = function (Value) {
-      if (this.FBorderColor$1 !== Value) {
-        this.FBorderColor$1 = Value;
-        this.UpdateElementVisual();
-      };
-    };
-    this.SetCaptionLabel = function (Value) {
-      if (this.FCaptionLabel !== Value) {
-        this.FCaptionLabel = Value;
-        this.UpdateElementData();
-      };
-    };
-    this.SetElementButtonClassName = function (Value) {
-      this.FElementButtonClassname = Value;
-    };
-    this.SetElementCaptionClassName = function (Value) {
-      this.FElementCaptionClassName = Value;
-    };
-    this.SetElementClassName$1 = function (Value) {
-      this.FElementClassName$1 = Value;
-    };
-    this.SetElementInputClassName = function (Value) {
-      this.FElementInputClassName = Value;
-    };
-    this.SetMargin = function (Value) {
-      if (this.FMargin !== Value) {
-        this.FMargin = Value;
-        this.UpdateElementVisual();
-      };
-    };
-    this.SetPadding = function (Value) {
-      if (this.FPadding !== Value) {
-        this.FPadding = Value;
-        this.UpdateElementVisual();
-      };
-    };
-    this.SetElementLabelClassName = function (Value) {
-      if (this.FElementLabelClassName !== Value) {
-        this.FElementLabelClassName = Value;
-        this.UpdateElementVisual();
-      };
-    };
-    this.SetLoginLabel = function (Value) {
-      if (this.FLoginLabel !== Value) {
-        this.FLoginLabel = Value;
-        this.UpdateElementData();
-      };
-    };
-    this.DoLogin = function () {
-      if (this.FOnLogin != null) this.FOnLogin(this);
-    };
-    this.CreateElement = function () {
-      var Result = null;
-      var br = null;
-      var useCSS = false;
-      this.FCreated = true;
-      Result = document.createElement("SPAN");
-      this.FCaption$1 = document.createElement("DIV");
-      this.FUserInput = document.createElement("INPUT");
-      this.FUserInput.setAttribute("id",this.FName + "_usr");
-      this.FPasswordInput = document.createElement("INPUT");
-      this.FPasswordInput.setAttribute("type","password");
-      this.FPasswordInput.setAttribute("id",this.FName + "_pwd");
-      this.FUserLabelSpan = document.createElement("DIV");
-      this.FPasswordLabelSpan = document.createElement("DIV");
-      useCSS = this.UseCSSFont();
-      pas["WEBLib.Controls"].SetHTMLElementFont(this.FCaption$1,this.FFont,useCSS);
-      pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserLabelSpan,this.FFont,useCSS);
-      pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserInput,this.FFont,useCSS);
-      pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordLabelSpan,this.FFont,useCSS);
-      pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordInput,this.FFont,useCSS);
-      Result.appendChild(this.FCaption$1);
-      Result.appendChild(this.FUserLabelSpan);
-      Result.appendChild(this.FUserInput);
-      Result.appendChild(this.FPasswordLabelSpan);
-      Result.appendChild(this.FPasswordInput);
-      br = document.createElement("BR");
-      Result.appendChild(br);
-      this.FButton = document.createElement("BUTTON");
-      this.FButton.setAttribute("id",this.FName + "_btn");
-      Result.appendChild(this.FButton);
-      return Result;
-    };
-    this.UpdateElementVisual = function () {
-      var strpadding = "";
-      var strmargin = "";
-      var useCSS = false;
-      pas["WEBLib.Controls"].TCustomControl.UpdateElementVisual.call(this);
-      if (this.GetElementHandle() != null) {
-        useCSS = this.UseCSSFont();
-        strpadding = pas.SysUtils.IntToStr(this.FPadding) + "px";
-        strmargin = pas.SysUtils.IntToStr(this.FMargin) + "px";
-        this.GetElementHandle().setAttribute("class",this.FElementClassName$1);
-        if (this.FElementClassName$1 === "") {
-          this.GetElementHandle().style.setProperty("border","solid 1px " + pas["WEBLib.Graphics"].ColorToHTML(this.FBorderColor$1));
-          this.GetElementHandle().style.setProperty("padding",strpadding);
-        };
-        if (this.FVisible) this.GetElementHandle().style.setProperty("display","table");
-        this.FCaption$1.setAttribute("class",this.FElementCaptionClassName);
-        if (this.FElementCaptionClassName === "") {
-          this.FCaption$1.style.setProperty("margin-top",strmargin);
-          this.FCaption$1.style.setProperty("margin-bottom",strmargin);
-          this.FCaption$1.style.setProperty("font-weight","bold");
-          pas["WEBLib.Controls"].SetHTMLElementFont(this.FCaption$1,this.FFont,useCSS);
-        };
-        this.FUserInput.setAttribute("class",this.FElementInputClassName);
-        this.FPasswordInput.setAttribute("class",this.FElementInputClassName);
-        if (this.FElementInputClassName === "") {
-          this.FUserInput.style.setProperty("margin-top",strmargin);
-          this.FUserInput.style.setProperty("margin-bottom",strmargin);
-          this.FPasswordInput.style.setProperty("margin-top",strmargin);
-          this.FPasswordInput.style.setProperty("margin-bottom",strmargin);
-          pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserInput,this.FFont,useCSS);
-          pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordInput,this.FFont,useCSS);
-        };
-        this.FUserInput.style.setProperty("width","100%");
-        this.FUserInput.style.setProperty("display","table-cell");
-        this.FPasswordInput.style.setProperty("width","100%");
-        this.FPasswordInput.style.setProperty("display","table-cell");
-        this.FUserLabelSpan.setAttribute("class",this.FElementLabelClassName);
-        this.FPasswordLabelSpan.setAttribute("class",this.FElementLabelClassName);
-        if (this.FElementLabelClassName === "") {
-          this.FUserLabelSpan.style.setProperty("margin-top",strmargin);
-          this.FUserLabelSpan.style.setProperty("margin-bottom",strmargin);
-          this.FPasswordLabelSpan.style.setProperty("margin-top",strmargin);
-          this.FPasswordLabelSpan.style.setProperty("margin-bottom",strmargin);
-          pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserLabelSpan,this.FFont,useCSS);
-          pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordLabelSpan,this.FFont,useCSS);
-        };
-        this.FButton.setAttribute("class",this.FElementButtonClassname);
-        if (this.FElementButtonClassname === "") {
-          this.FButton.style.setProperty("margin-top",strmargin);
-          this.FButton.style.setProperty("margin-bottom",strmargin);
-          pas["WEBLib.Controls"].SetHTMLElementFont(this.FButton,this.FFont,useCSS);
-        };
-        this.FButton.style.setProperty("float","right");
-      };
-    };
-    this.UpdateElementData = function () {
-      pas["WEBLib.Controls"].TControl.UpdateElementData.call(this);
-      this.FUserLabelSpan.innerHTML = this.FUserLabel;
-      this.FPasswordLabelSpan.innerHTML = this.FPasswordLabel;
-      this.FButton.innerHTML = this.FLoginLabel;
-      this.FCaption$1.innerHTML = this.FCaptionLabel;
-      rtl.asExt(this.FUserInput,HTMLInputElement).value = this.FUser;
-      rtl.asExt(this.FPasswordInput,HTMLInputElement).value = this.FPassword;
-    };
-    this.BindEvents = function () {
-      var s = "";
-      pas["WEBLib.Controls"].TCustomControl.BindEvents.call(this);
-      if (this.FCreated) {
-        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
-        this.FPasswordInput.addEventListener("keypress",rtl.createCallback(this,"HandlePasswordKeypress"));
-        this.FCreated = false;
-      } else {
-        s = this.GetID() + "_btn";
-        this.FButton = document.getElementById(s);
-        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
-        s = this.GetID() + "_usr";
-        this.FUserInput = document.getElementById(s);
-        s = this.GetID() + "_pwd";
-        this.FPasswordInput = document.getElementById(s);
-        this.FPasswordInput.addEventListener("keypress",rtl.createCallback(this,"HandlePasswordKeypress"));
-      };
-    };
-    this.UnbindEvents = function () {
-      pas["WEBLib.Controls"].TControl.UnbindEvents.call(this);
-      this.FButton.removeEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
-    };
-    this.CreateInitialize = function () {
-      pas["WEBLib.Controls"].TCustomControl.CreateInitialize.call(this);
-      this.SetColor(14811135);
-      this.FCaptionLabel = "Login";
-      this.FBorderColor$1 = 12632256;
-      this.FUserLabel = "Username:";
-      this.FPasswordLabel = "Password:";
-      this.FLoginLabel = "Login";
-      this.FPadding = 10;
-      this.FMargin = 5;
-      this.SetHeight(155);
-      this.SetWidth(185);
-    };
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-    var $r = this.$rtti;
-    $r.addProperty("Align",2,pas["WEBLib.Controls"].$rtti["TAlign"],"FAlign","SetAlign",{Default: pas["WEBLib.Controls"].TAlign.alNone});
-    $r.addProperty("AlignWithMargins",2,rtl.boolean,"FAlignWithMargins","SetAlignWithMargins",{Default: false});
-    $r.addProperty("Anchors",2,pas["WEBLib.Controls"].$rtti["TAnchors"],"FAnchors","SetAnchors",{Default: rtl.createSet(pas["WEBLib.Controls"].TAnchorKind.akLeft,pas["WEBLib.Controls"].TAnchorKind.akTop)});
-    $r.addProperty("BorderColor",2,pas["WEBLib.Graphics"].$rtti["TColor"],"FBorderColor$1","SetBorderColor$1");
-    $r.addProperty("CaptionLabel",2,rtl.string,"FCaptionLabel","SetCaptionLabel");
-    $r.addProperty("Center",0,pas["WEBLib.Controls"].$rtti["TCenter"],"FCenter","");
-    $r.addProperty("ElementClassName",2,rtl.string,"FElementClassName$1","SetElementClassName$1");
-    $r.addProperty("ElementFont",2,pas["WEBLib.Controls"].$rtti["TElementFont"],"FElementFont","SetElementFont",{Default: pas["WEBLib.Controls"].TElementFont.efProperty});
-    $r.addProperty("ElementID",3,pas["WEBLib.Controls"].$rtti["TElementID"],"GetID","SetID");
-    $r.addProperty("ElementPosition",2,pas["WEBLib.Controls"].$rtti["TElementPosition"],"FElementPosition","SetElementPosition",{Default: pas["WEBLib.Controls"].TElementPosition.epAbsolute});
-    $r.addProperty("ElementCaptionClassName",2,rtl.string,"FElementCaptionClassName","SetElementCaptionClassName");
-    $r.addProperty("ElementInputClassName",2,rtl.string,"FElementInputClassName","SetElementInputClassName");
-    $r.addProperty("ElementButtonClassName",2,rtl.string,"FElementButtonClassname","SetElementButtonClassName");
-    $r.addProperty("ElementLabelClassName",2,rtl.string,"FElementLabelClassName","SetElementLabelClassName");
-    $r.addProperty("Font",2,pas["WEBLib.Graphics"].$rtti["TFont"],"FFont","SetFont");
-    $r.addProperty("LoginLabel",2,rtl.string,"FLoginLabel","SetLoginLabel");
-    $r.addProperty("Margin",2,rtl.longint,"FMargin","SetMargin");
-    $r.addProperty("Padding",2,rtl.longint,"FPadding","SetPadding");
-    $r.addProperty("Password",3,rtl.string,"GetPassword","SetPassword");
-    $r.addProperty("PasswordLabel",2,rtl.string,"FPasswordLabel","SetPasswordLabel");
-    $r.addProperty("User",3,rtl.string,"GetUser","SetUser");
-    $r.addProperty("UserLabel",2,rtl.string,"FUserLabel","SetUserLabel");
-    $r.addProperty("OnClick",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnClick","FOnClick");
-    $r.addProperty("OnLogin",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnLogin","FOnLogin");
-  });
-  rtl.createClass(this,"TWebLoginPanel",this.TLoginPanel,function () {
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-  });
-});
-rtl.module("uFormaLogin",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.Login","Unit1","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.REST","WEBLib.JSON","uCargarConsultas","WEBLib.Cookies"],function () {
-  "use strict";
-  var $mod = this;
-  var $impl = $mod.$impl;
-  rtl.createClass(this,"TFormaLogin",pas["WEBLib.Forms"].TForm,function () {
-    this.$init = function () {
-      pas["WEBLib.Forms"].TForm.$init.call(this);
-      this.WebLoginPanel1 = null;
-      this.WebMessageDlg1 = null;
-      this.WebMemo1 = null;
-      this.WebHttpRequest1 = null;
-      this.WebButton1 = null;
-    };
-    this.$final = function () {
-      this.WebLoginPanel1 = undefined;
-      this.WebMessageDlg1 = undefined;
-      this.WebMemo1 = undefined;
-      this.WebHttpRequest1 = undefined;
-      this.WebButton1 = undefined;
-      pas["WEBLib.Forms"].TForm.$final.call(this);
-    };
-    this.WebLoginPanel1Click = function (Sender) {
-    };
-    this.WebLoginPanel1Login = async function (Sender) {
-      var u = "";
-      var p = "";
-      var mr = 0;
-      var resultado = false;
-      var lBuffer = 0;
-      this.WebMemo1.SetText("");
-      this.WebMemo1.FLines.Clear();
-      u = this.WebLoginPanel1.GetUser();
-      p = this.WebLoginPanel1.GetPassword();
-      $impl.fusuariook = false;
-      resultado = await this.ValidarUsuario(u,p);
-    };
-    this.WebButton1Click = function (Sender) {
-      this.WebHttpRequest1.FURL = "https://idsfdg.github.io/FIDEVALE/usuarios.txt";
-      this.WebHttpRequest1.Execute(null);
-    };
-    this.WebHttpRequest1Response = function (Sender, AResponse) {
-      var ja = null;
-      var sJson = "";
-      var BigSampleData = "";
-      sJson = AResponse;
-      this.WebMemo1.FLines.Add(AResponse);
-      ja = rtl.as(pas["WEBLib.JSON"].TJSONObject.ParseJSONValue(AResponse),pas["WEBLib.JSON"].TJSONArray);
-      var JS_Array = JSON.parse(Aresponse);
-      console.log('JS Array = '+JSON.stringify(JS_Array));
-    };
-    this.WebFormCreate = function (Sender) {
-      var i = 0;
-    };
-    this.WebMemo1Change = function (Sender) {
-      pas["WEBLib.Dialogs"].ShowMessage("on change");
-    };
-    this.ValidarUsuario = async function (u, p) {
-      var Result = false;
-      var ustr = "";
-      var pstr = "";
-      var astr = "";
-      var jresult = false;
-      var Cookies = null;
-      Result = false;
-      jresult = false;
-      ustr = pas.SysUtils.TStringHelper.UpperCase(u);
-      //********************************************************************************
-       //********************************************************************************
-       //        const sqlPromise = initSqlJs({
-       //       locateFile: file => 'https://idsfdg.github.io/FIDEVALE/'
-       //     });
-       //        const dataPromise = fetch("//idsfdg.github.io/FIDEVALE/BD_Vale.db").then(res => res.arrayBuffer());
-       //        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
-       //        const db = new SQL.Database(new Uint8Array(buf));
-       //   alert('fech');
-       //********************************************************************************
-       //********************************************************************************
-      
-        const xhr = new XMLHttpRequest();
-      
-      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
-      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
-        xhr.open('GET', 'https://idsfdg.github.io/FIDEVALE/BD_Vale.db', true);
-      //alert('1');
-      xhr.responseType = 'arraybuffer';
-      //alert('2');
-       xhr.onload =  e => {
-        const uInt8Array = new Uint8Array(xhr.response);
-       // console.log  ('array',uInt8Array);
-      //   alert('3');
-        const db = new SQL.Database(uInt8Array);
-      //   alert('4');
-      
-       //********************************************************************************
-       //SELECT SQL *********************************************************************
-       //********************************************************************************
-       
-        const  contents =   db.exec("SELECT contrapwd,estado FROM tablausuarios where nombre = '"+ustr+"';");
-       //********************************************************************************
-       //********************************************************************************
-      
-        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
-         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-          // Request finished. Do processing here.
-      
-           var len = contents.length;
-           console.log('contents');
-          console.log(contents.length);
-           if (len > 0)
-           {
-            console.log(contents);
-            console.log('contents columns');
-            console.log(contents[0].columns);
-            console.log('contents values');
-            console.log(contents[0].values);
-            len = contents[0].values.length;
-            if (len > 0)
-            {
-             //  alert('usuario existe');
-               pstr= contents[0].values[0][0];
-               astr= contents[0].values[0][1];
-               console.log('pwd',pstr);
-               console.log('astr',astr);
-              // const edBox = document.getElementById("tabla");
-               if (pstr==p  && astr=="1")
-               {
-                  jresult=true;
-                 // WebMemo1.text = pwd+astr;
-      
-                 //Set the text content of the editbox
-                 //  edBox.value = "OK";
-               }
-               else
-               {
-                    jresult=false;
-                //   edBox.value = "NOT OK";
-               }
-      
-      
-            }
-         }
-        } // readyState
-        console.log('resultado 1',jresult);
-      //alert('5');
-      if (jresult === true) {
-        Result = true;
-        this.Close();
-        Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
-        try {
-          Cookies.Add$2("usr",ustr);
-          Cookies.SetCookies();
-        } finally {
-          Cookies = rtl.freeLoc(Cookies);
-        };
-        pas["WEBLib.Forms"].Application.CreateForm(pas.Unit1.TForm1,{p: pas.Unit1, get: function () {
-            return this.p.Form1;
-          }, set: function (v) {
-            this.p.Form1 = v;
-          }});
-      } else {
-        Result = false;
-        pas["WEBLib.Dialogs"].ShowMessage("Usuario no tiene autorización para entrar al sistema");
-      };
-      //********************************************************************************
-       //********************************************************************************
-      };
-      
-      xhr.send();
-      return Result;
-    };
-    this.ThisMethodIsAsync = async function () {
-      var $Self = this;
-      var Result = null;
-      Result = new Promise(function (ASuccess, AFailed) {
-        ASuccess(7);
-        pas["WEBLib.Dialogs"].ShowMessage("termino");
-      });
-      return Result;
-    };
-    this.ValidarUsuario2 = async function () {
-      var $Self = this;
-      var Result = null;
-      var ustr = "";
-      var pstr = "";
-      var astr = "";
-      var jresult = false;
-      var u = "";
-      var p = "";
-      u = this.WebLoginPanel1.GetUser();
-      p = this.WebLoginPanel1.GetPassword();
-      jresult = false;
-      ustr = pas.SysUtils.TStringHelper.UpperCase(u);
-      Result = new Promise(function (ASuccess, AFailed) {
-        //********************************************************************************
-         //********************************************************************************
-         //        const sqlPromise = initSqlJs({
-         //       locateFile: file => 'https://idsfdg.github.io/FIDEVALE/'
-         //     });
-         //        const dataPromise = fetch("//idsfdg.github.io/FIDEVALE/BD_Vale.db").then(res => res.arrayBuffer());
-         //        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
-         //        const db = new SQL.Database(new Uint8Array(buf));
-         //   alert('fech');
-         //********************************************************************************
-         //********************************************************************************
-        
-          const xhr = new XMLHttpRequest();
-        
-        // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
-        //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
-          xhr.open('GET', 'https://idsfdg.github.io/FIDEVALE/BD_Vale.db', true);
-        //alert('1');
-        xhr.responseType = 'arraybuffer';
-        //alert('2');
-         xhr.onload =  e => {
-          const uInt8Array = new Uint8Array(xhr.response);
-        //   alert('3');
-          const db = new SQL.Database(uInt8Array);
-        //   alert('4');
-        
-         //********************************************************************************
-         //SELECT SQL *********************************************************************
-         //********************************************************************************
-        
-          const  contents =   db.exec("SELECT contrapwd,estado FROM tablausuarios where nombre = '"+ustr+"';");
-         //********************************************************************************
-         //********************************************************************************
-        
-          // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
-           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            // Request finished. Do processing here.
-        
-             var len = contents.length;
-             console.log('contents');
-            console.log(contents.length);
-             if (len > 0)
-             {
-             // console.log(contents);
-             // console.log('contents columns');
-             // console.log(contents[0].columns);
-             // console.log('contents values');
-             // console.log(contents[0].values);
-              len = contents[0].values.length;
-              if (len > 0)
-              {
-               //  alert('usuario existe');
-                 pstr= contents[0].values[0][0];
-                 astr= contents[0].values[0][1];
-               //  console.log('pwd',pstr);
-               //  console.log('astr',astr);
-                 if (pstr==p  && astr=="1")
-                 {
-                    jresult=true;
-                   // WebMemo1.text = pwd+astr;
-                  // alert('jresult true');
-                    ASuccess('ok');
-                 }
-              }
-           }
-          } // readyState
-        //alert('5');
-        
-        
-         //********************************************************************************
-         //********************************************************************************
-        };
-        xhr.send();
-        $impl.fusuariook = jresult;
-      });
-      return Result;
-    };
-    this.CargarFormaModal = function () {
-      var $Self = this;
-      var newform = null;
-      function AfterShowModal(AValue) {
-      };
-      function AfterCreate(AForm) {
-      };
-      newform = pas.Unit1.TForm1.$create("CreateNew$3",[AfterCreate]);
-      newform.ShowModal$1(AfterShowModal);
-    };
-    this.LoadDFMValues = function () {
-      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
-      this.WebLoginPanel1 = pas["WEBLib.Login"].TLoginPanel.$create("Create$1",[this]);
-      this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
-      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$2",["tabla"]);
-      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.WebHttpRequest1 = pas["WEBLib.REST"].THttpRequest.$create("Create$1",[this]);
-      this.WebLoginPanel1.BeforeLoadDFMValues();
-      this.WebMessageDlg1.BeforeLoadDFMValues();
-      this.WebMemo1.BeforeLoadDFMValues();
-      this.WebButton1.BeforeLoadDFMValues();
-      this.WebHttpRequest1.BeforeLoadDFMValues();
-      try {
-        this.SetName("FormaLogin");
-        this.SetWidth(674);
-        this.SetHeight(384);
-        this.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
-        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.FFont.FCharset = 1;
-        this.FFont.SetColor(65793);
-        this.FFont.SetHeight(-15);
-        this.FFont.SetName("Tahoma");
-        this.FFont.SetStyle({});
-        this.SetParentFont(false);
-        this.SetEvent(this,"OnCreate","WebFormCreate");
-        this.WebLoginPanel1.SetParentComponent(this);
-        this.WebLoginPanel1.SetName("WebLoginPanel1");
-        this.WebLoginPanel1.SetLeft(168);
-        this.WebLoginPanel1.SetTop(43);
-        this.WebLoginPanel1.SetWidth(337);
-        this.WebLoginPanel1.SetHeight(297);
-        this.WebLoginPanel1.SetCaptionLabel("Control de Acceso");
-        this.WebLoginPanel1.FCenter.SetHorizontal(true);
-        this.WebLoginPanel1.FCenter.SetVertical(true);
-        this.WebLoginPanel1.SetColor(16376827);
-        this.WebLoginPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
-        this.WebLoginPanel1.SetElementPosition(pas["WEBLib.Controls"].TElementPosition.epAbsolute);
-        this.WebLoginPanel1.SetLoginLabel("Acceso");
-        this.WebLoginPanel1.SetPasswordLabel("Contraseña:");
-        this.WebLoginPanel1.SetUserLabel("Usuario:");
-        this.SetEvent$1(this.WebLoginPanel1,this,"OnClick","WebLoginPanel1Click");
-        this.SetEvent$1(this.WebLoginPanel1,this,"OnLogin","WebLoginPanel1Login");
-        this.WebMessageDlg1.SetParentComponent(this);
-        this.WebMessageDlg1.SetName("WebMessageDlg1");
-        this.WebMessageDlg1.SetLeft(48);
-        this.WebMessageDlg1.SetTop(192);
-        this.WebMessageDlg1.SetWidth(24);
-        this.WebMessageDlg1.SetHeight(24);
-        this.WebMessageDlg1.FButtons = {};
-        this.WebMessageDlg1.FOpacity = 0.200000000000000000;
-        this.WebMessageDlg1.FElementButtonClassName = "btn";
-        this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
-        this.WebMessageDlg1.FElementTitleClassName = "text-body";
-        this.WebMessageDlg1.FElementContentClassName = "text-body";
-        this.WebMemo1.SetParentComponent(this);
-        this.WebMemo1.SetName("WebMemo1");
-        this.WebMemo1.SetLeft(8);
-        this.WebMemo1.SetTop(64);
-        this.WebMemo1.SetWidth(154);
-        this.WebMemo1.SetHeight(105);
-        this.WebMemo1.SetElementClassName("form-control");
-        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebMemo1.SetHeightPercent(100.000000000000000000);
-        this.WebMemo1.FLines.BeginUpdate();
-        try {
-          this.WebMemo1.FLines.Clear();
-          this.WebMemo1.FLines.Add("");
-        } finally {
-          this.WebMemo1.FLines.EndUpdate();
-        };
-        this.WebMemo1.SetSelLength(0);
-        this.WebMemo1.SetSelStart(2);
-        this.WebMemo1.SetVisible(false);
-        this.WebMemo1.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebMemo1,this,"OnChange","WebMemo1Change");
-        this.WebButton1.SetParentComponent(this);
-        this.WebButton1.SetName("WebButton1");
-        this.WebButton1.SetLeft(24);
-        this.WebButton1.SetTop(243);
-        this.WebButton1.SetWidth(96);
-        this.WebButton1.SetHeight(25);
-        this.WebButton1.SetCaption("WebButton1");
-        this.WebButton1.SetChildOrderEx(3);
-        this.WebButton1.SetElementClassName("btn btn-light");
-        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton1.SetHeightPercent(100.000000000000000000);
-        this.WebButton1.SetVisible(false);
-        this.WebButton1.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
-        this.WebHttpRequest1.SetParentComponent(this);
-        this.WebHttpRequest1.SetName("WebHttpRequest1");
-        this.SetEvent$1(this.WebHttpRequest1,this,"OnResponse","WebHttpRequest1Response");
-        this.WebHttpRequest1.SetLeft(552);
-        this.WebHttpRequest1.SetTop(152);
-      } finally {
-        this.WebLoginPanel1.AfterLoadDFMValues();
-        this.WebMessageDlg1.AfterLoadDFMValues();
-        this.WebMemo1.AfterLoadDFMValues();
-        this.WebButton1.AfterLoadDFMValues();
-        this.WebHttpRequest1.AfterLoadDFMValues();
-      };
-    };
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-    var $r = this.$rtti;
-    $r.addField("WebLoginPanel1",pas["WEBLib.Login"].$rtti["TLoginPanel"]);
-    $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
-    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
-    $r.addField("WebHttpRequest1",pas["WEBLib.REST"].$rtti["THttpRequest"]);
-    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addMethod("WebLoginPanel1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebLoginPanel1Login",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
-    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebHttpRequest1Response",0,[["Sender",pas.System.$rtti["TObject"]],["AResponse",rtl.string]]);
-    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebMemo1Change",0,[["Sender",pas.System.$rtti["TObject"]]]);
-  });
-  this.FormaLogin = null;
-  $mod.$implcode = function () {
-    $impl.fusuariook = false;
-  };
-},[]);
-rtl.module("Unit2",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.WebCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.Controls","WEBLib.ExtCtrls","Unit3"],function () {
-  "use strict";
-  var $mod = this;
-  var $impl = $mod.$impl;
-  rtl.createClass(this,"TForm2",pas["WEBLib.Forms"].TForm,function () {
-    this.$init = function () {
-      pas["WEBLib.Forms"].TForm.$init.call(this);
-      this.WebPanel1 = null;
-      this.WebButton1 = null;
-      this.cargar2 = null;
-      this.WebButton2 = null;
-      this.WebPanel2 = null;
-      this.WebHTMLDiv1 = null;
-      this.btnAgrega = null;
-      this.WebMemo1 = null;
-      this.edRen = null;
-      this.WebButton3 = null;
-      this.WebButton4 = null;
-    };
-    this.$final = function () {
-      this.WebPanel1 = undefined;
-      this.WebButton1 = undefined;
-      this.cargar2 = undefined;
-      this.WebButton2 = undefined;
-      this.WebPanel2 = undefined;
-      this.WebHTMLDiv1 = undefined;
-      this.btnAgrega = undefined;
-      this.WebMemo1 = undefined;
-      this.edRen = undefined;
-      this.WebButton3 = undefined;
-      this.WebButton4 = undefined;
-      pas["WEBLib.Forms"].TForm.$final.call(this);
-    };
-    this.WebButton1Click = function (Sender) {
-      var tabledata = [
-          {id:1, name:"Oli Bob", location:"United Kingdom", gender:"male", rating:1, col:"red", dob:"14/04/1984"},
-          {id:2, name:"Mary May", location:"Germany", gender:"female", rating:2, col:"blue", dob:"14/05/1982"},
-          {id:3, name:"Christine Lobowski", location:"France", gender:"female", rating:0, col:"green", dob:"22/05/1982"},
-          {id:4, name:"Brendon Philips", location:"USA", gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
-          {id:5, name:"Margret Marmajuke", location:"Canada", gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
-          {id:6, name:"Frank Harbours", location:"Russia", gender:"male", rating:4, col:"red", dob:"12/05/1966"},
-          {id:7, name:"Jamie Newhart", location:"India", gender:"male", rating:3, col:"green", dob:"14/05/1985"},
-          {id:8, name:"Gemma Jane", location:"China", gender:"female", rating:0, col:"red", dob:"22/05/1982"},
-          {id:9, name:"Emily Sykes", location:"South Korea", gender:"female", rating:1, col:"maroon", dob:"11/11/1970"},
-          {id:10, name:"James Newman", location:"Japan", gender:"male", rating:5, col:"red", dob:"22/03/1998"},
-      ];
-      
-        tabledata=[];
-      var table = new Tabulator("#example-table", {
-            rows:10,
-            columns:6,
-            data:tabledata,
-          height:"311px",
-          layout:"fitDataFill",
-          responsiveLayout:"collapse",
-          rowHeader:{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
-          columns:[
-          {title:"Name", field:"name", width:200, responsive:0},
-          {title:"Progress", field:"progress", hozAlign:"right", sorter:"number", width:150},
-          {title:"Gender", field:"gender", width:150, responsive:2},
-          {title:"Rating", field:"rating", hozAlign:"center", width:150},
-          {title:"Favourite Color", field:"col", width:150},
-          {title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date", width:150},
-          {title:"Driver", field:"car", hozAlign:"center", width:150},
-          ],
-      });
-    };
-    this.cargar2Click = function (Sender) {
-      var datos ={nombre:"", articulo:"", importe:"", pagado:"", entregado:"", vds:""};
-      
-      
-         var tabledata = [
-          {nombre:"", articulo:"", importe:"", pagado:"", entregado:"", vds:""}
-          ];
-         tabledata = [];
-      
-        for (let i = 0; i < 1; i++) {
-          tabledata.push(datos);
-        }
-      
-      
-            var sheets = [
-          {
-            name:'huno',
-            title:"Registro",
-            key:"uno",
-            rows:10,
-            columns:6,
-           // data:[],
-           data:tabledata,
-        },
-      
-      ];
-      
-      
-        var table = new Tabulator("#example-table", {
-      
-            // selectableRows:true,
-            rows:10,
-            columns:6,
-            data:tabledata,
-          height:"311px",
-          layout:"fitDataFill",
-          responsiveLayout:"collapse",
-          rowHeader:{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
-        //        spreadsheet:true,
-        //spreadsheetRows:10,
-        //spreadsheetColumns:6,
-       // spreadsheetColumnDefinition:{editable:editCheck,editor:"input"},
-      
-        //  spreadsheetSheets:sheets,        // DEFINICION HOJAS ARREGLO
-        //  spreadsheetSheetTabs:true,
-        //  spreadsheetSheetTabsElement:"#table-tabs", //insert tabs in element with id of table-tabs
-      
-      
-        //editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
-        editorEmptyValue:{editor:"input"},
-      
-        spreadsheetColumnDefinition:{editor:"input"}, //add an input editor to every cell
-              rowHeight:40, //set rows to 40px height
-               columns:[
-          {title:"Nombre", field:"nombre", width:150, responsive:0},
-          {title:"Articulo", field:"articulo", hozAlign:"right", sorter:"number", width:150},
-          {title:"importe", field:"importe", width:100},
-          {title:"P", field:"pagado", hozAlign:"center", width:150, responsive:2},
-          {title:"E", field:"entregado", width:150, responsive:3},
-          {title:"VD/S", field:"vds", hozAlign:"center", sorter:"date", width:150 , responsive:4},
-          ],
-      });
-      
-        table.on("tableBuilt", function(){
-      
-             var cols = table.getColumns() //get array of column components
-      
-            //  cols[0].updateDefinition({title:'Ren',width:5,headerTooltip:''});
-            //   cols[1].updateDefinition({title:'Nombre',width:200,responsive:0,headerTooltip:'Nombre',headerFilter:"input"});
-            //   cols[2].updateDefinition({title:'Articulo',width:150,responsive:0,headerTooltip:'Articulo',headerFilter:"input"});
-            //   cols[3].updateDefinition({title:'Importe',width:150,responsive:0,headerTooltip:'Importe',headerFilter:"input",responsive:2});
-            //   cols[4].updateDefinition({title:'P.',width:150,headerTooltip:'Pagado',editor:true, formatter:"tickCross"});
-            //   cols[5].updateDefinition({title:'E.',width:150,headerTooltip:'Entregado',editor:true, formatter:"tickCross"});
-            //   cols[6].updateDefinition({title:'VD/SUB',width:150,headerTooltip:'Vta.Directa /Subasta',headerFilter:"input"});
-          //  alert('tableBuilt');
-      
-      
-             });
-      
-             table.on("rowClick", function(e, row) {
-             var rowIndex = row.getIndex();
-             var rowPosition = row.getPosition();
-         //alert('row click');
-           // alert(row);
-         // alert(' identifica'+row.getData().Identifica);
-      
-           const editBox = document.getElementById("rowsel");
-           // Set the text content of the editbox
-           console.log(row);
-            editBox.value = rowPosition;
-      
-      
-           const btnregi = document.getElementById("btnreg");
-           btnregi.innerText ='Actualizar';
-      });
-    };
-    this.WebButton2Click = function (Sender) {
-      var $Self = this;
-      var newform = null;
-      function AfterShowModal(AValue) {
-      };
-      function AfterCreate(AForm) {
-      };
-      newform = pas.Unit3.TForm3.$create("CreateNew$3",[AfterCreate]);
-      newform.FPopup = true;
-      newform.ShowModal$1(AfterShowModal);
-    };
-    this.WebHTMLDiv1Click = function (Sender) {
-      this.edRen.SetText("");
-      const btnregi = document.getElementById("btnreg");
-      btnregi.innerText ='Agregar';
-    };
-    this.btnAgregaClick = function (Sender) {
-      var $Self = this;
-      var newform = null;
-      function AfterShowModal(AValue) {
-        pas["WEBLib.Dialogs"].ShowMessage("Regreso");
-        $Self.AgregaRegistrosTabla(newform.listadatos);
-      };
-      function AfterCreate(AForm) {
-        newform.btnAgregar.SetCaption("Agregar");
-        if ($Self.edRen.GetText() !== "") newform.btnAgregar.SetCaption("Actualizar");
-      };
-      newform = pas.Unit3.TForm3.$create("CreateNew$3",[AfterCreate]);
-      newform.FPopup = true;
-      newform.ShowModal$1(AfterShowModal);
-    };
-    this.WebFormCreate = function (Sender) {
-      this.cargar2Click(Sender);
-    };
-    this.WebButton3Click = function (Sender) {
-      async function uploadJsonToGitHub(owner, repo, filePath, jsonData, token) {
-          const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
-          const content = btoa(JSON.stringify(jsonData, null, 2)); // Base64 encode the JSON data
-          const message = `Upload JSON file: ${filePath}`;
-      
-          try {
-              // Check if the file already exists to get its SHA for updates
-              let sha = null;
-              try {
-                  const existingFileResponse = await fetch(url, {
-                      headers: {
-                          'Authorization': `token ${token}`,
-                          'Accept': 'application/vnd.github.v3+json'
-                      }
-                  });
-                  if (existingFileResponse.ok) {
-                      const existingFileData = await existingFileResponse.json();
-                      sha = existingFileData.sha;
-                  }
-              } catch (error) {
-                  console.warn("Could not retrieve existing file SHA, assuming new file:", error);
-              }
-      
-              const requestBody = {
-                  message: message,
-                  content: content,
-                  branch: 'main' // Or your target branch
-              };
-      
-              if (sha) {
-                  requestBody.sha = sha; // Include SHA for updates
-              }
-      
-              const response = await fetch(url, {
-                  method: 'PUT',
-                  headers: {
-                      'Authorization': `token ${token}`,
-                      'Content-Type': 'application/json',
-                      'Accept': 'application/vnd.github.v3+json'
-                  },
-                  body: JSON.stringify(requestBody)
-              });
-      
-              if (!response.ok) {
-                  const errorData = await response.json();
-                  throw new Error(`GitHub API error: ${response.status} - ${errorData.message}`);
-              }
-      
-              console.log(`Successfully uploaded ${filePath} to ${owner}/${repo}`);
-              return await response.json();
-      
-          } catch (error) {
-              console.error("Error uploading JSON to GitHub:", error);
-              throw error;
-          }
-      }
-      
-      
-      // Example usage:
-      // const owner = 'your-github-username';
-      // const repo = 'your-repository-name';
-      // const filePath = 'data/mydata.json';
-      // const jsonData = { key: 'value', array: [1, 2, 3] };
-      // const githubToken = 'YOUR_PERSONAL_ACCESS_TOKEN'; // Keep this secure!
-      
-      
-      
-       const owner = 'IDSFDG';
-       const repo = 'FIDEVALE';
-       //const filePath = 'blob/main/mydata.json';
-       const filePath = 'mydata.json';
-       const jsonData = { key: 'value', array: [1, 2, 3] };
-       const githubToken = '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'; // Keep this secure!
-      
-       uploadJsonToGitHub(owner, repo, filePath, jsonData, githubToken)
-           .then(result => console.log('Upload successful:', result))
-           .catch(error => console.error('Upload failed:', error));
-    };
-    this.WebButton4Click = function (Sender) {
-      pas["WEBLib.Forms"].Application.DownloadTextFile("prueba archivo","pruebaarchivo.txt");
-    };
-    this.AgregaRegistrosTabla = function (datos) {
-      var datosloc = null;
-      var len = 0;
-      var i = 0;
-      var strl = "";
-      if (datos.GetCount() > 0) {
-        datosloc = pas.Classes.TStringList.$create("Create$1");
-        datosloc.AddStrings(datos);
-        this.WebMemo1.FLines.AddStrings(datosloc);
-        len = datosloc.GetCount();
-        var table = Tabulator.findTable("#example-table")[0];
-                  var tabledata = [];
-        
-        
-                  console.log('datosloc',len);
-                  console.log(datosloc);
-        for (var $l = 0, $end = datosloc.GetCount() - 1; $l <= $end; $l++) {
-          i = $l;
-          strl = datosloc.Get(i);
-          console.log(strl);
-          var obj=JSON.parse(strl);
-          tabledata.push(obj);
-        };
-        //  table.setData(tabledata);       // API
-        table.addData(tabledata);
-        return;
-      };
-    };
-    this.LoadDFMValues = function () {
-      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
-      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
-      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.cargar2 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.WebButton2 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.edRen = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["rowsel"]);
-      this.WebButton3 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.WebButton4 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.WebPanel2 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
-      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["example-table"]);
-      this.btnAgrega = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btnreg"]);
-      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
-      this.WebPanel1.BeforeLoadDFMValues();
-      this.WebButton1.BeforeLoadDFMValues();
-      this.cargar2.BeforeLoadDFMValues();
-      this.WebButton2.BeforeLoadDFMValues();
-      this.edRen.BeforeLoadDFMValues();
-      this.WebButton3.BeforeLoadDFMValues();
-      this.WebButton4.BeforeLoadDFMValues();
-      this.WebPanel2.BeforeLoadDFMValues();
-      this.WebHTMLDiv1.BeforeLoadDFMValues();
-      this.btnAgrega.BeforeLoadDFMValues();
-      this.WebMemo1.BeforeLoadDFMValues();
-      try {
-        this.SetName("Form2");
-        this.SetWidth(640);
-        this.SetHeight(480);
-        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
-        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.FFont.FCharset = 1;
-        this.FFont.SetColor(65793);
-        this.FFont.SetHeight(-15);
-        this.FFont.SetName("Tahoma");
-        this.FFont.SetStyle({});
-        this.SetParentFont(false);
-        this.SetEvent(this,"OnCreate","WebFormCreate");
-        this.WebPanel1.SetParentComponent(this);
-        this.WebPanel1.SetName("WebPanel1");
-        this.WebPanel1.SetLeft(0);
-        this.WebPanel1.SetTop(420);
-        this.WebPanel1.SetWidth(640);
-        this.WebPanel1.SetHeight(60);
-        this.WebPanel1.SetElementClassName("card");
-        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
-        this.WebPanel1.FElementBodyClassName = "card-body";
-        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPanel1.SetTabOrder(0);
-        this.WebButton1.SetParentComponent(this.WebPanel1);
-        this.WebButton1.SetName("WebButton1");
-        this.WebButton1.SetLeft(16);
-        this.WebButton1.SetTop(16);
-        this.WebButton1.SetWidth(96);
-        this.WebButton1.SetHeight(25);
-        this.WebButton1.SetCaption("cargar");
-        this.WebButton1.SetElementClassName("btn btn-light");
-        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton1.SetHeightPercent(100.000000000000000000);
-        this.WebButton1.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
-        this.cargar2.SetParentComponent(this.WebPanel1);
-        this.cargar2.SetName("cargar2");
-        this.cargar2.SetLeft(144);
-        this.cargar2.SetTop(16);
-        this.cargar2.SetWidth(96);
-        this.cargar2.SetHeight(25);
-        this.cargar2.SetCaption("cargar2");
-        this.cargar2.SetChildOrderEx(1);
-        this.cargar2.SetElementClassName("btn btn-light");
-        this.cargar2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.cargar2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.cargar2.SetHeightPercent(100.000000000000000000);
-        this.cargar2.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.cargar2,this,"OnClick","cargar2Click");
-        this.WebButton2.SetParentComponent(this.WebPanel1);
-        this.WebButton2.SetName("WebButton2");
-        this.WebButton2.SetLeft(246);
-        this.WebButton2.SetTop(16);
-        this.WebButton2.SetWidth(96);
-        this.WebButton2.SetHeight(25);
-        this.WebButton2.SetCaption("forma");
-        this.WebButton2.SetChildOrderEx(2);
-        this.WebButton2.SetElementClassName("btn btn-light");
-        this.WebButton2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton2.SetHeightPercent(100.000000000000000000);
-        this.WebButton2.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton2,this,"OnClick","WebButton2Click");
-        this.edRen.SetParentComponent(this.WebPanel1);
-        this.edRen.SetName("edRen");
-        this.edRen.SetLeft(544);
-        this.edRen.SetTop(16);
-        this.edRen.SetWidth(57);
-        this.edRen.SetHeight(22);
-        this.edRen.SetChildOrderEx(3);
-        this.edRen.SetElementClassName("form-control");
-        this.edRen.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.edRen.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.edRen.SetHeightPercent(100.000000000000000000);
-        this.edRen.SetText(".");
-        this.edRen.SetWidthPercent(100.000000000000000000);
-        this.WebButton3.SetParentComponent(this.WebPanel1);
-        this.WebButton3.SetName("WebButton3");
-        this.WebButton3.SetLeft(361);
-        this.WebButton3.SetTop(19);
-        this.WebButton3.SetWidth(144);
-        this.WebButton3.SetHeight(25);
-        this.WebButton3.SetCaption("subir archivo Github");
-        this.WebButton3.SetChildOrderEx(4);
-        this.WebButton3.SetElementClassName("btn btn-light");
-        this.WebButton3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton3.SetHeightPercent(100.000000000000000000);
-        this.WebButton3.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton3,this,"OnClick","WebButton3Click");
-        this.WebButton4.SetParentComponent(this.WebPanel1);
-        this.WebButton4.SetName("WebButton4");
-        this.WebButton4.SetLeft(504);
-        this.WebButton4.SetTop(0);
-        this.WebButton4.SetWidth(96);
-        this.WebButton4.SetHeight(25);
-        this.WebButton4.SetCaption("WebButton4");
-        this.WebButton4.SetChildOrderEx(5);
-        this.WebButton4.SetElementClassName("btn btn-light");
-        this.WebButton4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton4.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton4.SetHeightPercent(100.000000000000000000);
-        this.WebButton4.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton4,this,"OnClick","WebButton4Click");
-        this.WebPanel2.SetParentComponent(this);
-        this.WebPanel2.SetName("WebPanel2");
-        this.WebPanel2.SetLeft(0);
-        this.WebPanel2.SetTop(0);
-        this.WebPanel2.SetWidth(640);
-        this.WebPanel2.SetHeight(420);
-        this.WebPanel2.SetElementClassName("card");
-        this.WebPanel2.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.WebPanel2.SetChildOrderEx(3);
-        this.WebPanel2.FElementBodyClassName = "card-body";
-        this.WebPanel2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPanel2.SetTabOrder(1);
-        this.WebHTMLDiv1.SetParentComponent(this.WebPanel2);
-        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
-        this.WebHTMLDiv1.SetLeft(0);
-        this.WebHTMLDiv1.SetTop(0);
-        this.WebHTMLDiv1.SetWidth(640);
-        this.WebHTMLDiv1.SetHeight(387);
-        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.WebHTMLDiv1.SetChildOrderEx(1);
-        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebHTMLDiv1.SetRole("");
-        this.SetEvent$1(this.WebHTMLDiv1,this,"OnClick","WebHTMLDiv1Click");
-        this.btnAgrega.SetParentComponent(this.WebPanel2);
-        this.btnAgrega.SetName("btnAgrega");
-        this.btnAgrega.SetLeft(0);
-        this.btnAgrega.SetTop(387);
-        this.btnAgrega.SetWidth(640);
-        this.btnAgrega.SetHeight(33);
-        this.btnAgrega.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
-        this.btnAgrega.SetCaption("Agregar");
-        this.btnAgrega.SetChildOrderEx(2);
-        this.btnAgrega.SetElementClassName("btn btn-light");
-        this.btnAgrega.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.btnAgrega.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.btnAgrega.SetHeightPercent(100.000000000000000000);
-        this.btnAgrega.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.btnAgrega,this,"OnClick","btnAgregaClick");
-        this.WebMemo1.SetParentComponent(this);
-        this.WebMemo1.SetName("WebMemo1");
-        this.WebMemo1.SetLeft(120);
-        this.WebMemo1.SetTop(96);
-        this.WebMemo1.SetWidth(489);
-        this.WebMemo1.SetHeight(201);
-        this.WebMemo1.SetElementClassName("form-control");
-        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebMemo1.SetHeightPercent(100.000000000000000000);
-        this.WebMemo1.FLines.BeginUpdate();
-        try {
-          this.WebMemo1.FLines.Clear();
-          this.WebMemo1.FLines.Add("WebMemo1");
-        } finally {
-          this.WebMemo1.FLines.EndUpdate();
-        };
-        this.WebMemo1.SetSelLength(0);
-        this.WebMemo1.SetSelStart(0);
-        this.WebMemo1.SetVisible(false);
-        this.WebMemo1.SetWidthPercent(100.000000000000000000);
-      } finally {
-        this.WebPanel1.AfterLoadDFMValues();
-        this.WebButton1.AfterLoadDFMValues();
-        this.cargar2.AfterLoadDFMValues();
-        this.WebButton2.AfterLoadDFMValues();
-        this.edRen.AfterLoadDFMValues();
-        this.WebButton3.AfterLoadDFMValues();
-        this.WebButton4.AfterLoadDFMValues();
-        this.WebPanel2.AfterLoadDFMValues();
-        this.WebHTMLDiv1.AfterLoadDFMValues();
-        this.btnAgrega.AfterLoadDFMValues();
-        this.WebMemo1.AfterLoadDFMValues();
-      };
-    };
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-    var $r = this.$rtti;
-    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("cargar2",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("WebButton2",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("WebPanel2",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
-    $r.addField("btnAgrega",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
-    $r.addField("edRen",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
-    $r.addField("WebButton3",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addField("WebButton4",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("cargar2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebHTMLDiv1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("btnAgregaClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton3Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-  });
-  this.Form2 = null;
-  $mod.$implcode = function () {
-    $impl.llistadatos = null;
-  };
-},[]);
-rtl.module("libace",["System","Web","JS","Classes","Types"],function () {
-  "use strict";
-  var $mod = this;
-  this.$rtti.$ExtClass("TAcePoint",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
-  this.$rtti.$ExtClass("TAceRange",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Range"});
-  this.$rtti.$ExtClass("TAceCompletion",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
-  this.$rtti.$DynArray("TAceCompletions",{eltype: this.$rtti["TAceCompletion"]});
-  this.$rtti.$ExtClass("TAceEditSession");
-  this.$rtti.$ExtClass("TAceEditor");
-  this.$rtti.$RefToProcVar("TAceCompletersCallback",{procsig: rtl.newTIProcSig([["aObject",pas.JS.$rtti["TJSObject"]],["aCompletions",this.$rtti["TAceCompletions"]]])});
-  this.$rtti.$ExtClass("TAceCompleter",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
-  this.$rtti.$DynArray("TAceCompletersArray",{eltype: this.$rtti["TAceCompleter"]});
-  this.$rtti.$ExtClass("TAceVirtualRenderer",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "VirtualRenderer"});
-  this.$rtti.$ExtClass("TAceDocument",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Document"});
-  this.$rtti.$ExtClass("TAceSearchOptions",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
-  this.$rtti.$ExtClass("TAceEditSession",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "EditSession"});
-  this.$rtti.$ExtClass("TAceSelection",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Selection"});
-  this.$rtti.$ExtClass("TAceEditor",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Editor"});
-  this.$rtti.$ExtClass("TAce",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "ace"});
-  this.$rtti.$StaticArray("PascalKeywords$a",{dims: [88], eltype: rtl.string});
-  this.PascalKeywords = ["absolute","abstract","all","and","and_then","array","as","asm","attribute","begin","bindable","case","class","const","constructor","destructor","div","do","else","end","except","export","exports","external","far","file","finalization","finally","for","forward","function","goto","if","implementation","import","in","inherited","initialization","interface","interrupt","is","label","library","mod","module","name","near","nil","not","object","of","only","operator","or","or_else","otherwise","packed","pow","private","procedure","program","property","protected","public","published","qualified","record","repeat","resident","restricted","segment","set","shl","shr","then","to","try","type","unit","until","uses","value","var","view","virtual","while","with","xor"];
-});
-rtl.module("WEBLib.SyntaxMemo",["System","Classes","WEBLib.Controls","Web","JS","libace","SysUtils","Types"],function () {
-  "use strict";
-  var $mod = this;
-  this.$rtti.$MethodVar("TSyntaxMemoChangeCursorEvent",{procsig: rtl.newTIProcSig([["Sender",pas.System.$rtti["TObject"]],["ARow",rtl.longint],["AColumn",rtl.longint]]), methodkind: 0});
-  this.$rtti.$MethodVar("TSyntaxMemoChangeSelectionEvent",{procsig: rtl.newTIProcSig([["Sender",pas.System.$rtti["TObject"]],["ASelectedText",rtl.string]]), methodkind: 0});
-  this.TSyntaxAutocomplete = {"0": "saNone", saNone: 0, "1": "saBasic", saBasic: 1, "2": "saLive", saLive: 2};
-  this.$rtti.$Enum("TSyntaxAutocomplete",{minvalue: 0, maxvalue: 2, ordtype: 1, enumtype: this.TSyntaxAutocomplete});
-  this.TSyntaxWrapping = {"0": "swNone", swNone: 0, "1": "swPrintMargin", swPrintMargin: 1, "2": "swValue", swValue: 2, "3": "swView", swView: 3};
-  this.$rtti.$Enum("TSyntaxWrapping",{minvalue: 0, maxvalue: 3, ordtype: 1, enumtype: this.TSyntaxWrapping});
-  this.TSyntaxTextDirection = {"0": "stdLeftToRight", stdLeftToRight: 0, "1": "stdRightToLeft", stdRightToLeft: 1};
-  this.$rtti.$Enum("TSyntaxTextDirection",{minvalue: 0, maxvalue: 1, ordtype: 1, enumtype: this.TSyntaxTextDirection});
-  rtl.createClass(this,"TSyntaxCompletion",pas.Classes.TCollectionItem,function () {
-    this.$init = function () {
-      pas.Classes.TCollectionItem.$init.call(this);
-      this.FName = "";
-      this.FMeta = "";
-      this.FScore = 0;
-      this.FCaption = "";
-      this.FValue = "";
-    };
-    this.Create$1 = function (ACollection) {
-      pas.Classes.TCollectionItem.Create$1.apply(this,arguments);
-      this.FScore = 0;
-      return this;
-    };
-    var $r = this.$rtti;
-    $r.addMethod("Create$1",2,[["ACollection",pas.Classes.$rtti["TCollection"]]]);
-    $r.addProperty("Caption",0,rtl.string,"FCaption","FCaption");
-    $r.addProperty("Meta",0,rtl.string,"FMeta","FMeta");
-    $r.addProperty("Name",0,rtl.string,"FName","FName");
-    $r.addProperty("Score",0,rtl.longint,"FScore","FScore",{Default: 0});
-    $r.addProperty("Value",0,rtl.string,"FValue","FValue");
-  });
-  rtl.createClass(this,"TSyntaxCompleter",pas.Classes.TCollection,function () {
-    this.$init = function () {
-      pas.Classes.TCollection.$init.call(this);
-      this.FOnChange = null;
-    };
-    this.$final = function () {
-      this.FOnChange = undefined;
-      pas.Classes.TCollection.$final.call(this);
-    };
-    this.SetItem$1 = function (Index, Value) {
-      this.SetItem(Index,Value);
-    };
-    this.GetItem$1 = function (Index) {
-      var Result = null;
-      Result = this.GetItem(Index);
-      return Result;
-    };
-    this.Changed$1 = function () {
-      if (this.FOnChange != null) this.FOnChange(this);
-    };
-    this.Update = function (Item) {
-      pas.Classes.TCollection.Update.apply(this,arguments);
-      this.Changed$1();
-    };
-    this.Create$2 = function () {
-      pas.Classes.TCollection.Create$1.call(this,$mod.TSyntaxCompletion);
-      return this;
-    };
-    this.Add$1 = function () {
-      var Result = null;
-      Result = pas.Classes.TCollection.Add.call(this);
-      return Result;
-    };
-    this.Insert$1 = function (Index) {
-      var Result = null;
-      Result = pas.Classes.TCollection.Insert.call(this,Index);
-      return Result;
-    };
-    var $r = this.$rtti;
-    $r.addMethod("Create$2",2,[]);
-  });
-  rtl.createClass(this,"TSyntaxMemo",pas["WEBLib.Controls"].TCustomControl,function () {
-    this.$init = function () {
-      pas["WEBLib.Controls"].TCustomControl.$init.call(this);
-      this.FPascalCompleter = null;
-      this.FCustomCompleter = null;
-      this.FEditor = null;
-      this.FLines = null;
-      this.FTheme = "";
-      this.FMode = "";
-      this.FSelStart = 0;
-      this.FOnChange = null;
-      this.FOnChangeSelection = null;
-      this.FOnChangeCursor = null;
-      this.FAutocompletion = 0;
-      this.FWordWrapValue = 0;
-      this.FWordWrapIndent = false;
-      this.FWordWrap = 0;
-      this.FSoftTabs = false;
-      this.FFixedGutterWidth = false;
-      this.FShowLineNumbers = false;
-      this.FTextDirection$1 = 0;
-      this.FCustomAutocomplete = null;
-    };
-    this.$final = function () {
-      this.FPascalCompleter = undefined;
-      this.FCustomCompleter = undefined;
-      this.FEditor = undefined;
-      this.FLines = undefined;
-      this.FOnChange = undefined;
-      this.FOnChangeSelection = undefined;
-      this.FOnChangeCursor = undefined;
-      this.FCustomAutocomplete = undefined;
-      pas["WEBLib.Controls"].TCustomControl.$final.call(this);
-    };
-    this.SetText = function (Value) {
-      if (this.FEditor != null) {
-        this.FEditor.setValue(Value);
-        this.FEditor.clearSelection();
-      };
-    };
-    this.SetTheme = function (Value) {
-      this.FTheme = Value;
-      if (this.FEditor != null) this.FEditor.setTheme("ace/theme/" + Value);
-    };
-    this.SetMode = function (Value) {
-      this.FMode = Value;
-      if (this.FEditor != null) this.FEditor.session.setMode("ace/mode/" + Value);
-    };
-    this.SetReadOnly = function (Value) {
-      if (this.FEditor != null) this.FEditor.setReadOnly(Value);
-    };
-    this.SetShowInvisibles = function (Value) {
-      if (this.FEditor != null) this.FEditor.setShowInvisibles(Value);
-    };
-    this.SetHighlightActiveLine = function (Value) {
-      if (this.FEditor != null) this.FEditor.setHighlightActiveLine(Value);
-    };
-    this.SetPrintMargin = function (Value) {
-      if (this.FEditor != null) this.FEditor.setPrintMarginColumn(Value);
-    };
-    this.SetShowPrintMargin = function (Value) {
-      if (this.FEditor != null) this.FEditor.setShowPrintMargin(Value);
-    };
-    this.SetLines = function (Value) {
-      this.FLines.Assign(Value);
-    };
-    this.SetSelLength = function (Value) {
-      var r = null;
-      var ep = null;
-      var sp = null;
-      var d = null;
-      if (this.FEditor != null) {
-        d = this.FEditor.session.getDocument();
-        ep = d.indexToPosition(this.GetSelStart() + Value);
-        sp = d.indexToPosition(this.GetSelStart());
-        if ((this.GetSelStart() + Value) < this.GetSelStart()) {
-          r = ace.Range.fromPoints(ep,sp);
-          this.FEditor.selection.setSelectionRange(r,true);
-        } else {
-          r = ace.Range.fromPoints(sp,ep);
-          this.FEditor.selection.setSelectionRange(r,false);
-        };
-      };
-    };
-    this.SetSelStart = function (Value) {
-      var r = null;
-      var p = null;
-      var d = null;
-      this.FSelStart = Value;
-      if (this.FEditor != null) {
-        d = this.FEditor.session.getDocument();
-        p = d.indexToPosition(Value);
-        r = ace.Range.fromPoints(p,p);
-        this.FEditor.selection.setSelectionRange(r,false);
-      };
-    };
-    this.SetShowIndentGuides = function (Value) {
-      if (this.FEditor != null) this.FEditor.setDisplayIndentGuides(Value);
-    };
-    this.SetCaretPosition = function (Value) {
-      if (this.FEditor != null) this.FEditor.selection.moveTo(Value.y,Value.x);
-    };
-    this.SetAutocompletion = function (Value) {
-      this.FAutocompletion = Value;
-      if (this.FEditor != null) {
-        var $tmp = Value;
-        if ($tmp === $mod.TSyntaxAutocomplete.saNone) {
-          this.FEditor.setOption("enableBasicAutocompletion",false);
-          this.FEditor.setOption("enableLiveAutocompletion",false);
-        } else if ($tmp === $mod.TSyntaxAutocomplete.saBasic) {
-          this.FEditor.setOption("enableBasicAutocompletion",true);
-          this.FEditor.setOption("enableLiveAutocompletion",false);
-        } else if ($tmp === $mod.TSyntaxAutocomplete.saLive) {
-          this.FEditor.setOption("enableBasicAutocompletion",true);
-          this.FEditor.setOption("enableLiveAutocompletion",true);
-        };
-      };
-    };
-    this.SetWordWrap = function (Value) {
-      this.FWordWrap = Value;
-      if (this.FEditor != null) {
-        if (this.FWordWrapIndent) {
-          this.FEditor.session.setOption("indentedSoftWrap",true)}
-         else this.FEditor.session.setOption("indentedSoftWrap",false);
-        var $tmp = Value;
-        if ($tmp === $mod.TSyntaxWrapping.swNone) {
-          this.FEditor.session.setUseWrapMode(false)}
-         else if ($tmp === $mod.TSyntaxWrapping.swPrintMargin) {
-          this.FEditor.session.setUseWrapMode(true);
-          this.FEditor.session.setWrapLimitRange(this.GetPrintMargin(),this.GetPrintMargin());
-        } else if ($tmp === $mod.TSyntaxWrapping.swValue) {
-          this.FEditor.session.setUseWrapMode(true);
-          this.FEditor.session.setWrapLimitRange(this.FWordWrapValue,this.FWordWrapValue);
-        } else if ($tmp === $mod.TSyntaxWrapping.swView) {
-          this.FEditor.session.setUseWrapMode(true);
-          this.FEditor.session.setWrapLimitRange();
-        };
-      };
-    };
-    this.SetWordWrapIndent = function (Value) {
-      this.FWordWrapIndent = Value;
-      this.SetWordWrap(this.FWordWrap);
-    };
-    this.SetWordWrapValue = function (Value) {
-      this.FWordWrapValue = Value;
-      if (this.FWordWrap === $mod.TSyntaxWrapping.swValue) this.SetWordWrap(this.FWordWrap);
-    };
-    this.SetSoftTabs = function (Value) {
-      this.FSoftTabs = Value;
-      if (this.FEditor != null) this.FEditor.session.setOption("useSoftTabs",Value);
-    };
-    this.SetFixedGutterWidth = function (Value) {
-      this.FFixedGutterWidth = Value;
-      if (this.FEditor != null) {
-        this.FEditor.renderer.setOption("fixedWidthGutter",Value);
-        let iNum = 999;
-        this.FEditor.session.gutterRenderer =  {
-          getWidth: function(session, lastLineNumber, config) {
-            if (lastLineNumber < (iNum + 1) & Value) {
-              return iNum.toString().length * config.characterWidth;
-            } else {
-              return lastLineNumber.toString().length * config.characterWidth;
-            }
-          },
-          getText: function(session, row) {
-              return row + 1;
-          }
-        };
-      };
-    };
-    this.SetShowGutter = function (Value) {
-      if (this.FEditor != null) this.FEditor.renderer.setShowGutter(Value);
-    };
-    this.SetShowLineNumbers = function (Value) {
-      this.FShowLineNumbers = Value;
-      if (this.FEditor != null) this.FEditor.renderer.setOption("showLineNumbers",Value);
-    };
-    this.SetFadeFoldWidgets = function (Value) {
-      if (this.FEditor != null) this.FEditor.setFadeFoldWidgets(Value);
-    };
-    this.SetShowFoldWidgets = function (Value) {
-      if (this.FEditor != null) this.FEditor.setShowFoldWidgets(Value);
-    };
-    this.SetTextDirection = function (Value) {
-      this.FTextDirection$1 = Value;
-      if (this.FEditor != null) {
-        var $tmp = Value;
-        if ($tmp === $mod.TSyntaxTextDirection.stdLeftToRight) {
-          this.FEditor.setOption("rtl",false)}
-         else if ($tmp === $mod.TSyntaxTextDirection.stdRightToLeft) this.FEditor.setOption("rtl",true);
-      };
-    };
-    this.SetFontSize = function (Value) {
-      if (this.FEditor != null) {
-        this.FEditor.setFontSize(pas.SysUtils.IntToStr(Value) + "px");
-      };
-    };
-    this.SetCustomAutocomplete = function (Value) {
-      this.FCustomAutocomplete.Assign(Value);
-      this.InitializeKeyWords(this.FCustomAutocomplete);
-    };
-    this.SetPersistentHorizontalScrollbar = function (Value) {
-    };
-    this.SetPersistentVerticalScrollbar = function (Value) {
-    };
-    this.GetText = function () {
-      var Result = "";
-      if (this.FEditor != null) {
-        Result = this.FEditor.getValue()}
-       else Result = "";
-      return Result;
-    };
-    this.GetReadOnly = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.getReadOnly()}
-       else Result = false;
-      return Result;
-    };
-    this.GetShowInvisibles = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.getShowInvisibles()}
-       else Result = false;
-      return Result;
-    };
-    this.GetHighlightActiveLine = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.getHighlightActiveLine()}
-       else Result = false;
-      return Result;
-    };
-    this.GetPrintMargin = function () {
-      var Result = 0;
-      if (this.FEditor != null) {
-        Result = this.FEditor.getPrintMarginColumn()}
-       else Result = 80;
-      return Result;
-    };
-    this.GetShowPrintMargin = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.getShowPrintMargin()}
-       else Result = false;
-      return Result;
-    };
-    this.GetLines = function () {
-      var Result = null;
-      var strl = null;
-      var ds = [];
-      var I = 0;
-      if (!this.IsUpdating()) {
-        strl = pas.Classes.TStringList.$create("Create$1");
-        if (this.FEditor != null) {
-          ds = this.FEditor.session.getDocument().getAllLines();
-          strl = pas.Classes.TStringList.$create("Create$1");
-          strl.BeginUpdate();
-          for (var $l = 0, $end = rtl.length(ds) - 1; $l <= $end; $l++) {
-            I = $l;
-            strl.Add(ds[I]);
-          };
-          strl.EndUpdate();
-        };
-        this.FLines.Assign(strl);
-        strl = rtl.freeLoc(strl);
-      };
-      Result = this.FLines;
-      return Result;
-    };
-    this.GetSelLength = function () {
-      var Result = 0;
-      var d = null;
-      if (this.FEditor != null) {
-        d = this.FEditor.session.getDocument();
-        Result = d.positionToIndex(this.FEditor.selection.getRange().end) - this.GetSelStart();
-      } else Result = 0;
-      return Result;
-    };
-    this.GetSelStart = function () {
-      var Result = 0;
-      if (this.FEditor != null) {
-        Result = this.FEditor.session.getDocument().positionToIndex(this.FEditor.selection.getRange().start)}
-       else Result = this.FSelStart;
-      return Result;
-    };
-    this.GetShowIndentGuides = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.getDisplayIndentGuides()}
-       else Result = false;
-      return Result;
-    };
-    this.GetCaretPosition = function () {
-      var Result = pas.Types.TPoint.$new();
-      var p = pas.Types.TPoint.$new();
-      p.x = 0;
-      p.y = 0;
-      if (this.FEditor != null) {
-        p.x = this.FEditor.getCursorPosition().column;
-        p.y = this.FEditor.getCursorPosition().row;
-      };
-      Result.$assign(p);
-      return Result;
-    };
-    this.GetShowGutter = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.renderer.getShowGutter()}
-       else Result = false;
-      return Result;
-    };
-    this.GetFadeFoldWidgets = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.getFadeFoldWidgets()}
-       else Result = false;
-      return Result;
-    };
-    this.GetShowFoldWidgets = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        this.FEditor.getShowFoldWidgets()}
-       else Result = false;
-      return Result;
-    };
-    this.GetFontSize = function () {
-      var Result = 0;
-      var s = "";
-      if (this.FEditor != null) {
-        s = this.FEditor.getFontSize() + "";
-        s = pas.SysUtils.StringReplace(s,"p","",{});
-        s = pas.SysUtils.StringReplace(s,"x","",{});
-        Result = pas.SysUtils.StrToInt(s);
-      } else Result = 12;
-      return Result;
-    };
-    this.GetPersistentHorizontalScrollbar = function () {
-      var Result = false;
-      if ((this.FEditor != null) && !(pas.Classes.TComponentStateItem.csDesigning in this.FComponentState)) {
-        Result = this.FEditor.getHScrollBarAlwaysVisible()}
-       else Result = false;
-      return Result;
-    };
-    this.GetPersistentVerticalScrollbar = function () {
-      var Result = false;
-      if ((this.FEditor != null) && !(pas.Classes.TComponentStateItem.csDesigning in this.FComponentState)) {
-        Result = this.FEditor.getVScrollBarAlwaysVisible()}
-       else Result = false;
-      return Result;
-    };
-    this.GetFont = function () {
-      var Result = "";
-      Result = "";
-      return Result;
-    };
-    this.SetFontName = function (Value) {
-      if (this.FEditor != null) this.FEditor.setOption("fontFamily",Value);
-    };
-    this.GetTabSize = function () {
-      var Result = 0;
-      if (this.FEditor != null) {
-        Result = this.FEditor.session.getTabSize()}
-       else Result = 2;
-      return Result;
-    };
-    this.SetTabSize = function (Value) {
-      if (this.FEditor != null) this.FEditor.session.setTabSize(Value);
-    };
-    this.AutocompleteChanged = function (Sender) {
-      this.InitializeKeyWords(this.FCustomAutocomplete);
-    };
-    this.BindEvents = function () {
-      pas["WEBLib.Controls"].TCustomControl.BindEvents.call(this);
-      if (this.FEditor != null) {
-        this.FEditor.addEventListener("change",rtl.createCallback(this,"DoChange"));
-        this.FEditor.selection.addEventListener("changeCursor",rtl.createCallback(this,"HandleDoChangeCursor"));
-        this.FEditor.selection.addEventListener("changeSelection",rtl.createCallback(this,"HandleDoChangeSelection"));
-        this.FEditor.container.addEventListener("keydown",rtl.createCallback(this,"HandleDoKeyDown"));
-        this.FEditor.container.addEventListener("keyup",rtl.createCallback(this,"HandleDoKeyUp"));
-        this.FEditor.container.addEventListener("keypress",rtl.createCallback(this,"HandleDoKeyPress"));
-      };
-      if (this.GetElementHandle() != null) {
-        this.GetElementHandle().ondragover = rtl.createSafeCallback(this,"HandleDoDragOver");
-        this.GetElementHandle().ondrop = rtl.createSafeCallback(this,"HandleDoDrop");
-      };
-    };
-    this.DoChange = function () {
-      if (this.FOnChange != null) this.FOnChange(this);
-    };
-    this.DoChangeCursorPosition = function (ARow, AColumn) {
-      if (this.FOnChangeCursor != null) this.FOnChangeCursor(this,ARow,AColumn);
-    };
-    this.DoChangeSelection = function (ASelectedText) {
-      if (this.FOnChangeSelection != null) this.FOnChangeSelection(this,ASelectedText);
-    };
-    this.DoLinesChange = function (Sender) {
-      var I = 0;
-      var lns = [];
-      var p = null;
-      if (this.FEditor != null) {
-        lns = rtl.arraySetLength(lns,"",this.FLines.GetCount());
-        for (var $l = 0, $end = this.FLines.GetCount() - 1; $l <= $end; $l++) {
-          I = $l;
-          lns[I] = this.FLines.Get(I);
-        };
-        if (rtl.length(lns) === 0) {
-          lns = rtl.arraySetLength(lns,"",1);
-          lns[0] = "";
-        };
-        this.FEditor.setValue("");
-        p = new Object();
-        p.row = 0;
-        p.column = 0;
-        this.FEditor.session.getDocument().insertMergedLines(p,rtl.arrayRef(lns));
-      };
-    };
-    this.DragDrop$1 = function (Source, X, Y) {
-      if (this.FOnDragDrop != null) this.FOnDragDrop(this,Source,X,Y);
-    };
-    this.DragOver$1 = function (Source, X, Y, State, Accept) {
-      if (this.FOnDragOver != null) this.FOnDragOver(this,Source,X,Y,State,Accept);
-    };
-    this.EditorResize = function (Sender) {
-      if (this.FEditor != null) this.FEditor.resize();
-    };
-    this.RemoveCompleter = function (ACompleter) {
-      if (this.FEditor != null) {
-        let completers = this.FEditor.completers;
-        if (completers) {
-          if (completers.indexOf(ACompleter) !== -1) {
-            completers.splice(completers.indexOf(ACompleter), 1);
-          };
-        };
-      };
-    };
-    this.UnbindEvents = function () {
-      pas["WEBLib.Controls"].TControl.UnbindEvents.call(this);
-      if (this.FEditor != null) {
-        this.FEditor.removeEventListener("change",rtl.createCallback(this,"DoChange"));
-        this.FEditor.selection.removeEventListener("changeCursor",rtl.createCallback(this,"HandleDoChangeCursor"));
-        this.FEditor.selection.removeEventListener("changeSelection",rtl.createCallback(this,"HandleDoChangeSelection"));
-        this.FEditor.container.removeEventListener("keydown",rtl.createCallback(this,"HandleDoKeyDown"));
-        this.FEditor.container.removeEventListener("keyup",rtl.createCallback(this,"HandleDoKeyUp"));
-        this.FEditor.container.removeEventListener("keypress",rtl.createCallback(this,"HandleDoKeyPress"));
-      };
-    };
-    this.UpdateElement = function () {
-      pas["WEBLib.Controls"].TControl.UpdateElement.call(this);
-      if (!this.IsUpdating() && (this.GetElementHandle() != null)) {
-        this.GetElementHandle().style.setProperty("font-family","");
-        this.GetElementHandle().style.setProperty("font-style","");
-        this.GetElementHandle().style.setProperty("font-size","");
-        this.GetElementHandle().style.setProperty("color","");
-        this.GetElementHandle().style.setProperty("user-select","");
-        this.GetElementHandle().style.setProperty("outline","");
-      };
-    };
-    this.CreateElement = function () {
-      var Result = null;
-      Result = document.createElement("DIV");
-      this.FEditor = ace.edit(Result);
-      this.SetAutocompletion($mod.TSyntaxAutocomplete.saBasic);
-      this.SetSoftTabs(true);
-      this.SetTabSize(2);
-      return Result;
-    };
-    this.GetElementBindHandle = function () {
-      var Result = null;
-      if (this.FEditor != null) {
-        Result = this.FEditor}
-       else pas["WEBLib.Controls"].TControl.GetElementBindHandle.call(this);
-      return Result;
-    };
-    this.GetInstanceName = function () {
-      var Result = "";
-      Result = this.FName + "_" + this.$classname;
-      return Result;
-    };
-    this.HandleDoChangeCursor = function (Event) {
-      var Result = false;
-      if (this.FEditor != null) this.DoChangeCursorPosition(this.FEditor.getCursorPosition().row,this.FEditor.getCursorPosition().column);
-      Result = true;
-      return Result;
-    };
-    this.HandleDoChangeSelection = function (Event) {
-      var Result = false;
-      if (this.FEditor != null) this.DoChangeSelection(this.FEditor.getSelectedText());
-      Result = true;
-      return Result;
-    };
-    this.HandleDoDragOver = function (aEvent) {
-      var Result = false;
-      var allow = false;
-      var obj = null;
-      aEvent.preventDefault();
-      this.DragOver$1(obj,0,0,pas["WEBLib.Controls"].TDragState.dsDragMove,{get: function () {
-          return allow;
-        }, set: function (v) {
-          allow = v;
-        }});
-      Result = true;
-      return Result;
-    };
-    this.HandleDoDrop = function (aEvent) {
-      var Result = false;
-      var dragobj = null;
-      aEvent.preventDefault();
-      dragobj = pas["WEBLib.Controls"].TDragSourceObject.$create("Create");
-      dragobj.FJSEvent = aEvent;
-      dragobj.FObject = this;
-      try {
-        this.DragDrop$1(dragobj,aEvent.clientX,aEvent.clientY);
-      } finally {
-        dragobj = rtl.freeLoc(dragobj);
-      };
-      Result = true;
-      return Result;
-    };
-    this.Loaded = function () {
-      var fs = 0;
-      pas["WEBLib.Controls"].TCustomControl.Loaded.call(this);
-      fs = this.GetFontSize();
-      this.SetFontSize(fs + 1);
-      this.SetFontSize(fs - 1);
-    };
-    this.CreateInitialize = function () {
-      pas["WEBLib.Controls"].TCustomControl.CreateInitialize.call(this);
-      this.SetTabStop(true);
-      this.FCustomAutocomplete = $mod.TSyntaxCompleter.$create("Create$2");
-      this.FCustomAutocomplete.FOnChange = rtl.createCallback(this,"AutocompleteChanged");
-      this.FLines = pas.Classes.TStringList.$create("Create$1");
-      this.FLines.SetSkipLastLineBreak(true);
-      this.FLines.FOnChange = rtl.createCallback(this,"DoLinesChange");
-      this.FEventStopPropagation = rtl.diffSet(this.FEventStopPropagation,rtl.createSet(pas["WEBLib.Controls"].TElementEvent.eeMouseMove));
-      this.FOnResize = rtl.createCallback(this,"EditorResize");
-      if (!(this.FEditor != null) && (this.GetElementHandle() != null)) {
-        this.UnbindEvents();
-        this.FEditor = ace.edit(this.GetElementHandle());
-        this.SetAutocompletion($mod.TSyntaxAutocomplete.saBasic);
-        this.SetSoftTabs(true);
-        this.SetTabSize(2);
-        this.BindEvents();
-      };
-    };
-    this.Destroy = function () {
-      rtl.free(this,"FCustomAutocomplete");
-      rtl.free(this,"FLines");
-      pas["WEBLib.Controls"].TCustomControl.Destroy.call(this);
-    };
-    this.BeginUpdate = function () {
-      pas["WEBLib.Controls"].TControl.BeginUpdate.call(this);
-    };
-    this.Clear = function () {
-      this.SetText("");
-    };
-    this.DisableLocalKeywords = function () {
-      let langTools = ace.require('ace/ext/language_tools');
-      langTools.setCompleters([]);
-    };
-    this.EndUpdate = function () {
-      pas["WEBLib.Controls"].TCustomControl.EndUpdate.call(this);
-      this.InitializeKeyWords(this.FCustomAutocomplete);
-    };
-    this.Find = function (AText) {
-      if (this.FEditor != null) this.FEditor.find(AText);
-    };
-    this.FindAll = function (AText) {
-      if (this.FEditor != null) this.FEditor.findAll(AText);
-    };
-    this.FindNext = function () {
-      if (this.FEditor != null) this.FEditor.findNext();
-    };
-    this.FindPrevious = function () {
-      if (this.FEditor != null) this.FEditor.findPrevious();
-    };
-    this.Focus = function () {
-      if (this.FEditor != null) this.FEditor.focus();
-    };
-    this.InitializeKeyWords = function (ACompleter) {
-      var I = 0;
-      var ca = [];
-      var c = null;
-      if (this.IsUpdating()) return;
-      this.RemoveCompleter(this.FCustomCompleter);
-      ca = rtl.arraySetLength(ca,null,ACompleter.GetCount());
-      for (var $l = 0, $end = ACompleter.GetCount() - 1; $l <= $end; $l++) {
-        I = $l;
-        c = new Object();
-        c.caption = ACompleter.GetItem$1(I).FCaption;
-        c.meta = ACompleter.GetItem$1(I).FMeta;
-        c.name = ACompleter.GetItem$1(I).FName;
-        c.score = ACompleter.GetItem$1(I).FScore;
-        c.value = ACompleter.GetItem$1(I).FValue;
-        ca[I] = c;
-      };
-      var completer = {
-            getCompletions: function(editor, session, pos, prefix, callback) {
-              callback(null, ca);
-            }
-          };
-      
-          this.FCustomCompleter = completer;
-      
-          let langTools = ace.require('ace/ext/language_tools');
-          if (langTools) {
-            langTools.addCompleter(completer);
-          };
-    };
-    this.InsertText = function (AText) {
-      if (this.FEditor != null) this.FEditor.session.getDocument().insert(this.FEditor.getCursorPosition(),AText);
-    };
-    this.InsertText$1 = function (APosition, AText) {
-      var p = null;
-      if (this.FEditor != null) {
-        p = new Object();
-        p.row = APosition.y;
-        p.column = APosition.x;
-        this.FEditor.session.getDocument().insert(p,AText);
-      };
-    };
-    this.PreloadPascalKeywords = function () {
-      var ca = [];
-      var c = null;
-      var I = 0;
-      this.RemoveCompleter(this.FPascalCompleter);
-      ca = rtl.arraySetLength(ca,null,88);
-      for (I = 0; I <= 88; I++) {
-        c = new Object();
-        c.value = pas.libace.PascalKeywords[I];
-        c.score = 1000;
-        c.meta = "keyword";
-        ca[I] = c;
-      };
-      var completer = {
-            getCompletions: function(editor, session, pos, prefix, callback) {
-              callback(null, ca);
-            }
-          };
-      
-          this.FPascalCompleter = completer;
-      
-          let langTools = ace.require('ace/ext/language_tools');
-          langTools.addCompleter(completer);
-    };
-    this.Redo = function () {
-      if (this.FEditor != null) this.FEditor.redo();
-    };
-    this.RemoveSelectedText = function () {
-      if (this.FEditor != null) this.FEditor.session.getDocument().remove(this.FEditor.selection.getRange());
-    };
-    this.RemoveCustomAutocompleter = function () {
-      this.RemoveCompleter(this.FCustomCompleter);
-    };
-    this.RemovePascalKeywords = function () {
-      this.RemoveCompleter(this.FPascalCompleter);
-    };
-    this.Replace = function (AReplacement) {
-      if (this.FEditor != null) this.FEditor.replace(AReplacement);
-    };
-    this.Replace$1 = function (AText, AReplacement) {
-      var opt = null;
-      if (this.FEditor != null) {
-        opt = new Object();
-        opt.needle = AText;
-        this.FEditor.replace(AReplacement,opt);
-      };
-    };
-    this.ReplaceAll = function (AReplacement) {
-      if (this.FEditor != null) this.FEditor.replaceAll(AReplacement);
-    };
-    this.ReplaceAll$1 = function (AText, AReplacement) {
-      var opt = null;
-      if (this.FEditor != null) {
-        opt = new Object();
-        opt.needle = AText;
-        this.FEditor.replaceAll(AReplacement,opt);
-      };
-    };
-    this.SelectAll = function () {
-      if (this.FEditor != null) this.FEditor.selectAll();
-    };
-    this.Undo = function () {
-      if (this.FEditor != null) this.FEditor.undo();
-    };
-    this.Unselect = function () {
-      if (this.FEditor != null) this.FEditor.clearSelection();
-    };
-    this.OpenSearchBox = function () {
-      var Result = false;
-      if (this.FEditor != null) {
-        Result = this.FEditor.execCommand("find")}
-       else Result = false;
-      return Result;
-    };
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-    var $r = this.$rtti;
-    $r.addProperty("Align",2,pas["WEBLib.Controls"].$rtti["TAlign"],"FAlign","SetAlign",{Default: pas["WEBLib.Controls"].TAlign.alNone});
-    $r.addProperty("Anchors",2,pas["WEBLib.Controls"].$rtti["TAnchors"],"FAnchors","SetAnchors",{Default: rtl.createSet(pas["WEBLib.Controls"].TAnchorKind.akLeft,pas["WEBLib.Controls"].TAnchorKind.akTop)});
-    $r.addProperty("AlignWithMargins",2,rtl.boolean,"FAlignWithMargins","SetAlignWithMargins",{Default: false});
-    $r.addProperty("Autocompletion",2,$mod.$rtti["TSyntaxAutocomplete"],"FAutocompletion","SetAutocompletion");
-    $r.addProperty("CustomAutocomplete",2,$mod.$rtti["TSyntaxCompleter"],"FCustomAutocomplete","SetCustomAutocomplete");
-    $r.addProperty("FadeFoldWidgets",3,rtl.boolean,"GetFadeFoldWidgets","SetFadeFoldWidgets");
-    $r.addProperty("FixedGutterWidth",2,rtl.boolean,"FFixedGutterWidth","SetFixedGutterWidth");
-    $r.addProperty("FontSize",3,rtl.longint,"GetFontSize","SetFontSize");
-    $r.addProperty("Height",3,rtl.longint,"GetHeight","SetHeight");
-    $r.addProperty("HighlightActiveLine",3,rtl.boolean,"GetHighlightActiveLine","SetHighlightActiveLine");
-    $r.addProperty("Left",3,rtl.longint,"GetLeft","SetLeft");
-    $r.addProperty("Lines",3,pas.Classes.$rtti["TStringList"],"GetLines","SetLines");
-    $r.addProperty("Mode",2,rtl.string,"FMode","SetMode");
-    $r.addProperty("PersistentHorizontalScrollbar",3,rtl.boolean,"GetPersistentHorizontalScrollbar","SetPersistentHorizontalScrollbar");
-    $r.addProperty("PersistentVerticalScrollbar",3,rtl.boolean,"GetPersistentVerticalScrollbar","SetPersistentVerticalScrollbar");
-    $r.addProperty("PrintMargin",3,rtl.longint,"GetPrintMargin","SetPrintMargin",{Default: 80});
-    $r.addProperty("ReadOnly",3,rtl.boolean,"GetReadOnly","SetReadOnly");
-    $r.addProperty("SelLength",3,rtl.longint,"GetSelLength","SetSelLength");
-    $r.addProperty("SelStart",3,rtl.longint,"GetSelStart","SetSelStart");
-    $r.addProperty("ShowFoldWidgets",3,rtl.boolean,"GetShowFoldWidgets","SetShowFoldWidgets");
-    $r.addProperty("ShowGutter",3,rtl.boolean,"GetShowGutter","SetShowGutter");
-    $r.addProperty("ShowIndentGuides",3,rtl.boolean,"GetShowIndentGuides","SetShowIndentGuides");
-    $r.addProperty("ShowInvisibles",3,rtl.boolean,"GetShowInvisibles","SetShowInvisibles");
-    $r.addProperty("ShowLineNumbers",2,rtl.boolean,"FShowLineNumbers","SetShowLineNumbers");
-    $r.addProperty("ShowPrintMargin",3,rtl.boolean,"GetShowPrintMargin","SetShowPrintMargin");
-    $r.addProperty("SoftTabs",2,rtl.boolean,"FSoftTabs","SetSoftTabs",{Default: true});
-    $r.addProperty("TextDirection",2,$mod.$rtti["TSyntaxTextDirection"],"FTextDirection$1","SetTextDirection");
-    $r.addProperty("Theme",2,rtl.string,"FTheme","SetTheme");
-    $r.addProperty("TabOrder",2,rtl.longint,"FTabOrder","SetTabOrder");
-    $r.addProperty("TabSize",3,rtl.longint,"GetTabSize","SetTabSize");
-    $r.addProperty("TabStop",2,rtl.boolean,"FTabStop","SetTabStop",{Default: true});
-    $r.addProperty("Top",3,rtl.longint,"GetTop","SetTop");
-    $r.addProperty("Visible",2,rtl.boolean,"FVisible","SetVisible",{Default: true});
-    $r.addProperty("Width",3,rtl.longint,"GetWidth","SetWidth");
-    $r.addProperty("WordWrap",2,$mod.$rtti["TSyntaxWrapping"],"FWordWrap","SetWordWrap");
-    $r.addProperty("WordWrapIndented",2,rtl.boolean,"FWordWrapIndent","SetWordWrapIndent");
-    $r.addProperty("WordWrapValue",2,rtl.longint,"FWordWrapValue","SetWordWrapValue");
-    $r.addProperty("OnChange",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnChange","FOnChange");
-    $r.addProperty("OnChangeCursor",0,$mod.$rtti["TSyntaxMemoChangeCursorEvent"],"FOnChangeCursor","FOnChangeCursor");
-    $r.addProperty("OnChangeSelection",0,$mod.$rtti["TSyntaxMemoChangeSelectionEvent"],"FOnChangeSelection","FOnChangeSelection");
-    $r.addProperty("OnClick",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnClick","FOnClick");
-    $r.addProperty("OnDblClick",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnDblClick","FOnDblClick");
-    $r.addProperty("OnDragDrop",0,pas["WEBLib.Controls"].$rtti["TDragDropEvent"],"FOnDragDrop","FOnDragDrop");
-    $r.addProperty("OnDragOver",0,pas["WEBLib.Controls"].$rtti["TDragOverEvent"],"FOnDragOver","FOnDragOver");
-    $r.addProperty("OnEnter",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnEnter","FOnEnter");
-    $r.addProperty("OnExit",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnExit","FOnExit");
-    $r.addProperty("OnKeyDown",0,pas["WEBLib.Controls"].$rtti["TKeyEvent"],"FOnKeyDown","FOnKeyDown");
-    $r.addProperty("OnKeyPress",0,pas["WEBLib.Controls"].$rtti["TKeyPressEvent"],"FOnKeyPress","FOnKeyPress");
-    $r.addProperty("OnKeyUp",0,pas["WEBLib.Controls"].$rtti["TKeyEvent"],"FOnKeyUp","FOnKeyUp");
-    $r.addProperty("OnMouseDown",0,pas["WEBLib.Controls"].$rtti["TMouseEvent"],"FOnMouseDown","FOnMouseDown");
-    $r.addProperty("OnMouseEnter",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnMouseEnter","FOnMouseEnter");
-    $r.addProperty("OnMouseLeave",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnMouseLeave","FOnMouseLeave");
-    $r.addProperty("OnMouseMove",0,pas["WEBLib.Controls"].$rtti["TMouseMoveEvent"],"FOnMouseMove","FOnMouseMove");
-    $r.addProperty("OnMouseUp",0,pas["WEBLib.Controls"].$rtti["TMouseEvent"],"FOnMouseUp","FOnMouseUp");
-  });
-  rtl.createClass(this,"TWebSyntaxMemo",this.TSyntaxMemo,function () {
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-  });
-});
-rtl.module("Unit4",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.SyntaxMemo","WEBLib.WebCtrls","WEBLib.ExtCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.createClass(this,"TForm4",pas["WEBLib.Forms"].TForm,function () {
-    this.$init = function () {
-      pas["WEBLib.Forms"].TForm.$init.call(this);
-      this.WebHTMLDiv1 = null;
-      this.WebSyntaxMemo1 = null;
-      this.WebPanel1 = null;
-      this.WebButton1 = null;
-    };
-    this.$final = function () {
-      this.WebHTMLDiv1 = undefined;
-      this.WebSyntaxMemo1 = undefined;
-      this.WebPanel1 = undefined;
-      this.WebButton1 = undefined;
-      pas["WEBLib.Forms"].TForm.$final.call(this);
-    };
-    this.WebFormCreate = function (Sender) {
-      var i = 0;
-      var j = 0;
-      for (i = 1; i <= 100; i++) this.WebSyntaxMemo1.GetLines().Add(" ");
-      return;
-      var editor = ace.edit("editor");
-      // editor.setTheme("ace/theme/monokai");
-      // editor.session.setMode("ace/mode/javascript");
-      //  editor.gotoLine(10);
-    };
-    this.WebButton1Click = function (Sender) {
-      var editor = ace.edit("editor");
-           //editor.setTheme("ace/theme/monokai");
-           //editor.session.setMode("ace/mode/javascript");
-      
-            editor.gotoLine(10);
-    };
-    this.LoadDFMValues = function () {
-      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
-      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["editor"]);
-      this.WebSyntaxMemo1 = pas["WEBLib.SyntaxMemo"].TSyntaxMemo.$create("Create$1",[this]);
-      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
-      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
-      this.WebHTMLDiv1.BeforeLoadDFMValues();
-      this.WebSyntaxMemo1.BeforeLoadDFMValues();
-      this.WebPanel1.BeforeLoadDFMValues();
-      this.WebButton1.BeforeLoadDFMValues();
-      try {
-        this.SetName("Form4");
-        this.SetWidth(640);
-        this.SetHeight(480);
-        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
-        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.FFont.FCharset = 1;
-        this.FFont.SetColor(65793);
-        this.FFont.SetHeight(-15);
-        this.FFont.SetName("Tahoma");
-        this.FFont.SetStyle({});
-        this.SetParentFont(false);
-        this.SetEvent(this,"OnCreate","WebFormCreate");
-        this.WebHTMLDiv1.SetParentComponent(this);
-        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
-        this.WebHTMLDiv1.SetLeft(0);
-        this.WebHTMLDiv1.SetTop(0);
-        this.WebHTMLDiv1.SetWidth(640);
-        this.WebHTMLDiv1.SetHeight(420);
-        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.WebHTMLDiv1.SetChildOrderEx(1);
-        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebHTMLDiv1.SetRole("");
-        this.WebSyntaxMemo1.SetParentComponent(this.WebHTMLDiv1);
-        this.WebSyntaxMemo1.SetName("WebSyntaxMemo1");
-        this.WebSyntaxMemo1.SetLeft(0);
-        this.WebSyntaxMemo1.SetTop(0);
-        this.WebSyntaxMemo1.SetWidth(640);
-        this.WebSyntaxMemo1.SetHeight(420);
-        this.WebSyntaxMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.WebSyntaxMemo1.SetTabOrder(0);
-        this.WebPanel1.SetParentComponent(this);
-        this.WebPanel1.SetName("WebPanel1");
-        this.WebPanel1.SetLeft(0);
-        this.WebPanel1.SetTop(420);
-        this.WebPanel1.SetWidth(640);
-        this.WebPanel1.SetHeight(60);
-        this.WebPanel1.SetElementClassName("card");
-        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
-        this.WebPanel1.SetChildOrderEx(1);
-        this.WebPanel1.FElementBodyClassName = "card-body";
-        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPanel1.SetTabOrder(1);
-        this.WebButton1.SetParentComponent(this.WebPanel1);
-        this.WebButton1.SetName("WebButton1");
-        this.WebButton1.SetLeft(56);
-        this.WebButton1.SetTop(8);
-        this.WebButton1.SetWidth(96);
-        this.WebButton1.SetHeight(25);
-        this.WebButton1.SetCaption("Linea");
-        this.WebButton1.SetElementClassName("btn btn-light");
-        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
-        this.WebButton1.SetHeightPercent(100.000000000000000000);
-        this.WebButton1.SetWidthPercent(100.000000000000000000);
-        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
-      } finally {
-        this.WebHTMLDiv1.AfterLoadDFMValues();
-        this.WebSyntaxMemo1.AfterLoadDFMValues();
-        this.WebPanel1.AfterLoadDFMValues();
-        this.WebButton1.AfterLoadDFMValues();
-      };
-    };
-    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
-    rtl.addIntf(this,pas.System.IUnknown);
-    var $r = this.$rtti;
-    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
-    $r.addField("WebSyntaxMemo1",pas["WEBLib.SyntaxMemo"].$rtti["TSyntaxMemo"]);
-    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
-    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
-    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
-    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
-  });
-  this.Form4 = null;
-});
 rtl.module("StrUtils",["System","SysUtils","Types"],function () {
   "use strict";
   var $mod = this;
@@ -103614,6 +97798,6362 @@ rtl.module("WEBLib.Grids",["System","Classes","JS","WEBLib.Controls","WEBLib.Gra
     $impl.CELLPADDING = 0;
   };
 },["SysUtils","Math","WEBLib.Utils","WEBLib.WebTools","WEBLib.Forms"]);
+rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.Grids","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.WebCtrls","WEBLib.ExtCtrls","WEBLib.Menus","WEBLib.Menus"],function () {
+  "use strict";
+  var $mod = this;
+  var $impl = $mod.$impl;
+  rtl.createClass(this,"TfrmAltaRen",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebButton1 = null;
+      this.WebPanel1 = null;
+      this.WebPopupMenu1 = null;
+      this.Abrirhoja1 = null;
+      this.Guardarhoja1 = null;
+      this.Exportarpdf1 = null;
+      this.WebPanel3 = null;
+      this.btnAgregarRen = null;
+      this.btnCerrar = null;
+      this.WebResponsiveGrid1 = null;
+    };
+    this.$final = function () {
+      this.WebButton1 = undefined;
+      this.WebPanel1 = undefined;
+      this.WebPopupMenu1 = undefined;
+      this.Abrirhoja1 = undefined;
+      this.Guardarhoja1 = undefined;
+      this.Exportarpdf1 = undefined;
+      this.WebPanel3 = undefined;
+      this.btnAgregarRen = undefined;
+      this.btnCerrar = undefined;
+      this.WebResponsiveGrid1 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebButton1Click = function (Sender) {
+      var i = 0;
+      var btn = null;
+      this.WebResponsiveGrid1.FOptions.SetItemHeight(380);
+      this.WebResponsiveGrid1.FItems.GetItem$1(0).SetHTML("<p><b>Registro de Ventas y Subastas.</p>");
+      this.WebResponsiveGrid1.FItems.GetItem$1(0).SetVisible(false);
+      i = 0;
+      for (i = 1; i <= 10; i++) {
+        this.WebResponsiveGrid1.FItems.Add$1().SetHTML(' <label for="ren"><strong>Renglón #</strong>' + pas.SysUtils.IntToStr(i) + "</label> <br> <br> <br> <br>" + ' <label for="clie">Cliente:</label> <br> <br> <input type="text" id="clte' + pas.SysUtils.IntToStr(i) + '" name="clie" maxlength="50" size="30"  ><br><br>' + ' <label for="art">Producto</label>  <br> <br> <input type="text" id="prod' + pas.SysUtils.IntToStr(i) + '" name="art" maxlength="50" size="30"  ><br><br>  ' + ' <label for="imp">Importe</label>   <br> <br><input type="text" id="impte' + pas.SysUtils.IntToStr(i) + '" name="imp" maxlength="10" size="10"  ><br><br>' + ' <label for="vs">Venta/Subasta</label> <br> <br> <input type="text" id="vs' + pas.SysUtils.IntToStr(i) + '" name="vs" maxlength="1" size="5"  ><br><br>' + ' <label for="paga">Pagado</label> <br> <br> <input type="text" id="pag' + pas.SysUtils.IntToStr(i) + '" name="paga" maxlength="1" size="3"  ><br><br>' + ' <label for="entr">Entregado</label> <br> <br> <input type="text" id="ent' + pas.SysUtils.IntToStr(i) + '" name="entr" maxlength="1" size="3"  ><br><br>');
+        if (1 === 0) {
+          btn = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btn" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
+              return i;
+            }, set: function (v) {
+              i = v;
+            }})]);
+          btn.FTag$1 = i;
+          btn.FOnClick = rtl.createCallback(this,"Button2Click");
+          btn.SetTabOrder(6);
+          btn.SetTabStop(true);
+        };
+      };
+    };
+    this.WebFormCreate = function (Sender) {
+      this.IniciarRenglonesGrid();
+    };
+    this.IniciarRenglonesGrid = function () {
+      var i = 0;
+      var btn = null;
+      var rcount = 0;
+      rcount = 0;
+      var table = Tabulator.findTable("#tabExample")[0];
+       //console.log(tabledata);
+       var rowCount = table.getDataCount(); //+1;
+       rcount=rowCount;
+      // alert(rowCount);
+      this.WebResponsiveGrid1.FOptions.SetItemHeight(440);
+      this.WebResponsiveGrid1.FItems.GetItem$1(0).SetHTML("<p><b>Registro de Ventas y Subastas.</p>");
+      this.WebResponsiveGrid1.FItems.GetItem$1(0).SetVisible(false);
+      i = 0;
+      for (i = 1; i <= 50; i++) {
+        this.WebResponsiveGrid1.FItems.Add$1().SetHTML(' <label for="ren"><u><strong>Renglón #' + pas.SysUtils.IntToStr(rcount + i) + "</strong></u></label> <br> <br> " + ' <label for="clie">Cliente:</label> <br> <br> <input type="text" style="height: 25px;" id="clte' + pas.SysUtils.IntToStr(i) + '" name="clie" maxlength="50" size="30"  ><br><br>' + ' <label for="art">Producto</label>  <br> <br> <input type="text" style="height: 25px;" id="prod' + pas.SysUtils.IntToStr(i) + '" name="art" maxlength="50" size="30"  ><br><br>  ' + ' <label for="imp">Importe</label>   <br> <br><input type="text" style="height: 25px;" id="impte' + pas.SysUtils.IntToStr(i) + '" name="imp" maxlength="10" size="10"  ><br><br>' + ' <label for="vs">Venta/Subasta</label> <br> <br> <input type="text" style="height: 25px;" id="vs' + pas.SysUtils.IntToStr(i) + '" name="vs" maxlength="1" size="5"  ><br><br>' + ' <label for="paga">Pagado</label> &nbsp&nbsp <input type="text" style="height: 25px;" id="pag' + pas.SysUtils.IntToStr(i) + '" name="paga" maxlength="1" size="3"  >&nbsp&nbsp' + ' <label for="entr">Entregado</label> &nbsp&nbsp <input type="text" style="height: 25px;" id="ent' + pas.SysUtils.IntToStr(i) + '" name="entr" maxlength="1" size="3"  >');
+        if (1 === 0) {
+          btn = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btn" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
+              return i;
+            }, set: function (v) {
+              i = v;
+            }})]);
+          btn.FTag$1 = i;
+          btn.FOnClick = rtl.createCallback(this,"Button2Click");
+          btn.SetTabOrder(6);
+          btn.SetTabStop(true);
+        };
+      };
+    };
+    this.Button2Click = function (Sender) {
+      var stag = "";
+      var datosstr = "";
+      var scliente = "";
+      var sproducto = "";
+      var simporte = "";
+      var svos = "";
+      stag = pas.SysUtils.TIntegerHelper.ToString$1.call({p: rtl.as(Sender,pas["WEBLib.StdCtrls"].TButton), get: function () {
+          return this.p.FTag$1;
+        }, set: function (v) {
+          this.p.FTag$1 = v;
+        }});
+      if (pas["WEBLib.StdCtrls"].TButton.isPrototypeOf(Sender)) {
+        var cliente = document.getElementById('clte'+stag);
+           var producto = document.getElementById('prod'+stag);
+           var importe = document.getElementById('impte'+stag);
+           var vos = document.getElementById('vs'+stag);
+           console.log (cliente.value);
+           console.log(producto.value);
+           console.log(importe.value);
+           console.log(vos.value);
+           scliente=cliente.value;
+           sproducto=producto.value;
+           simporte= importe.value;
+           svos=vos.value;
+        
+           document.getElementById("clte").focus();
+      };
+      datosstr = '{"rc":' + String.fromCharCode(34) + stag + String.fromCharCode(34) + "," + '"nombre":' + String.fromCharCode(34) + scliente + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + sproducto + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + simporte + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + svos + String.fromCharCode(34) + "}";
+      var table = Tabulator.findTable("#tabExample")[0];
+            //console.log(tabledata);
+            var rowCount = table.getDataCount()+1;
+           // alert(rowCount);
+             if (rowCount < 11)
+            {
+             table.addRow(datosstr)
+                  .then(function(row){
+                      //row - the row component for the row updated or added
+                   row.scrollTo();
+      
+                  //run code after data has been updated
+                  })
+                 .catch(function(error){
+                       //handle error updating data
+                  });
+      
+           }  //if  rowCount
+      
+           cliente.value='';
+           producto.value='';
+           importe.value='';
+           vos.value='';
+    };
+    this.WebPanel2Click = function (Sender) {
+      var r = null;
+      r = this.WebPanel1.GetElementHandle().getBoundingClientRect();
+      this.WebPopupMenu1.Popup(Math.round(r.left),Math.round(r.top));
+    };
+    this.WebHTMLDiv1Click = function (Sender) {
+      var r = null;
+    };
+    this.WebHTMLDiv1DblClick = function (Sender) {
+      var r = null;
+      r = this.WebPanel1.GetElementHandle().getBoundingClientRect();
+      this.WebPopupMenu1.Popup(Math.round(r.left),Math.round(r.top));
+    };
+    this.WebFormShow = function (Sender) {
+      var el = null;
+      el = document.getElementById("btnAgregar");
+    };
+    this.btnAgregarRenClick = function (Sender) {
+      var stag = "";
+      var datosstr = "";
+      var src = "";
+      var scliente = "";
+      var sproducto = "";
+      var simporte = "";
+      var svos = "";
+      var i = 0;
+      var rcount = 0;
+      var maxRens = 0;
+      var table = Tabulator.findTable("#tabExample")[0];
+       //console.log(tabledata);
+       var rowCount = table.getDataCount(); //+1;
+       rcount=rowCount;
+      // alert(rowCount);
+      maxRens = 50;
+      stag = "0";
+      for (i = 1; i <= 50; i++) {
+        stag = pas.SysUtils.IntToStr(i);
+        src = pas.SysUtils.IntToStr(rcount + i);
+        var cliente = document.getElementById('clte'+stag);
+           var producto = document.getElementById('prod'+stag);
+           var importe = document.getElementById('impte'+stag);
+           var vos = document.getElementById('vs'+stag);
+           console.log (cliente.value);
+           console.log(producto.value);
+           console.log(importe.value);
+           console.log(vos.value);
+           scliente=cliente.value;
+           sproducto=producto.value;
+           simporte= importe.value;
+           svos=vos.value;
+        
+           //document.getElementById('clte'+stag).focus();
+        datosstr = '{"rc":' + String.fromCharCode(34) + src + String.fromCharCode(34) + "," + '"nombre":' + String.fromCharCode(34) + scliente + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + sproducto + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + simporte + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + svos + String.fromCharCode(34) + "}";
+        var table = Tabulator.findTable("#tabExample")[0];
+              //console.log(tabledata);
+              var rowCount = table.getDataCount()+1;
+             // alert(rowCount);
+              // if (rowCount < 11)
+               if (rowCount < maxRens)
+              {
+              if (scliente.length > 0)
+              {
+               table.addRow(datosstr)
+                    .then(function(row){
+                        //row - the row component for the row updated or added
+                     row.scrollTo();
+        
+                    //run code after data has been updated
+                    })
+                   .catch(function(error){
+                         //handle error updating data
+                    });
+        
+             }  //if  rowCount
+             } // if cliente length > 0
+             cliente.value='';
+             producto.value='';
+             importe.value='';
+             vos.value='';
+      };
+    };
+    this.btnMenuClick = function (Sender) {
+      var r = null;
+      var vpopmenuwidth = 0.0;
+      var i = 0;
+      var w = 0.0;
+      var maxw = 0.0;
+      var s = "";
+    };
+    this.maximoPopupTexto = function () {
+      var Result = 0.0;
+      var i = 0;
+      var l = 0;
+      var maxl = 0;
+      var s = "";
+      var maxs = "";
+      return Result;
+    };
+    this.btnCerrarClick = function (Sender) {
+      var table = Tabulator.findTable("#tabExample")[0];
+      table.clearAlert();
+      this.Close();
+    };
+    this.BtnClick = function (Event) {
+      var Result = false;
+      pas["WEBLib.Dialogs"].ShowMessage("button click");
+      return Result;
+    };
+    this.BtnAgregarClick = function (Event) {
+      var Result = false;
+      var stag = "";
+      var datosstr = "";
+      var scliente = "";
+      var sproducto = "";
+      var simporte = "";
+      var svos = "";
+      var i = 0;
+      var maxRens = 0;
+      maxRens = 50;
+      stag = "0";
+      for (i = 1; i <= 50; i++) {
+        stag = pas.SysUtils.IntToStr(i);
+        var cliente = document.getElementById('clte'+stag);
+           var producto = document.getElementById('prod'+stag);
+           var importe = document.getElementById('impte'+stag);
+           var vos = document.getElementById('vs'+stag);
+           console.log (cliente.value);
+           console.log(producto.value);
+           console.log(importe.value);
+           console.log(vos.value);
+           scliente=cliente.value;
+           sproducto=producto.value;
+           simporte= importe.value;
+           svos=vos.value;
+        
+           //document.getElementById('clte'+stag).focus();
+      };
+      datosstr = '{"rc":' + String.fromCharCode(34) + stag + String.fromCharCode(34) + "," + '"nombre":' + String.fromCharCode(34) + scliente + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + sproducto + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + simporte + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + svos + String.fromCharCode(34) + "}";
+      var table = Tabulator.findTable("#tabExample")[0];
+            //console.log(tabledata);
+            var rowCount = table.getDataCount()+1;
+           // alert(rowCount);
+             if (rowCount < maxRens)
+            {
+             table.addRow(datosstr)
+                  .then(function(row){
+                      //row - the row component for the row updated or added
+                   row.scrollTo();
+      
+                  //run code after data has been updated
+                  })
+                 .catch(function(error){
+                       //handle error updating data
+                  });
+      
+           }  //if  rowCount
+      
+           cliente.value='';
+           producto.value='';
+           importe.value='';
+           vos.value='';
+      return Result;
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$2",["panel1"]);
+      this.WebResponsiveGrid1 = pas["WEBLib.Grids"].TResponsiveGrid.$create("Create$1",[this]);
+      this.WebPanel3 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.btnAgregarRen = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.btnCerrar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
+      this.Abrirhoja1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Guardarhoja1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Exportarpdf1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.WebButton1.BeforeLoadDFMValues();
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.WebResponsiveGrid1.BeforeLoadDFMValues();
+      this.WebPanel3.BeforeLoadDFMValues();
+      this.btnAgregarRen.BeforeLoadDFMValues();
+      this.btnCerrar.BeforeLoadDFMValues();
+      this.WebPopupMenu1.BeforeLoadDFMValues();
+      this.Abrirhoja1.BeforeLoadDFMValues();
+      this.Guardarhoja1.BeforeLoadDFMValues();
+      this.Exportarpdf1.BeforeLoadDFMValues();
+      try {
+        this.SetName("frmAltaRen");
+        this.SetWidth(483);
+        this.SetHeight(470);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.SetEvent(this,"OnShow","WebFormShow");
+        this.WebButton1.SetParentComponent(this);
+        this.WebButton1.SetName("WebButton1");
+        this.WebButton1.SetLeft(368);
+        this.WebButton1.SetTop(335);
+        this.WebButton1.SetWidth(96);
+        this.WebButton1.SetHeight(25);
+        this.WebButton1.SetCaption("WebButton1");
+        this.WebButton1.SetChildOrderEx(1);
+        this.WebButton1.SetHeightPercent(100.000000000000000000);
+        this.WebButton1.SetVisible(false);
+        this.WebButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
+        this.WebPanel1.SetParentComponent(this);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(0);
+        this.WebPanel1.SetWidth(483);
+        this.WebPanel1.SetHeight(413);
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebPanel1.SetChildOrderEx(3);
+        this.WebPanel1.SetTabOrder(1);
+        this.WebResponsiveGrid1.SetParentComponent(this.WebPanel1);
+        this.WebResponsiveGrid1.SetName("WebResponsiveGrid1");
+        this.WebResponsiveGrid1.SetLeft(0);
+        this.WebResponsiveGrid1.SetTop(0);
+        this.WebResponsiveGrid1.SetWidth(483);
+        this.WebResponsiveGrid1.SetHeight(413);
+        this.WebResponsiveGrid1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebResponsiveGrid1.SetChildOrderEx(1);
+        this.WebResponsiveGrid1.SetElementPosition(pas["WEBLib.Controls"].TElementPosition.epRelative);
+        this.WebResponsiveGrid1.FItems.Clear$1();
+        var $with = this.WebResponsiveGrid1.FItems.Add$1();
+        this.WebResponsiveGrid1.FOptions.SetItemColor(15125759);
+        this.WebResponsiveGrid1.FOptions.SetItemHeight(250);
+        this.WebResponsiveGrid1.FOptions.SetItemPadding(10);
+        this.WebResponsiveGrid1.FOptions.SetItemWidthMin(250);
+        this.WebPanel3.SetParentComponent(this);
+        this.WebPanel3.SetName("WebPanel3");
+        this.WebPanel3.SetLeft(0);
+        this.WebPanel3.SetTop(413);
+        this.WebPanel3.SetWidth(483);
+        this.WebPanel3.SetHeight(57);
+        this.WebPanel3.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel3.SetChildOrderEx(2);
+        this.WebPanel3.SetTabOrder(2);
+        this.btnAgregarRen.SetParentComponent(this.WebPanel3);
+        this.btnAgregarRen.SetName("btnAgregarRen");
+        this.btnAgregarRen.SetLeft(99);
+        this.btnAgregarRen.SetTop(19);
+        this.btnAgregarRen.SetWidth(134);
+        this.btnAgregarRen.SetHeight(25);
+        this.btnAgregarRen.SetCaption("Agregar Renglones");
+        this.btnAgregarRen.SetElementClassName("btn btn-light");
+        this.btnAgregarRen.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnAgregarRen.SetHeightPercent(100.000000000000000000);
+        this.btnAgregarRen.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnAgregarRen,this,"OnClick","btnAgregarRenClick");
+        this.btnCerrar.SetParentComponent(this.WebPanel3);
+        this.btnCerrar.SetName("btnCerrar");
+        this.btnCerrar.SetLeft(263);
+        this.btnCerrar.SetTop(19);
+        this.btnCerrar.SetWidth(106);
+        this.btnCerrar.SetHeight(25);
+        this.btnCerrar.SetCaption("Cerrar");
+        this.btnCerrar.SetChildOrderEx(1);
+        this.btnCerrar.SetElementClassName("btn btn-light");
+        this.btnCerrar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnCerrar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnCerrar.SetHeightPercent(100.000000000000000000);
+        this.btnCerrar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnCerrar,this,"OnClick","btnCerrarClick");
+        this.WebPopupMenu1.SetParentComponent(this);
+        this.WebPopupMenu1.SetName("WebPopupMenu1");
+        this.WebPopupMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
+        this.WebPopupMenu1.FAppearance.SetSubmenuIndicator("&#9658;");
+        this.WebPopupMenu1.FFont.FCharset = 1;
+        this.WebPopupMenu1.FFont.SetColor(65793);
+        this.WebPopupMenu1.FFont.SetHeight(-12);
+        this.WebPopupMenu1.FFont.SetName("Segoe UI");
+        this.WebPopupMenu1.FFont.SetStyle({});
+        this.WebPopupMenu1.SetLeft(344);
+        this.WebPopupMenu1.SetTop(377);
+        this.Abrirhoja1.SetParentComponent(this.WebPopupMenu1);
+        this.Abrirhoja1.SetName("Abrirhoja1");
+        this.Abrirhoja1.SetCaption("Abrir hoja");
+        this.Guardarhoja1.SetParentComponent(this.WebPopupMenu1);
+        this.Guardarhoja1.SetName("Guardarhoja1");
+        this.Guardarhoja1.SetCaption("Guardar hoja");
+        this.Exportarpdf1.SetParentComponent(this.WebPopupMenu1);
+        this.Exportarpdf1.SetName("Exportarpdf1");
+        this.Exportarpdf1.SetCaption("Exportar pdf");
+      } finally {
+        this.WebButton1.AfterLoadDFMValues();
+        this.WebPanel1.AfterLoadDFMValues();
+        this.WebResponsiveGrid1.AfterLoadDFMValues();
+        this.WebPanel3.AfterLoadDFMValues();
+        this.btnAgregarRen.AfterLoadDFMValues();
+        this.btnCerrar.AfterLoadDFMValues();
+        this.WebPopupMenu1.AfterLoadDFMValues();
+        this.Abrirhoja1.AfterLoadDFMValues();
+        this.Guardarhoja1.AfterLoadDFMValues();
+        this.Exportarpdf1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebPopupMenu1",pas["WEBLib.Menus"].$rtti["TPopupMenu"]);
+    $r.addField("Abrirhoja1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Guardarhoja1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Exportarpdf1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebPanel3",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("btnAgregarRen",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("btnCerrar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebResponsiveGrid1",pas["WEBLib.Grids"].$rtti["TResponsiveGrid"]);
+    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("IniciarRenglonesGrid",0,[]);
+    $r.addMethod("Button2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebPanel2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebHTMLDiv1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebHTMLDiv1DblClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormShow",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btnAgregarRenClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btnMenuClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("maximoPopupTexto",1,[],rtl.double);
+    $r.addMethod("btnCerrarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.frmAltaRen = null;
+  $mod.$implcode = function () {
+    $impl.maxRenglones = 50;
+    $impl.popmenuwidth = 0.0;
+  };
+},[]);
+rtl.module("Unit3",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.ExtCtrls"],function () {
+  "use strict";
+  var $mod = this;
+  var $impl = $mod.$impl;
+  rtl.createClass(this,"TForm3",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebScrollBox1 = null;
+      this.WebLabel1 = null;
+      this.WebPanel1 = null;
+      this.btnCerrar = null;
+      this.WebLabel2 = null;
+      this.edNombre = null;
+      this.WebLabel3 = null;
+      this.edArticulo = null;
+      this.WebLabel4 = null;
+      this.edImporte = null;
+      this.chkPagado = null;
+      this.chkEntregado = null;
+      this.WebLabel5 = null;
+      this.edventasuba = null;
+      this.WebLabel6 = null;
+      this.edPagado = null;
+      this.WebLabel7 = null;
+      this.edEntregado = null;
+      this.edAgregar = null;
+      this.btnAgregar = null;
+      this.lbAgregar = null;
+      this.listadatos = null;
+    };
+    this.$final = function () {
+      this.WebScrollBox1 = undefined;
+      this.WebLabel1 = undefined;
+      this.WebPanel1 = undefined;
+      this.btnCerrar = undefined;
+      this.WebLabel2 = undefined;
+      this.edNombre = undefined;
+      this.WebLabel3 = undefined;
+      this.edArticulo = undefined;
+      this.WebLabel4 = undefined;
+      this.edImporte = undefined;
+      this.chkPagado = undefined;
+      this.chkEntregado = undefined;
+      this.WebLabel5 = undefined;
+      this.edventasuba = undefined;
+      this.WebLabel6 = undefined;
+      this.edPagado = undefined;
+      this.WebLabel7 = undefined;
+      this.edEntregado = undefined;
+      this.edAgregar = undefined;
+      this.btnAgregar = undefined;
+      this.lbAgregar = undefined;
+      this.listadatos = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.btnCerrarClick = function (Sender) {
+      var table = Tabulator.findTable("#tabExample")[0];
+      table.clearAlert();
+      this.Close();
+    };
+    this.btnAgregarClick = function (Sender) {
+      var datosstr = "";
+      var pagado = "";
+      var entregado = "";
+      var src = "";
+      var irc = 0;
+      var maxRegs = 0;
+      if ((this.edNombre.GetText() === "") || (this.edArticulo.GetText() === "") || (this.edImporte.GetText() === "")) {
+        this.edNombre.SetFocus();
+        this.chkPagado.SetChecked(false);
+        this.chkEntregado.SetChecked(false);
+        return;
+      };
+      maxRegs = 101;
+      pagado = "false";
+      entregado = "false";
+      if (this.chkPagado.GetChecked()) pagado = "true";
+      if (this.chkEntregado.GetChecked()) entregado = "true";
+      pagado = this.edPagado.GetText();
+      entregado = this.edEntregado.GetText();
+      datosstr = '{"nombre":' + String.fromCharCode(34) + this.edNombre.GetText() + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + this.edArticulo.GetText() + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + this.edImporte.GetText() + String.fromCharCode(34) + "," + '"pagado":' + String.fromCharCode(34) + pagado + String.fromCharCode(34) + "," + '"entregado":' + String.fromCharCode(34) + entregado + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + this.edventasuba.GetText() + String.fromCharCode(34) + "}";
+      this.listadatos.Add(datosstr);
+      var table = Tabulator.findTable("#tabExample")[0];
+      console.log('tabla',table);
+      var rowCount = table.getDataCount();
+      irc =   rowCount+1;
+      src = pas.SysUtils.IntToStr(irc);
+      datosstr = '{"rc":' + String.fromCharCode(34) + src + String.fromCharCode(34) + "," + '"nombre":' + String.fromCharCode(34) + this.edNombre.GetText() + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + this.edArticulo.GetText() + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + this.edImporte.GetText() + String.fromCharCode(34) + "," + '"pagado":' + String.fromCharCode(34) + pagado + String.fromCharCode(34) + "," + '"entregado":' + String.fromCharCode(34) + entregado + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + this.edventasuba.GetText() + String.fromCharCode(34) + "}";
+      var table = Tabulator.findTable("#tabExample")[0];
+            var tabledata = [];   // se puede eliminar
+            var obj=JSON.parse(datosstr);   // se puede eliminar
+            tabledata.push(obj);  // se puede eliminar
+            //console.log(tabledata);
+            var rowCount = table.getDataCount()+1;
+           // alert(rowCount);
+            // if (rowCount < 101)
+             if (rowCount < maxRegs);
+            {
+             table.addRow(datosstr)
+                  .then(function(row){
+                      //row - the row component for the row updated or added
+                   row.scrollTo();
+      
+                  //run code after data has been updated
+                  })
+                 .catch(function(error){
+                       //handle error updating data
+                  });
+      
+           }  //if  rowCount;
+      this.edNombre.SetText("");
+      this.edArticulo.SetText("");
+      this.edImporte.SetText("");
+      this.edventasuba.SetText("");
+      this.chkPagado.SetChecked(false);
+      this.chkEntregado.SetChecked(false);
+      this.edPagado.SetText("");
+      this.edEntregado.SetText("");
+      this.edNombre.SetFocus();
+    };
+    this.WebFormCreate = function (Sender) {
+      this.listadatos = pas.Classes.TStringList.$create("Create$1");
+      this.WebScrollBox1.SetElementClassName("");
+      this.WebScrollBox1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
+      this.WebPanel1.SetElementClassName("");
+      this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
+      if (!pas["WEBLib.Forms"].Application.GetIsMobile()) {
+        this.lbAgregar.SetVisible(false);
+        this.edAgregar.SetVisible(false);
+      };
+    };
+    this.WebFormCloseQuery = function (Sender, CanClose) {
+    };
+    this.edventasubaExit = function (Sender) {
+    };
+    this.chkPagadoExit = function (Sender) {
+    };
+    this.chkEntregadoExit = function (Sender) {
+      this.btnAgregar.SetFocus();
+    };
+    this.edNombreKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.edArticulo.SetFocus();
+    };
+    this.edArticuloKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.edImporte.SetFocus();
+    };
+    this.edImporteKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.edventasuba.SetFocus();
+    };
+    this.edventasubaKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.edPagado.SetFocus();
+    };
+    this.chkPagadoKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.chkEntregado.SetFocus();
+    };
+    this.chkEntregadoKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.btnAgregar.SetFocus();
+    };
+    this.edPagadoKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.edEntregado.SetFocus();
+    };
+    this.edEntregadoKeyDown = function (Sender, Key, Shift) {
+      if (Key.get() === 13) this.edAgregar.SetFocus();
+    };
+    this.edImporteKeyPress = function (Sender, Key) {
+      var nKey = 0;
+      nKey = Key.get().charCodeAt();
+      if (!(nKey in rtl.createSet(8,9,12,13,46,48,49,50,51,52,53,54,55,56,57))) {
+        Key.set("\x00");
+        this.edImporte.SetText("");
+      };
+      if (nKey === 13) this.edventasuba.SetFocus();
+    };
+    this.edventasubaKeyPress = function (Sender, Key) {
+      var rtext = "";
+      rtext = this.edventasuba.GetText();
+      rtext = "";
+      if (!(Key.get().charCodeAt() in rtl.createSet(86,118,83,115))) {
+        Key.set("\x00");
+        this.edventasuba.SetText(rtext);
+      };
+    };
+    this.edPagadoKeyPress = function (Sender, Key) {
+      var rtext = "";
+      rtext = this.edPagado.GetText();
+      rtext = "";
+      if (!(Key.get().charCodeAt() in rtl.createSet(78,110,83,115))) {
+        Key.set("\x00");
+        this.edPagado.SetText(rtext);
+      };
+    };
+    this.edEntregadoKeyPress = function (Sender, Key) {
+      var rtext = "";
+      rtext = this.edEntregado.GetText();
+      rtext = "";
+      if (!(Key.get().charCodeAt() in rtl.createSet(78,110,83,115))) {
+        Key.set("\x00");
+        this.edEntregado.SetText(rtext);
+      };
+    };
+    this.edAgregarChange = function (Sender) {
+      var cmdChange = "";
+      cmdChange = pas.SysUtils.UpperCase(this.edAgregar.GetText());
+      if (cmdChange === "AGREGA") {
+        this.btnAgregar.Click();
+        this.edAgregar.SetText("");
+      };
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebScrollBox1 = pas["WEBLib.ExtCtrls"].TScrollBox.$create("Create$2",["scroll-INFO"]);
+      this.WebLabel1 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel2 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel3 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel4 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel5 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel6 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel7 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.lbAgregar = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.btnCerrar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.btnAgregar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.edNombre = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.edArticulo = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.edImporte = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.chkPagado = pas["WEBLib.StdCtrls"].TCheckBox.$create("Create$1",[this]);
+      this.chkEntregado = pas["WEBLib.StdCtrls"].TCheckBox.$create("Create$1",[this]);
+      this.edventasuba = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.edPagado = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.edEntregado = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.edAgregar = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.WebScrollBox1.BeforeLoadDFMValues();
+      this.WebLabel1.BeforeLoadDFMValues();
+      this.WebLabel2.BeforeLoadDFMValues();
+      this.WebLabel3.BeforeLoadDFMValues();
+      this.WebLabel4.BeforeLoadDFMValues();
+      this.WebLabel5.BeforeLoadDFMValues();
+      this.WebLabel6.BeforeLoadDFMValues();
+      this.WebLabel7.BeforeLoadDFMValues();
+      this.lbAgregar.BeforeLoadDFMValues();
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.btnCerrar.BeforeLoadDFMValues();
+      this.btnAgregar.BeforeLoadDFMValues();
+      this.edNombre.BeforeLoadDFMValues();
+      this.edArticulo.BeforeLoadDFMValues();
+      this.edImporte.BeforeLoadDFMValues();
+      this.chkPagado.BeforeLoadDFMValues();
+      this.chkEntregado.BeforeLoadDFMValues();
+      this.edventasuba.BeforeLoadDFMValues();
+      this.edPagado.BeforeLoadDFMValues();
+      this.edEntregado.BeforeLoadDFMValues();
+      this.edAgregar.BeforeLoadDFMValues();
+      try {
+        this.SetName("Form3");
+        this.SetLeft(400);
+        this.SetWidth(251);
+        this.SetHeight(505);
+        this.SetCaption("Libreta Digital (Registro)");
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.FShowClose = false;
+        this.SetEvent(this,"OnCloseQuery","WebFormCloseQuery");
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebScrollBox1.SetParentComponent(this);
+        this.WebScrollBox1.SetName("WebScrollBox1");
+        this.WebScrollBox1.SetLeft(0);
+        this.WebScrollBox1.SetTop(0);
+        this.WebScrollBox1.SetWidth(251);
+        this.WebScrollBox1.SetHeight(505);
+        this.WebScrollBox1.SetElementClassName("card");
+        this.WebScrollBox1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebScrollBox1.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsSingle);
+        this.WebScrollBox1.SetChildOrderEx(1);
+        this.WebScrollBox1.SetColor(16376827);
+        this.WebLabel1.SetParentComponent(this.WebScrollBox1);
+        this.WebLabel1.SetName("WebLabel1");
+        this.WebLabel1.SetLeft(0);
+        this.WebLabel1.SetTop(0);
+        this.WebLabel1.SetWidth(251);
+        this.WebLabel1.SetHeight(18);
+        this.WebLabel1.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebLabel1.SetAlignment(pas.Classes.TAlignment.taCenter);
+        this.WebLabel1.SetCaption("Agregar Renglones ");
+        this.WebLabel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel1.SetHeightPercent(100.000000000000000000);
+        this.WebLabel1.SetWidthPercent(100.000000000000000000);
+        this.WebLabel2.SetParentComponent(this.WebScrollBox1);
+        this.WebLabel2.SetName("WebLabel2");
+        this.WebLabel2.SetLeft(0);
+        this.WebLabel2.SetTop(32);
+        this.WebLabel2.SetWidth(104);
+        this.WebLabel2.SetHeight(18);
+        this.WebLabel2.SetCaption("Nombre Cliente:");
+        this.WebLabel2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel2.SetHeightPercent(100.000000000000000000);
+        this.WebLabel2.SetWidthPercent(100.000000000000000000);
+        this.WebLabel3.SetParentComponent(this.WebScrollBox1);
+        this.WebLabel3.SetName("WebLabel3");
+        this.WebLabel3.SetLeft(3);
+        this.WebLabel3.SetTop(100);
+        this.WebLabel3.SetWidth(62);
+        this.WebLabel3.SetHeight(18);
+        this.WebLabel3.SetCaption("Producto:");
+        this.WebLabel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel3.SetHeightPercent(100.000000000000000000);
+        this.WebLabel3.SetWidthPercent(100.000000000000000000);
+        this.WebLabel4.SetParentComponent(this.WebScrollBox1);
+        this.WebLabel4.SetName("WebLabel4");
+        this.WebLabel4.SetLeft(3);
+        this.WebLabel4.SetTop(160);
+        this.WebLabel4.SetWidth(43);
+        this.WebLabel4.SetHeight(18);
+        this.WebLabel4.SetCaption("Precio:");
+        this.WebLabel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel4.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel4.SetHeightPercent(100.000000000000000000);
+        this.WebLabel4.SetWidthPercent(100.000000000000000000);
+        this.WebLabel5.SetParentComponent(this.WebScrollBox1);
+        this.WebLabel5.SetName("WebLabel5");
+        this.WebLabel5.SetLeft(3);
+        this.WebLabel5.SetTop(232);
+        this.WebLabel5.SetWidth(156);
+        this.WebLabel5.SetHeight(18);
+        this.WebLabel5.SetCaption("Venta Directa / Subasta");
+        this.WebLabel5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel5.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel5.SetHeightPercent(100.000000000000000000);
+        this.WebLabel5.SetWidthPercent(100.000000000000000000);
+        this.WebLabel6.SetParentComponent(this.WebScrollBox1);
+        this.WebLabel6.SetName("WebLabel6");
+        this.WebLabel6.SetLeft(3);
+        this.WebLabel6.SetTop(273);
+        this.WebLabel6.SetWidth(53);
+        this.WebLabel6.SetHeight(18);
+        this.WebLabel6.SetCaption("Pagado:");
+        this.WebLabel6.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel6.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel6.SetHeightPercent(100.000000000000000000);
+        this.WebLabel6.SetWidthPercent(100.000000000000000000);
+        this.WebLabel7.SetParentComponent(this.WebScrollBox1);
+        this.WebLabel7.SetName("WebLabel7");
+        this.WebLabel7.SetLeft(3);
+        this.WebLabel7.SetTop(315);
+        this.WebLabel7.SetWidth(71);
+        this.WebLabel7.SetHeight(18);
+        this.WebLabel7.SetCaption("Entregado:");
+        this.WebLabel7.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel7.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel7.SetHeightPercent(100.000000000000000000);
+        this.WebLabel7.SetWidthPercent(100.000000000000000000);
+        this.lbAgregar.SetParentComponent(this.WebScrollBox1);
+        this.lbAgregar.SetName("lbAgregar");
+        this.lbAgregar.SetLeft(3);
+        this.lbAgregar.SetTop(354);
+        this.lbAgregar.SetWidth(84);
+        this.lbAgregar.SetHeight(18);
+        this.lbAgregar.SetCaption("Diga Agrega:");
+        this.lbAgregar.SetColorEx(65535);
+        this.lbAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.lbAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbAgregar.SetHeightPercent(100.000000000000000000);
+        this.lbAgregar.SetTransparent(false);
+        this.lbAgregar.SetWidthPercent(100.000000000000000000);
+        this.WebPanel1.SetParentComponent(this.WebScrollBox1);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(454);
+        this.WebPanel1.SetWidth(251);
+        this.WebPanel1.SetHeight(51);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel1.SetChildOrderEx(2);
+        this.WebPanel1.SetColor(12632256);
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetTabOrder(0);
+        this.btnCerrar.SetParentComponent(this.WebPanel1);
+        this.btnCerrar.SetName("btnCerrar");
+        this.btnCerrar.SetLeft(144);
+        this.btnCerrar.SetTop(3);
+        this.btnCerrar.SetWidth(81);
+        this.btnCerrar.SetHeight(25);
+        this.btnCerrar.SetCaption("Cerrar");
+        this.btnCerrar.SetElementClassName("btn btn-light");
+        this.btnCerrar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnCerrar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnCerrar.SetHeightPercent(100.000000000000000000);
+        this.btnCerrar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnCerrar,this,"OnClick","btnCerrarClick");
+        this.btnAgregar.SetParentComponent(this.WebPanel1);
+        this.btnAgregar.SetName("btnAgregar");
+        this.btnAgregar.SetLeft(31);
+        this.btnAgregar.SetTop(10);
+        this.btnAgregar.SetWidth(81);
+        this.btnAgregar.SetHeight(25);
+        this.btnAgregar.SetCaption(".");
+        this.btnAgregar.SetChildOrderEx(1);
+        this.btnAgregar.SetElementClassName("btn btn-light");
+        this.btnAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnAgregar.SetHeightPercent(100.000000000000000000);
+        this.btnAgregar.SetTabOrder(106);
+        this.btnAgregar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnAgregar,this,"OnClick","btnAgregarClick");
+        this.edNombre.SetParentComponent(this.WebScrollBox1);
+        this.edNombre.SetName("edNombre");
+        this.edNombre.SetLeft(3);
+        this.edNombre.SetTop(56);
+        this.edNombre.SetWidth(222);
+        this.edNombre.SetHeight(22);
+        this.edNombre.SetChildOrderEx(3);
+        this.edNombre.SetElementClassName("form-control");
+        this.edNombre.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edNombre.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edNombre.SetHeightPercent(100.000000000000000000);
+        this.edNombre.SetTabOrder(100);
+        this.edNombre.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edNombre,this,"OnKeyDown","edNombreKeyDown");
+        this.edArticulo.SetParentComponent(this.WebScrollBox1);
+        this.edArticulo.SetName("edArticulo");
+        this.edArticulo.SetLeft(3);
+        this.edArticulo.SetTop(124);
+        this.edArticulo.SetWidth(222);
+        this.edArticulo.SetHeight(22);
+        this.edArticulo.SetChildOrderEx(3);
+        this.edArticulo.SetElementClassName("form-control");
+        this.edArticulo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edArticulo.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edArticulo.SetHeightPercent(100.000000000000000000);
+        this.edArticulo.SetTabOrder(101);
+        this.edArticulo.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edArticulo,this,"OnKeyDown","edArticuloKeyDown");
+        this.edImporte.SetParentComponent(this.WebScrollBox1);
+        this.edImporte.SetName("edImporte");
+        this.edImporte.SetLeft(3);
+        this.edImporte.SetTop(184);
+        this.edImporte.SetWidth(222);
+        this.edImporte.SetHeight(22);
+        this.edImporte.SetChildOrderEx(3);
+        this.edImporte.SetElementClassName("form-control");
+        this.edImporte.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edImporte.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edImporte.SetHeightPercent(100.000000000000000000);
+        this.edImporte.SetTabOrder(102);
+        this.edImporte.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edImporte,this,"OnKeyDown","edImporteKeyDown");
+        this.SetEvent$1(this.edImporte,this,"OnKeyPress","edImporteKeyPress");
+        this.chkPagado.SetParentComponent(this.WebScrollBox1);
+        this.chkPagado.SetName("chkPagado");
+        this.chkPagado.SetLeft(165);
+        this.chkPagado.SetTop(272);
+        this.chkPagado.SetWidth(86);
+        this.chkPagado.SetHeight(22);
+        this.chkPagado.SetCaption("Pagado");
+        this.chkPagado.SetChildOrderEx(8);
+        this.chkPagado.SetElementClassName("custom-control custom-checkbox");
+        this.chkPagado.FElementButtonClassName = "custom-control-input";
+        this.chkPagado.FElementLabelClassName = "custom-control-label";
+        this.chkPagado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.chkPagado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.chkPagado.SetHeightPercent(100.000000000000000000);
+        this.chkPagado.SetTabOrder(104);
+        this.chkPagado.SetVisible(false);
+        this.chkPagado.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.chkPagado,this,"OnExit","chkPagadoExit");
+        this.SetEvent$1(this.chkPagado,this,"OnKeyDown","chkPagadoKeyDown");
+        this.chkEntregado.SetParentComponent(this.WebScrollBox1);
+        this.chkEntregado.SetName("chkEntregado");
+        this.chkEntregado.SetLeft(162);
+        this.chkEntregado.SetTop(314);
+        this.chkEntregado.SetWidth(86);
+        this.chkEntregado.SetHeight(22);
+        this.chkEntregado.SetCaption("Entregado");
+        this.chkEntregado.SetChildOrderEx(8);
+        this.chkEntregado.SetElementClassName("custom-control custom-checkbox");
+        this.chkEntregado.FElementButtonClassName = "custom-control-input";
+        this.chkEntregado.FElementLabelClassName = "custom-control-label";
+        this.chkEntregado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.chkEntregado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.chkEntregado.SetHeightPercent(100.000000000000000000);
+        this.chkEntregado.SetTabOrder(105);
+        this.chkEntregado.SetVisible(false);
+        this.chkEntregado.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.chkEntregado,this,"OnExit","chkEntregadoExit");
+        this.SetEvent$1(this.chkEntregado,this,"OnKeyDown","chkEntregadoKeyDown");
+        this.edventasuba.SetParentComponent(this.WebScrollBox1);
+        this.edventasuba.SetName("edventasuba");
+        this.edventasuba.SetLeft(179);
+        this.edventasuba.SetTop(232);
+        this.edventasuba.SetWidth(46);
+        this.edventasuba.SetHeight(22);
+        this.edventasuba.SetChildOrderEx(3);
+        this.edventasuba.SetElementClassName("form-control");
+        this.edventasuba.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edventasuba.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edventasuba.SetHeightPercent(100.000000000000000000);
+        this.edventasuba.SetMaxLength(1);
+        this.edventasuba.SetTabOrder(103);
+        this.edventasuba.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edventasuba,this,"OnExit","edventasubaExit");
+        this.SetEvent$1(this.edventasuba,this,"OnKeyDown","edventasubaKeyDown");
+        this.SetEvent$1(this.edventasuba,this,"OnKeyPress","edventasubaKeyPress");
+        this.edPagado.SetParentComponent(this.WebScrollBox1);
+        this.edPagado.SetName("edPagado");
+        this.edPagado.SetLeft(84);
+        this.edPagado.SetTop(270);
+        this.edPagado.SetWidth(53);
+        this.edPagado.SetHeight(22);
+        this.edPagado.SetChildOrderEx(3);
+        this.edPagado.SetElementClassName("form-control");
+        this.edPagado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edPagado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edPagado.SetHeightPercent(100.000000000000000000);
+        this.edPagado.SetMaxLength(1);
+        this.edPagado.SetTabOrder(104);
+        this.edPagado.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edPagado,this,"OnKeyDown","edPagadoKeyDown");
+        this.SetEvent$1(this.edPagado,this,"OnKeyPress","edPagadoKeyPress");
+        this.edEntregado.SetParentComponent(this.WebScrollBox1);
+        this.edEntregado.SetName("edEntregado");
+        this.edEntregado.SetLeft(84);
+        this.edEntregado.SetTop(315);
+        this.edEntregado.SetWidth(53);
+        this.edEntregado.SetHeight(22);
+        this.edEntregado.SetChildOrderEx(3);
+        this.edEntregado.SetElementClassName("form-control");
+        this.edEntregado.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edEntregado.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edEntregado.SetHeightPercent(100.000000000000000000);
+        this.edEntregado.SetMaxLength(1);
+        this.edEntregado.SetTabOrder(105);
+        this.edEntregado.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edEntregado,this,"OnKeyDown","edEntregadoKeyDown");
+        this.SetEvent$1(this.edEntregado,this,"OnKeyPress","edEntregadoKeyPress");
+        this.edAgregar.SetParentComponent(this.WebScrollBox1);
+        this.edAgregar.SetName("edAgregar");
+        this.edAgregar.SetLeft(108);
+        this.edAgregar.SetTop(351);
+        this.edAgregar.SetWidth(101);
+        this.edAgregar.SetHeight(22);
+        this.edAgregar.SetChildOrderEx(17);
+        this.edAgregar.SetElementClassName("form-control");
+        this.edAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edAgregar.SetHeightPercent(100.000000000000000000);
+        this.edAgregar.SetPattern("AGREGAR");
+        this.edAgregar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edAgregar,this,"OnChange","edAgregarChange");
+      } finally {
+        this.WebScrollBox1.AfterLoadDFMValues();
+        this.WebLabel1.AfterLoadDFMValues();
+        this.WebLabel2.AfterLoadDFMValues();
+        this.WebLabel3.AfterLoadDFMValues();
+        this.WebLabel4.AfterLoadDFMValues();
+        this.WebLabel5.AfterLoadDFMValues();
+        this.WebLabel6.AfterLoadDFMValues();
+        this.WebLabel7.AfterLoadDFMValues();
+        this.lbAgregar.AfterLoadDFMValues();
+        this.WebPanel1.AfterLoadDFMValues();
+        this.btnCerrar.AfterLoadDFMValues();
+        this.btnAgregar.AfterLoadDFMValues();
+        this.edNombre.AfterLoadDFMValues();
+        this.edArticulo.AfterLoadDFMValues();
+        this.edImporte.AfterLoadDFMValues();
+        this.chkPagado.AfterLoadDFMValues();
+        this.chkEntregado.AfterLoadDFMValues();
+        this.edventasuba.AfterLoadDFMValues();
+        this.edPagado.AfterLoadDFMValues();
+        this.edEntregado.AfterLoadDFMValues();
+        this.edAgregar.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebScrollBox1",pas["WEBLib.ExtCtrls"].$rtti["TScrollBox"]);
+    $r.addField("WebLabel1",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("btnCerrar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebLabel2",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edNombre",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebLabel3",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edArticulo",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebLabel4",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edImporte",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("chkPagado",pas["WEBLib.StdCtrls"].$rtti["TCheckBox"]);
+    $r.addField("chkEntregado",pas["WEBLib.StdCtrls"].$rtti["TCheckBox"]);
+    $r.addField("WebLabel5",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edventasuba",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebLabel6",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edPagado",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebLabel7",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edEntregado",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("edAgregar",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("btnAgregar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("lbAgregar",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addMethod("btnCerrarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btnAgregarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormCloseQuery",0,[["Sender",pas.System.$rtti["TObject"]],["CanClose",rtl.boolean,1]]);
+    $r.addMethod("edventasubaExit",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("chkPagadoExit",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("chkEntregadoExit",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("edNombreKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("edArticuloKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("edImporteKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("edventasubaKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("chkPagadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("chkEntregadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("edPagadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("edEntregadoKeyDown",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.word,1],["Shift",pas.Classes.$rtti["TShiftState"]]]);
+    $r.addMethod("edImporteKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
+    $r.addMethod("edventasubaKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
+    $r.addMethod("edPagadoKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
+    $r.addMethod("edEntregadoKeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
+    $r.addMethod("edAgregarChange",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.Form3 = null;
+  $mod.$implcode = function () {
+    $impl.maximoRegistros = 101;
+    $impl.validateInputType = function (inputType, Achar) {
+      var Result = false;
+      var Fresult = false;
+      Fresult = true;
+      console.log(Achar);
+      if (inputType === "jdFloat") {
+        if (!(Achar.charCodeAt() in rtl.createSet(null,48,57,110))) Fresult = false;
+      } else if (inputType === "onlyletters") if (!(Achar.charCodeAt() in rtl.createSet(null,97,122,null,65,90))) Fresult = false;
+      Result = Fresult;
+      return Result;
+    };
+  };
+},[]);
+rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.ExtCtrls","WEBLib.REST","WEBLib.JQCtrls","WEBLib.SideMenu","WEBLib.Menus","WEBLib.Menus","uCargarConsultas","WEBLib.Cookies","WEBLib.Storage","WEBLib.LocalFiles","DB","WEBLib.IndexedDb","WEBLib.Imaging.pngImage","WEBLib.Buttons","ufrmAltaRen"],function () {
+  "use strict";
+  var $mod = this;
+  var $impl = $mod.$impl;
+  rtl.createClass(this,"TForm1",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebHttpRequest1 = null;
+      this.WebMemo1 = null;
+      this.WebDiv = null;
+      this.WebPanel3 = null;
+      this.WebPanel4 = null;
+      this.WebMainMenu1 = null;
+      this.WebButton9 = null;
+      this.PDF2 = null;
+      this.PDF3 = null;
+      this.Exportar1 = null;
+      this.Exportar2 = null;
+      this.WebPanel5 = null;
+      this.Archivo1 = null;
+      this.Pacientes1 = null;
+      this.Consultas1 = null;
+      this.Estudios1 = null;
+      this.Analisis1 = null;
+      this.Editar1 = null;
+      this.Copiar1 = null;
+      this.Copiar2 = null;
+      this.Cortar1 = null;
+      this.Exportar3 = null;
+      this.ExportarPDF1 = null;
+      this.Excel1 = null;
+      this.Expotar1 = null;
+      this.Descargar1 = null;
+      this.WebLabel1 = null;
+      this.edPacNombre = null;
+      this.Imprimir1 = null;
+      this.Graficar1 = null;
+      this.Graficas1 = null;
+      this.WebButton11 = null;
+      this.WebButton12 = null;
+      this.WebButton13 = null;
+      this.AnlisisGrfico1 = null;
+      this.Salir1 = null;
+      this.LimpiarHoja1 = null;
+      this.lbarchivo = null;
+      this.WebScrollRegistro = null;
+      this.Registrar1 = null;
+      this.LimpiarHoja2 = null;
+      this.WebLabel3 = null;
+      this.WebLabel4 = null;
+      this.edNombre = null;
+      this.WebLabel5 = null;
+      this.WebLabel6 = null;
+      this.edImporte = null;
+      this.WebLabel7 = null;
+      this.edventasuba = null;
+      this.N1 = null;
+      this.N2 = null;
+      this.ExportaraPDF1 = null;
+      this.edArticulo = null;
+      this.WebPanel1 = null;
+      this.btnAgregar = null;
+      this.btnCerrar = null;
+      this.edRen = null;
+      this.btnEliminar = null;
+      this.radioTipo = null;
+      this.lbusuario2 = null;
+      this.lbusuario = null;
+      this.WebMessageDlg1 = null;
+      this.lbminimizar = null;
+      this.Compartir1 = null;
+      this.CompartirPDF21 = null;
+      this.compartirpdf31 = null;
+      this.Compartir2 = null;
+      this.WebLocalTextFile1 = null;
+      this.PedidosDbClientDataset1 = null;
+      this.WebSpeedButton1 = null;
+      this.WebPopupMenu1 = null;
+      this.uno1 = null;
+      this.dos1 = null;
+      this.tres1 = null;
+      this.cuatro = null;
+      this.comparte = null;
+      this.N3 = null;
+      this.Salir2 = null;
+      this.WebButton1 = null;
+      this.uno11 = null;
+      this.minimizo = false;
+    };
+    this.$final = function () {
+      this.WebHttpRequest1 = undefined;
+      this.WebMemo1 = undefined;
+      this.WebDiv = undefined;
+      this.WebPanel3 = undefined;
+      this.WebPanel4 = undefined;
+      this.WebMainMenu1 = undefined;
+      this.WebButton9 = undefined;
+      this.PDF2 = undefined;
+      this.PDF3 = undefined;
+      this.Exportar1 = undefined;
+      this.Exportar2 = undefined;
+      this.WebPanel5 = undefined;
+      this.Archivo1 = undefined;
+      this.Pacientes1 = undefined;
+      this.Consultas1 = undefined;
+      this.Estudios1 = undefined;
+      this.Analisis1 = undefined;
+      this.Editar1 = undefined;
+      this.Copiar1 = undefined;
+      this.Copiar2 = undefined;
+      this.Cortar1 = undefined;
+      this.Exportar3 = undefined;
+      this.ExportarPDF1 = undefined;
+      this.Excel1 = undefined;
+      this.Expotar1 = undefined;
+      this.Descargar1 = undefined;
+      this.WebLabel1 = undefined;
+      this.edPacNombre = undefined;
+      this.Imprimir1 = undefined;
+      this.Graficar1 = undefined;
+      this.Graficas1 = undefined;
+      this.WebButton11 = undefined;
+      this.WebButton12 = undefined;
+      this.WebButton13 = undefined;
+      this.AnlisisGrfico1 = undefined;
+      this.Salir1 = undefined;
+      this.LimpiarHoja1 = undefined;
+      this.lbarchivo = undefined;
+      this.WebScrollRegistro = undefined;
+      this.Registrar1 = undefined;
+      this.LimpiarHoja2 = undefined;
+      this.WebLabel3 = undefined;
+      this.WebLabel4 = undefined;
+      this.edNombre = undefined;
+      this.WebLabel5 = undefined;
+      this.WebLabel6 = undefined;
+      this.edImporte = undefined;
+      this.WebLabel7 = undefined;
+      this.edventasuba = undefined;
+      this.N1 = undefined;
+      this.N2 = undefined;
+      this.ExportaraPDF1 = undefined;
+      this.edArticulo = undefined;
+      this.WebPanel1 = undefined;
+      this.btnAgregar = undefined;
+      this.btnCerrar = undefined;
+      this.edRen = undefined;
+      this.btnEliminar = undefined;
+      this.radioTipo = undefined;
+      this.lbusuario2 = undefined;
+      this.lbusuario = undefined;
+      this.WebMessageDlg1 = undefined;
+      this.lbminimizar = undefined;
+      this.Compartir1 = undefined;
+      this.CompartirPDF21 = undefined;
+      this.compartirpdf31 = undefined;
+      this.Compartir2 = undefined;
+      this.WebLocalTextFile1 = undefined;
+      this.PedidosDbClientDataset1 = undefined;
+      this.WebSpeedButton1 = undefined;
+      this.WebPopupMenu1 = undefined;
+      this.uno1 = undefined;
+      this.dos1 = undefined;
+      this.tres1 = undefined;
+      this.cuatro = undefined;
+      this.comparte = undefined;
+      this.N3 = undefined;
+      this.Salir2 = undefined;
+      this.WebButton1 = undefined;
+      this.uno11 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebButton1Click = function (Sender) {
+      var r = null;
+      var vpopmenuwidth = 0.0;
+      var i = 0;
+      var w = 0.0;
+      var maxw = 0.0;
+      var s = "";
+      this.WebPopupMenu1.SetVisible(true);
+      r = this.WebButton1.GetElementHandle().getBoundingClientRect();
+      this.WebPopupMenu1.Popup(Math.round(r.left - $impl.popmenuwidth),Math.round(r.bottom));
+      return;
+      var sheetData = [
+        [9937,	"",	"",	7749,	9816,	4355,	8279,	"",	""],
+        [2380,	"",	6977,	8896,	4012,	3803,	5408,	3415,	3056],
+        [9180,	"",	39,	9445,	3917,	"",	18,	5239,	2516],
+        [1924,	8734,	1819,	1838,	2330,	7921,	9219,	"",	3537],
+        ["",	8665,	5875,	9732,	1926,	"",	9743,	8388,   ""],
+        [7040,	4861,	2988,	5584,	2344,	9749,	8872,	9177,	6246],
+        [6334,	1674,	2967,	"",	9353,	396,	6006,	8572 , ""],
+        [6359,	"",	2580,	5723,	9801,	554,	1044,	5266,	8532],
+        [7278,	6971,	2232,	5720,	5665,	7231,	1165,	"",	168],
+      ];
+      
+      
+      sheetData = [
+      [12115,"ANA LAURA MENESES RODRIGUEZ"],
+      [12116,"ANA LIDIA PAEZ TAMEZ"],
+      [12117,"MARICELA GALLEGOS RODRIGUEZ"],
+      [12118,"YADIRA ROTHSCHILD HERBERT"],
+      [12119,"SAMANTHA GONZALEZ RENDON"],
+      [12120,"DAMARIS QINTANILLA LOPEZ"],
+      [12121,"ANA CAROLINA TREVIÑO HERRERA"],
+      [12122,"MARTHA PEREZ FUENTES"],
+      [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÑO"],
+      [12124,"CYNTHIA VAZQUEZ FUENTES"],
+      
+      ];
+      
+      
+      
+      //Build Tabulator
+      var table = new Tabulator("#tabExample", {
+        // debugInvalidOptions:false,
+        height:"211px",
+      
+      
+        spreadsheet:true,
+        spreadsheetRows:10,
+        spreadsheetColumns:2,
+        spreadsheetColumnDefinition:{editor:"input"},       // editable
+        spreadsheetColumnDefinition:{editor:""},     // no editable
+        spreadsheetData:sheetData,
+        spreadsheetSheetTabs:true, //show spreadsheet tabs in footer
+      
+        rowHeader:{field:"_id", hozAlign:"center", headerSort:false, frozen:true},
+      
+        editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
+      });
+    };
+    this.WebButton2Click = function (Sender) {
+      var sheetData =[ [12115,"ANA LAURA MENESES RODRIGUEZ"], [12116,"ANA LIDIA PAEZ TAMEZ"],
+       [12117,"MARICELA GALLEGOS RODRIGUEZ"], [12118,"YADIRA ROTHSCHILD HERBERT"],
+       [12119,"SAMANTHA GONZALEZ RENDON"],
+       [12120,"DAMARIS QINTANILLA LOPEZ"],
+        [12121,"ANA CAROLINA TREVIÃ‘O HERRERA"],
+         [12122,"MARTHA PEREZ FUENTES"],
+         [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÃ‘O"],
+          [12124,"CYNTHIA VAZQUEZ FUENTES"],];
+      
+      var table = new Tabulator("#tabExample", {
+          spreadsheet:true,
+      
+        //spreadsheetData:sheetData,
+        //  ajaxURL:"http://localhost/WebAppi2/simedic/pacientesarr", //url endpoint for sheet data
+      
+          ajaxURL:"https://able-mackerel-briefly.ngrok-free.app/WebAppi2/simedic/pacientesarr",
+      
+      
+          //ajaxConfig:"GET",  //ajax HTTP request type
+          //ajaxContentType:"json", // send parameters to the server as a JSON encoded string
+      
+      });
+    };
+    this.WebButton3Click = function (Sender) {
+      var strresponse = "";
+      var i = 0;
+      var strA = "";
+      var charArray = rtl.arraySetLength(null,"\x00",1);
+      var strArray = [];
+      this.WebHttpRequest1.FURL = "http://192.168.0.115/WebAppi2/simedic/pacientesarr";
+      this.WebHttpRequest1.Execute(null);
+    };
+    this.WebButton4Click = function (Sender) {
+      var mrespuesta = "";
+      mrespuesta = "[" + this.WebMemo1.GetText() + "];";
+      console.log('respuesta:',mrespuesta);
+                   var sheetData = mrespuesta;
+                   var sheeData2 = [[12115,"ANA LAURA MENESES RODRIGUEZ"],
+      [12116,"ANA LIDIA PAEZ TAMEZ"],
+      [12117,"MARICELA GALLEGOS RODRIGUEZ"],
+      [12118,"YADIRA ROTHSCHILD HERBERT"],
+      [12119,"SAMANTHA GONZALEZ RENDON"],
+      [12120,"DAMARIS QINTANILLA LOPEZ"],
+      [12121,"ANA CAROLINA TREVIÃ‘O HERRERA"],
+      [12122,"MARTHA PEREZ FUENTES"],
+      [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÃ‘O"],
+      [12124,"CYNTHIA VAZQUEZ FUENTES"],];
+      
+      
+           // var sheetData =[ [12115,"ANA LAURA MENESES RODRIGUEZ"], [12116,"ANA LIDIA PAEZ TAMEZ"], [12117,"MARICELA GALLEGOS RODRIGUEZ"], [12118,"YADIRA ROTHSCHILD HERBERT"], [12119,"SAMANTHA GONZALEZ RENDON"], [12120,"DAMARIS QINTANILLA LOPEZ"], [12121,"ANA CAROLINA TREVIÃ‘O HERRERA"], [12122,"MARTHA PEREZ FUENTES"], [12123,"BRENDA DENISSE GUERRA GONGORA DE BRISEÃ‘O"], [12124,"CYNTHIA VAZQUEZ FUENTES"],];
+                  console.log('sheetData:',sheetData);
+      
+                  var table = new Tabulator("#tabExample", {
+                  key:"info",
+                  spreadsheet:true,
+                // spreadsheetData:sheeData2,
+                 });
+      var table = Tabulator.findTable("#tabExample")[0];
+      table.setSheetData("info", sheetData);
+    };
+    this.WebHttpRequest1Response = function (Sender, AResponse) {
+      var i = 0;
+      var w = 0;
+      var strA = "";
+      var charArray = rtl.arraySetLength(null,"\x00",1);
+      var strArray = [];
+      var respuestaapi = "";
+      var strresponse = "";
+      var astrresponse = "";
+      var selpacid = "";
+      var selpacnom = "";
+      var el = null;
+    };
+    this.WebButton5Click = function (Sender) {
+      var sheetDef = {
+          title:"New Sheet",
+          key:"new",
+          data:[
+              [2380,	"",	6977,	8896,	4012,	3803,	5408,	3415,	3056],
+              [9180,	"",	39,	9445,	3917,	"",	18,	5239,	2516],
+              [1924,	8734,	1819,	1838,	2330,	7921,	9219,	"",	3537],
+          ]
+      };
+      
+       var table = Tabulator.findTable("#tabExample")[0];
+       var sheet = table.addSheet(sheetDef);
+    };
+    this.WebButton6Click = function (Sender) {
+      var table = Tabulator.findTable("#tabExample")[0];
+      //table.updateColumnDefinition("A", {title:"Updated A"}) //change the title on the name column
+      table.hideColumn("_id");
+    };
+    this.btn_imprimirClick = function (Sender) {
+      var table = Tabulator.findTable("#tabExample")[0];
+       table.print(false, true);
+      // table.print("active",true);
+    };
+    this.btn_exportarClick = function (Sender) {
+      var fechahoy = 0.0;
+      var fechafincookie = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      var nomarch = "";
+      var Cookies = null;
+      var PDFCookie = null;
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
+      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
+          return sfechadia;
+        }, set: function (v) {
+          sfechadia = v;
+        }});
+      Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
+      try {
+        PDFCookie = Cookies.Find("PDF");
+        if (!(PDFCookie == null)) Cookies.Delete$2("PDF");
+        Cookies.Add$2("PDF","E");
+        Cookies.SetCookies();
+      } finally {
+        Cookies = rtl.freeLoc(Cookies);
+      };
+      Tabulator.extendModule("download", "downloaders", {
+          string:function(columns, data, options){
+              var fileContents = data.toString();
+              return 'data:application/txt;charset=utf-8,' + encodeURIComponent(fileContents);
+          }
+      });
+      
+      
+        var table = Tabulator.findTable("#tabExample")[0];
+      
+        // table.download("csv", "data.csv", {delimiter:"."}); //  OK download a CSV file that uses a fullstop (.) delimiter
+        var opcion = "E"
+      
+      
+      
+         table.download("pdf",nomarch);
+         //table.download("pdf","data.pdf");
+        // table.downloadToTab("pdf");
+    };
+    this.btn_exportallClick = function (Sender) {
+      alert('entro exportall');
+      
+       alert('entro exportbtn');
+      
+      
+      
+       // var table = Tabulator.findTable("#tabExample")[0];
+       // console.log('table',table);
+       // var data1 = table.getSheetData("uno");
+       // console.log(data1);
+      
+        const tabledata1 = [
+          {id: 1, name: "Oli ", money: "0", col: "red", dob: ""},
+          {id: 2, name: "Mary ", money: "0", col: "blue", dob: "14/05/1982"},
+          {id: 3, name: "Christine ", money: "0", col: "green", dob: "22/05/1982"},
+          {id: 4, name: "Brendon ", money: "0", col: "orange", dob: "01/08/1980"},
+          {id: 5, name: "Margret ", money: "0", col: "yellow", dob: "31/01/1999"},
+        ];
+      
+        const tabledata2 = [
+          {id: 1, name: " Bob", money: "12", col: "red", dob: ""},
+          {id: 2, name: " May", money: "1", col: "blue", dob: "14/05/1982"},
+          {id: 3, name: " Lobowski", money: "42", col: "green", dob: "22/05/1982"},
+          {id: 4, name: "Brendon ", money: "0", col: "orange", dob: "01/08/1980"},
+          {id: 5, name: " Marmajuke", money: "16", col: "yellow", dob: "31/01/1999"},
+        ];
+      
+        const table0 = new Tabulator("#tableZero", {
+          layout: "fitDataFill", //fit columns to width of table (optional)
+          autoColumns: true,
+        });
+      
+        const table1 = new Tabulator("#tableOne", {
+          data: tabledata1, //assign data to table
+          layout: "fitDataFill", //fit columns to width of table (optional)
+          autoColumns: true,
+        });
+      
+          const table2 = new Tabulator("#tableTwo", {
+          data: tabledata2, //assign data to table
+          layout: "fitDataFill", //fit columns to width of table (optional)
+          autoColumns: true,
+        });
+      
+      var sheets = {
+      "Example Data1": table1,
+          "Example Data2": table2
+      };
+      
+          downloadXlxs = function(){
+          alert(' downloadXlxs');
+      table0.download("xlsx", "data.xlsx", {sheets:sheets});
+      };
+    };
+    this.WebButton7Click = function (Sender) {
+      //alert('llama funcion');
+    };
+    this.WebButton8Click = function (Sender) {
+      downloadXlxs();
+    };
+    this.WebButton10Click = function (Sender) {
+      downloadPdfs();
+    };
+    this.Pacientes1Click = function (Sender) {
+      pas.uCargarConsultas.CargarVentas();
+      return;
+      var table = Tabulator.findTable("#tabExample")[0];
+      table.activeSheet("uno");
+    };
+    this.Consultas1Click = function (Sender) {
+      var $Self = this;
+      var nomarch = "";
+      var nomarchcookie = "";
+      var guardarCookie = null;
+      var valorRegistroCookie = "";
+      var opcionGuardar = 0;
+      var LLocalStorage = null;
+      var jsonData = "";
+      var i = 0;
+      this.edRen.SetText(".");
+      nomarch = "";
+      opcionGuardar = 6;
+      var $tmp = opcionGuardar;
+      if ($tmp === 1) {
+        nomarchcookie = $impl.RegistroCookie.Find("nombrearchivo").FValue;
+        if ($impl.RegistroCookie.GetCount() === 1) {
+          pas["WEBLib.Dialogs"].ShowMessage("No hay nada registrado aún");
+          return;
+        };
+        nomarchcookie = $impl.RegistroCookie.Find("nombrearchivo").FValue;
+        if (nomarchcookie.length > 0) guardarCookie = $impl.RegistroCookie.Find(nomarchcookie);
+        if (!(guardarCookie == null)) {
+          $impl.RegistroCookie.GetCookies();
+          valorRegistroCookie = this.GetCookie(nomarchcookie);
+          console.log('archivo cookie abrir',nomarchcookie);
+          console.log('valor cookie abrir',valorRegistroCookie);
+          var table = Tabulator.findTable("#tabExample")[0];
+          table.setData(valorRegistroCookie);
+        };
+      } else if ($tmp === 2) {
+        this.WebLocalTextFile1.FFilter.Clear();
+        this.WebLocalTextFile1.FFilter.Add$2("Text files","text/plain","*.txt");
+        this.WebLocalTextFile1.OpenFile$1(function (AText) {
+          $Self.WebMemo1.FLines.SetTextStr(AText);
+          jsonData = AText;
+          var table = Tabulator.findTable("#tabExample")[0];
+          table.setData(jsonData);
+        });
+      } else if ($tmp === 3) {
+        LLocalStorage = pas["WEBLib.Storage"].TLocalStorage.$create("Create");
+        try {
+          valorRegistroCookie = LLocalStorage.GetValues(nomarchcookie);
+        } finally {
+          LLocalStorage = rtl.freeLoc(LLocalStorage);
+        };
+        var table = Tabulator.findTable("#tabExample")[0];
+        table.setData(valorRegistroCookie);
+      } else if ($tmp === 5) {
+        var table = Tabulator.findTable("#tabExample")[0];
+              // table.import("json", ".json")
+               table.import("json",".*")
+              .then(() => {
+                  //file successfully imported
+               })
+               .catch(() => {
+            //something went wrong
+              })
+        
+        
+              table.on("importImported", function(data){
+            //data - array of row data
+              //var rowCount = table.getDataCount()+1;
+             // console.log('rowcount',rowCount);
+              console.log('data',data);
+               //data.pop();
+              //console.log('data1',data);
+              var l =data.length;
+              for (var i = 0; i < l; i++) {
+                 console.log(data[i].rc);
+                 if (data[i].rc === undefined)
+                 {
+                    data.splice(i);
+                 }
+               }
+        
+              });
+      } else if ($tmp === 6) {
+        valorRegistroCookie = "";
+        var arregs =[];
+        this.PedidosDbClientDataset1.First();
+        if (!this.PedidosDbClientDataset1.GetEOF()) {
+          valorRegistroCookie = this.PedidosDbClientDataset1.FieldByName("pedidolibreta").GetAsString();
+          // alert('registro',valorRegistroCookie);
+          //console.log('valor', valorRegistroCookie);
+          var table = Tabulator.findTable("#tabExample")[0];
+          table.setData(valorRegistroCookie);
+        };
+      };
+    };
+    this.Estudios1Click = async function (Sender) {
+      var $Self = this;
+      var sfechadia = "";
+      var fechahoy = 0.0;
+      var fechafincookie = 0.0;
+      var p = 0;
+      var p1 = 0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var nomarch = "";
+      var nomarchcookie = "";
+      var guardarCookie = null;
+      var valorCookie = "";
+      var LLocalStorage = null;
+      var opcionGuardar = 0;
+      var filehandle = undefined;
+      var i = 0;
+      var lendatos = 0;
+      filehandle = this.WebLocalTextFile1.FFileHandle;
+      opcionGuardar = 6;
+      this.edRen.SetText(".");
+      lendatos = 0;
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
+      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
+          return sfechadia;
+        }, set: function (v) {
+          sfechadia = v;
+        }});
+      nomarchcookie = nomarch;
+      nomarchcookie = $impl.NomRegistroCookie;
+      valorCookie ='';
+      var table = Tabulator.findTable("#tabExample")[0];
+      var array = table.getData();
+      var json = JSON.stringify(array);
+      console.log('datos tabla',json);
+      valorCookie=json;
+      lendatos=array.length;
+      if (lendatos === 0) return;
+      var $tmp = opcionGuardar;
+      if ($tmp === 1) {
+        guardarCookie = $impl.RegistroCookie.Find(nomarchcookie);
+        console.log(guardarCookie);
+        if (!(guardarCookie == null)) {
+          $impl.RegistroCookie.Delete$2(nomarch);
+          $impl.RegistroCookie.Delete$2("nombrearchivo");
+        };
+        fechafincookie = fechahoy + 7;
+        $impl.RegistroCookie.Add$1(nomarchcookie,valorCookie,fechafincookie);
+        $impl.RegistroCookie.Add$1("nombrearchivo",nomarchcookie,fechafincookie);
+        pas.SysUtils.DecodeDate(fechafincookie,{get: function () {
+            return anio;
+          }, set: function (v) {
+            anio = v;
+          }},{get: function () {
+            return mes;
+          }, set: function (v) {
+            mes = v;
+          }},{get: function () {
+            return dia;
+          }, set: function (v) {
+            dia = v;
+          }});
+        console.log('archivo cookie guardar',nomarchcookie);
+        console.log('valor cookie guardar',valorCookie);
+        console.log('fecha expira',fechafincookie, anio, mes, dia);
+        $impl.RegistroCookie.SetCookies();
+      } else if ($tmp === 2) {
+        pas["WEBLib.Forms"].Application.DownloadTextFile(valorCookie,"PedidoSemana.txt");
+      } else if ($tmp === 3) {
+        LLocalStorage = pas["WEBLib.Storage"].TLocalStorage.$create("Create");
+        try {
+          LLocalStorage.SetValues(nomarchcookie,valorCookie);
+        } finally {
+          LLocalStorage = rtl.freeLoc(LLocalStorage);
+        };
+      } else if ($tmp === 4) {}
+      else if ($tmp === 5) {
+        valorCookie ='';
+        var table = Tabulator.findTable("#tabExample")[0];
+        var array = table.getData();
+        var json = JSON.stringify(array);
+        console.log('datos tabla',json);
+        valorCookie=json;
+        console.log('FileHandle ');
+        console.log(filehandle);
+        this.WebLocalTextFile1.FText = valorCookie;
+        if (filehandle == null) {
+          this.WebLocalTextFile1.SaveAsFile$1(function () {
+            pas["WEBLib.Dialogs"].ShowMessage("File succesfully saved");
+          });
+        } else this.WebLocalTextFile1.Save();
+      } else if ($tmp === 6) {
+        var pruebaDatos =[];
+        valorCookie ='';
+        var table = Tabulator.findTable("#tabExample")[0];
+        var array = table.getData();
+        var json = JSON.stringify(array);
+        console.log('datos tabla',json);
+        valorCookie=json;
+        if (!this.PedidosDbClientDataset1.IsEmpty()) {
+          this.PedidosDbClientDataset1.EmptyDataSet();
+          this.PedidosDbClientDataset1.ApplyUpdates();
+        };
+        this.PedidosDbClientDataset1.Append();
+        this.PedidosDbClientDataset1.FieldByName("pedidolibreta").SetAsString(valorCookie);
+        this.PedidosDbClientDataset1.FieldByName("fecha").SetAsString(pas.SysUtils.DateToStr(pas.SysUtils.Now()));
+        this.PedidosDbClientDataset1.Post();
+      };
+    };
+    this.Analisis1Click = function (Sender) {
+      var table = Tabulator.findTable("#tabExample")[0];
+      table.activeSheet("cuatro");
+    };
+    this.ExportarPDF1Click = function (Sender) {
+      this.btn_exportarClick(Sender);
+    };
+    this.Expotar1Click = function (Sender) {
+      $('#exportbtn').click();
+    };
+    this.Descargar1Click = function (Sender) {
+      this.WebButton8Click(Sender);
+    };
+    this.WebFormCreate = function (Sender) {
+      var usr = "";
+      var usr2 = "";
+      var fechahoy = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      var nomarch = "";
+      var valorRegistroCookie = "";
+      $impl.popmenuwidth = this.maximoPopupTexto();
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
+      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
+          return sfechadia;
+        }, set: function (v) {
+          sfechadia = v;
+        }});
+      this.minimizo = false;
+      this.lbminimizar.SetText("");
+      usr = this.GetCookie("usr");
+      this.lbusuario.SetCaption(usr);
+      this.WebPanel4.SetVisible(false);
+      pas.uCargarConsultas.IniciarHoja({p: this, get: function () {
+          return this.p.WebScrollRegistro;
+        }, set: function (v) {
+          this.p.WebScrollRegistro = v;
+        }});
+      this.WebPanel4.GetElementHandle().style.setProperty("overflow","visible");
+      this.WebPanel4.SetVisible(true);
+      this.WebPanel4.FElementBodyClassName = "";
+      this.WebPanel4.SetElementClassName("");
+      this.WebPanel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
+      $impl.RegistroCookie = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
+      $impl.RegistroCookie.GetCookies();
+      $impl.NomRegistroCookie = "VENTASEMANA";
+      this.lbarchivo.SetText($impl.NomRegistroCookie);
+      this.lbarchivo.SetText($impl.NomRegistroCookie + ". Tocar sobre libreta para agregar");
+      this.WebButton1.SetCaption("" + "☰");
+      document.addEventListener("visibilitychange", function() {
+        if (document.visibilityState === "hidden") {
+          // The page is hidden, which could mean the browser is minimized or in a background tab
+          console.log("Browser or tab is hidden/minimized.");
+          // Perform actions like pausing animations, saving state, etc.
+      
+          const myElement = document.getElementById('elminimiza');
+        //  myElement.innerHTML = 'minimiza';
+          myElement.value = 'minimiza';
+        } else {
+          // The page is visible again
+          console.log("Browser or tab is visible.");
+          // Resume activities
+        }
+      });
+      this.PedidosDbClientDataset1.FFieldDefs.Clear();
+      this.PedidosDbClientDataset1.FFieldDefs.Add$5("id",pas.DB.TFieldType.ftInteger);
+      this.PedidosDbClientDataset1.FFieldDefs.Add$5("pedidolibreta",pas.DB.TFieldType.ftString);
+      this.PedidosDbClientDataset1.FFieldDefs.Add$5("fecha",pas.DB.TFieldType.ftString);
+    };
+    this.Imprimir1Click = function (Sender) {
+      this.edRen.SetText(".");
+      this.btn_imprimirClick(Sender);
+    };
+    this.Graficas1Click = async function (Sender) {
+    };
+    this.Graficar2Click = function (Sender) {
+      this.Graficas1Click(Sender);
+    };
+    this.Sqlite1Click = function (Sender) {
+      var s = "";
+    };
+    this.WebButton11Click = function (Sender) {
+      var editCheck = function(cell){
+          //cell - the cell component for the editable cell
+          //get row data
+          var data = cell.getRow().getData();
+         // return data.age > 18; // only allow the name cell to be edited if the age is over 18
+         return false // no editable
+       // return true // editable
+      };
+      //********************************************************************************
+       //********************************************************************************
+        var sheetDataConsulta = [];
+      
+        const xhr = new XMLHttpRequest();
+      
+      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
+      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
+      xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/BD_SIMEDIC_G.db', true);
+      alert('1');
+      xhr.responseType = 'arraybuffer';
+      alert('2');
+      xhr.onload = e => {
+        const uInt8Array = new Uint8Array(xhr.response);
+         alert('3');
+        const db = new SQL.Database(uInt8Array);
+         alert('4');
+      
+       //********************************************************************************
+       //SELECT SQL *********************************************************************
+       //********************************************************************************
+       // const contents = db.exec("SELECT identificador as clave,nombre,rfc FROM TAB_PROSPECTOS WHERE identificador > 100");
+      //  const contents = db.exec("SELECT id,nombre FROM tabla1");
+       const  contents = db.exec("SELECT identificador,clave,nombre FROM [pacientes-pruebas];");
+      
+       //********************************************************************************
+       //********************************************************************************
+      
+         alert('5');
+        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
+        console.log('contents');
+        console.log(contents);
+        console.log(contents[0].columns);
+        console.log(contents[0].values);
+      
+       // longitud de la arreglo tabla SQLite
+        var len = contents[0].values.length;
+        for (let i = 0; i < len; i++) {
+           //var obj = JSON.parse (contents[0].values[i]);
+           var obj = contents[0].values[i];
+           console.log(i,contents[0].values[i]);  // valus
+           sheetDataConsulta.push(obj);
+        }
+      
+      
+       //********************************************************************************
+       //********************************************************************************
+        console.log('sheetdata');
+        console.log(sheetDataConsulta);
+      
+       //********************************************************************************
+       //********************************************************************************
+           var sheets = [
+          {
+            name:'huno',
+            title:"Pacientes",
+            key:"uno",
+            rows:len,
+            columns:3,
+            data:[],
+        },
+      {
+            name:'hdos',
+            title:"Consultas",
+            key:"dos",
+            rows:20,
+            columns:3,
+            data:[]
+        },   ,
+        {
+            name:'htres',
+            title:"Estudios",
+            key:"tres",
+            rows:20,
+            columns:3,
+            data:[]
+        },,
+        {
+            name:'hcuatro',
+            title:"Analisis",
+            key:"cuatro",
+            rows:20,
+            columns:3,
+            data:[]
+        },
+      
+      ];
+               var table = new Tabulator("#tabExample",
+       {   dependencies:{
+              XLSX:XLSX,
+          },
+      
+      
+      rowFormatter:function(row){
+      
+            // alert('rowformatter');
+           // console.log(row.getData());    //OK
+              if((row.getData()._id % 2 ) > 0){
+                 // console.log ('rowformatter');
+                //  row.getElement().classList.add("Modern"); //mark rows with age greater than or equal to 18 as successful;
+             // row.getElement().style.backgroundColor = "#d5f7d7"; //apply css change to row element
+              row.getElement().style.backgroundColor = "#7cbfb2";
+              }
+          },
+          pagination:true, //enable pagination
+          paginationSize:10, // this option can take any positive integer value
+      
+          responsiveLayout:true, // enable responsive layouts
+          responsiveLayout:"collapse", // collapse columns that no longer fit on the table into a list under the row
+         // responsiveLayout:"hide",
+        // layout:"fitDataStretch",
+            rowHeader:{field:"_id", hozAlign:"center", headerSort:false, title:"Sel.Ren.", headerWordWrap:true},
+       // height:"211px",
+       //   height:"100%",
+          height:"70%",
+        spreadsheet:true,
+        spreadsheetRows:len,
+        spreadsheetColumns:3,
+        spreadsheetColumnDefinition:{editable:editCheck,editor:"input"},
+      
+      
+        //spreadsheetData:sheetData,             // OK
+      
+        //spreadsheetSheetTabs:true, //show spreadsheet tabs in footer    // OK
+      
+      
+          spreadsheetSheets:sheets,        // DEFINICION HOJAS ARREGLO
+          spreadsheetSheetTabs:true,
+         // spreadsheet:true,
+         // spreadsheetSheetTabsElement:"#table-tabs", //insert tabs in element with id of table-tabs
+      
+      
+          editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
+      
+      
+      
+        },);
+      
+         table.on("tableBuilt", function(){
+             table.activeSheet("uno"); //make the info sheet active
+             table.setSheetData("uno",sheetDataConsulta);       // API
+             alert (len);
+             console.log('columnas');
+             console.log(contents[0].columns);
+             console.log('columnas sperad');
+             var cols = table.getColumns() //get array of column components
+             console.log(cols);
+             var lenc = cols.length;
+             for (let i = 1; i < lenc; i++) {
+      
+               var col = cols[i];
+               var strtitle = contents[0].columns[i-1];
+               console.log(strtitle);
+               if (strtitle=="nombre")
+                   col.updateDefinition({title:strtitle,width:250}) //change the column title
+               else
+                  col.updateDefinition({title:strtitle, width:130}) //change the column title
+      
+                console.log(col);
+              }
+             });
+      
+       //********************************************************************************
+       //********************************************************************************
+      };
+      xhr.send();
+    };
+    this.WebButton12Click = function (Sender) {
+      var editCheck = function(cell){
+          //cell - the cell component for the editable cell
+          //get row data
+          var data = cell.getRow().getData();
+         // return data.age > 18; // only allow the name cell to be edited if the age is over 18
+         return false // no editable
+       // return true // editable
+      };
+      //********************************************************************************
+       //********************************************************************************
+        var sheetDataConsulta = [];
+      
+        const xhr = new XMLHttpRequest();
+      
+      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
+      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
+      xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/BD_SIMEDIC_G.db', true);
+      alert('1');
+      xhr.responseType = 'arraybuffer';
+      alert('2');
+      xhr.onload = e => {
+        const uInt8Array = new Uint8Array(xhr.response);
+         alert('3');
+        const db = new SQL.Database(uInt8Array);
+         alert('4');
+      
+       //********************************************************************************
+       //SELECT SQL *********************************************************************
+       //********************************************************************************
+       // const contents = db.exec("SELECT identificador as clave,nombre,rfc FROM TAB_PROSPECTOS WHERE identificador > 100");
+      //  const contents = db.exec("SELECT id,nombre FROM tabla1");
+       const  contents = db.exec("SELECT fecha,comentario,diagnosticon FROM ObtieneConsultasPacientes_2 where idpaciente = 11155;");
+      
+       //********************************************************************************
+       //********************************************************************************
+      
+         alert('5');
+        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
+        console.log('contents');
+        console.log(contents);
+        console.log(contents[0].columns);
+        console.log(contents[0].values);
+      
+       // longitud de la arreglo tabla SQLite
+        var len = contents[0].values.length;
+        for (let i = 0; i < len; i++) {
+           //var obj = JSON.parse (contents[0].values[i]);
+           var obj = contents[0].values[i];
+           console.log(i,contents[0].values[i]);  // valus
+           sheetDataConsulta.push(obj);
+        }
+      
+      
+       //********************************************************************************
+       //********************************************************************************
+        console.log('sheetdata');
+        console.log(sheetDataConsulta);
+      
+        var table = Tabulator.findTable("#tabExample")[0];
+        table.activeSheet("dos"); //make the info sheet active
+        table.setSheetData("dos",sheetDataConsulta);
+      
+             console.log('columnas');
+             console.log(contents[0].columns);
+             console.log('columnas sperad');
+             var cols = table.getColumns() //get array of column components
+             console.log(cols);
+             var lenc = cols.length;
+             for (let i = 1; i < lenc; i++) {
+      
+               var col = cols[i];
+               var strtitle = contents[0].columns[i-1];
+               console.log(strtitle);
+               if (strtitle=="nombre")
+                   col.updateDefinition({title:strtitle,width:250}) //change the column title
+               else
+                  col.updateDefinition({title:strtitle, width:130}) //change the column title
+      
+                console.log(col);
+              }
+      
+      
+       //********************************************************************************
+       //********************************************************************************
+      };
+      xhr.send();
+    };
+    this.WebButton13Click = function (Sender) {
+      var editCheck = function(cell){
+          //cell - the cell component for the editable cell
+          //get row data
+          var data = cell.getRow().getData();
+         // return data.age > 18; // only allow the name cell to be edited if the age is over 18
+         return false // no editable
+       // return true // editable
+      };
+      //********************************************************************************
+       //********************************************************************************
+        var sheetDataConsulta = [];
+      
+        const xhr = new XMLHttpRequest();
+      
+      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
+      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
+      xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/BD_SIMEDIC_G.db', true);
+      alert('1');
+      xhr.responseType = 'arraybuffer';
+      alert('2');
+      xhr.onload = e => {
+        const uInt8Array = new Uint8Array(xhr.response);
+         alert('3');
+        const db = new SQL.Database(uInt8Array);
+         alert('4');
+      
+       //********************************************************************************
+       //SELECT SQL *********************************************************************
+       //********************************************************************************
+       // const contents = db.exec("SELECT identificador as clave,nombre,rfc FROM TAB_PROSPECTOS WHERE identificador > 100");
+      //  const contents = db.exec("SELECT id,nombre FROM tabla1");
+       const  contents = db.exec("SELECT fecha,comentario,tipo FROM ObtieneEstudiosAnalisisPacientes_2 where idpaciente = 11154;");
+      
+       //********************************************************************************
+       //********************************************************************************
+      
+         alert('5');
+        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
+        console.log('contents');
+        console.log(contents);
+        console.log(contents[0].columns);
+        console.log(contents[0].values);
+      
+       // longitud de la arreglo tabla SQLite
+        var len = contents[0].values.length;
+        for (let i = 0; i < len; i++) {
+           //var obj = JSON.parse (contents[0].values[i]);
+           var obj = contents[0].values[i];
+           console.log(i,contents[0].values[i]);  // valus
+           sheetDataConsulta.push(obj);
+        }
+      
+      
+       //********************************************************************************
+       //********************************************************************************
+        console.log('sheetdata');
+        console.log(sheetDataConsulta);
+      
+        var table = Tabulator.findTable("#tabExample")[0];
+        table.activeSheet("tres"); //make the info sheet active
+        table.setSheetData("tres",sheetDataConsulta);
+      
+             console.log('columnas');
+             console.log(contents[0].columns);
+             console.log('columnas sperad');
+             var cols = table.getColumns() //get array of column components
+             console.log(cols);
+             var lenc = cols.length;
+             for (let i = 1; i < lenc; i++) {
+      
+               var col = cols[i];
+               var strtitle = contents[0].columns[i-1];
+               console.log(strtitle);
+               if (strtitle=="nombre")
+                   col.updateDefinition({title:strtitle,width:250}) //change the column title
+               else
+                  col.updateDefinition({title:strtitle, width:130}) //change the column title
+      
+                console.log(col);
+              }
+       //********************************************************************************
+       //********************************************************************************
+        
+      
+       //********************************************************************************
+       //********************************************************************************
+      };
+      xhr.send();
+    };
+    this.WebDivClick = function (Sender) {
+      var keyhoja = "";
+      var rowcountt = 0;
+      var table = Tabulator.findTable("#tabExample")[0];
+      // table.alert("Libreta digital, Tocar para agregar renglones");
+       var sheet = table.getSheet();
+       var key = sheet.getKey();
+      // alert(key);
+       keyhoja=key;
+       var activeRowCount = table.getDataCount(key);
+       rowcountt =activeRowCount;
+       //console.log('activeRowCount',activeRowCount);
+      if ((keyhoja === "uno") && (rowcountt === 0)) this.Consultas1Click(Sender);
+    };
+    this.AnlisisGrfico1Click = async function (Sender) {
+      //window.open('http://localhost/GraficadorPas/TMSWeb/Debug/Project1.html');
+      // window.open('https://idsfdg.github.io/GrafPrueba/');
+      return;
+    };
+    this.Salir1Click = async function (Sender) {
+      var mr = 0;
+      mr = await this.WebMessageDlg1.ShowDialog$2("Imprimir el resumen de su Venta Semanal?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes));
+      if (mr === 6) {
+        this.ExportaraPDF1Click(Sender);
+      };
+      this.Close();
+      pas["WEBLib.Forms"].Application.Terminate();
+    };
+    this.LimpiarHoja1Click = function (Sender) {
+      var table = Tabulator.findTable("#tabExample")[0];
+          table.clearSheet("uno"); //clear the data from the info sheet
+          var cols = table.getColumns() //get array of column components
+      
+      
+              //cols[0].updateDefinition({title:'Ren',width:5,headerTooltip:''});
+      
+           //   cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click para eliminar registro'});
+           cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click en registro, para eliminar.',
+              cellClick:function(e, cell)
+              {
+              console.log("cell click");
+              var row = cell.getRow();
+              var rowPosition = row.getPosition();
+              var cellvalue = cell.getValue();
+              if (confirm("Desea eliminar registro "+cellvalue.toString()+" ?")) {
+                row.delete();
+               }
+              }});
+              cols[1].updateDefinition({title:'Cliente', field:"nombre",width:90,responsive:0,headerTooltip:'Cliente',headerFilter:"input"});
+              cols[2].updateDefinition({title:'Producto',field:"articulo",width:100,responsive:0,headerTooltip:'Producto',headerFilter:"input"});
+              cols[3].updateDefinition({title:'$Precio',field:"importe",width:70,responsive:0,headerTooltip:'Precio',headerFilter:"input" , bottomCalc:"sum"});
+              cols[4].updateDefinition({title:'P.',width:30,headerTooltip:'Pagado',field:"pagado",editor:true,headerHozAlign:"left", formatter:"tickCross"});
+              cols[5].updateDefinition({title:'E.',width:30,headerTooltip:'Entregado',field:"entregado",editor:true, headerHozAlign:"left",formatter:"tickCross"});
+              cols[6].updateDefinition({title:'V/S',width:68,headerTooltip:'Vta.Directa /Subasta',field:"vds",headerHozAlign:"left",headerFilter:"input"});
+    };
+    this.LimpiarHoja2Click = function (Sender) {
+      this.edRen.SetText(".");
+      var table = Tabulator.findTable("#tabExample")[0];
+          table.clearSheet("uno"); //clear the data from the info sheet
+          var cols = table.getColumns() //get array of column components
+      
+          return;    // por sheetLoaded (Spreadsheet)
+      
+      
+              //cols[0].updateDefinition({title:'Ren',width:5,headerTooltip:''});
+      
+         //     cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click para eliminar registro'});
+         cols[0].updateDefinition({title:'#',field:"rc",width:1,headerTooltip:'Click en registro, para eliminar.',
+              cellClick:function(e, cell)
+              {
+              console.log("cell click");
+              var row = cell.getRow();
+              var rowPosition = row.getPosition();
+              var cellvalue = cell.getValue();
+              if (confirm("Desea eliminar registro "+cellvalue.toString()+" ?")) {
+                row.delete();
+               }
+              }});
+              cols[1].updateDefinition({title:'Cliente', field:"nombre",width:90,responsive:0,headerTooltip:'Cliente',headerFilter:"input"});
+              cols[2].updateDefinition({title:'Producto',field:"articulo",width:100,responsive:0,headerTooltip:'Producto',headerFilter:"input"});
+              cols[3].updateDefinition({title:'$Precio',field:"importe",width:70,responsive:0,headerTooltip:'Precio',headerFilter:"input"  , bottomCalc:"sum"});
+              cols[4].updateDefinition({title:'P.',width:30,headerTooltip:'Pagado',field:"pagado",editor:true, headerHozAlign:"left",formatter:"tickCross"});
+              cols[5].updateDefinition({title:'E.',width:30,headerTooltip:'Entregado',field:"entregado",editor:true,headerHozAlign:"left", formatter:"tickCross"});
+              cols[6].updateDefinition({title:'V/S',width:68,headerTooltip:'Vta.Directa /Subasta',field:"vds",headerHozAlign:"left",headerFilter:"input"});
+    };
+    this.Registrar1Click = function (Sender) {
+      this.cargarFormaCaptura(Sender);
+      return;
+      this.edRen.SetText(".");
+    };
+    this.btnCerrarClick = async function (Sender) {
+      var salvar = "";
+      var mr = 0;
+      var lendatos = 0;
+      var table = Tabulator.findTable("#tabExample")[0];
+      var array = table.getData();
+      lendatos=array.length;
+      if (lendatos === 0) return;
+      mr = await this.WebMessageDlg1.ShowDialog$2("Desea guardar su registro de productos ?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes,pas["WEBLib.Dialogs"].TMsgDlgBtn.mbNo));
+      if (mr === 6) this.Estudios1Click(Sender);
+      this.MuestraMenu(true);
+    };
+    this.ExportaraPDF1Click = function (Sender) {
+      this.edRen.SetText(".");
+      this.btn_exportarClick(Sender);
+      return;
+      var table = Tabulator.findTable("#tabExample")[0];
+       table.download("pdf", "data.pdf", {
+       orientation:"portrait", //set page orientation to portrait
+       title:"Dynamics Quotation Report", //add title to report
+       //jsPDF:{
+      //     unit:"in", //set units to inches
+      // },
+      // autoTable:{ //advanced table styling
+      //     styles: {
+      //         fillColor: [100, 255, 255]
+      //     },
+      //     columnStyles: {
+      //         id: {fillColor: 255}
+      //     },
+      //     margin: {top: 60},
+      // },
+       
+      });
+    };
+    this.btnAgregarClick = function (Sender) {
+      var datosstr = "";
+      var src = "";
+      var ren = "";
+      var irc = 0;
+      var i = 0;
+      var ventasubasta = "";
+      var maxRegs = 0;
+      ventasubasta = "V";
+      if (this.radioTipo.GetItemIndex() === 1) ventasubasta = "S";
+      maxRegs = 101;
+      var table = Tabulator.findTable("#tabExample")[0];
+      var rowCount = table.getDataCount();
+      irc =   rowCount+1;
+      src = pas.SysUtils.IntToStr(irc);
+      datosstr = '{"rc":' + String.fromCharCode(34) + src + String.fromCharCode(34) + "," + '"nombre":' + String.fromCharCode(34) + this.edNombre.GetText() + String.fromCharCode(34) + "," + '"articulo":' + String.fromCharCode(34) + this.edArticulo.GetText() + String.fromCharCode(34) + "," + ' "importe":' + String.fromCharCode(34) + this.edImporte.GetText() + String.fromCharCode(34) + "," + '"vds":' + String.fromCharCode(34) + ventasubasta + String.fromCharCode(34) + "}";
+      var table = Tabulator.findTable("#tabExample")[0];
+            var tabledata = [];   // se puede eliminar
+            var obj=JSON.parse(datosstr);   // se puede eliminar
+            tabledata.push(obj);  // se puede eliminar
+            //console.log(tabledata);
+            var rowCount = table.getDataCount()+1;
+           // alert(rowCount);
+            // if (rowCount < 101)
+             if (rowCount < maxRegs);
+            {
+             table.addRow(datosstr)
+                  .then(function(row){
+                      //row - the row component for the row updated or added
+                   row.scrollTo();
+      
+                  //run code after data has been updated
+                  })
+                 .catch(function(error){
+                       //handle error updating data
+                  });
+      
+           }  //if  rowCount
+      
+      
+          /*  if (rowCount < 11)
+            {
+              table.addData(tabledata, false)  //ADD true top of the table false bottom of the table
+                .then(function(rows){
+                 //rows - array of the row components for the rows updated or added
+      
+                //run code after data has been updated
+               // console.log(rows);
+               // rows.scrollTo("bottom", true);
+                 })
+                .catch(function(error){
+                 //handle error updating data
+                });
+            }
+            */;
+      this.edNombre.SetText("");
+      this.edArticulo.SetText("");
+      this.edImporte.SetText("");
+      this.edventasuba.SetText("");
+    };
+    this.WebPanel4Click = function (Sender) {
+    };
+    this.WebLabel2Click = function (Sender) {
+      var opc = false;
+      return;
+      this.cargarFormaCaptura(Sender);
+      opc = !this.WebScrollRegistro.FVisible;
+      this.MuestraMenu(opc);
+    };
+    this.edventasubaEnter = function (Sender) {
+      if (this.edventasuba.GetText().length === 0) {
+        this.edventasuba.SetText("V");
+        this.edventasuba.SetSelLength(0);
+      };
+    };
+    this.WebScrollRegistroClick = function (Sender) {
+      var i = 0;
+      i = 0;
+      // alert('click');
+    };
+    this.GetCookie = function (cookie_name) {
+      var Result = "";
+      var Cookies = null;
+      var Cookie = null;
+      Result = "";
+      Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
+      try {
+        Cookies.GetCookies();
+        Cookie = Cookies.Find(cookie_name);
+        if (Cookie != null) Result = Cookie.FValue;
+      } finally {
+        Cookies = rtl.freeLoc(Cookies);
+      };
+      return Result;
+    };
+    this.WebFormEnter = async function (Sender) {
+      var u = "";
+      var p = "";
+      var resultado = false;
+      var valorRegistroCookie = "";
+      u = this.lbusuario.FCaption;
+      const myElement = document.getElementById('elminimiza');
+      if (myElement.innerHTML == 'minimiza')
+      {
+        // alert('pedir validacion de usuario '+u);
+        // myElement.innerHTML='';
+        // let pp = prompt("Por favor captura su contraseña de usuario:");
+        // p=pp;
+      resultado = await this.ValidarUsuarioActivo(u,p);
+      };
+    };
+    this.lbminimizarChange = function (Sender) {
+      var ttxt = "";
+      ttxt = rtl.as(Sender,pas["WEBLib.StdCtrls"].TEdit).GetText();
+      if (ttxt === "minimiza") {
+        pas["WEBLib.Dialogs"].ShowMessage("va a grabar");
+        this.Estudios1Click(Sender);
+      };
+    };
+    this.Compartir1Click = function (Sender) {
+      var Cookies = null;
+      var PDFCookie = null;
+      Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
+      PDFCookie = Cookies.Find("PDF");
+      if (!(PDFCookie == null)) Cookies.Delete$2("PDF");
+      Cookies.Add$2("PDF","C");
+      var table = Tabulator.findTable("#tabExample")[0];
+            //var table = $("#tabExample").Tabulator("getHtml", "true"); //true option preserves current sort
+      
+            //var htmlTable = table.getHtml("active",false);
+            var htmlTable = table.getHtml("all",false);
+            var jsonData = table.getSheetData("uno");
+            // $('#html-table').append(table); $('#html-table>table').attr("id", "table");
+           var elem = $("#htmlTable");
+           //var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+           const { jsPDF } = window.jspdf;
+      
+          // const doc = new jsPDF();
+           var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+           //var res = doc.autoTableHtmlToJson(elem);
+           //console.log('res',res);
+           //doc.autotable(res.columns, res.data, { additional autotable options go in here - see website for details })
+          //doc.autotable(res.columns, res.data, { additional autotable options go in here - see website for details })
+      
+            console.log('htmltable',htmlTable);
+      
+         // doc.autoTable({ html:  '#html-table' })
+            const myElement = document.getElementById('tabExample');
+            console.log('element',myElement.innerHTML);
+            console.log('jsondata',jsonData);
+         //   doc.autoTable({ html:  myElement })
+         //  doc.save('myPDF.pdf'); 
+         //   doc.autoTable({ html:  'htmlTable' })
+      
+      
+          var specialElementHandlers = {
+          '#getPDF': function(element, renderer){
+            return true;
+          },
+          '.controls': function(element, renderer){
+            return true;
+          }
+        };
+      
+            // Convert HTML to PDF in JavaScript
+       //  var pdf_el=document.getElementById('tabExample');
+      //doc.html(  pdf_el , {x:20, y:75,maxWidth:200 , callback: function(doc_e){
+      //    doc_e.save("bbb.pdf");
+      //}});
+      
+      
+            // Convert HTML to PDF in JavaScript
+      
+         doc.html(htmlTable, {
+         callback: function (doc) {
+         //  doc.save();
+      
+           const pdfBlob = doc.output('blob');
+      
+           const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+            if ( window.navigator.share) {
+            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
+            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+      
+          window.navigator.share({
+              files: [file],
+              title: 'PDF Document',
+              text: 'Check out this PDF document!',
+          })
+          .then(() => console.log('PDF shared successfully'))
+          .catch((error) => console.error('Error sharing PDF:', error));
+      } else {
+          console.log('Web Share API not supported in this browser.');
+      }
+      
+         }
+      });
+      return;
+      console.log('cookie');
+           console.log(Cookies);
+           var table = Tabulator.findTable("#tabExample")[0];
+          table.download("pdf", "data.pdf", {
+          orientation:"portrait", //set page orientation to portrait
+          title:"Dynamics Quotation Report", //add title to report
+          //jsPDF:{
+         //     unit:"in", //set units to inches
+         // },
+         // autoTable:{ //advanced table styling
+         //     styles: {
+         //         fillColor: [100, 255, 255]
+         //     },
+         //     columnStyles: {
+         //         id: {fillColor: 255}
+         //     },
+         //     margin: {top: 60},
+         // },
+          documentProcessing:function(doc){
+              //carry out an action on the doc object
+      
+              // Assuming 'doc' is your jsPDF instance and you've added your AutoTable
+            const pdfBlob = doc.output('blob');
+      
+           const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+            if ( window.navigator.share) {
+            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
+            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+      
+          window.navigator.share({
+              files: [file],
+              title: 'PDF Document',
+              text: 'Check out this PDF document!',
+          })
+          .then(() => console.log('PDF shared successfully'))
+          .catch((error) => console.error('Error sharing PDF:', error));
+      } else {
+          console.log('Web Share API not supported in this browser.');
+      }
+          }
+         });
+    };
+    this.CompartirPDF21Click = function (Sender) {
+      var table = Tabulator.findTable("#tabExample")[0];
+            //var table = $("#tabExample").Tabulator("getHtml", "true"); //true option preserves current sort
+      
+             var columnas = table.getColumnDefinitions();
+             var renglones = table.getRows();
+             var allTableData = table.getData();
+             console.log('columnas',columnas);
+             for (let i = 0; i < columnas.length; i++) {
+              console.log("Iteration number:", i, columnas[i]);
+              console.log("Iteration number:", i, columnas[i].values[0]);
+      
+             }
+             console.log(allTableData);
+      
+      
+      
+           var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+           var columns = [{ title: "ID", dataKey: "id" }, { title: "Name", dataKey: "name" }];
+              var rows = [
+                  { id: 1, name: "Item 1" },
+                  { id: 2, name: "Item 2" }
+              ];
+      
+      
+              //doc.autoTable(columns, rows);
+              doc.autoTable(columnas, rows);
+      
+          doc.save('table.pdf');
+    };
+    this.compartirpdf31Click = function (Sender) {
+      var fechahoy = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
+      sfechadia = "Ventas_del_" + sfechadia;
+      var table = Tabulator.findTable("#tabExample")[0];
+            //var htmlTable = table.getHtml("active",false);
+            var htmlTable = table.getHtml("all",false);
+            var jsonData = table.getSheetData("uno");
+           // console.log('htmlTable',  htmlTable);
+            const { jsPDF } = window.jspdf;
+            var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+      
+      
+           var specialElementHandlers = {
+           '#getPDF': function(element, renderer){
+             return true;
+           },
+           '.controls': function(element, renderer){
+             return true;
+           }
+         };
+      
+      
+         const myElement = document.getElementById('html-table');
+         myElement.innerHTML = htmlTable;
+        // console.log('myelement',myElement);
+         // OK
+         //doc.autoTable({ html: myElement.querySelector('table') });
+         //doc.save("aaa.pdf");
+         // fin ok
+       // https://phppot.com/javascript/jspdf-autotable/
+        //doc.autoTable({ html: myElement.querySelector('table') ,
+        //console.log('tablehtml',myElement.querySelector('table'));
+      
+         doc.autoTable({ html: myElement.querySelector('table')});
+         const pdfBlob = doc.output('blob');
+      
+        // const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+         const file = new File([pdfBlob], sfechadia, { type: 'application/pdf' });
+         if ( window.navigator.share) {
+            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
+            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+      
+          window.navigator.share({
+              files: [file],
+              title: 'PDF Document',
+              text: 'Check out this PDF document!',
+          })
+         .then(() => console.log('PDF compartido correctamente'))
+         .catch((error) => console.error('Error compartir PDF:', error));
+          } else {
+          console.log('Web Share API not supported in this browser.');
+      };
+    };
+    this.Compartir2Click = function (Sender) {
+      this.compartirpdf31Click(Sender);
+    };
+    this.lbarchivoClick = function (Sender) {
+      var keyhoja = "";
+      return;
+      var table = Tabulator.findTable("#tabExample")[0];
+       var sheet = table.getSheet();
+       var key = sheet.getKey();
+      // alert(key);
+       keyhoja=key;
+      if (keyhoja === "uno") this.Consultas1Click(Sender);
+    };
+    this.WebLocalTextFile1FileSave = function (Sender) {
+    };
+    this.WebFormShow = function (Sender) {
+      var $Self = this;
+      this.PedidosDbClientDataset1.Init(function () {
+        $Self.PedidosDbClientDataset1.SetActive(true);
+      });
+    };
+    this.WebScrollRegistroMouseEnter = function (Sender) {
+      this.MuestraMenu(false);
+    };
+    this.WebScrollRegistroMouseLeave = function (Sender) {
+      this.MuestraMenu(true);
+    };
+    this.cargarFormaCaptura = function (Sender) {
+      var $Self = this;
+      var newform = null;
+      var lendatos = 0;
+      var mr = 0;
+      async function AfterShowModal(AValue) {
+        var table = Tabulator.findTable("#tabExample")[0];
+        var array = table.getData();
+        lendatos=array.length;
+        if (lendatos === 0) return;
+        mr = await $Self.WebMessageDlg1.ShowDialog$2("Desea guardar su registro de productos ?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes,pas["WEBLib.Dialogs"].TMsgDlgBtn.mbNo));
+        if (mr === 6) $Self.Estudios1Click(newform);
+      };
+      function AfterCreate(AForm) {
+        newform.SetTop(rtl.trunc(($mod.Form1.GetClientHeight() - newform.GetHeight()) / 2));
+        newform.SetLeft(rtl.trunc(($mod.Form1.GetClientWidth() - newform.GetWidth()) / 1));
+        newform.SetLeft(newform.GetLeft() - 10);
+      };
+      newform = pas.Unit3.TForm3.$create("CreateNew$3",[AfterCreate]);
+      newform.FPopup = true;
+      newform.SetCaption("Registro form");
+      newform.SetBorder(pas["WEBLib.Forms"].TFormBorderStyle.fbDialog);
+      newform.FShowClose = false;
+      newform.ShowModal$1(AfterShowModal);
+    };
+    this.cargarFormaCaptura2 = function (Sender) {
+      var $Self = this;
+      var newform = null;
+      var lendatos = 0;
+      var mr = 0;
+      async function AfterShowModal(AValue) {
+        var table = Tabulator.findTable("#tabExample")[0];
+        var array = table.getData();
+        lendatos=array.length;
+        if (lendatos === 0) return;
+        mr = await $Self.WebMessageDlg1.ShowDialog$2("Desea guardar su registro de productos ?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes,pas["WEBLib.Dialogs"].TMsgDlgBtn.mbNo));
+        if (mr === 6) $Self.Estudios1Click(newform);
+      };
+      function AfterCreate(AForm) {
+        newform.SetTop(rtl.trunc(($mod.Form1.GetClientHeight() - newform.GetHeight()) / 2));
+        newform.SetLeft(rtl.trunc(($mod.Form1.GetClientWidth() - newform.GetWidth()) / 1));
+        newform.SetLeft(newform.GetLeft() - 10);
+      };
+      newform = pas.ufrmAltaRen.TfrmAltaRen.$create("CreateNew$3",[AfterCreate]);
+      newform.FPopup = true;
+      newform.SetCaption("Agregar renglones");
+      newform.SetBorder(pas["WEBLib.Forms"].TFormBorderStyle.fbDialog);
+      newform.FShowClose = false;
+      newform.ShowModal$1(AfterShowModal);
+    };
+    this.PedidosDbClientDataset1AfterOpen = function (DataSet) {
+      var Sender = null;
+      this.CargarRenglones();
+    };
+    this.WebDivMouseMove = function (Sender, Shift, X, Y) {
+      return;
+      var table = Tabulator.findTable("#tabExample")[0];
+        table.alert("Libreta digital, Tocar para agregar renglones");
+      
+          table.clearAlert();   // Clear Alert;
+    };
+    this.WebSpeedButton1Click = function (Sender) {
+      var r = null;
+      var vpopmenuwidth = 0.0;
+      var i = 0;
+      var w = 0.0;
+      var maxw = 0.0;
+      var s = "";
+      this.WebPopupMenu1.SetVisible(true);
+      r = this.WebSpeedButton1.GetElementHandle().getBoundingClientRect();
+      this.WebPopupMenu1.Popup(Math.round(r.left - $impl.popmenuwidth),Math.round(r.bottom));
+    };
+    this.Salir2Click = function (Sender) {
+      this.Salir1Click(Sender);
+    };
+    this.comparteClick = function (Sender) {
+      this.Compartir2Click(Sender);
+    };
+    this.dos1Click = function (Sender) {
+      this.Consultas1Click(Sender);
+    };
+    this.tres1Click = function (Sender) {
+      this.Estudios1Click(Sender);
+    };
+    this.cuatroClick = function (Sender) {
+      this.LimpiarHoja2Click(Sender);
+    };
+    this.uno1Click = function (Sender) {
+      this.Registrar1Click(Sender);
+    };
+    this.WebDivDblClick = function (Sender) {
+      var keyhoja = "";
+      var rowcountt = 0;
+      var table = Tabulator.findTable("#tabExample")[0];
+      // table.alert("Libreta digital, Tocar para agregar renglones");
+       var sheet = table.getSheet();
+       var key = sheet.getKey();
+      // alert(key);
+       keyhoja=key;
+       var activeRowCount = table.getDataCount(key);
+       rowcountt =activeRowCount;
+       //console.log('activeRowCount',activeRowCount);
+      this.Registrar1Click(Sender);
+    };
+    this.uno11Click = function (Sender) {
+      this.cargarFormaCaptura2(Sender);
+    };
+    this.ValidarUsuarioActivo = async function (u, p) {
+      var Result = false;
+      var ustr = "";
+      var pstr = "";
+      var astr = "";
+      var jresult = false;
+      var Cookies = null;
+      Result = false;
+      jresult = false;
+      ustr = pas.SysUtils.TStringHelper.UpperCase(u);
+      //********************************************************************************
+       //********************************************************************************
+       //        const sqlPromise = initSqlJs({
+       //       locateFile: file => 'https://idsfdg.github.io/FIDEVALE/'
+       //     });
+       //        const dataPromise = fetch("//idsfdg.github.io/FIDEVALE/BD_Vale.db").then(res => res.arrayBuffer());
+       //        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+       //        const db = new SQL.Database(new Uint8Array(buf));
+       //   alert('fech');
+       //********************************************************************************
+       //********************************************************************************
+      
+        const xhr = new XMLHttpRequest();
+      
+      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
+      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
+        xhr.open('GET', 'https://idsfdg.github.io/FIDEVALE/BD_Vale.db', true);
+      //alert('1');
+      xhr.responseType = 'arraybuffer';
+      //alert('2');
+       xhr.onload =  e => {
+        const uInt8Array = new Uint8Array(xhr.response);
+       // console.log  ('array',uInt8Array);
+      //   alert('3');
+        const db = new SQL.Database(uInt8Array);
+      //   alert('4');
+      
+       //********************************************************************************
+       //SELECT SQL *********************************************************************
+       //********************************************************************************
+      
+        const  contents =   db.exec("SELECT contrapwd,estado FROM tablausuarios where nombre = '"+ustr+"';");
+       //********************************************************************************
+       //********************************************************************************
+      
+        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
+         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          // Request finished. Do processing here.
+      
+           var len = contents.length;
+           console.log('contents');
+          console.log(contents.length);
+           if (len > 0)
+           {
+            console.log(contents);
+            console.log('contents columns');
+            console.log(contents[0].columns);
+            console.log('contents values');
+            console.log(contents[0].values);
+            len = contents[0].values.length;
+            if (len > 0)
+            {
+             //  alert('usuario existe');
+               pstr= contents[0].values[0][0];
+               astr= contents[0].values[0][1];
+               console.log('pwd',pstr);
+               console.log('astr',astr);
+              // const edBox = document.getElementById("tabla");
+              // if (pstr==p  && astr=="1")  // El password ya lo solicito en la Formalogin
+               if (astr=="1")   // SOLAMENTE VALIDAR QUE EL USUARIO ESTE ACTIVO (pagado servicio)
+               {
+                  jresult=true;
+                 // WebMemo1.text = pwd+astr;
+      
+                 //Set the text content of the editbox
+                 //  edBox.value = "OK";
+               }
+               else
+               {
+                    jresult=false;
+                //   edBox.value = "NOT OK";
+               }
+      
+      
+            }
+         }
+        } // readyState
+        console.log('resultado 1',jresult);
+      //alert('5');
+      if (jresult === true) {
+        Result = true;
+      } else {
+        Result = false;
+        alert('Usuario, no cuenta con autorización para utilizar, al sistema.');
+        this.Salir1Click(this);
+      };
+      //********************************************************************************
+       //********************************************************************************
+      };
+      
+      xhr.send();
+      this.minimizo = false;
+      return Result;
+    };
+    this.MuestraMenu = function (opc) {
+      return;
+      if (opc === false) {
+        const element = document.getElementById('menuprincipal');
+        element.style.visibility = 'hidden';
+      } else if (opc === true) {
+        const element = document.getElementById('menuprincipal');
+        element.style.visibility = 'visible'; // Hides the element and removes its space;
+      };
+    };
+    this.CargarRenglones = function () {
+      var keyhoja = "";
+      var rowcountt = 0;
+      var Sender = null;
+      var table = Tabulator.findTable("#tabExample")[0];
+       var sheet = table.getSheet();
+       var key = sheet.getKey();
+      // alert(key);
+       keyhoja=key;
+       var activeRowCount = table.getDataCount(key);
+       rowcountt =activeRowCount;
+       //console.log('activeRowCount',activeRowCount);
+      if ((keyhoja === "uno") && (rowcountt === 0)) this.Consultas1Click(Sender);
+    };
+    this.maximoPopupTexto = function () {
+      var Result = 0.0;
+      var i = 0;
+      var l = 0;
+      var maxl = 0;
+      var s = "";
+      var maxs = "";
+      var bmp = null;
+      bmp = pas["WEBLib.Graphics"].TBitmap.$create("Create$3");
+      bmp.GetCanvas().FFont.Assign($mod.Form1.FFont);
+      Result = -1;
+      maxl = 0;
+      for (var $l = 0, $end = this.WebPopupMenu1.FItems.GetCount() - 1; $l <= $end; $l++) {
+        i = $l;
+        s = this.WebPopupMenu1.FItems.GetMenuItem(i).FCaption;
+        l = s.length;
+        if (l > maxl) {
+          maxl = l;
+          maxs = s;
+        };
+      };
+      Result = bmp.GetCanvas().TextWidth(maxs);
+      return Result;
+    };
+    this.MostrarHint = function () {
+      var ElemID = "";
+      var ToolText = "";
+      ElemID = this.WebDiv.GetID();
+      ToolText = this.WebDiv.FHint;
+      var div = document.getElementById(ElemID);
+      var tooltip = new bootstrap.Tooltip(div, {
+        title: ToolText,
+        placement: 'right', // 'top', 'bottom', 'left' also possible
+        customClass: 'MyCustomToolTipClass', // Optional: for custom CSS
+        delay: { show: 1000, hide: 250 } // Optional: delay for showing/hiding
+      });
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
+      this.WebPanel5 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebPanel3 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$2",["menuprincipal"]);
+      this.WebPanel4 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebLabel1 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebButton9 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.edPacNombre = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["edPacNombre"]);
+      this.WebButton11 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebButton12 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebButton13 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.lbarchivo = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["nomarchivo"]);
+      this.lbminimizar = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["elminimiza"]);
+      this.WebSpeedButton1 = pas["WEBLib.Buttons"].TSpeedButton.$create("Create$1",[this]);
+      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebScrollRegistro = pas["WEBLib.ExtCtrls"].TScrollBox.$create("Create$2",["scrollregistro"]);
+      this.WebLabel3 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel4 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel5 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel6 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebLabel7 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.edNombre = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["cliente"]);
+      this.edImporte = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["importe"]);
+      this.edventasuba = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["vds"]);
+      this.edArticulo = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["producto"]);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.lbusuario2 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.lbusuario = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.btnAgregar = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btnregistrar"]);
+      this.btnCerrar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.edRen = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["rowsel"]);
+      this.btnEliminar = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btndel"]);
+      this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
+      this.radioTipo = pas["WEBLib.StdCtrls"].TRadioGroup.$create("Create$1",[this]);
+      this.WebHttpRequest1 = pas["WEBLib.REST"].THttpRequest.$create("Create$1",[this]);
+      this.WebMainMenu1 = pas["WEBLib.Menus"].TMainMenu.$create("Create$1",[this]);
+      this.Archivo1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Pacientes1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Registrar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Consultas1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Estudios1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Analisis1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.LimpiarHoja2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.N1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.ExportaraPDF1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Compartir1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.CompartirPDF21 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.compartirpdf31 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Imprimir1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.N2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Salir1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Editar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Copiar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Copiar2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Cortar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.LimpiarHoja1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Exportar3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.ExportarPDF1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Excel1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Expotar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Descargar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.PDF2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.PDF3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Exportar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Exportar2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Graficar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Graficas1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.AnlisisGrfico1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Compartir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.WebLocalTextFile1 = pas["WEBLib.LocalFiles"].TLocalTextFile.$create("Create$1",[this]);
+      this.PedidosDbClientDataset1 = pas["WEBLib.IndexedDb"].TIndexedDbClientDataset.$create("Create$1",[this]);
+      this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
+      this.uno1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.uno11 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.dos1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.tres1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.cuatro = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.comparte = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.N3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Salir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.WebDiv.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
+      this.WebPanel5.BeforeLoadDFMValues();
+      this.WebPanel3.BeforeLoadDFMValues();
+      this.WebPanel4.BeforeLoadDFMValues();
+      this.WebLabel1.BeforeLoadDFMValues();
+      this.WebButton9.BeforeLoadDFMValues();
+      this.edPacNombre.BeforeLoadDFMValues();
+      this.WebButton11.BeforeLoadDFMValues();
+      this.WebButton12.BeforeLoadDFMValues();
+      this.WebButton13.BeforeLoadDFMValues();
+      this.lbarchivo.BeforeLoadDFMValues();
+      this.lbminimizar.BeforeLoadDFMValues();
+      this.WebSpeedButton1.BeforeLoadDFMValues();
+      this.WebButton1.BeforeLoadDFMValues();
+      this.WebScrollRegistro.BeforeLoadDFMValues();
+      this.WebLabel3.BeforeLoadDFMValues();
+      this.WebLabel4.BeforeLoadDFMValues();
+      this.WebLabel5.BeforeLoadDFMValues();
+      this.WebLabel6.BeforeLoadDFMValues();
+      this.WebLabel7.BeforeLoadDFMValues();
+      this.edNombre.BeforeLoadDFMValues();
+      this.edImporte.BeforeLoadDFMValues();
+      this.edventasuba.BeforeLoadDFMValues();
+      this.edArticulo.BeforeLoadDFMValues();
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.lbusuario2.BeforeLoadDFMValues();
+      this.lbusuario.BeforeLoadDFMValues();
+      this.btnAgregar.BeforeLoadDFMValues();
+      this.btnCerrar.BeforeLoadDFMValues();
+      this.edRen.BeforeLoadDFMValues();
+      this.btnEliminar.BeforeLoadDFMValues();
+      this.WebMessageDlg1.BeforeLoadDFMValues();
+      this.radioTipo.BeforeLoadDFMValues();
+      this.WebHttpRequest1.BeforeLoadDFMValues();
+      this.WebMainMenu1.BeforeLoadDFMValues();
+      this.Archivo1.BeforeLoadDFMValues();
+      this.Pacientes1.BeforeLoadDFMValues();
+      this.Registrar1.BeforeLoadDFMValues();
+      this.Consultas1.BeforeLoadDFMValues();
+      this.Estudios1.BeforeLoadDFMValues();
+      this.Analisis1.BeforeLoadDFMValues();
+      this.LimpiarHoja2.BeforeLoadDFMValues();
+      this.N1.BeforeLoadDFMValues();
+      this.ExportaraPDF1.BeforeLoadDFMValues();
+      this.Compartir1.BeforeLoadDFMValues();
+      this.CompartirPDF21.BeforeLoadDFMValues();
+      this.compartirpdf31.BeforeLoadDFMValues();
+      this.Imprimir1.BeforeLoadDFMValues();
+      this.N2.BeforeLoadDFMValues();
+      this.Salir1.BeforeLoadDFMValues();
+      this.Editar1.BeforeLoadDFMValues();
+      this.Copiar1.BeforeLoadDFMValues();
+      this.Copiar2.BeforeLoadDFMValues();
+      this.Cortar1.BeforeLoadDFMValues();
+      this.LimpiarHoja1.BeforeLoadDFMValues();
+      this.Exportar3.BeforeLoadDFMValues();
+      this.ExportarPDF1.BeforeLoadDFMValues();
+      this.Excel1.BeforeLoadDFMValues();
+      this.Expotar1.BeforeLoadDFMValues();
+      this.Descargar1.BeforeLoadDFMValues();
+      this.PDF2.BeforeLoadDFMValues();
+      this.PDF3.BeforeLoadDFMValues();
+      this.Exportar1.BeforeLoadDFMValues();
+      this.Exportar2.BeforeLoadDFMValues();
+      this.Graficar1.BeforeLoadDFMValues();
+      this.Graficas1.BeforeLoadDFMValues();
+      this.AnlisisGrfico1.BeforeLoadDFMValues();
+      this.Compartir2.BeforeLoadDFMValues();
+      this.WebLocalTextFile1.BeforeLoadDFMValues();
+      this.PedidosDbClientDataset1.BeforeLoadDFMValues();
+      this.WebPopupMenu1.BeforeLoadDFMValues();
+      this.uno1.BeforeLoadDFMValues();
+      this.uno11.BeforeLoadDFMValues();
+      this.dos1.BeforeLoadDFMValues();
+      this.tres1.BeforeLoadDFMValues();
+      this.cuatro.BeforeLoadDFMValues();
+      this.comparte.BeforeLoadDFMValues();
+      this.N3.BeforeLoadDFMValues();
+      this.Salir2.BeforeLoadDFMValues();
+      try {
+        this.SetName("Form1");
+        this.SetWidth(701);
+        this.SetHeight(480);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.FMenu = this.WebMainMenu1;
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.SetEvent(this,"OnEnter","WebFormEnter");
+        this.SetEvent(this,"OnShow","WebFormShow");
+        this.WebDiv.SetParentComponent(this);
+        this.WebDiv.SetName("WebDiv");
+        this.WebDiv.SetLeft(0);
+        this.WebDiv.SetTop(108);
+        this.WebDiv.SetWidth(701);
+        this.WebDiv.SetHeight(52);
+        this.WebDiv.SetElementClassName("table-striped");
+        this.WebDiv.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebDiv.SetChildOrderEx(1);
+        this.WebDiv.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebDiv.SetRole("");
+        this.SetEvent$1(this.WebDiv,this,"OnClick","WebDivClick");
+        this.SetEvent$1(this.WebDiv,this,"OnDblClick","WebDivDblClick");
+        this.SetEvent$1(this.WebDiv,this,"OnMouseMove","WebDivMouseMove");
+        this.WebMemo1.SetParentComponent(this.WebDiv);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(16);
+        this.WebMemo1.SetTop(24);
+        this.WebMemo1.SetWidth(584);
+        this.WebMemo1.SetHeight(209);
+        this.WebMemo1.SetElementClassName("form-control");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("WebMemo1");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(0);
+        this.WebMemo1.SetTabOrder(1);
+        this.WebMemo1.SetVisible(false);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
+        this.WebPanel5.SetParentComponent(this.WebDiv);
+        this.WebPanel5.SetName("WebPanel5");
+        this.WebPanel5.SetLeft(672);
+        this.WebPanel5.SetTop(56);
+        this.WebPanel5.SetWidth(150);
+        this.WebPanel5.SetHeight(60);
+        this.WebPanel5.SetElementClassName("card");
+        this.WebPanel5.SetCaption("WebPanel5");
+        this.WebPanel5.SetChildOrderEx(2);
+        this.WebPanel5.FElementBodyClassName = "card-body";
+        this.WebPanel5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel5.SetTabOrder(1);
+        this.WebPanel5.SetVisible(false);
+        this.WebPanel3.SetParentComponent(this);
+        this.WebPanel3.SetName("WebPanel3");
+        this.WebPanel3.SetLeft(0);
+        this.WebPanel3.SetTop(67);
+        this.WebPanel3.SetWidth(701);
+        this.WebPanel3.SetHeight(41);
+        this.WebPanel3.SetHint("Seleccione el menú para iniciar");
+        this.WebPanel3.SetElementClassName("card");
+        this.WebPanel3.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebPanel3.SetChildOrderEx(3);
+        this.WebPanel3.SetColor(12632256);
+        this.WebPanel3.FElementBodyClassName = "card-body";
+        this.WebPanel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel3.SetShowHint(true);
+        this.WebPanel3.SetTabOrder(1);
+        this.WebPanel3.SetVisible(false);
+        this.WebPanel4.SetParentComponent(this);
+        this.WebPanel4.SetName("WebPanel4");
+        this.WebPanel4.SetLeft(0);
+        this.WebPanel4.SetTop(0);
+        this.WebPanel4.SetWidth(701);
+        this.WebPanel4.SetHeight(67);
+        this.WebPanel4.SetElementClassName("card");
+        this.WebPanel4.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebPanel4.SetCaption("Libreta Digital registro de VENTAS Y SUBASTAS");
+        this.WebPanel4.SetChildOrderEx(1);
+        this.WebPanel4.SetColor(16577277);
+        this.WebPanel4.FElementBodyClassName = "card-body";
+        this.WebPanel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel4.SetTabOrder(2);
+        this.WebPanel4.SetVisible(false);
+        this.SetEvent$1(this.WebPanel4,this,"OnClick","WebPanel4Click");
+        this.WebLabel1.SetParentComponent(this.WebPanel4);
+        this.WebLabel1.SetName("WebLabel1");
+        this.WebLabel1.SetLeft(24);
+        this.WebLabel1.SetTop(31);
+        this.WebLabel1.SetWidth(63);
+        this.WebLabel1.SetHeight(18);
+        this.WebLabel1.SetCaption("Seleccion:");
+        this.WebLabel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel1.SetHeightPercent(100.000000000000000000);
+        this.WebLabel1.SetVisible(false);
+        this.WebLabel1.SetWidthPercent(100.000000000000000000);
+        this.WebButton9.SetParentComponent(this.WebPanel4);
+        this.WebButton9.SetName("WebButton9");
+        this.WebButton9.SetLeft(93);
+        this.WebButton9.SetTop(3);
+        this.WebButton9.SetWidth(96);
+        this.WebButton9.SetHeight(25);
+        this.WebButton9.SetCaption("JSON");
+        this.WebButton9.SetChildOrderEx(4);
+        this.WebButton9.SetElementClassName("btn btn-light");
+        this.WebButton9.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton9.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton9.SetHeightPercent(100.000000000000000000);
+        this.WebButton9.SetVisible(false);
+        this.WebButton9.SetWidthPercent(100.000000000000000000);
+        this.edPacNombre.SetParentComponent(this.WebPanel4);
+        this.edPacNombre.SetName("edPacNombre");
+        this.edPacNombre.SetLeft(510);
+        this.edPacNombre.SetTop(3);
+        this.edPacNombre.SetWidth(65);
+        this.edPacNombre.SetHeight(22);
+        this.edPacNombre.SetChildOrderEx(1);
+        this.edPacNombre.SetElementClassName("form-control");
+        this.edPacNombre.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edPacNombre.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edPacNombre.SetHeightPercent(100.000000000000000000);
+        this.edPacNombre.SetReadOnly(true);
+        this.edPacNombre.SetVisible(false);
+        this.edPacNombre.SetWidthPercent(100.000000000000000000);
+        this.WebButton11.SetParentComponent(this.WebPanel4);
+        this.WebButton11.SetName("WebButton11");
+        this.WebButton11.SetLeft(581);
+        this.WebButton11.SetTop(25);
+        this.WebButton11.SetWidth(96);
+        this.WebButton11.SetHeight(25);
+        this.WebButton11.SetCaption("SQLite Pac");
+        this.WebButton11.SetChildOrderEx(5);
+        this.WebButton11.SetElementClassName("btn btn-light");
+        this.WebButton11.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton11.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton11.SetHeightPercent(100.000000000000000000);
+        this.WebButton11.SetVisible(false);
+        this.WebButton11.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton11,this,"OnClick","WebButton11Click");
+        this.WebButton12.SetParentComponent(this.WebPanel4);
+        this.WebButton12.SetName("WebButton12");
+        this.WebButton12.SetLeft(479);
+        this.WebButton12.SetTop(37);
+        this.WebButton12.SetWidth(96);
+        this.WebButton12.SetHeight(25);
+        this.WebButton12.SetCaption("SQLite Consu.");
+        this.WebButton12.SetChildOrderEx(6);
+        this.WebButton12.SetElementClassName("btn btn-light");
+        this.WebButton12.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton12.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton12.SetHeightPercent(100.000000000000000000);
+        this.WebButton12.SetVisible(false);
+        this.WebButton12.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton12,this,"OnClick","WebButton12Click");
+        this.WebButton13.SetParentComponent(this.WebPanel4);
+        this.WebButton13.SetName("WebButton13");
+        this.WebButton13.SetLeft(581);
+        this.WebButton13.SetTop(25);
+        this.WebButton13.SetWidth(96);
+        this.WebButton13.SetHeight(25);
+        this.WebButton13.SetCaption("SQLite AnaEstu");
+        this.WebButton13.SetChildOrderEx(7);
+        this.WebButton13.SetElementClassName("btn btn-light");
+        this.WebButton13.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton13.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton13.SetHeightPercent(100.000000000000000000);
+        this.WebButton13.SetVisible(false);
+        this.WebButton13.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton13,this,"OnClick","WebButton13Click");
+        this.lbarchivo.SetParentComponent(this.WebPanel4);
+        this.lbarchivo.SetName("lbarchivo");
+        this.lbarchivo.SetLeft(0);
+        this.lbarchivo.SetTop(41);
+        this.lbarchivo.SetWidth(701);
+        this.lbarchivo.SetHeight(26);
+        this.lbarchivo.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.lbarchivo.SetAutoSize(true);
+        this.lbarchivo.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsNone);
+        this.lbarchivo.SetChildOrderEx(1);
+        this.lbarchivo.SetColor(16577277);
+        this.lbarchivo.SetEnabled(false);
+        this.lbarchivo.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbarchivo.SetHeightPercent(100.000000000000000000);
+        this.lbarchivo.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.lbarchivo,this,"OnClick","lbarchivoClick");
+        this.lbminimizar.SetParentComponent(this.WebPanel4);
+        this.lbminimizar.SetName("lbminimizar");
+        this.lbminimizar.SetLeft(8);
+        this.lbminimizar.SetTop(8);
+        this.lbminimizar.SetWidth(121);
+        this.lbminimizar.SetHeight(22);
+        this.lbminimizar.SetChildOrderEx(9);
+        this.lbminimizar.SetElementClassName("form-control");
+        this.lbminimizar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.lbminimizar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbminimizar.SetHeightPercent(100.000000000000000000);
+        this.lbminimizar.SetText("lbminimizar");
+        this.lbminimizar.SetVisible(false);
+        this.lbminimizar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.lbminimizar,this,"OnChange","lbminimizarChange");
+        this.WebSpeedButton1.SetParentComponent(this.WebPanel4);
+        this.WebSpeedButton1.SetName("WebSpeedButton1");
+        this.WebSpeedButton1.SetLeft(648);
+        this.WebSpeedButton1.SetTop(0);
+        this.WebSpeedButton1.SetWidth(53);
+        this.WebSpeedButton1.SetHeight(41);
+        this.WebSpeedButton1.SetAlign(pas["WEBLib.Controls"].TAlign.alRight);
+        this.WebSpeedButton1.SetColorEx(-1);
+        this.WebSpeedButton1.SetElementClassName("btn btn-light");
+        this.WebSpeedButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebSpeedButton1.SetFlat(true);
+        this.WebSpeedButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebSpeedButton1.SetHeightPercent(100.000000000000000000);
+        this.WebSpeedButton1.SetTabOrder(7);
+        this.WebSpeedButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebSpeedButton1,this,"OnClick","WebSpeedButton1Click");
+        this.WebButton1.SetParentComponent(this.WebPanel4);
+        this.WebButton1.SetName("WebButton1");
+        this.WebButton1.SetLeft(599);
+        this.WebButton1.SetTop(0);
+        this.WebButton1.SetWidth(49);
+        this.WebButton1.SetHeight(41);
+        this.WebButton1.SetAlign(pas["WEBLib.Controls"].TAlign.alRight);
+        this.WebButton1.SetCaption("Menu");
+        this.WebButton1.SetChildOrderEx(2);
+        this.WebButton1.SetElementClassName("btn btn-light");
+        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton1.FFont.FCharset = 1;
+        this.WebButton1.FFont.SetColor(65793);
+        this.WebButton1.FFont.SetHeight(-15);
+        this.WebButton1.FFont.SetName("Tahoma");
+        this.WebButton1.FFont.SetStyle({});
+        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton1.SetHeightPercent(100.000000000000000000);
+        this.WebButton1.SetParentFont(false);
+        this.WebButton1.FPopupMenu = this.WebPopupMenu1;
+        this.WebButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
+        this.WebScrollRegistro.SetParentComponent(this);
+        this.WebScrollRegistro.SetName("WebScrollRegistro");
+        this.WebScrollRegistro.SetLeft(0);
+        this.WebScrollRegistro.SetTop(160);
+        this.WebScrollRegistro.SetWidth(701);
+        this.WebScrollRegistro.SetHeight(300);
+        this.WebScrollRegistro.SetElementClassName("card");
+        this.WebScrollRegistro.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebScrollRegistro.SetBorderStyle(pas["WEBLib.Controls"].TBorderStyle.bsSingle);
+        this.WebScrollRegistro.SetChildOrderEx(3);
+        this.WebScrollRegistro.SetColor(16376827);
+        this.WebScrollRegistro.SetScrollBars(pas["WEBLib.Controls"].TScrollStyle.ssHorizontal);
+        this.WebScrollRegistro.SetVisible(false);
+        this.SetEvent$1(this.WebScrollRegistro,this,"OnClick","WebScrollRegistroClick");
+        this.SetEvent$1(this.WebScrollRegistro,this,"OnMouseLeave","WebScrollRegistroMouseLeave");
+        this.SetEvent$1(this.WebScrollRegistro,this,"OnMouseEnter","WebScrollRegistroMouseEnter");
+        this.WebLabel3.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel3.SetName("WebLabel3");
+        this.WebLabel3.SetLeft(0);
+        this.WebLabel3.SetTop(0);
+        this.WebLabel3.SetWidth(701);
+        this.WebLabel3.SetHeight(18);
+        this.WebLabel3.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebLabel3.SetAlignment(pas.Classes.TAlignment.taCenter);
+        this.WebLabel3.SetCaption("Hoja de registro de PRODUCTOS");
+        this.WebLabel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel3.FFont.FCharset = 1;
+        this.WebLabel3.FFont.SetColor(65793);
+        this.WebLabel3.FFont.SetHeight(-15);
+        this.WebLabel3.FFont.SetName("Tahoma");
+        this.WebLabel3.FFont.SetStyle(rtl.createSet(pas["WEBLib.Graphics"].TFontStyle.fsBold,pas["WEBLib.Graphics"].TFontStyle.fsUnderline));
+        this.WebLabel3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel3.SetHeightPercent(100.000000000000000000);
+        this.WebLabel3.SetParentFont(false);
+        this.WebLabel3.SetWidthPercent(100.000000000000000000);
+        this.WebLabel4.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel4.SetName("WebLabel4");
+        this.WebLabel4.SetLeft(24);
+        this.WebLabel4.SetTop(35);
+        this.WebLabel4.SetWidth(47);
+        this.WebLabel4.SetHeight(18);
+        this.WebLabel4.SetCaption("Cliente:");
+        this.WebLabel4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel4.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel4.SetHeightPercent(100.000000000000000000);
+        this.WebLabel4.SetWidthPercent(100.000000000000000000);
+        this.WebLabel5.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel5.SetName("WebLabel5");
+        this.WebLabel5.SetLeft(24);
+        this.WebLabel5.SetTop(76);
+        this.WebLabel5.SetWidth(62);
+        this.WebLabel5.SetHeight(18);
+        this.WebLabel5.SetCaption("Producto:");
+        this.WebLabel5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel5.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel5.SetHeightPercent(100.000000000000000000);
+        this.WebLabel5.SetWidthPercent(100.000000000000000000);
+        this.WebLabel6.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel6.SetName("WebLabel6");
+        this.WebLabel6.SetLeft(24);
+        this.WebLabel6.SetTop(136);
+        this.WebLabel6.SetWidth(71);
+        this.WebLabel6.SetHeight(18);
+        this.WebLabel6.SetCaption("Importe $:");
+        this.WebLabel6.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel6.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel6.SetHeightPercent(100.000000000000000000);
+        this.WebLabel6.SetWidthPercent(100.000000000000000000);
+        this.WebLabel7.SetParentComponent(this.WebScrollRegistro);
+        this.WebLabel7.SetName("WebLabel7");
+        this.WebLabel7.SetLeft(183);
+        this.WebLabel7.SetTop(110);
+        this.WebLabel7.SetWidth(203);
+        this.WebLabel7.SetHeight(18);
+        this.WebLabel7.SetCaption("Venta Directa o Subasta (V/S):");
+        this.WebLabel7.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel7.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel7.SetHeightPercent(100.000000000000000000);
+        this.WebLabel7.SetVisible(false);
+        this.WebLabel7.SetWidthPercent(100.000000000000000000);
+        this.edNombre.SetParentComponent(this.WebScrollRegistro);
+        this.edNombre.SetName("edNombre");
+        this.edNombre.SetLeft(98);
+        this.edNombre.SetTop(32);
+        this.edNombre.SetWidth(303);
+        this.edNombre.SetHeight(22);
+        this.edNombre.SetChildOrderEx(3);
+        this.edNombre.SetElementClassName("form-control");
+        this.edNombre.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edNombre.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edNombre.SetHeightPercent(100.000000000000000000);
+        this.edNombre.FRequiredText = "cliente";
+        this.edNombre.SetTabOrder(2);
+        this.edNombre.SetWidthPercent(100.000000000000000000);
+        this.edImporte.SetParentComponent(this.WebScrollRegistro);
+        this.edImporte.SetName("edImporte");
+        this.edImporte.SetLeft(98);
+        this.edImporte.SetTop(132);
+        this.edImporte.SetWidth(87);
+        this.edImporte.SetHeight(22);
+        this.edImporte.SetChildOrderEx(3);
+        this.edImporte.SetEditType(pas["WEBLib.StdCtrls"].TEditType.weNumeric);
+        this.edImporte.SetElementClassName("form-control");
+        this.edImporte.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edImporte.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edImporte.SetHeightPercent(100.000000000000000000);
+        this.edImporte.SetTabOrder(4);
+        this.edImporte.SetWidthPercent(100.000000000000000000);
+        this.edventasuba.SetParentComponent(this.WebScrollRegistro);
+        this.edventasuba.SetName("edventasuba");
+        this.edventasuba.SetLeft(191);
+        this.edventasuba.SetTop(134);
+        this.edventasuba.SetWidth(65);
+        this.edventasuba.SetHeight(22);
+        this.edventasuba.SetChildOrderEx(3);
+        this.edventasuba.SetElementClassName("form-control");
+        this.edventasuba.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edventasuba.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edventasuba.SetHeightPercent(100.000000000000000000);
+        this.edventasuba.SetMaxLength(1);
+        this.edventasuba.SetTabOrder(5);
+        this.edventasuba.SetVisible(false);
+        this.edventasuba.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.edventasuba,this,"OnEnter","edventasubaEnter");
+        this.edArticulo.SetParentComponent(this.WebScrollRegistro);
+        this.edArticulo.SetName("edArticulo");
+        this.edArticulo.SetLeft(98);
+        this.edArticulo.SetTop(76);
+        this.edArticulo.SetWidth(303);
+        this.edArticulo.SetHeight(22);
+        this.edArticulo.SetChildOrderEx(3);
+        this.edArticulo.SetElementClassName("form-control");
+        this.edArticulo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edArticulo.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edArticulo.SetHeightPercent(100.000000000000000000);
+        this.edArticulo.FRequiredText = "cliente";
+        this.edArticulo.SetTabOrder(3);
+        this.edArticulo.SetWidthPercent(100.000000000000000000);
+        this.WebPanel1.SetParentComponent(this.WebScrollRegistro);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(208);
+        this.WebPanel1.SetWidth(701);
+        this.WebPanel1.SetHeight(92);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel1.SetChildOrderEx(11);
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel1.SetTabOrder(4);
+        this.lbusuario2.SetParentComponent(this.WebPanel1);
+        this.lbusuario2.SetName("lbusuario2");
+        this.lbusuario2.SetLeft(512);
+        this.lbusuario2.SetTop(56);
+        this.lbusuario2.SetWidth(5);
+        this.lbusuario2.SetHeight(18);
+        this.lbusuario2.SetCaption(".");
+        this.lbusuario2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.lbusuario2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbusuario2.SetHeightPercent(100.000000000000000000);
+        this.lbusuario2.SetVisible(false);
+        this.lbusuario2.SetWidthPercent(100.000000000000000000);
+        this.lbusuario.SetParentComponent(this.WebPanel1);
+        this.lbusuario.SetName("lbusuario");
+        this.lbusuario.SetLeft(512);
+        this.lbusuario.SetTop(40);
+        this.lbusuario.SetWidth(5);
+        this.lbusuario.SetHeight(18);
+        this.lbusuario.SetCaption(".");
+        this.lbusuario.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.lbusuario.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.lbusuario.SetHeightPercent(100.000000000000000000);
+        this.lbusuario.SetVisible(false);
+        this.lbusuario.SetWidthPercent(100.000000000000000000);
+        this.btnAgregar.SetParentComponent(this.WebPanel1);
+        this.btnAgregar.SetName("btnAgregar");
+        this.btnAgregar.SetLeft(113);
+        this.btnAgregar.SetTop(3);
+        this.btnAgregar.SetWidth(96);
+        this.btnAgregar.SetHeight(25);
+        this.btnAgregar.SetCaption("Agregar");
+        this.btnAgregar.SetElementClassName("btn btn-primary");
+        this.btnAgregar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnAgregar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnAgregar.SetHeightPercent(100.000000000000000000);
+        this.btnAgregar.SetTabOrder(6);
+        this.btnAgregar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnAgregar,this,"OnClick","btnAgregarClick");
+        this.btnCerrar.SetParentComponent(this.WebPanel1);
+        this.btnCerrar.SetName("btnCerrar");
+        this.btnCerrar.SetLeft(215);
+        this.btnCerrar.SetTop(3);
+        this.btnCerrar.SetWidth(96);
+        this.btnCerrar.SetHeight(25);
+        this.btnCerrar.SetCaption("Terminar");
+        this.btnCerrar.SetChildOrderEx(1);
+        this.btnCerrar.SetElementClassName("btn btn-primary");
+        this.btnCerrar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnCerrar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnCerrar.SetHeightPercent(100.000000000000000000);
+        this.btnCerrar.SetTabOrder(7);
+        this.btnCerrar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnCerrar,this,"OnClick","btnCerrarClick");
+        this.edRen.SetParentComponent(this.WebPanel1);
+        this.edRen.SetName("edRen");
+        this.edRen.SetLeft(620);
+        this.edRen.SetTop(16);
+        this.edRen.SetWidth(57);
+        this.edRen.SetHeight(22);
+        this.edRen.SetChildOrderEx(3);
+        this.edRen.SetElementClassName("form-control");
+        this.edRen.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edRen.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edRen.SetHeightPercent(100.000000000000000000);
+        this.edRen.SetText(".");
+        this.edRen.SetVisible(false);
+        this.edRen.SetWidthPercent(100.000000000000000000);
+        this.btnEliminar.SetParentComponent(this.WebPanel1);
+        this.btnEliminar.SetName("btnEliminar");
+        this.btnEliminar.SetLeft(352);
+        this.btnEliminar.SetTop(3);
+        this.btnEliminar.SetWidth(96);
+        this.btnEliminar.SetHeight(25);
+        this.btnEliminar.SetCaption("Eliminar");
+        this.btnEliminar.SetChildOrderEx(3);
+        this.btnEliminar.SetElementClassName("btn btn-light");
+        this.btnEliminar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnEliminar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnEliminar.SetHeightPercent(100.000000000000000000);
+        this.btnEliminar.SetVisible(false);
+        this.btnEliminar.SetWidthPercent(100.000000000000000000);
+        this.WebMessageDlg1.SetParentComponent(this.WebPanel1);
+        this.WebMessageDlg1.SetName("WebMessageDlg1");
+        this.WebMessageDlg1.SetLeft(551);
+        this.WebMessageDlg1.SetTop(6);
+        this.WebMessageDlg1.SetWidth(24);
+        this.WebMessageDlg1.SetHeight(24);
+        this.WebMessageDlg1.FButtons = {};
+        this.WebMessageDlg1.FOpacity = 0.200000000000000000;
+        this.WebMessageDlg1.FElementButtonClassName = "btn";
+        this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
+        this.WebMessageDlg1.FElementTitleClassName = "text-body";
+        this.WebMessageDlg1.FElementContentClassName = "text-body";
+        this.radioTipo.SetParentComponent(this.WebScrollRegistro);
+        this.radioTipo.SetName("radioTipo");
+        this.radioTipo.SetLeft(201);
+        this.radioTipo.SetTop(115);
+        this.radioTipo.SetWidth(185);
+        this.radioTipo.SetHeight(84);
+        this.radioTipo.SetElementClassName("custom-control custom-radio");
+        this.radioTipo.SetCaption("Venta o Subasta");
+        this.radioTipo.SetChildOrderEx(10);
+        this.radioTipo.SetColumns(1);
+        this.radioTipo.FElementButtonClassName = "custom-control-input";
+        this.radioTipo.FElementGroupClassName = "modal-content";
+        this.radioTipo.FElementLabelClassName = "custom-control-label";
+        this.radioTipo.FElementLegendClassName = "h6";
+        this.radioTipo.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.radioTipo.FFont.FCharset = 1;
+        this.radioTipo.FFont.SetColor(65793);
+        this.radioTipo.FFont.SetHeight(-13);
+        this.radioTipo.FFont.SetName("Tahoma");
+        this.radioTipo.FFont.SetStyle({});
+        this.radioTipo.SetItemIndex(0);
+        this.radioTipo.FItems.BeginUpdate();
+        try {
+          this.radioTipo.FItems.Clear();
+          this.radioTipo.FItems.Add("(V)enta");
+          this.radioTipo.FItems.Add("(S)ubasta");
+        } finally {
+          this.radioTipo.FItems.EndUpdate();
+        };
+        this.radioTipo.SetParentFont(false);
+        this.radioTipo.SetRole("");
+        this.radioTipo.SetTabOrder(5);
+        this.WebHttpRequest1.SetParentComponent(this);
+        this.WebHttpRequest1.SetName("WebHttpRequest1");
+        this.SetEvent$1(this.WebHttpRequest1,this,"OnResponse","WebHttpRequest1Response");
+        this.WebHttpRequest1.SetLeft(616);
+        this.WebHttpRequest1.SetTop(105);
+        this.WebMainMenu1.SetParentComponent(this);
+        this.WebMainMenu1.SetName("WebMainMenu1");
+        this.WebMainMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
+        this.WebMainMenu1.FAppearance.FHamburgerMenu.SetVisible(pas["WEBLib.Menus"].TMainMenuHamburgerMenuVisible.hmAlways);
+        this.WebMainMenu1.FAppearance.SetSubmenuIndicator("&#9660;");
+        this.WebMainMenu1.FContainer$1 = this.WebPanel3;
+        this.WebMainMenu1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMainMenu1.FFont.FCharset = 1;
+        this.WebMainMenu1.FFont.SetColor(65793);
+        this.WebMainMenu1.FFont.SetHeight(-12);
+        this.WebMainMenu1.FFont.SetName("Segoe UI");
+        this.WebMainMenu1.FFont.SetStyle({});
+        this.WebMainMenu1.SetVisible(false);
+        this.WebMainMenu1.SetLeft(496);
+        this.WebMainMenu1.SetTop(112);
+        this.Archivo1.SetParentComponent(this.WebMainMenu1);
+        this.Archivo1.SetName("Archivo1");
+        this.Archivo1.SetCaption("Libreta");
+        this.Pacientes1.SetParentComponent(this.Archivo1);
+        this.Pacientes1.SetName("Pacientes1");
+        this.Pacientes1.SetCaption("Nuevo");
+        this.Pacientes1.FVisible = false;
+        this.SetEvent$1(this.Pacientes1,this,"OnClick","Pacientes1Click");
+        this.Registrar1.SetParentComponent(this.Archivo1);
+        this.Registrar1.SetName("Registrar1");
+        this.Registrar1.SetCaption("Agregar Renglones");
+        this.SetEvent$1(this.Registrar1,this,"OnClick","Registrar1Click");
+        this.Consultas1.SetParentComponent(this.Archivo1);
+        this.Consultas1.SetName("Consultas1");
+        this.Consultas1.SetCaption("Abrir Hoja");
+        this.SetEvent$1(this.Consultas1,this,"OnClick","Consultas1Click");
+        this.Estudios1.SetParentComponent(this.Archivo1);
+        this.Estudios1.SetName("Estudios1");
+        this.Estudios1.SetCaption("Guardar Hoja");
+        this.SetEvent$1(this.Estudios1,this,"OnClick","Estudios1Click");
+        this.Analisis1.SetParentComponent(this.Archivo1);
+        this.Analisis1.SetName("Analisis1");
+        this.Analisis1.SetCaption("Analisis");
+        this.Analisis1.FVisible = false;
+        this.SetEvent$1(this.Analisis1,this,"OnClick","Analisis1Click");
+        this.LimpiarHoja2.SetParentComponent(this.Archivo1);
+        this.LimpiarHoja2.SetName("LimpiarHoja2");
+        this.LimpiarHoja2.SetCaption("Limpiar Hoja");
+        this.SetEvent$1(this.LimpiarHoja2,this,"OnClick","LimpiarHoja2Click");
+        this.N1.SetParentComponent(this.Archivo1);
+        this.N1.SetName("N1");
+        this.N1.SetCaption("-");
+        this.ExportaraPDF1.SetParentComponent(this.Archivo1);
+        this.ExportaraPDF1.SetName("ExportaraPDF1");
+        this.ExportaraPDF1.SetCaption("Exportar a PDF");
+        this.ExportaraPDF1.FVisible = false;
+        this.SetEvent$1(this.ExportaraPDF1,this,"OnClick","ExportaraPDF1Click");
+        this.Compartir1.SetParentComponent(this.Archivo1);
+        this.Compartir1.SetName("Compartir1");
+        this.Compartir1.SetCaption("Compartir PDF");
+        this.Compartir1.FVisible = false;
+        this.SetEvent$1(this.Compartir1,this,"OnClick","Compartir1Click");
+        this.CompartirPDF21.SetParentComponent(this.Archivo1);
+        this.CompartirPDF21.SetName("CompartirPDF21");
+        this.CompartirPDF21.SetCaption("Compartir PDF2");
+        this.CompartirPDF21.FVisible = false;
+        this.SetEvent$1(this.CompartirPDF21,this,"OnClick","CompartirPDF21Click");
+        this.compartirpdf31.SetParentComponent(this.Archivo1);
+        this.compartirpdf31.SetName("compartirpdf31");
+        this.compartirpdf31.SetCaption("Compartir PDF Tabla");
+        this.compartirpdf31.FVisible = false;
+        this.SetEvent$1(this.compartirpdf31,this,"OnClick","compartirpdf31Click");
+        this.Imprimir1.SetParentComponent(this.Archivo1);
+        this.Imprimir1.SetName("Imprimir1");
+        this.Imprimir1.SetCaption("Imprimir Hoja");
+        this.Imprimir1.FVisible = false;
+        this.SetEvent$1(this.Imprimir1,this,"OnClick","Imprimir1Click");
+        this.N2.SetParentComponent(this.Archivo1);
+        this.N2.SetName("N2");
+        this.N2.SetCaption("-");
+        this.Salir1.SetParentComponent(this.Archivo1);
+        this.Salir1.SetName("Salir1");
+        this.Salir1.SetCaption("Salir");
+        this.SetEvent$1(this.Salir1,this,"OnClick","Salir1Click");
+        this.Editar1.SetParentComponent(this.WebMainMenu1);
+        this.Editar1.SetName("Editar1");
+        this.Editar1.SetCaption("Editar");
+        this.Editar1.FVisible = false;
+        this.Copiar1.SetParentComponent(this.Editar1);
+        this.Copiar1.SetName("Copiar1");
+        this.Copiar1.SetCaption("Copiar");
+        this.Copiar1.FVisible = false;
+        this.Copiar2.SetParentComponent(this.Editar1);
+        this.Copiar2.SetName("Copiar2");
+        this.Copiar2.SetCaption("Pegar");
+        this.Copiar2.FVisible = false;
+        this.Cortar1.SetParentComponent(this.Editar1);
+        this.Cortar1.SetName("Cortar1");
+        this.Cortar1.SetCaption("Cortar");
+        this.Cortar1.FVisible = false;
+        this.LimpiarHoja1.SetParentComponent(this.Editar1);
+        this.LimpiarHoja1.SetName("LimpiarHoja1");
+        this.LimpiarHoja1.SetCaption("Limpiar Hoja");
+        this.SetEvent$1(this.LimpiarHoja1,this,"OnClick","LimpiarHoja1Click");
+        this.Exportar3.SetParentComponent(this.WebMainMenu1);
+        this.Exportar3.SetName("Exportar3");
+        this.Exportar3.SetCaption("Exportar");
+        this.Exportar3.FVisible = false;
+        this.ExportarPDF1.SetParentComponent(this.Exportar3);
+        this.ExportarPDF1.SetName("ExportarPDF1");
+        this.ExportarPDF1.SetCaption("PDF");
+        this.ExportarPDF1.FVisible = false;
+        this.SetEvent$1(this.ExportarPDF1,this,"OnClick","ExportarPDF1Click");
+        this.Excel1.SetParentComponent(this.Exportar3);
+        this.Excel1.SetName("Excel1");
+        this.Excel1.SetCaption("Excel");
+        this.Excel1.FVisible = false;
+        this.Expotar1.SetParentComponent(this.Excel1);
+        this.Expotar1.SetName("Expotar1");
+        this.Expotar1.SetCaption("Expotar");
+        this.SetEvent$1(this.Expotar1,this,"OnClick","Expotar1Click");
+        this.Descargar1.SetParentComponent(this.Excel1);
+        this.Descargar1.SetName("Descargar1");
+        this.Descargar1.SetCaption("Descargar");
+        this.SetEvent$1(this.Descargar1,this,"OnClick","Descargar1Click");
+        this.PDF2.SetParentComponent(this.WebMainMenu1);
+        this.PDF2.SetName("PDF2");
+        this.PDF2.SetCaption("PDF");
+        this.PDF2.FVisible = false;
+        this.PDF3.SetParentComponent(this.WebMainMenu1);
+        this.PDF3.SetName("PDF3");
+        this.PDF3.SetCaption("Excel");
+        this.PDF3.FVisible = false;
+        this.Exportar1.SetParentComponent(this.PDF3);
+        this.Exportar1.SetName("Exportar1");
+        this.Exportar1.SetCaption("Exportar");
+        this.Exportar2.SetParentComponent(this.PDF3);
+        this.Exportar2.SetName("Exportar2");
+        this.Exportar2.SetCaption("Descargar");
+        this.Graficar1.SetParentComponent(this.WebMainMenu1);
+        this.Graficar1.SetName("Graficar1");
+        this.Graficar1.SetCaption("Graficar");
+        this.Graficar1.FVisible = false;
+        this.Graficas1.SetParentComponent(this.Graficar1);
+        this.Graficas1.SetName("Graficas1");
+        this.Graficas1.SetCaption("Graficas");
+        this.SetEvent$1(this.Graficas1,this,"OnClick","Graficas1Click");
+        this.AnlisisGrfico1.SetParentComponent(this.Graficar1);
+        this.AnlisisGrfico1.SetName("AnlisisGrfico1");
+        this.AnlisisGrfico1.SetCaption("Análisis Gráfico");
+        this.SetEvent$1(this.AnlisisGrfico1,this,"OnClick","AnlisisGrfico1Click");
+        this.Compartir2.SetParentComponent(this.WebMainMenu1);
+        this.Compartir2.SetName("Compartir2");
+        this.Compartir2.SetCaption("Compartir");
+        this.SetEvent$1(this.Compartir2,this,"OnClick","Compartir2Click");
+        this.WebLocalTextFile1.SetParentComponent(this);
+        this.WebLocalTextFile1.SetName("WebLocalTextFile1");
+        this.SetEvent$1(this.WebLocalTextFile1,this,"OnFileSave","WebLocalTextFile1FileSave");
+        this.WebLocalTextFile1.SetLeft(408);
+        this.WebLocalTextFile1.SetTop(64);
+        this.PedidosDbClientDataset1.SetParentComponent(this);
+        this.PedidosDbClientDataset1.SetName("PedidosDbClientDataset1");
+        this.PedidosDbClientDataset1.FIDBDatabaseName = "BDPedidos";
+        this.PedidosDbClientDataset1.FIDBObjectStoreName = "Pedidos";
+        this.PedidosDbClientDataset1.FIDBKeyFieldName = "id";
+        this.PedidosDbClientDataset1.FIDBAutoIncrement = true;
+        this.PedidosDbClientDataset1.FAfterOpen = rtl.createCallback(this,"PedidosDbClientDataset1AfterOpen");
+        this.PedidosDbClientDataset1.SetLeft(480);
+        this.PedidosDbClientDataset1.SetTop(376);
+        this.WebPopupMenu1.SetParentComponent(this);
+        this.WebPopupMenu1.SetName("WebPopupMenu1");
+        this.WebPopupMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
+        this.WebPopupMenu1.FAppearance.SetSubmenuIndicator("&#9658;");
+        this.WebPopupMenu1.FFont.FCharset = 1;
+        this.WebPopupMenu1.FFont.SetColor(65793);
+        this.WebPopupMenu1.FFont.SetHeight(-12);
+        this.WebPopupMenu1.FFont.SetName("Segoe UI");
+        this.WebPopupMenu1.FFont.SetStyle({});
+        this.WebPopupMenu1.SetLeft(616);
+        this.WebPopupMenu1.SetTop(176);
+        this.uno1.SetParentComponent(this.WebPopupMenu1);
+        this.uno1.SetName("uno1");
+        this.uno1.SetCaption("Agregar Renglones");
+        this.SetEvent$1(this.uno1,this,"OnClick","uno1Click");
+        this.uno11.SetParentComponent(this.WebPopupMenu1);
+        this.uno11.SetName("uno11");
+        this.uno11.SetCaption("Agregar Renglones2");
+        this.SetEvent$1(this.uno11,this,"OnClick","uno11Click");
+        this.dos1.SetParentComponent(this.WebPopupMenu1);
+        this.dos1.SetName("dos1");
+        this.dos1.SetCaption("Abrir Hoja");
+        this.SetEvent$1(this.dos1,this,"OnClick","dos1Click");
+        this.tres1.SetParentComponent(this.WebPopupMenu1);
+        this.tres1.SetName("tres1");
+        this.tres1.SetCaption("Guardar Hoja");
+        this.SetEvent$1(this.tres1,this,"OnClick","tres1Click");
+        this.cuatro.SetParentComponent(this.WebPopupMenu1);
+        this.cuatro.SetName("cuatro");
+        this.cuatro.SetCaption("Limpiar Hoja");
+        this.SetEvent$1(this.cuatro,this,"OnClick","cuatroClick");
+        this.comparte.SetParentComponent(this.WebPopupMenu1);
+        this.comparte.SetName("comparte");
+        this.comparte.SetCaption("Compartir");
+        this.SetEvent$1(this.comparte,this,"OnClick","comparteClick");
+        this.N3.SetParentComponent(this.WebPopupMenu1);
+        this.N3.SetName("N3");
+        this.N3.SetCaption("-");
+        this.Salir2.SetParentComponent(this.WebPopupMenu1);
+        this.Salir2.SetName("Salir2");
+        this.Salir2.SetCaption("Salir");
+        this.SetEvent$1(this.Salir2,this,"OnClick","Salir2Click");
+      } finally {
+        this.WebDiv.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
+        this.WebPanel5.AfterLoadDFMValues();
+        this.WebPanel3.AfterLoadDFMValues();
+        this.WebPanel4.AfterLoadDFMValues();
+        this.WebLabel1.AfterLoadDFMValues();
+        this.WebButton9.AfterLoadDFMValues();
+        this.edPacNombre.AfterLoadDFMValues();
+        this.WebButton11.AfterLoadDFMValues();
+        this.WebButton12.AfterLoadDFMValues();
+        this.WebButton13.AfterLoadDFMValues();
+        this.lbarchivo.AfterLoadDFMValues();
+        this.lbminimizar.AfterLoadDFMValues();
+        this.WebSpeedButton1.AfterLoadDFMValues();
+        this.WebButton1.AfterLoadDFMValues();
+        this.WebScrollRegistro.AfterLoadDFMValues();
+        this.WebLabel3.AfterLoadDFMValues();
+        this.WebLabel4.AfterLoadDFMValues();
+        this.WebLabel5.AfterLoadDFMValues();
+        this.WebLabel6.AfterLoadDFMValues();
+        this.WebLabel7.AfterLoadDFMValues();
+        this.edNombre.AfterLoadDFMValues();
+        this.edImporte.AfterLoadDFMValues();
+        this.edventasuba.AfterLoadDFMValues();
+        this.edArticulo.AfterLoadDFMValues();
+        this.WebPanel1.AfterLoadDFMValues();
+        this.lbusuario2.AfterLoadDFMValues();
+        this.lbusuario.AfterLoadDFMValues();
+        this.btnAgregar.AfterLoadDFMValues();
+        this.btnCerrar.AfterLoadDFMValues();
+        this.edRen.AfterLoadDFMValues();
+        this.btnEliminar.AfterLoadDFMValues();
+        this.WebMessageDlg1.AfterLoadDFMValues();
+        this.radioTipo.AfterLoadDFMValues();
+        this.WebHttpRequest1.AfterLoadDFMValues();
+        this.WebMainMenu1.AfterLoadDFMValues();
+        this.Archivo1.AfterLoadDFMValues();
+        this.Pacientes1.AfterLoadDFMValues();
+        this.Registrar1.AfterLoadDFMValues();
+        this.Consultas1.AfterLoadDFMValues();
+        this.Estudios1.AfterLoadDFMValues();
+        this.Analisis1.AfterLoadDFMValues();
+        this.LimpiarHoja2.AfterLoadDFMValues();
+        this.N1.AfterLoadDFMValues();
+        this.ExportaraPDF1.AfterLoadDFMValues();
+        this.Compartir1.AfterLoadDFMValues();
+        this.CompartirPDF21.AfterLoadDFMValues();
+        this.compartirpdf31.AfterLoadDFMValues();
+        this.Imprimir1.AfterLoadDFMValues();
+        this.N2.AfterLoadDFMValues();
+        this.Salir1.AfterLoadDFMValues();
+        this.Editar1.AfterLoadDFMValues();
+        this.Copiar1.AfterLoadDFMValues();
+        this.Copiar2.AfterLoadDFMValues();
+        this.Cortar1.AfterLoadDFMValues();
+        this.LimpiarHoja1.AfterLoadDFMValues();
+        this.Exportar3.AfterLoadDFMValues();
+        this.ExportarPDF1.AfterLoadDFMValues();
+        this.Excel1.AfterLoadDFMValues();
+        this.Expotar1.AfterLoadDFMValues();
+        this.Descargar1.AfterLoadDFMValues();
+        this.PDF2.AfterLoadDFMValues();
+        this.PDF3.AfterLoadDFMValues();
+        this.Exportar1.AfterLoadDFMValues();
+        this.Exportar2.AfterLoadDFMValues();
+        this.Graficar1.AfterLoadDFMValues();
+        this.Graficas1.AfterLoadDFMValues();
+        this.AnlisisGrfico1.AfterLoadDFMValues();
+        this.Compartir2.AfterLoadDFMValues();
+        this.WebLocalTextFile1.AfterLoadDFMValues();
+        this.PedidosDbClientDataset1.AfterLoadDFMValues();
+        this.WebPopupMenu1.AfterLoadDFMValues();
+        this.uno1.AfterLoadDFMValues();
+        this.uno11.AfterLoadDFMValues();
+        this.dos1.AfterLoadDFMValues();
+        this.tres1.AfterLoadDFMValues();
+        this.cuatro.AfterLoadDFMValues();
+        this.comparte.AfterLoadDFMValues();
+        this.N3.AfterLoadDFMValues();
+        this.Salir2.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebHttpRequest1",pas["WEBLib.REST"].$rtti["THttpRequest"]);
+    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addField("WebDiv",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("WebPanel3",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebPanel4",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebMainMenu1",pas["WEBLib.Menus"].$rtti["TMainMenu"]);
+    $r.addField("WebButton9",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("PDF2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("PDF3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Exportar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Exportar2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebPanel5",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("Archivo1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Pacientes1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Consultas1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Estudios1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Analisis1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Editar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Copiar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Copiar2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Cortar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Exportar3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("ExportarPDF1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Excel1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Expotar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Descargar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebLabel1",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edPacNombre",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("Imprimir1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Graficar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Graficas1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebButton11",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebButton12",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebButton13",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("AnlisisGrfico1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Salir1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("LimpiarHoja1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("lbarchivo",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebScrollRegistro",pas["WEBLib.ExtCtrls"].$rtti["TScrollBox"]);
+    $r.addField("Registrar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("LimpiarHoja2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebLabel3",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebLabel4",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edNombre",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebLabel5",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebLabel6",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edImporte",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebLabel7",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("edventasuba",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("N1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("N2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("ExportaraPDF1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("edArticulo",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("btnAgregar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("btnCerrar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("edRen",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("btnEliminar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("radioTipo",pas["WEBLib.StdCtrls"].$rtti["TRadioGroup"]);
+    $r.addField("lbusuario2",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("lbusuario",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
+    $r.addField("lbminimizar",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("Compartir1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("CompartirPDF21",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("compartirpdf31",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Compartir2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebLocalTextFile1",pas["WEBLib.LocalFiles"].$rtti["TLocalTextFile"]);
+    $r.addField("PedidosDbClientDataset1",pas["WEBLib.IndexedDb"].$rtti["TIndexedDbClientDataset"]);
+    $r.addField("WebSpeedButton1",pas["WEBLib.Buttons"].$rtti["TSpeedButton"]);
+    $r.addField("WebPopupMenu1",pas["WEBLib.Menus"].$rtti["TPopupMenu"]);
+    $r.addField("uno1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("dos1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("tres1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("cuatro",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("comparte",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("N3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Salir2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("uno11",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton3Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebHttpRequest1Response",0,[["Sender",pas.System.$rtti["TObject"]],["AResponse",rtl.string]]);
+    $r.addMethod("WebButton5Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton6Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btn_imprimirClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btn_exportarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btn_exportallClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton7Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton8Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton10Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Pacientes1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Consultas1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Estudios1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("Analisis1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("ExportarPDF1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Expotar1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Descargar1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Imprimir1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Graficas1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("Graficar2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Sqlite1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton11Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton12Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton13Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebDivClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("AnlisisGrfico1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("Salir1Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("LimpiarHoja1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("LimpiarHoja2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Registrar1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btnCerrarClick",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("ExportaraPDF1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btnAgregarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebPanel4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebLabel2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("edventasubaEnter",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebScrollRegistroClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("GetCookie",1,[["cookie_name",rtl.string]],rtl.string);
+    $r.addMethod("WebFormEnter",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("lbminimizarChange",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Compartir1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("CompartirPDF21Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("compartirpdf31Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Compartir2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("lbarchivoClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebLocalTextFile1FileSave",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormShow",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebScrollRegistroMouseEnter",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebScrollRegistroMouseLeave",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("cargarFormaCaptura",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("cargarFormaCaptura2",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("PedidosDbClientDataset1AfterOpen",0,[["DataSet",pas.DB.$rtti["TDataSet"]]]);
+    $r.addMethod("WebDivMouseMove",0,[["Sender",pas.System.$rtti["TObject"]],["Shift",pas.Classes.$rtti["TShiftState"]],["X",rtl.longint],["Y",rtl.longint]]);
+    $r.addMethod("WebSpeedButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Salir2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("comparteClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("dos1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("tres1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("cuatroClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("uno1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebDivDblClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("uno11Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.Form1 = null;
+  $mod.$implcode = function () {
+    $impl.popmenuwidth = 0.0;
+    $impl.maximoRegistros = 101;
+    $impl.RegistroCookie = null;
+    $impl.NomRegistroCookie = "";
+  };
+},["Unit3"]);
+rtl.module("WEBLib.Login",["System","Classes","SysUtils","Types","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.Graphics","WEBLib.Dialogs","Web"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TLoginPanel",pas["WEBLib.Controls"].TCustomControl,function () {
+    this.$init = function () {
+      pas["WEBLib.Controls"].TCustomControl.$init.call(this);
+      this.FPasswordLabel = "";
+      this.FOnLogin = null;
+      this.FUserLabel = "";
+      this.FPassword = "";
+      this.FCaptionLabel = "";
+      this.FUser = "";
+      this.FBorderColor$1 = 0;
+      this.FLoginLabel = "";
+      this.FElementButtonClassname = "";
+      this.FElementInputClassName = "";
+      this.FElementClassName$1 = "";
+      this.FUserInput = null;
+      this.FPasswordInput = null;
+      this.FUserLabelSpan = null;
+      this.FPasswordLabelSpan = null;
+      this.FButton = null;
+      this.FCaption$1 = null;
+      this.FElementCaptionClassName = "";
+      this.FPadding = 0;
+      this.FMargin = 0;
+      this.FElementLabelClassName = "";
+      this.FCreated = false;
+    };
+    this.$final = function () {
+      this.FOnLogin = undefined;
+      this.FUserInput = undefined;
+      this.FPasswordInput = undefined;
+      this.FUserLabelSpan = undefined;
+      this.FPasswordLabelSpan = undefined;
+      this.FButton = undefined;
+      this.FCaption$1 = undefined;
+      pas["WEBLib.Controls"].TCustomControl.$final.call(this);
+    };
+    this.SetPassword = function (Value) {
+      if (this.FPassword !== Value) {
+        this.FPassword = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetPasswordLabel = function (Value) {
+      if (this.FPasswordLabel !== Value) {
+        this.FPasswordLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetUser = function (Value) {
+      if (this.FUser !== Value) {
+        this.FUser = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetUserLabel = function (Value) {
+      if (this.FUserLabel !== Value) {
+        this.FUserLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.HandleLoginClick = function (Event) {
+      var Result = false;
+      Result = true;
+      this.DoLogin();
+      return Result;
+    };
+    this.HandlePasswordKeypress = function (Event) {
+      var Result = false;
+      Result = true;
+      if (Event.key === "Enter") this.DoLogin();
+      return Result;
+    };
+    this.GetPassword = function () {
+      var Result = "";
+      if (this.FPasswordInput != null) {
+        Result = rtl.asExt(this.FPasswordInput,HTMLInputElement).value}
+       else Result = this.FPassword;
+      return Result;
+    };
+    this.GetUser = function () {
+      var Result = "";
+      if (this.FUserInput != null) {
+        Result = rtl.asExt(this.FUserInput,HTMLInputElement).value}
+       else Result = this.FUser;
+      return Result;
+    };
+    this.SetBorderColor$1 = function (Value) {
+      if (this.FBorderColor$1 !== Value) {
+        this.FBorderColor$1 = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetCaptionLabel = function (Value) {
+      if (this.FCaptionLabel !== Value) {
+        this.FCaptionLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.SetElementButtonClassName = function (Value) {
+      this.FElementButtonClassname = Value;
+    };
+    this.SetElementCaptionClassName = function (Value) {
+      this.FElementCaptionClassName = Value;
+    };
+    this.SetElementClassName$1 = function (Value) {
+      this.FElementClassName$1 = Value;
+    };
+    this.SetElementInputClassName = function (Value) {
+      this.FElementInputClassName = Value;
+    };
+    this.SetMargin = function (Value) {
+      if (this.FMargin !== Value) {
+        this.FMargin = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetPadding = function (Value) {
+      if (this.FPadding !== Value) {
+        this.FPadding = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetElementLabelClassName = function (Value) {
+      if (this.FElementLabelClassName !== Value) {
+        this.FElementLabelClassName = Value;
+        this.UpdateElementVisual();
+      };
+    };
+    this.SetLoginLabel = function (Value) {
+      if (this.FLoginLabel !== Value) {
+        this.FLoginLabel = Value;
+        this.UpdateElementData();
+      };
+    };
+    this.DoLogin = function () {
+      if (this.FOnLogin != null) this.FOnLogin(this);
+    };
+    this.CreateElement = function () {
+      var Result = null;
+      var br = null;
+      var useCSS = false;
+      this.FCreated = true;
+      Result = document.createElement("SPAN");
+      this.FCaption$1 = document.createElement("DIV");
+      this.FUserInput = document.createElement("INPUT");
+      this.FUserInput.setAttribute("id",this.FName + "_usr");
+      this.FPasswordInput = document.createElement("INPUT");
+      this.FPasswordInput.setAttribute("type","password");
+      this.FPasswordInput.setAttribute("id",this.FName + "_pwd");
+      this.FUserLabelSpan = document.createElement("DIV");
+      this.FPasswordLabelSpan = document.createElement("DIV");
+      useCSS = this.UseCSSFont();
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FCaption$1,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserLabelSpan,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserInput,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordLabelSpan,this.FFont,useCSS);
+      pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordInput,this.FFont,useCSS);
+      Result.appendChild(this.FCaption$1);
+      Result.appendChild(this.FUserLabelSpan);
+      Result.appendChild(this.FUserInput);
+      Result.appendChild(this.FPasswordLabelSpan);
+      Result.appendChild(this.FPasswordInput);
+      br = document.createElement("BR");
+      Result.appendChild(br);
+      this.FButton = document.createElement("BUTTON");
+      this.FButton.setAttribute("id",this.FName + "_btn");
+      Result.appendChild(this.FButton);
+      return Result;
+    };
+    this.UpdateElementVisual = function () {
+      var strpadding = "";
+      var strmargin = "";
+      var useCSS = false;
+      pas["WEBLib.Controls"].TCustomControl.UpdateElementVisual.call(this);
+      if (this.GetElementHandle() != null) {
+        useCSS = this.UseCSSFont();
+        strpadding = pas.SysUtils.IntToStr(this.FPadding) + "px";
+        strmargin = pas.SysUtils.IntToStr(this.FMargin) + "px";
+        this.GetElementHandle().setAttribute("class",this.FElementClassName$1);
+        if (this.FElementClassName$1 === "") {
+          this.GetElementHandle().style.setProperty("border","solid 1px " + pas["WEBLib.Graphics"].ColorToHTML(this.FBorderColor$1));
+          this.GetElementHandle().style.setProperty("padding",strpadding);
+        };
+        if (this.FVisible) this.GetElementHandle().style.setProperty("display","table");
+        this.FCaption$1.setAttribute("class",this.FElementCaptionClassName);
+        if (this.FElementCaptionClassName === "") {
+          this.FCaption$1.style.setProperty("margin-top",strmargin);
+          this.FCaption$1.style.setProperty("margin-bottom",strmargin);
+          this.FCaption$1.style.setProperty("font-weight","bold");
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FCaption$1,this.FFont,useCSS);
+        };
+        this.FUserInput.setAttribute("class",this.FElementInputClassName);
+        this.FPasswordInput.setAttribute("class",this.FElementInputClassName);
+        if (this.FElementInputClassName === "") {
+          this.FUserInput.style.setProperty("margin-top",strmargin);
+          this.FUserInput.style.setProperty("margin-bottom",strmargin);
+          this.FPasswordInput.style.setProperty("margin-top",strmargin);
+          this.FPasswordInput.style.setProperty("margin-bottom",strmargin);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserInput,this.FFont,useCSS);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordInput,this.FFont,useCSS);
+        };
+        this.FUserInput.style.setProperty("width","100%");
+        this.FUserInput.style.setProperty("display","table-cell");
+        this.FPasswordInput.style.setProperty("width","100%");
+        this.FPasswordInput.style.setProperty("display","table-cell");
+        this.FUserLabelSpan.setAttribute("class",this.FElementLabelClassName);
+        this.FPasswordLabelSpan.setAttribute("class",this.FElementLabelClassName);
+        if (this.FElementLabelClassName === "") {
+          this.FUserLabelSpan.style.setProperty("margin-top",strmargin);
+          this.FUserLabelSpan.style.setProperty("margin-bottom",strmargin);
+          this.FPasswordLabelSpan.style.setProperty("margin-top",strmargin);
+          this.FPasswordLabelSpan.style.setProperty("margin-bottom",strmargin);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FUserLabelSpan,this.FFont,useCSS);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FPasswordLabelSpan,this.FFont,useCSS);
+        };
+        this.FButton.setAttribute("class",this.FElementButtonClassname);
+        if (this.FElementButtonClassname === "") {
+          this.FButton.style.setProperty("margin-top",strmargin);
+          this.FButton.style.setProperty("margin-bottom",strmargin);
+          pas["WEBLib.Controls"].SetHTMLElementFont(this.FButton,this.FFont,useCSS);
+        };
+        this.FButton.style.setProperty("float","right");
+      };
+    };
+    this.UpdateElementData = function () {
+      pas["WEBLib.Controls"].TControl.UpdateElementData.call(this);
+      this.FUserLabelSpan.innerHTML = this.FUserLabel;
+      this.FPasswordLabelSpan.innerHTML = this.FPasswordLabel;
+      this.FButton.innerHTML = this.FLoginLabel;
+      this.FCaption$1.innerHTML = this.FCaptionLabel;
+      rtl.asExt(this.FUserInput,HTMLInputElement).value = this.FUser;
+      rtl.asExt(this.FPasswordInput,HTMLInputElement).value = this.FPassword;
+    };
+    this.BindEvents = function () {
+      var s = "";
+      pas["WEBLib.Controls"].TCustomControl.BindEvents.call(this);
+      if (this.FCreated) {
+        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
+        this.FPasswordInput.addEventListener("keypress",rtl.createCallback(this,"HandlePasswordKeypress"));
+        this.FCreated = false;
+      } else {
+        s = this.GetID() + "_btn";
+        this.FButton = document.getElementById(s);
+        this.FButton.addEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
+        s = this.GetID() + "_usr";
+        this.FUserInput = document.getElementById(s);
+        s = this.GetID() + "_pwd";
+        this.FPasswordInput = document.getElementById(s);
+        this.FPasswordInput.addEventListener("keypress",rtl.createCallback(this,"HandlePasswordKeypress"));
+      };
+    };
+    this.UnbindEvents = function () {
+      pas["WEBLib.Controls"].TControl.UnbindEvents.call(this);
+      this.FButton.removeEventListener("click",rtl.createCallback(this,"HandleLoginClick"));
+    };
+    this.CreateInitialize = function () {
+      pas["WEBLib.Controls"].TCustomControl.CreateInitialize.call(this);
+      this.SetColor(14811135);
+      this.FCaptionLabel = "Login";
+      this.FBorderColor$1 = 12632256;
+      this.FUserLabel = "Username:";
+      this.FPasswordLabel = "Password:";
+      this.FLoginLabel = "Login";
+      this.FPadding = 10;
+      this.FMargin = 5;
+      this.SetHeight(155);
+      this.SetWidth(185);
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addProperty("Align",2,pas["WEBLib.Controls"].$rtti["TAlign"],"FAlign","SetAlign",{Default: pas["WEBLib.Controls"].TAlign.alNone});
+    $r.addProperty("AlignWithMargins",2,rtl.boolean,"FAlignWithMargins","SetAlignWithMargins",{Default: false});
+    $r.addProperty("Anchors",2,pas["WEBLib.Controls"].$rtti["TAnchors"],"FAnchors","SetAnchors",{Default: rtl.createSet(pas["WEBLib.Controls"].TAnchorKind.akLeft,pas["WEBLib.Controls"].TAnchorKind.akTop)});
+    $r.addProperty("BorderColor",2,pas["WEBLib.Graphics"].$rtti["TColor"],"FBorderColor$1","SetBorderColor$1");
+    $r.addProperty("CaptionLabel",2,rtl.string,"FCaptionLabel","SetCaptionLabel");
+    $r.addProperty("Center",0,pas["WEBLib.Controls"].$rtti["TCenter"],"FCenter","");
+    $r.addProperty("ElementClassName",2,rtl.string,"FElementClassName$1","SetElementClassName$1");
+    $r.addProperty("ElementFont",2,pas["WEBLib.Controls"].$rtti["TElementFont"],"FElementFont","SetElementFont",{Default: pas["WEBLib.Controls"].TElementFont.efProperty});
+    $r.addProperty("ElementID",3,pas["WEBLib.Controls"].$rtti["TElementID"],"GetID","SetID");
+    $r.addProperty("ElementPosition",2,pas["WEBLib.Controls"].$rtti["TElementPosition"],"FElementPosition","SetElementPosition",{Default: pas["WEBLib.Controls"].TElementPosition.epAbsolute});
+    $r.addProperty("ElementCaptionClassName",2,rtl.string,"FElementCaptionClassName","SetElementCaptionClassName");
+    $r.addProperty("ElementInputClassName",2,rtl.string,"FElementInputClassName","SetElementInputClassName");
+    $r.addProperty("ElementButtonClassName",2,rtl.string,"FElementButtonClassname","SetElementButtonClassName");
+    $r.addProperty("ElementLabelClassName",2,rtl.string,"FElementLabelClassName","SetElementLabelClassName");
+    $r.addProperty("Font",2,pas["WEBLib.Graphics"].$rtti["TFont"],"FFont","SetFont");
+    $r.addProperty("LoginLabel",2,rtl.string,"FLoginLabel","SetLoginLabel");
+    $r.addProperty("Margin",2,rtl.longint,"FMargin","SetMargin");
+    $r.addProperty("Padding",2,rtl.longint,"FPadding","SetPadding");
+    $r.addProperty("Password",3,rtl.string,"GetPassword","SetPassword");
+    $r.addProperty("PasswordLabel",2,rtl.string,"FPasswordLabel","SetPasswordLabel");
+    $r.addProperty("User",3,rtl.string,"GetUser","SetUser");
+    $r.addProperty("UserLabel",2,rtl.string,"FUserLabel","SetUserLabel");
+    $r.addProperty("OnClick",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnClick","FOnClick");
+    $r.addProperty("OnLogin",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnLogin","FOnLogin");
+  });
+  rtl.createClass(this,"TWebLoginPanel",this.TLoginPanel,function () {
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+  });
+});
+rtl.module("uFormaLogin",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.Login","Unit1","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.REST","WEBLib.JSON","uCargarConsultas","WEBLib.Cookies"],function () {
+  "use strict";
+  var $mod = this;
+  var $impl = $mod.$impl;
+  rtl.createClass(this,"TFormaLogin",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebLoginPanel1 = null;
+      this.WebMessageDlg1 = null;
+      this.WebMemo1 = null;
+      this.WebHttpRequest1 = null;
+      this.WebButton1 = null;
+    };
+    this.$final = function () {
+      this.WebLoginPanel1 = undefined;
+      this.WebMessageDlg1 = undefined;
+      this.WebMemo1 = undefined;
+      this.WebHttpRequest1 = undefined;
+      this.WebButton1 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebLoginPanel1Click = function (Sender) {
+    };
+    this.WebLoginPanel1Login = async function (Sender) {
+      var u = "";
+      var p = "";
+      var mr = 0;
+      var resultado = false;
+      var lBuffer = 0;
+      this.WebMemo1.SetText("");
+      this.WebMemo1.FLines.Clear();
+      u = this.WebLoginPanel1.GetUser();
+      p = this.WebLoginPanel1.GetPassword();
+      $impl.fusuariook = false;
+      resultado = await this.ValidarUsuario(u,p);
+    };
+    this.WebButton1Click = function (Sender) {
+      this.WebHttpRequest1.FURL = "https://idsfdg.github.io/FIDEVALE/usuarios.txt";
+      this.WebHttpRequest1.Execute(null);
+    };
+    this.WebHttpRequest1Response = function (Sender, AResponse) {
+      var ja = null;
+      var sJson = "";
+      var BigSampleData = "";
+      sJson = AResponse;
+      this.WebMemo1.FLines.Add(AResponse);
+      ja = rtl.as(pas["WEBLib.JSON"].TJSONObject.ParseJSONValue(AResponse),pas["WEBLib.JSON"].TJSONArray);
+      var JS_Array = JSON.parse(Aresponse);
+      console.log('JS Array = '+JSON.stringify(JS_Array));
+    };
+    this.WebFormCreate = function (Sender) {
+      var i = 0;
+    };
+    this.WebMemo1Change = function (Sender) {
+      pas["WEBLib.Dialogs"].ShowMessage("on change");
+    };
+    this.ValidarUsuario = async function (u, p) {
+      var Result = false;
+      var ustr = "";
+      var pstr = "";
+      var astr = "";
+      var jresult = false;
+      var Cookies = null;
+      Result = false;
+      jresult = false;
+      ustr = pas.SysUtils.TStringHelper.UpperCase(u);
+      //********************************************************************************
+       //********************************************************************************
+       //        const sqlPromise = initSqlJs({
+       //       locateFile: file => 'https://idsfdg.github.io/FIDEVALE/'
+       //     });
+       //        const dataPromise = fetch("//idsfdg.github.io/FIDEVALE/BD_Vale.db").then(res => res.arrayBuffer());
+       //        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+       //        const db = new SQL.Database(new Uint8Array(buf));
+       //   alert('fech');
+       //********************************************************************************
+       //********************************************************************************
+      
+        const xhr = new XMLHttpRequest();
+      
+      // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
+      //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
+        xhr.open('GET', 'https://idsfdg.github.io/FIDEVALE/BD_Vale.db', true);
+      //alert('1');
+      xhr.responseType = 'arraybuffer';
+      //alert('2');
+       xhr.onload =  e => {
+        const uInt8Array = new Uint8Array(xhr.response);
+       // console.log  ('array',uInt8Array);
+      //   alert('3');
+        const db = new SQL.Database(uInt8Array);
+      //   alert('4');
+      
+       //********************************************************************************
+       //SELECT SQL *********************************************************************
+       //********************************************************************************
+       
+        const  contents =   db.exec("SELECT contrapwd,estado FROM tablausuarios where nombre = '"+ustr+"';");
+       //********************************************************************************
+       //********************************************************************************
+      
+        // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
+         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          // Request finished. Do processing here.
+      
+           var len = contents.length;
+           console.log('contents');
+          console.log(contents.length);
+           if (len > 0)
+           {
+            console.log(contents);
+            console.log('contents columns');
+            console.log(contents[0].columns);
+            console.log('contents values');
+            console.log(contents[0].values);
+            len = contents[0].values.length;
+            if (len > 0)
+            {
+             //  alert('usuario existe');
+               pstr= contents[0].values[0][0];
+               astr= contents[0].values[0][1];
+               console.log('pwd',pstr);
+               console.log('astr',astr);
+              // const edBox = document.getElementById("tabla");
+               if (pstr==p  && astr=="1")
+               {
+                  jresult=true;
+                 // WebMemo1.text = pwd+astr;
+      
+                 //Set the text content of the editbox
+                 //  edBox.value = "OK";
+               }
+               else
+               {
+                    jresult=false;
+                //   edBox.value = "NOT OK";
+               }
+      
+      
+            }
+         }
+        } // readyState
+        console.log('resultado 1',jresult);
+      //alert('5');
+      if (jresult === true) {
+        Result = true;
+        this.Close();
+        Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
+        try {
+          Cookies.Add$2("usr",ustr);
+          Cookies.SetCookies();
+        } finally {
+          Cookies = rtl.freeLoc(Cookies);
+        };
+        pas["WEBLib.Forms"].Application.CreateForm(pas.Unit1.TForm1,{p: pas.Unit1, get: function () {
+            return this.p.Form1;
+          }, set: function (v) {
+            this.p.Form1 = v;
+          }});
+      } else {
+        Result = false;
+        pas["WEBLib.Dialogs"].ShowMessage("Usuario no tiene autorización para entrar al sistema");
+      };
+      //********************************************************************************
+       //********************************************************************************
+      };
+      
+      xhr.send();
+      return Result;
+    };
+    this.ThisMethodIsAsync = async function () {
+      var $Self = this;
+      var Result = null;
+      Result = new Promise(function (ASuccess, AFailed) {
+        ASuccess(7);
+        pas["WEBLib.Dialogs"].ShowMessage("termino");
+      });
+      return Result;
+    };
+    this.ValidarUsuario2 = async function () {
+      var $Self = this;
+      var Result = null;
+      var ustr = "";
+      var pstr = "";
+      var astr = "";
+      var jresult = false;
+      var u = "";
+      var p = "";
+      u = this.WebLoginPanel1.GetUser();
+      p = this.WebLoginPanel1.GetPassword();
+      jresult = false;
+      ustr = pas.SysUtils.TStringHelper.UpperCase(u);
+      Result = new Promise(function (ASuccess, AFailed) {
+        //********************************************************************************
+         //********************************************************************************
+         //        const sqlPromise = initSqlJs({
+         //       locateFile: file => 'https://idsfdg.github.io/FIDEVALE/'
+         //     });
+         //        const dataPromise = fetch("//idsfdg.github.io/FIDEVALE/BD_Vale.db").then(res => res.arrayBuffer());
+         //        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+         //        const db = new SQL.Database(new Uint8Array(buf));
+         //   alert('fech');
+         //********************************************************************************
+         //********************************************************************************
+        
+          const xhr = new XMLHttpRequest();
+        
+        // For example: https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
+        //xhr.open('GET', 'https://idsfdg.github.io/ReportesTXT/Base1.db', true);
+          xhr.open('GET', 'https://idsfdg.github.io/FIDEVALE/BD_Vale.db', true);
+        //alert('1');
+        xhr.responseType = 'arraybuffer';
+        //alert('2');
+         xhr.onload =  e => {
+          const uInt8Array = new Uint8Array(xhr.response);
+        //   alert('3');
+          const db = new SQL.Database(uInt8Array);
+        //   alert('4');
+        
+         //********************************************************************************
+         //SELECT SQL *********************************************************************
+         //********************************************************************************
+        
+          const  contents =   db.exec("SELECT contrapwd,estado FROM tablausuarios where nombre = '"+ustr+"';");
+         //********************************************************************************
+         //********************************************************************************
+        
+          // contents is now [{columns:['col1','col2',...], values:[[first row], [second row], ...]}]
+           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            // Request finished. Do processing here.
+        
+             var len = contents.length;
+             console.log('contents');
+            console.log(contents.length);
+             if (len > 0)
+             {
+             // console.log(contents);
+             // console.log('contents columns');
+             // console.log(contents[0].columns);
+             // console.log('contents values');
+             // console.log(contents[0].values);
+              len = contents[0].values.length;
+              if (len > 0)
+              {
+               //  alert('usuario existe');
+                 pstr= contents[0].values[0][0];
+                 astr= contents[0].values[0][1];
+               //  console.log('pwd',pstr);
+               //  console.log('astr',astr);
+                 if (pstr==p  && astr=="1")
+                 {
+                    jresult=true;
+                   // WebMemo1.text = pwd+astr;
+                  // alert('jresult true');
+                    ASuccess('ok');
+                 }
+              }
+           }
+          } // readyState
+        //alert('5');
+        
+        
+         //********************************************************************************
+         //********************************************************************************
+        };
+        xhr.send();
+        $impl.fusuariook = jresult;
+      });
+      return Result;
+    };
+    this.CargarFormaModal = function () {
+      var $Self = this;
+      var newform = null;
+      function AfterShowModal(AValue) {
+      };
+      function AfterCreate(AForm) {
+      };
+      newform = pas.Unit1.TForm1.$create("CreateNew$3",[AfterCreate]);
+      newform.ShowModal$1(AfterShowModal);
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebLoginPanel1 = pas["WEBLib.Login"].TLoginPanel.$create("Create$1",[this]);
+      this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$2",["tabla"]);
+      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebHttpRequest1 = pas["WEBLib.REST"].THttpRequest.$create("Create$1",[this]);
+      this.WebLoginPanel1.BeforeLoadDFMValues();
+      this.WebMessageDlg1.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
+      this.WebButton1.BeforeLoadDFMValues();
+      this.WebHttpRequest1.BeforeLoadDFMValues();
+      try {
+        this.SetName("FormaLogin");
+        this.SetWidth(674);
+        this.SetHeight(384);
+        this.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebLoginPanel1.SetParentComponent(this);
+        this.WebLoginPanel1.SetName("WebLoginPanel1");
+        this.WebLoginPanel1.SetLeft(168);
+        this.WebLoginPanel1.SetTop(43);
+        this.WebLoginPanel1.SetWidth(337);
+        this.WebLoginPanel1.SetHeight(297);
+        this.WebLoginPanel1.SetCaptionLabel("Control de Acceso");
+        this.WebLoginPanel1.FCenter.SetHorizontal(true);
+        this.WebLoginPanel1.FCenter.SetVertical(true);
+        this.WebLoginPanel1.SetColor(16376827);
+        this.WebLoginPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efProperty);
+        this.WebLoginPanel1.SetElementPosition(pas["WEBLib.Controls"].TElementPosition.epAbsolute);
+        this.WebLoginPanel1.SetLoginLabel("Acceso");
+        this.WebLoginPanel1.SetPasswordLabel("Contraseña:");
+        this.WebLoginPanel1.SetUserLabel("Usuario:");
+        this.SetEvent$1(this.WebLoginPanel1,this,"OnClick","WebLoginPanel1Click");
+        this.SetEvent$1(this.WebLoginPanel1,this,"OnLogin","WebLoginPanel1Login");
+        this.WebMessageDlg1.SetParentComponent(this);
+        this.WebMessageDlg1.SetName("WebMessageDlg1");
+        this.WebMessageDlg1.SetLeft(48);
+        this.WebMessageDlg1.SetTop(192);
+        this.WebMessageDlg1.SetWidth(24);
+        this.WebMessageDlg1.SetHeight(24);
+        this.WebMessageDlg1.FButtons = {};
+        this.WebMessageDlg1.FOpacity = 0.200000000000000000;
+        this.WebMessageDlg1.FElementButtonClassName = "btn";
+        this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
+        this.WebMessageDlg1.FElementTitleClassName = "text-body";
+        this.WebMessageDlg1.FElementContentClassName = "text-body";
+        this.WebMemo1.SetParentComponent(this);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(8);
+        this.WebMemo1.SetTop(64);
+        this.WebMemo1.SetWidth(154);
+        this.WebMemo1.SetHeight(105);
+        this.WebMemo1.SetElementClassName("form-control");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(2);
+        this.WebMemo1.SetVisible(false);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebMemo1,this,"OnChange","WebMemo1Change");
+        this.WebButton1.SetParentComponent(this);
+        this.WebButton1.SetName("WebButton1");
+        this.WebButton1.SetLeft(24);
+        this.WebButton1.SetTop(243);
+        this.WebButton1.SetWidth(96);
+        this.WebButton1.SetHeight(25);
+        this.WebButton1.SetCaption("WebButton1");
+        this.WebButton1.SetChildOrderEx(3);
+        this.WebButton1.SetElementClassName("btn btn-light");
+        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton1.SetHeightPercent(100.000000000000000000);
+        this.WebButton1.SetVisible(false);
+        this.WebButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
+        this.WebHttpRequest1.SetParentComponent(this);
+        this.WebHttpRequest1.SetName("WebHttpRequest1");
+        this.SetEvent$1(this.WebHttpRequest1,this,"OnResponse","WebHttpRequest1Response");
+        this.WebHttpRequest1.SetLeft(552);
+        this.WebHttpRequest1.SetTop(152);
+      } finally {
+        this.WebLoginPanel1.AfterLoadDFMValues();
+        this.WebMessageDlg1.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
+        this.WebButton1.AfterLoadDFMValues();
+        this.WebHttpRequest1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebLoginPanel1",pas["WEBLib.Login"].$rtti["TLoginPanel"]);
+    $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
+    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addField("WebHttpRequest1",pas["WEBLib.REST"].$rtti["THttpRequest"]);
+    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addMethod("WebLoginPanel1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebLoginPanel1Login",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebHttpRequest1Response",0,[["Sender",pas.System.$rtti["TObject"]],["AResponse",rtl.string]]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebMemo1Change",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.FormaLogin = null;
+  $mod.$implcode = function () {
+    $impl.fusuariook = false;
+  };
+},[]);
+rtl.module("Unit2",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.WebCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.Controls","WEBLib.ExtCtrls","Unit3"],function () {
+  "use strict";
+  var $mod = this;
+  var $impl = $mod.$impl;
+  rtl.createClass(this,"TForm2",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebPanel1 = null;
+      this.WebButton1 = null;
+      this.cargar2 = null;
+      this.WebButton2 = null;
+      this.WebPanel2 = null;
+      this.WebHTMLDiv1 = null;
+      this.btnAgrega = null;
+      this.WebMemo1 = null;
+      this.edRen = null;
+      this.WebButton3 = null;
+      this.WebButton4 = null;
+    };
+    this.$final = function () {
+      this.WebPanel1 = undefined;
+      this.WebButton1 = undefined;
+      this.cargar2 = undefined;
+      this.WebButton2 = undefined;
+      this.WebPanel2 = undefined;
+      this.WebHTMLDiv1 = undefined;
+      this.btnAgrega = undefined;
+      this.WebMemo1 = undefined;
+      this.edRen = undefined;
+      this.WebButton3 = undefined;
+      this.WebButton4 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebButton1Click = function (Sender) {
+      var tabledata = [
+          {id:1, name:"Oli Bob", location:"United Kingdom", gender:"male", rating:1, col:"red", dob:"14/04/1984"},
+          {id:2, name:"Mary May", location:"Germany", gender:"female", rating:2, col:"blue", dob:"14/05/1982"},
+          {id:3, name:"Christine Lobowski", location:"France", gender:"female", rating:0, col:"green", dob:"22/05/1982"},
+          {id:4, name:"Brendon Philips", location:"USA", gender:"male", rating:1, col:"orange", dob:"01/08/1980"},
+          {id:5, name:"Margret Marmajuke", location:"Canada", gender:"female", rating:5, col:"yellow", dob:"31/01/1999"},
+          {id:6, name:"Frank Harbours", location:"Russia", gender:"male", rating:4, col:"red", dob:"12/05/1966"},
+          {id:7, name:"Jamie Newhart", location:"India", gender:"male", rating:3, col:"green", dob:"14/05/1985"},
+          {id:8, name:"Gemma Jane", location:"China", gender:"female", rating:0, col:"red", dob:"22/05/1982"},
+          {id:9, name:"Emily Sykes", location:"South Korea", gender:"female", rating:1, col:"maroon", dob:"11/11/1970"},
+          {id:10, name:"James Newman", location:"Japan", gender:"male", rating:5, col:"red", dob:"22/03/1998"},
+      ];
+      
+        tabledata=[];
+      var table = new Tabulator("#example-table", {
+            rows:10,
+            columns:6,
+            data:tabledata,
+          height:"311px",
+          layout:"fitDataFill",
+          responsiveLayout:"collapse",
+          rowHeader:{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
+          columns:[
+          {title:"Name", field:"name", width:200, responsive:0},
+          {title:"Progress", field:"progress", hozAlign:"right", sorter:"number", width:150},
+          {title:"Gender", field:"gender", width:150, responsive:2},
+          {title:"Rating", field:"rating", hozAlign:"center", width:150},
+          {title:"Favourite Color", field:"col", width:150},
+          {title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date", width:150},
+          {title:"Driver", field:"car", hozAlign:"center", width:150},
+          ],
+      });
+    };
+    this.cargar2Click = function (Sender) {
+      var datos ={nombre:"", articulo:"", importe:"", pagado:"", entregado:"", vds:""};
+      
+      
+         var tabledata = [
+          {nombre:"", articulo:"", importe:"", pagado:"", entregado:"", vds:""}
+          ];
+         tabledata = [];
+      
+        for (let i = 0; i < 1; i++) {
+          tabledata.push(datos);
+        }
+      
+      
+            var sheets = [
+          {
+            name:'huno',
+            title:"Registro",
+            key:"uno",
+            rows:10,
+            columns:6,
+           // data:[],
+           data:tabledata,
+        },
+      
+      ];
+      
+      
+        var table = new Tabulator("#example-table", {
+      
+            // selectableRows:true,
+            rows:10,
+            columns:6,
+            data:tabledata,
+          height:"311px",
+          layout:"fitDataFill",
+          responsiveLayout:"collapse",
+          rowHeader:{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
+        //        spreadsheet:true,
+        //spreadsheetRows:10,
+        //spreadsheetColumns:6,
+       // spreadsheetColumnDefinition:{editable:editCheck,editor:"input"},
+      
+        //  spreadsheetSheets:sheets,        // DEFINICION HOJAS ARREGLO
+        //  spreadsheetSheetTabs:true,
+        //  spreadsheetSheetTabsElement:"#table-tabs", //insert tabs in element with id of table-tabs
+      
+      
+        //editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
+        editorEmptyValue:{editor:"input"},
+      
+        spreadsheetColumnDefinition:{editor:"input"}, //add an input editor to every cell
+              rowHeight:40, //set rows to 40px height
+               columns:[
+          {title:"Nombre", field:"nombre", width:150, responsive:0},
+          {title:"Articulo", field:"articulo", hozAlign:"right", sorter:"number", width:150},
+          {title:"importe", field:"importe", width:100},
+          {title:"P", field:"pagado", hozAlign:"center", width:150, responsive:2},
+          {title:"E", field:"entregado", width:150, responsive:3},
+          {title:"VD/S", field:"vds", hozAlign:"center", sorter:"date", width:150 , responsive:4},
+          ],
+      });
+      
+        table.on("tableBuilt", function(){
+      
+             var cols = table.getColumns() //get array of column components
+      
+            //  cols[0].updateDefinition({title:'Ren',width:5,headerTooltip:''});
+            //   cols[1].updateDefinition({title:'Nombre',width:200,responsive:0,headerTooltip:'Nombre',headerFilter:"input"});
+            //   cols[2].updateDefinition({title:'Articulo',width:150,responsive:0,headerTooltip:'Articulo',headerFilter:"input"});
+            //   cols[3].updateDefinition({title:'Importe',width:150,responsive:0,headerTooltip:'Importe',headerFilter:"input",responsive:2});
+            //   cols[4].updateDefinition({title:'P.',width:150,headerTooltip:'Pagado',editor:true, formatter:"tickCross"});
+            //   cols[5].updateDefinition({title:'E.',width:150,headerTooltip:'Entregado',editor:true, formatter:"tickCross"});
+            //   cols[6].updateDefinition({title:'VD/SUB',width:150,headerTooltip:'Vta.Directa /Subasta',headerFilter:"input"});
+          //  alert('tableBuilt');
+      
+      
+             });
+      
+             table.on("rowClick", function(e, row) {
+             var rowIndex = row.getIndex();
+             var rowPosition = row.getPosition();
+         //alert('row click');
+           // alert(row);
+         // alert(' identifica'+row.getData().Identifica);
+      
+           const editBox = document.getElementById("rowsel");
+           // Set the text content of the editbox
+           console.log(row);
+            editBox.value = rowPosition;
+      
+      
+           const btnregi = document.getElementById("btnreg");
+           btnregi.innerText ='Actualizar';
+      });
+    };
+    this.WebButton2Click = function (Sender) {
+      var $Self = this;
+      var newform = null;
+      function AfterShowModal(AValue) {
+      };
+      function AfterCreate(AForm) {
+      };
+      newform = pas.Unit3.TForm3.$create("CreateNew$3",[AfterCreate]);
+      newform.FPopup = true;
+      newform.ShowModal$1(AfterShowModal);
+    };
+    this.WebHTMLDiv1Click = function (Sender) {
+      this.edRen.SetText("");
+      const btnregi = document.getElementById("btnreg");
+      btnregi.innerText ='Agregar';
+    };
+    this.btnAgregaClick = function (Sender) {
+      var $Self = this;
+      var newform = null;
+      function AfterShowModal(AValue) {
+        pas["WEBLib.Dialogs"].ShowMessage("Regreso");
+        $Self.AgregaRegistrosTabla(newform.listadatos);
+      };
+      function AfterCreate(AForm) {
+        newform.btnAgregar.SetCaption("Agregar");
+        if ($Self.edRen.GetText() !== "") newform.btnAgregar.SetCaption("Actualizar");
+      };
+      newform = pas.Unit3.TForm3.$create("CreateNew$3",[AfterCreate]);
+      newform.FPopup = true;
+      newform.ShowModal$1(AfterShowModal);
+    };
+    this.WebFormCreate = function (Sender) {
+      this.cargar2Click(Sender);
+    };
+    this.WebButton3Click = function (Sender) {
+      async function uploadJsonToGitHub(owner, repo, filePath, jsonData, token) {
+          const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
+          const content = btoa(JSON.stringify(jsonData, null, 2)); // Base64 encode the JSON data
+          const message = `Upload JSON file: ${filePath}`;
+      
+          try {
+              // Check if the file already exists to get its SHA for updates
+              let sha = null;
+              try {
+                  const existingFileResponse = await fetch(url, {
+                      headers: {
+                          'Authorization': `token ${token}`,
+                          'Accept': 'application/vnd.github.v3+json'
+                      }
+                  });
+                  if (existingFileResponse.ok) {
+                      const existingFileData = await existingFileResponse.json();
+                      sha = existingFileData.sha;
+                  }
+              } catch (error) {
+                  console.warn("Could not retrieve existing file SHA, assuming new file:", error);
+              }
+      
+              const requestBody = {
+                  message: message,
+                  content: content,
+                  branch: 'main' // Or your target branch
+              };
+      
+              if (sha) {
+                  requestBody.sha = sha; // Include SHA for updates
+              }
+      
+              const response = await fetch(url, {
+                  method: 'PUT',
+                  headers: {
+                      'Authorization': `token ${token}`,
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/vnd.github.v3+json'
+                  },
+                  body: JSON.stringify(requestBody)
+              });
+      
+              if (!response.ok) {
+                  const errorData = await response.json();
+                  throw new Error(`GitHub API error: ${response.status} - ${errorData.message}`);
+              }
+      
+              console.log(`Successfully uploaded ${filePath} to ${owner}/${repo}`);
+              return await response.json();
+      
+          } catch (error) {
+              console.error("Error uploading JSON to GitHub:", error);
+              throw error;
+          }
+      }
+      
+      
+      // Example usage:
+      // const owner = 'your-github-username';
+      // const repo = 'your-repository-name';
+      // const filePath = 'data/mydata.json';
+      // const jsonData = { key: 'value', array: [1, 2, 3] };
+      // const githubToken = 'YOUR_PERSONAL_ACCESS_TOKEN'; // Keep this secure!
+      
+      
+      
+       const owner = 'IDSFDG';
+       const repo = 'FIDEVALE';
+       //const filePath = 'blob/main/mydata.json';
+       const filePath = 'mydata.json';
+       const jsonData = { key: 'value', array: [1, 2, 3] };
+       const githubToken = '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'; // Keep this secure!
+      
+       uploadJsonToGitHub(owner, repo, filePath, jsonData, githubToken)
+           .then(result => console.log('Upload successful:', result))
+           .catch(error => console.error('Upload failed:', error));
+    };
+    this.WebButton4Click = function (Sender) {
+      pas["WEBLib.Forms"].Application.DownloadTextFile("prueba archivo","pruebaarchivo.txt");
+    };
+    this.AgregaRegistrosTabla = function (datos) {
+      var datosloc = null;
+      var len = 0;
+      var i = 0;
+      var strl = "";
+      if (datos.GetCount() > 0) {
+        datosloc = pas.Classes.TStringList.$create("Create$1");
+        datosloc.AddStrings(datos);
+        this.WebMemo1.FLines.AddStrings(datosloc);
+        len = datosloc.GetCount();
+        var table = Tabulator.findTable("#example-table")[0];
+                  var tabledata = [];
+        
+        
+                  console.log('datosloc',len);
+                  console.log(datosloc);
+        for (var $l = 0, $end = datosloc.GetCount() - 1; $l <= $end; $l++) {
+          i = $l;
+          strl = datosloc.Get(i);
+          console.log(strl);
+          var obj=JSON.parse(strl);
+          tabledata.push(obj);
+        };
+        //  table.setData(tabledata);       // API
+        table.addData(tabledata);
+        return;
+      };
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.cargar2 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebButton2 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.edRen = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["rowsel"]);
+      this.WebButton3 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebButton4 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebPanel2 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["example-table"]);
+      this.btnAgrega = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btnreg"]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.WebButton1.BeforeLoadDFMValues();
+      this.cargar2.BeforeLoadDFMValues();
+      this.WebButton2.BeforeLoadDFMValues();
+      this.edRen.BeforeLoadDFMValues();
+      this.WebButton3.BeforeLoadDFMValues();
+      this.WebButton4.BeforeLoadDFMValues();
+      this.WebPanel2.BeforeLoadDFMValues();
+      this.WebHTMLDiv1.BeforeLoadDFMValues();
+      this.btnAgrega.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
+      try {
+        this.SetName("Form2");
+        this.SetWidth(640);
+        this.SetHeight(480);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebPanel1.SetParentComponent(this);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(420);
+        this.WebPanel1.SetWidth(640);
+        this.WebPanel1.SetHeight(60);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel1.SetTabOrder(0);
+        this.WebButton1.SetParentComponent(this.WebPanel1);
+        this.WebButton1.SetName("WebButton1");
+        this.WebButton1.SetLeft(16);
+        this.WebButton1.SetTop(16);
+        this.WebButton1.SetWidth(96);
+        this.WebButton1.SetHeight(25);
+        this.WebButton1.SetCaption("cargar");
+        this.WebButton1.SetElementClassName("btn btn-light");
+        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton1.SetHeightPercent(100.000000000000000000);
+        this.WebButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
+        this.cargar2.SetParentComponent(this.WebPanel1);
+        this.cargar2.SetName("cargar2");
+        this.cargar2.SetLeft(144);
+        this.cargar2.SetTop(16);
+        this.cargar2.SetWidth(96);
+        this.cargar2.SetHeight(25);
+        this.cargar2.SetCaption("cargar2");
+        this.cargar2.SetChildOrderEx(1);
+        this.cargar2.SetElementClassName("btn btn-light");
+        this.cargar2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.cargar2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.cargar2.SetHeightPercent(100.000000000000000000);
+        this.cargar2.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.cargar2,this,"OnClick","cargar2Click");
+        this.WebButton2.SetParentComponent(this.WebPanel1);
+        this.WebButton2.SetName("WebButton2");
+        this.WebButton2.SetLeft(246);
+        this.WebButton2.SetTop(16);
+        this.WebButton2.SetWidth(96);
+        this.WebButton2.SetHeight(25);
+        this.WebButton2.SetCaption("forma");
+        this.WebButton2.SetChildOrderEx(2);
+        this.WebButton2.SetElementClassName("btn btn-light");
+        this.WebButton2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton2.SetHeightPercent(100.000000000000000000);
+        this.WebButton2.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton2,this,"OnClick","WebButton2Click");
+        this.edRen.SetParentComponent(this.WebPanel1);
+        this.edRen.SetName("edRen");
+        this.edRen.SetLeft(544);
+        this.edRen.SetTop(16);
+        this.edRen.SetWidth(57);
+        this.edRen.SetHeight(22);
+        this.edRen.SetChildOrderEx(3);
+        this.edRen.SetElementClassName("form-control");
+        this.edRen.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.edRen.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.edRen.SetHeightPercent(100.000000000000000000);
+        this.edRen.SetText(".");
+        this.edRen.SetWidthPercent(100.000000000000000000);
+        this.WebButton3.SetParentComponent(this.WebPanel1);
+        this.WebButton3.SetName("WebButton3");
+        this.WebButton3.SetLeft(361);
+        this.WebButton3.SetTop(19);
+        this.WebButton3.SetWidth(144);
+        this.WebButton3.SetHeight(25);
+        this.WebButton3.SetCaption("subir archivo Github");
+        this.WebButton3.SetChildOrderEx(4);
+        this.WebButton3.SetElementClassName("btn btn-light");
+        this.WebButton3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton3.SetHeightPercent(100.000000000000000000);
+        this.WebButton3.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton3,this,"OnClick","WebButton3Click");
+        this.WebButton4.SetParentComponent(this.WebPanel1);
+        this.WebButton4.SetName("WebButton4");
+        this.WebButton4.SetLeft(504);
+        this.WebButton4.SetTop(0);
+        this.WebButton4.SetWidth(96);
+        this.WebButton4.SetHeight(25);
+        this.WebButton4.SetCaption("WebButton4");
+        this.WebButton4.SetChildOrderEx(5);
+        this.WebButton4.SetElementClassName("btn btn-light");
+        this.WebButton4.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton4.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton4.SetHeightPercent(100.000000000000000000);
+        this.WebButton4.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton4,this,"OnClick","WebButton4Click");
+        this.WebPanel2.SetParentComponent(this);
+        this.WebPanel2.SetName("WebPanel2");
+        this.WebPanel2.SetLeft(0);
+        this.WebPanel2.SetTop(0);
+        this.WebPanel2.SetWidth(640);
+        this.WebPanel2.SetHeight(420);
+        this.WebPanel2.SetElementClassName("card");
+        this.WebPanel2.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebPanel2.SetChildOrderEx(3);
+        this.WebPanel2.FElementBodyClassName = "card-body";
+        this.WebPanel2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel2.SetTabOrder(1);
+        this.WebHTMLDiv1.SetParentComponent(this.WebPanel2);
+        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
+        this.WebHTMLDiv1.SetLeft(0);
+        this.WebHTMLDiv1.SetTop(0);
+        this.WebHTMLDiv1.SetWidth(640);
+        this.WebHTMLDiv1.SetHeight(387);
+        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebHTMLDiv1.SetChildOrderEx(1);
+        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebHTMLDiv1.SetRole("");
+        this.SetEvent$1(this.WebHTMLDiv1,this,"OnClick","WebHTMLDiv1Click");
+        this.btnAgrega.SetParentComponent(this.WebPanel2);
+        this.btnAgrega.SetName("btnAgrega");
+        this.btnAgrega.SetLeft(0);
+        this.btnAgrega.SetTop(387);
+        this.btnAgrega.SetWidth(640);
+        this.btnAgrega.SetHeight(33);
+        this.btnAgrega.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.btnAgrega.SetCaption("Agregar");
+        this.btnAgrega.SetChildOrderEx(2);
+        this.btnAgrega.SetElementClassName("btn btn-light");
+        this.btnAgrega.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnAgrega.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnAgrega.SetHeightPercent(100.000000000000000000);
+        this.btnAgrega.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnAgrega,this,"OnClick","btnAgregaClick");
+        this.WebMemo1.SetParentComponent(this);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(120);
+        this.WebMemo1.SetTop(96);
+        this.WebMemo1.SetWidth(489);
+        this.WebMemo1.SetHeight(201);
+        this.WebMemo1.SetElementClassName("form-control");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("WebMemo1");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(0);
+        this.WebMemo1.SetVisible(false);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
+      } finally {
+        this.WebPanel1.AfterLoadDFMValues();
+        this.WebButton1.AfterLoadDFMValues();
+        this.cargar2.AfterLoadDFMValues();
+        this.WebButton2.AfterLoadDFMValues();
+        this.edRen.AfterLoadDFMValues();
+        this.WebButton3.AfterLoadDFMValues();
+        this.WebButton4.AfterLoadDFMValues();
+        this.WebPanel2.AfterLoadDFMValues();
+        this.WebHTMLDiv1.AfterLoadDFMValues();
+        this.btnAgrega.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("cargar2",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebButton2",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebPanel2",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("btnAgrega",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addField("edRen",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebButton3",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebButton4",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("cargar2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebHTMLDiv1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btnAgregaClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton3Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.Form2 = null;
+  $mod.$implcode = function () {
+    $impl.llistadatos = null;
+  };
+},[]);
+rtl.module("libace",["System","Web","JS","Classes","Types"],function () {
+  "use strict";
+  var $mod = this;
+  this.$rtti.$ExtClass("TAcePoint",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
+  this.$rtti.$ExtClass("TAceRange",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Range"});
+  this.$rtti.$ExtClass("TAceCompletion",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
+  this.$rtti.$DynArray("TAceCompletions",{eltype: this.$rtti["TAceCompletion"]});
+  this.$rtti.$ExtClass("TAceEditSession");
+  this.$rtti.$ExtClass("TAceEditor");
+  this.$rtti.$RefToProcVar("TAceCompletersCallback",{procsig: rtl.newTIProcSig([["aObject",pas.JS.$rtti["TJSObject"]],["aCompletions",this.$rtti["TAceCompletions"]]])});
+  this.$rtti.$ExtClass("TAceCompleter",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
+  this.$rtti.$DynArray("TAceCompletersArray",{eltype: this.$rtti["TAceCompleter"]});
+  this.$rtti.$ExtClass("TAceVirtualRenderer",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "VirtualRenderer"});
+  this.$rtti.$ExtClass("TAceDocument",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Document"});
+  this.$rtti.$ExtClass("TAceSearchOptions",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Object"});
+  this.$rtti.$ExtClass("TAceEditSession",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "EditSession"});
+  this.$rtti.$ExtClass("TAceSelection",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Selection"});
+  this.$rtti.$ExtClass("TAceEditor",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "Editor"});
+  this.$rtti.$ExtClass("TAce",{ancestor: pas.JS.$rtti["TJSObject"], jsclass: "ace"});
+  this.$rtti.$StaticArray("PascalKeywords$a",{dims: [88], eltype: rtl.string});
+  this.PascalKeywords = ["absolute","abstract","all","and","and_then","array","as","asm","attribute","begin","bindable","case","class","const","constructor","destructor","div","do","else","end","except","export","exports","external","far","file","finalization","finally","for","forward","function","goto","if","implementation","import","in","inherited","initialization","interface","interrupt","is","label","library","mod","module","name","near","nil","not","object","of","only","operator","or","or_else","otherwise","packed","pow","private","procedure","program","property","protected","public","published","qualified","record","repeat","resident","restricted","segment","set","shl","shr","then","to","try","type","unit","until","uses","value","var","view","virtual","while","with","xor"];
+});
+rtl.module("WEBLib.SyntaxMemo",["System","Classes","WEBLib.Controls","Web","JS","libace","SysUtils","Types"],function () {
+  "use strict";
+  var $mod = this;
+  this.$rtti.$MethodVar("TSyntaxMemoChangeCursorEvent",{procsig: rtl.newTIProcSig([["Sender",pas.System.$rtti["TObject"]],["ARow",rtl.longint],["AColumn",rtl.longint]]), methodkind: 0});
+  this.$rtti.$MethodVar("TSyntaxMemoChangeSelectionEvent",{procsig: rtl.newTIProcSig([["Sender",pas.System.$rtti["TObject"]],["ASelectedText",rtl.string]]), methodkind: 0});
+  this.TSyntaxAutocomplete = {"0": "saNone", saNone: 0, "1": "saBasic", saBasic: 1, "2": "saLive", saLive: 2};
+  this.$rtti.$Enum("TSyntaxAutocomplete",{minvalue: 0, maxvalue: 2, ordtype: 1, enumtype: this.TSyntaxAutocomplete});
+  this.TSyntaxWrapping = {"0": "swNone", swNone: 0, "1": "swPrintMargin", swPrintMargin: 1, "2": "swValue", swValue: 2, "3": "swView", swView: 3};
+  this.$rtti.$Enum("TSyntaxWrapping",{minvalue: 0, maxvalue: 3, ordtype: 1, enumtype: this.TSyntaxWrapping});
+  this.TSyntaxTextDirection = {"0": "stdLeftToRight", stdLeftToRight: 0, "1": "stdRightToLeft", stdRightToLeft: 1};
+  this.$rtti.$Enum("TSyntaxTextDirection",{minvalue: 0, maxvalue: 1, ordtype: 1, enumtype: this.TSyntaxTextDirection});
+  rtl.createClass(this,"TSyntaxCompletion",pas.Classes.TCollectionItem,function () {
+    this.$init = function () {
+      pas.Classes.TCollectionItem.$init.call(this);
+      this.FName = "";
+      this.FMeta = "";
+      this.FScore = 0;
+      this.FCaption = "";
+      this.FValue = "";
+    };
+    this.Create$1 = function (ACollection) {
+      pas.Classes.TCollectionItem.Create$1.apply(this,arguments);
+      this.FScore = 0;
+      return this;
+    };
+    var $r = this.$rtti;
+    $r.addMethod("Create$1",2,[["ACollection",pas.Classes.$rtti["TCollection"]]]);
+    $r.addProperty("Caption",0,rtl.string,"FCaption","FCaption");
+    $r.addProperty("Meta",0,rtl.string,"FMeta","FMeta");
+    $r.addProperty("Name",0,rtl.string,"FName","FName");
+    $r.addProperty("Score",0,rtl.longint,"FScore","FScore",{Default: 0});
+    $r.addProperty("Value",0,rtl.string,"FValue","FValue");
+  });
+  rtl.createClass(this,"TSyntaxCompleter",pas.Classes.TCollection,function () {
+    this.$init = function () {
+      pas.Classes.TCollection.$init.call(this);
+      this.FOnChange = null;
+    };
+    this.$final = function () {
+      this.FOnChange = undefined;
+      pas.Classes.TCollection.$final.call(this);
+    };
+    this.SetItem$1 = function (Index, Value) {
+      this.SetItem(Index,Value);
+    };
+    this.GetItem$1 = function (Index) {
+      var Result = null;
+      Result = this.GetItem(Index);
+      return Result;
+    };
+    this.Changed$1 = function () {
+      if (this.FOnChange != null) this.FOnChange(this);
+    };
+    this.Update = function (Item) {
+      pas.Classes.TCollection.Update.apply(this,arguments);
+      this.Changed$1();
+    };
+    this.Create$2 = function () {
+      pas.Classes.TCollection.Create$1.call(this,$mod.TSyntaxCompletion);
+      return this;
+    };
+    this.Add$1 = function () {
+      var Result = null;
+      Result = pas.Classes.TCollection.Add.call(this);
+      return Result;
+    };
+    this.Insert$1 = function (Index) {
+      var Result = null;
+      Result = pas.Classes.TCollection.Insert.call(this,Index);
+      return Result;
+    };
+    var $r = this.$rtti;
+    $r.addMethod("Create$2",2,[]);
+  });
+  rtl.createClass(this,"TSyntaxMemo",pas["WEBLib.Controls"].TCustomControl,function () {
+    this.$init = function () {
+      pas["WEBLib.Controls"].TCustomControl.$init.call(this);
+      this.FPascalCompleter = null;
+      this.FCustomCompleter = null;
+      this.FEditor = null;
+      this.FLines = null;
+      this.FTheme = "";
+      this.FMode = "";
+      this.FSelStart = 0;
+      this.FOnChange = null;
+      this.FOnChangeSelection = null;
+      this.FOnChangeCursor = null;
+      this.FAutocompletion = 0;
+      this.FWordWrapValue = 0;
+      this.FWordWrapIndent = false;
+      this.FWordWrap = 0;
+      this.FSoftTabs = false;
+      this.FFixedGutterWidth = false;
+      this.FShowLineNumbers = false;
+      this.FTextDirection$1 = 0;
+      this.FCustomAutocomplete = null;
+    };
+    this.$final = function () {
+      this.FPascalCompleter = undefined;
+      this.FCustomCompleter = undefined;
+      this.FEditor = undefined;
+      this.FLines = undefined;
+      this.FOnChange = undefined;
+      this.FOnChangeSelection = undefined;
+      this.FOnChangeCursor = undefined;
+      this.FCustomAutocomplete = undefined;
+      pas["WEBLib.Controls"].TCustomControl.$final.call(this);
+    };
+    this.SetText = function (Value) {
+      if (this.FEditor != null) {
+        this.FEditor.setValue(Value);
+        this.FEditor.clearSelection();
+      };
+    };
+    this.SetTheme = function (Value) {
+      this.FTheme = Value;
+      if (this.FEditor != null) this.FEditor.setTheme("ace/theme/" + Value);
+    };
+    this.SetMode = function (Value) {
+      this.FMode = Value;
+      if (this.FEditor != null) this.FEditor.session.setMode("ace/mode/" + Value);
+    };
+    this.SetReadOnly = function (Value) {
+      if (this.FEditor != null) this.FEditor.setReadOnly(Value);
+    };
+    this.SetShowInvisibles = function (Value) {
+      if (this.FEditor != null) this.FEditor.setShowInvisibles(Value);
+    };
+    this.SetHighlightActiveLine = function (Value) {
+      if (this.FEditor != null) this.FEditor.setHighlightActiveLine(Value);
+    };
+    this.SetPrintMargin = function (Value) {
+      if (this.FEditor != null) this.FEditor.setPrintMarginColumn(Value);
+    };
+    this.SetShowPrintMargin = function (Value) {
+      if (this.FEditor != null) this.FEditor.setShowPrintMargin(Value);
+    };
+    this.SetLines = function (Value) {
+      this.FLines.Assign(Value);
+    };
+    this.SetSelLength = function (Value) {
+      var r = null;
+      var ep = null;
+      var sp = null;
+      var d = null;
+      if (this.FEditor != null) {
+        d = this.FEditor.session.getDocument();
+        ep = d.indexToPosition(this.GetSelStart() + Value);
+        sp = d.indexToPosition(this.GetSelStart());
+        if ((this.GetSelStart() + Value) < this.GetSelStart()) {
+          r = ace.Range.fromPoints(ep,sp);
+          this.FEditor.selection.setSelectionRange(r,true);
+        } else {
+          r = ace.Range.fromPoints(sp,ep);
+          this.FEditor.selection.setSelectionRange(r,false);
+        };
+      };
+    };
+    this.SetSelStart = function (Value) {
+      var r = null;
+      var p = null;
+      var d = null;
+      this.FSelStart = Value;
+      if (this.FEditor != null) {
+        d = this.FEditor.session.getDocument();
+        p = d.indexToPosition(Value);
+        r = ace.Range.fromPoints(p,p);
+        this.FEditor.selection.setSelectionRange(r,false);
+      };
+    };
+    this.SetShowIndentGuides = function (Value) {
+      if (this.FEditor != null) this.FEditor.setDisplayIndentGuides(Value);
+    };
+    this.SetCaretPosition = function (Value) {
+      if (this.FEditor != null) this.FEditor.selection.moveTo(Value.y,Value.x);
+    };
+    this.SetAutocompletion = function (Value) {
+      this.FAutocompletion = Value;
+      if (this.FEditor != null) {
+        var $tmp = Value;
+        if ($tmp === $mod.TSyntaxAutocomplete.saNone) {
+          this.FEditor.setOption("enableBasicAutocompletion",false);
+          this.FEditor.setOption("enableLiveAutocompletion",false);
+        } else if ($tmp === $mod.TSyntaxAutocomplete.saBasic) {
+          this.FEditor.setOption("enableBasicAutocompletion",true);
+          this.FEditor.setOption("enableLiveAutocompletion",false);
+        } else if ($tmp === $mod.TSyntaxAutocomplete.saLive) {
+          this.FEditor.setOption("enableBasicAutocompletion",true);
+          this.FEditor.setOption("enableLiveAutocompletion",true);
+        };
+      };
+    };
+    this.SetWordWrap = function (Value) {
+      this.FWordWrap = Value;
+      if (this.FEditor != null) {
+        if (this.FWordWrapIndent) {
+          this.FEditor.session.setOption("indentedSoftWrap",true)}
+         else this.FEditor.session.setOption("indentedSoftWrap",false);
+        var $tmp = Value;
+        if ($tmp === $mod.TSyntaxWrapping.swNone) {
+          this.FEditor.session.setUseWrapMode(false)}
+         else if ($tmp === $mod.TSyntaxWrapping.swPrintMargin) {
+          this.FEditor.session.setUseWrapMode(true);
+          this.FEditor.session.setWrapLimitRange(this.GetPrintMargin(),this.GetPrintMargin());
+        } else if ($tmp === $mod.TSyntaxWrapping.swValue) {
+          this.FEditor.session.setUseWrapMode(true);
+          this.FEditor.session.setWrapLimitRange(this.FWordWrapValue,this.FWordWrapValue);
+        } else if ($tmp === $mod.TSyntaxWrapping.swView) {
+          this.FEditor.session.setUseWrapMode(true);
+          this.FEditor.session.setWrapLimitRange();
+        };
+      };
+    };
+    this.SetWordWrapIndent = function (Value) {
+      this.FWordWrapIndent = Value;
+      this.SetWordWrap(this.FWordWrap);
+    };
+    this.SetWordWrapValue = function (Value) {
+      this.FWordWrapValue = Value;
+      if (this.FWordWrap === $mod.TSyntaxWrapping.swValue) this.SetWordWrap(this.FWordWrap);
+    };
+    this.SetSoftTabs = function (Value) {
+      this.FSoftTabs = Value;
+      if (this.FEditor != null) this.FEditor.session.setOption("useSoftTabs",Value);
+    };
+    this.SetFixedGutterWidth = function (Value) {
+      this.FFixedGutterWidth = Value;
+      if (this.FEditor != null) {
+        this.FEditor.renderer.setOption("fixedWidthGutter",Value);
+        let iNum = 999;
+        this.FEditor.session.gutterRenderer =  {
+          getWidth: function(session, lastLineNumber, config) {
+            if (lastLineNumber < (iNum + 1) & Value) {
+              return iNum.toString().length * config.characterWidth;
+            } else {
+              return lastLineNumber.toString().length * config.characterWidth;
+            }
+          },
+          getText: function(session, row) {
+              return row + 1;
+          }
+        };
+      };
+    };
+    this.SetShowGutter = function (Value) {
+      if (this.FEditor != null) this.FEditor.renderer.setShowGutter(Value);
+    };
+    this.SetShowLineNumbers = function (Value) {
+      this.FShowLineNumbers = Value;
+      if (this.FEditor != null) this.FEditor.renderer.setOption("showLineNumbers",Value);
+    };
+    this.SetFadeFoldWidgets = function (Value) {
+      if (this.FEditor != null) this.FEditor.setFadeFoldWidgets(Value);
+    };
+    this.SetShowFoldWidgets = function (Value) {
+      if (this.FEditor != null) this.FEditor.setShowFoldWidgets(Value);
+    };
+    this.SetTextDirection = function (Value) {
+      this.FTextDirection$1 = Value;
+      if (this.FEditor != null) {
+        var $tmp = Value;
+        if ($tmp === $mod.TSyntaxTextDirection.stdLeftToRight) {
+          this.FEditor.setOption("rtl",false)}
+         else if ($tmp === $mod.TSyntaxTextDirection.stdRightToLeft) this.FEditor.setOption("rtl",true);
+      };
+    };
+    this.SetFontSize = function (Value) {
+      if (this.FEditor != null) {
+        this.FEditor.setFontSize(pas.SysUtils.IntToStr(Value) + "px");
+      };
+    };
+    this.SetCustomAutocomplete = function (Value) {
+      this.FCustomAutocomplete.Assign(Value);
+      this.InitializeKeyWords(this.FCustomAutocomplete);
+    };
+    this.SetPersistentHorizontalScrollbar = function (Value) {
+    };
+    this.SetPersistentVerticalScrollbar = function (Value) {
+    };
+    this.GetText = function () {
+      var Result = "";
+      if (this.FEditor != null) {
+        Result = this.FEditor.getValue()}
+       else Result = "";
+      return Result;
+    };
+    this.GetReadOnly = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.getReadOnly()}
+       else Result = false;
+      return Result;
+    };
+    this.GetShowInvisibles = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.getShowInvisibles()}
+       else Result = false;
+      return Result;
+    };
+    this.GetHighlightActiveLine = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.getHighlightActiveLine()}
+       else Result = false;
+      return Result;
+    };
+    this.GetPrintMargin = function () {
+      var Result = 0;
+      if (this.FEditor != null) {
+        Result = this.FEditor.getPrintMarginColumn()}
+       else Result = 80;
+      return Result;
+    };
+    this.GetShowPrintMargin = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.getShowPrintMargin()}
+       else Result = false;
+      return Result;
+    };
+    this.GetLines = function () {
+      var Result = null;
+      var strl = null;
+      var ds = [];
+      var I = 0;
+      if (!this.IsUpdating()) {
+        strl = pas.Classes.TStringList.$create("Create$1");
+        if (this.FEditor != null) {
+          ds = this.FEditor.session.getDocument().getAllLines();
+          strl = pas.Classes.TStringList.$create("Create$1");
+          strl.BeginUpdate();
+          for (var $l = 0, $end = rtl.length(ds) - 1; $l <= $end; $l++) {
+            I = $l;
+            strl.Add(ds[I]);
+          };
+          strl.EndUpdate();
+        };
+        this.FLines.Assign(strl);
+        strl = rtl.freeLoc(strl);
+      };
+      Result = this.FLines;
+      return Result;
+    };
+    this.GetSelLength = function () {
+      var Result = 0;
+      var d = null;
+      if (this.FEditor != null) {
+        d = this.FEditor.session.getDocument();
+        Result = d.positionToIndex(this.FEditor.selection.getRange().end) - this.GetSelStart();
+      } else Result = 0;
+      return Result;
+    };
+    this.GetSelStart = function () {
+      var Result = 0;
+      if (this.FEditor != null) {
+        Result = this.FEditor.session.getDocument().positionToIndex(this.FEditor.selection.getRange().start)}
+       else Result = this.FSelStart;
+      return Result;
+    };
+    this.GetShowIndentGuides = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.getDisplayIndentGuides()}
+       else Result = false;
+      return Result;
+    };
+    this.GetCaretPosition = function () {
+      var Result = pas.Types.TPoint.$new();
+      var p = pas.Types.TPoint.$new();
+      p.x = 0;
+      p.y = 0;
+      if (this.FEditor != null) {
+        p.x = this.FEditor.getCursorPosition().column;
+        p.y = this.FEditor.getCursorPosition().row;
+      };
+      Result.$assign(p);
+      return Result;
+    };
+    this.GetShowGutter = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.renderer.getShowGutter()}
+       else Result = false;
+      return Result;
+    };
+    this.GetFadeFoldWidgets = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.getFadeFoldWidgets()}
+       else Result = false;
+      return Result;
+    };
+    this.GetShowFoldWidgets = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        this.FEditor.getShowFoldWidgets()}
+       else Result = false;
+      return Result;
+    };
+    this.GetFontSize = function () {
+      var Result = 0;
+      var s = "";
+      if (this.FEditor != null) {
+        s = this.FEditor.getFontSize() + "";
+        s = pas.SysUtils.StringReplace(s,"p","",{});
+        s = pas.SysUtils.StringReplace(s,"x","",{});
+        Result = pas.SysUtils.StrToInt(s);
+      } else Result = 12;
+      return Result;
+    };
+    this.GetPersistentHorizontalScrollbar = function () {
+      var Result = false;
+      if ((this.FEditor != null) && !(pas.Classes.TComponentStateItem.csDesigning in this.FComponentState)) {
+        Result = this.FEditor.getHScrollBarAlwaysVisible()}
+       else Result = false;
+      return Result;
+    };
+    this.GetPersistentVerticalScrollbar = function () {
+      var Result = false;
+      if ((this.FEditor != null) && !(pas.Classes.TComponentStateItem.csDesigning in this.FComponentState)) {
+        Result = this.FEditor.getVScrollBarAlwaysVisible()}
+       else Result = false;
+      return Result;
+    };
+    this.GetFont = function () {
+      var Result = "";
+      Result = "";
+      return Result;
+    };
+    this.SetFontName = function (Value) {
+      if (this.FEditor != null) this.FEditor.setOption("fontFamily",Value);
+    };
+    this.GetTabSize = function () {
+      var Result = 0;
+      if (this.FEditor != null) {
+        Result = this.FEditor.session.getTabSize()}
+       else Result = 2;
+      return Result;
+    };
+    this.SetTabSize = function (Value) {
+      if (this.FEditor != null) this.FEditor.session.setTabSize(Value);
+    };
+    this.AutocompleteChanged = function (Sender) {
+      this.InitializeKeyWords(this.FCustomAutocomplete);
+    };
+    this.BindEvents = function () {
+      pas["WEBLib.Controls"].TCustomControl.BindEvents.call(this);
+      if (this.FEditor != null) {
+        this.FEditor.addEventListener("change",rtl.createCallback(this,"DoChange"));
+        this.FEditor.selection.addEventListener("changeCursor",rtl.createCallback(this,"HandleDoChangeCursor"));
+        this.FEditor.selection.addEventListener("changeSelection",rtl.createCallback(this,"HandleDoChangeSelection"));
+        this.FEditor.container.addEventListener("keydown",rtl.createCallback(this,"HandleDoKeyDown"));
+        this.FEditor.container.addEventListener("keyup",rtl.createCallback(this,"HandleDoKeyUp"));
+        this.FEditor.container.addEventListener("keypress",rtl.createCallback(this,"HandleDoKeyPress"));
+      };
+      if (this.GetElementHandle() != null) {
+        this.GetElementHandle().ondragover = rtl.createSafeCallback(this,"HandleDoDragOver");
+        this.GetElementHandle().ondrop = rtl.createSafeCallback(this,"HandleDoDrop");
+      };
+    };
+    this.DoChange = function () {
+      if (this.FOnChange != null) this.FOnChange(this);
+    };
+    this.DoChangeCursorPosition = function (ARow, AColumn) {
+      if (this.FOnChangeCursor != null) this.FOnChangeCursor(this,ARow,AColumn);
+    };
+    this.DoChangeSelection = function (ASelectedText) {
+      if (this.FOnChangeSelection != null) this.FOnChangeSelection(this,ASelectedText);
+    };
+    this.DoLinesChange = function (Sender) {
+      var I = 0;
+      var lns = [];
+      var p = null;
+      if (this.FEditor != null) {
+        lns = rtl.arraySetLength(lns,"",this.FLines.GetCount());
+        for (var $l = 0, $end = this.FLines.GetCount() - 1; $l <= $end; $l++) {
+          I = $l;
+          lns[I] = this.FLines.Get(I);
+        };
+        if (rtl.length(lns) === 0) {
+          lns = rtl.arraySetLength(lns,"",1);
+          lns[0] = "";
+        };
+        this.FEditor.setValue("");
+        p = new Object();
+        p.row = 0;
+        p.column = 0;
+        this.FEditor.session.getDocument().insertMergedLines(p,rtl.arrayRef(lns));
+      };
+    };
+    this.DragDrop$1 = function (Source, X, Y) {
+      if (this.FOnDragDrop != null) this.FOnDragDrop(this,Source,X,Y);
+    };
+    this.DragOver$1 = function (Source, X, Y, State, Accept) {
+      if (this.FOnDragOver != null) this.FOnDragOver(this,Source,X,Y,State,Accept);
+    };
+    this.EditorResize = function (Sender) {
+      if (this.FEditor != null) this.FEditor.resize();
+    };
+    this.RemoveCompleter = function (ACompleter) {
+      if (this.FEditor != null) {
+        let completers = this.FEditor.completers;
+        if (completers) {
+          if (completers.indexOf(ACompleter) !== -1) {
+            completers.splice(completers.indexOf(ACompleter), 1);
+          };
+        };
+      };
+    };
+    this.UnbindEvents = function () {
+      pas["WEBLib.Controls"].TControl.UnbindEvents.call(this);
+      if (this.FEditor != null) {
+        this.FEditor.removeEventListener("change",rtl.createCallback(this,"DoChange"));
+        this.FEditor.selection.removeEventListener("changeCursor",rtl.createCallback(this,"HandleDoChangeCursor"));
+        this.FEditor.selection.removeEventListener("changeSelection",rtl.createCallback(this,"HandleDoChangeSelection"));
+        this.FEditor.container.removeEventListener("keydown",rtl.createCallback(this,"HandleDoKeyDown"));
+        this.FEditor.container.removeEventListener("keyup",rtl.createCallback(this,"HandleDoKeyUp"));
+        this.FEditor.container.removeEventListener("keypress",rtl.createCallback(this,"HandleDoKeyPress"));
+      };
+    };
+    this.UpdateElement = function () {
+      pas["WEBLib.Controls"].TControl.UpdateElement.call(this);
+      if (!this.IsUpdating() && (this.GetElementHandle() != null)) {
+        this.GetElementHandle().style.setProperty("font-family","");
+        this.GetElementHandle().style.setProperty("font-style","");
+        this.GetElementHandle().style.setProperty("font-size","");
+        this.GetElementHandle().style.setProperty("color","");
+        this.GetElementHandle().style.setProperty("user-select","");
+        this.GetElementHandle().style.setProperty("outline","");
+      };
+    };
+    this.CreateElement = function () {
+      var Result = null;
+      Result = document.createElement("DIV");
+      this.FEditor = ace.edit(Result);
+      this.SetAutocompletion($mod.TSyntaxAutocomplete.saBasic);
+      this.SetSoftTabs(true);
+      this.SetTabSize(2);
+      return Result;
+    };
+    this.GetElementBindHandle = function () {
+      var Result = null;
+      if (this.FEditor != null) {
+        Result = this.FEditor}
+       else pas["WEBLib.Controls"].TControl.GetElementBindHandle.call(this);
+      return Result;
+    };
+    this.GetInstanceName = function () {
+      var Result = "";
+      Result = this.FName + "_" + this.$classname;
+      return Result;
+    };
+    this.HandleDoChangeCursor = function (Event) {
+      var Result = false;
+      if (this.FEditor != null) this.DoChangeCursorPosition(this.FEditor.getCursorPosition().row,this.FEditor.getCursorPosition().column);
+      Result = true;
+      return Result;
+    };
+    this.HandleDoChangeSelection = function (Event) {
+      var Result = false;
+      if (this.FEditor != null) this.DoChangeSelection(this.FEditor.getSelectedText());
+      Result = true;
+      return Result;
+    };
+    this.HandleDoDragOver = function (aEvent) {
+      var Result = false;
+      var allow = false;
+      var obj = null;
+      aEvent.preventDefault();
+      this.DragOver$1(obj,0,0,pas["WEBLib.Controls"].TDragState.dsDragMove,{get: function () {
+          return allow;
+        }, set: function (v) {
+          allow = v;
+        }});
+      Result = true;
+      return Result;
+    };
+    this.HandleDoDrop = function (aEvent) {
+      var Result = false;
+      var dragobj = null;
+      aEvent.preventDefault();
+      dragobj = pas["WEBLib.Controls"].TDragSourceObject.$create("Create");
+      dragobj.FJSEvent = aEvent;
+      dragobj.FObject = this;
+      try {
+        this.DragDrop$1(dragobj,aEvent.clientX,aEvent.clientY);
+      } finally {
+        dragobj = rtl.freeLoc(dragobj);
+      };
+      Result = true;
+      return Result;
+    };
+    this.Loaded = function () {
+      var fs = 0;
+      pas["WEBLib.Controls"].TCustomControl.Loaded.call(this);
+      fs = this.GetFontSize();
+      this.SetFontSize(fs + 1);
+      this.SetFontSize(fs - 1);
+    };
+    this.CreateInitialize = function () {
+      pas["WEBLib.Controls"].TCustomControl.CreateInitialize.call(this);
+      this.SetTabStop(true);
+      this.FCustomAutocomplete = $mod.TSyntaxCompleter.$create("Create$2");
+      this.FCustomAutocomplete.FOnChange = rtl.createCallback(this,"AutocompleteChanged");
+      this.FLines = pas.Classes.TStringList.$create("Create$1");
+      this.FLines.SetSkipLastLineBreak(true);
+      this.FLines.FOnChange = rtl.createCallback(this,"DoLinesChange");
+      this.FEventStopPropagation = rtl.diffSet(this.FEventStopPropagation,rtl.createSet(pas["WEBLib.Controls"].TElementEvent.eeMouseMove));
+      this.FOnResize = rtl.createCallback(this,"EditorResize");
+      if (!(this.FEditor != null) && (this.GetElementHandle() != null)) {
+        this.UnbindEvents();
+        this.FEditor = ace.edit(this.GetElementHandle());
+        this.SetAutocompletion($mod.TSyntaxAutocomplete.saBasic);
+        this.SetSoftTabs(true);
+        this.SetTabSize(2);
+        this.BindEvents();
+      };
+    };
+    this.Destroy = function () {
+      rtl.free(this,"FCustomAutocomplete");
+      rtl.free(this,"FLines");
+      pas["WEBLib.Controls"].TCustomControl.Destroy.call(this);
+    };
+    this.BeginUpdate = function () {
+      pas["WEBLib.Controls"].TControl.BeginUpdate.call(this);
+    };
+    this.Clear = function () {
+      this.SetText("");
+    };
+    this.DisableLocalKeywords = function () {
+      let langTools = ace.require('ace/ext/language_tools');
+      langTools.setCompleters([]);
+    };
+    this.EndUpdate = function () {
+      pas["WEBLib.Controls"].TCustomControl.EndUpdate.call(this);
+      this.InitializeKeyWords(this.FCustomAutocomplete);
+    };
+    this.Find = function (AText) {
+      if (this.FEditor != null) this.FEditor.find(AText);
+    };
+    this.FindAll = function (AText) {
+      if (this.FEditor != null) this.FEditor.findAll(AText);
+    };
+    this.FindNext = function () {
+      if (this.FEditor != null) this.FEditor.findNext();
+    };
+    this.FindPrevious = function () {
+      if (this.FEditor != null) this.FEditor.findPrevious();
+    };
+    this.Focus = function () {
+      if (this.FEditor != null) this.FEditor.focus();
+    };
+    this.InitializeKeyWords = function (ACompleter) {
+      var I = 0;
+      var ca = [];
+      var c = null;
+      if (this.IsUpdating()) return;
+      this.RemoveCompleter(this.FCustomCompleter);
+      ca = rtl.arraySetLength(ca,null,ACompleter.GetCount());
+      for (var $l = 0, $end = ACompleter.GetCount() - 1; $l <= $end; $l++) {
+        I = $l;
+        c = new Object();
+        c.caption = ACompleter.GetItem$1(I).FCaption;
+        c.meta = ACompleter.GetItem$1(I).FMeta;
+        c.name = ACompleter.GetItem$1(I).FName;
+        c.score = ACompleter.GetItem$1(I).FScore;
+        c.value = ACompleter.GetItem$1(I).FValue;
+        ca[I] = c;
+      };
+      var completer = {
+            getCompletions: function(editor, session, pos, prefix, callback) {
+              callback(null, ca);
+            }
+          };
+      
+          this.FCustomCompleter = completer;
+      
+          let langTools = ace.require('ace/ext/language_tools');
+          if (langTools) {
+            langTools.addCompleter(completer);
+          };
+    };
+    this.InsertText = function (AText) {
+      if (this.FEditor != null) this.FEditor.session.getDocument().insert(this.FEditor.getCursorPosition(),AText);
+    };
+    this.InsertText$1 = function (APosition, AText) {
+      var p = null;
+      if (this.FEditor != null) {
+        p = new Object();
+        p.row = APosition.y;
+        p.column = APosition.x;
+        this.FEditor.session.getDocument().insert(p,AText);
+      };
+    };
+    this.PreloadPascalKeywords = function () {
+      var ca = [];
+      var c = null;
+      var I = 0;
+      this.RemoveCompleter(this.FPascalCompleter);
+      ca = rtl.arraySetLength(ca,null,88);
+      for (I = 0; I <= 88; I++) {
+        c = new Object();
+        c.value = pas.libace.PascalKeywords[I];
+        c.score = 1000;
+        c.meta = "keyword";
+        ca[I] = c;
+      };
+      var completer = {
+            getCompletions: function(editor, session, pos, prefix, callback) {
+              callback(null, ca);
+            }
+          };
+      
+          this.FPascalCompleter = completer;
+      
+          let langTools = ace.require('ace/ext/language_tools');
+          langTools.addCompleter(completer);
+    };
+    this.Redo = function () {
+      if (this.FEditor != null) this.FEditor.redo();
+    };
+    this.RemoveSelectedText = function () {
+      if (this.FEditor != null) this.FEditor.session.getDocument().remove(this.FEditor.selection.getRange());
+    };
+    this.RemoveCustomAutocompleter = function () {
+      this.RemoveCompleter(this.FCustomCompleter);
+    };
+    this.RemovePascalKeywords = function () {
+      this.RemoveCompleter(this.FPascalCompleter);
+    };
+    this.Replace = function (AReplacement) {
+      if (this.FEditor != null) this.FEditor.replace(AReplacement);
+    };
+    this.Replace$1 = function (AText, AReplacement) {
+      var opt = null;
+      if (this.FEditor != null) {
+        opt = new Object();
+        opt.needle = AText;
+        this.FEditor.replace(AReplacement,opt);
+      };
+    };
+    this.ReplaceAll = function (AReplacement) {
+      if (this.FEditor != null) this.FEditor.replaceAll(AReplacement);
+    };
+    this.ReplaceAll$1 = function (AText, AReplacement) {
+      var opt = null;
+      if (this.FEditor != null) {
+        opt = new Object();
+        opt.needle = AText;
+        this.FEditor.replaceAll(AReplacement,opt);
+      };
+    };
+    this.SelectAll = function () {
+      if (this.FEditor != null) this.FEditor.selectAll();
+    };
+    this.Undo = function () {
+      if (this.FEditor != null) this.FEditor.undo();
+    };
+    this.Unselect = function () {
+      if (this.FEditor != null) this.FEditor.clearSelection();
+    };
+    this.OpenSearchBox = function () {
+      var Result = false;
+      if (this.FEditor != null) {
+        Result = this.FEditor.execCommand("find")}
+       else Result = false;
+      return Result;
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addProperty("Align",2,pas["WEBLib.Controls"].$rtti["TAlign"],"FAlign","SetAlign",{Default: pas["WEBLib.Controls"].TAlign.alNone});
+    $r.addProperty("Anchors",2,pas["WEBLib.Controls"].$rtti["TAnchors"],"FAnchors","SetAnchors",{Default: rtl.createSet(pas["WEBLib.Controls"].TAnchorKind.akLeft,pas["WEBLib.Controls"].TAnchorKind.akTop)});
+    $r.addProperty("AlignWithMargins",2,rtl.boolean,"FAlignWithMargins","SetAlignWithMargins",{Default: false});
+    $r.addProperty("Autocompletion",2,$mod.$rtti["TSyntaxAutocomplete"],"FAutocompletion","SetAutocompletion");
+    $r.addProperty("CustomAutocomplete",2,$mod.$rtti["TSyntaxCompleter"],"FCustomAutocomplete","SetCustomAutocomplete");
+    $r.addProperty("FadeFoldWidgets",3,rtl.boolean,"GetFadeFoldWidgets","SetFadeFoldWidgets");
+    $r.addProperty("FixedGutterWidth",2,rtl.boolean,"FFixedGutterWidth","SetFixedGutterWidth");
+    $r.addProperty("FontSize",3,rtl.longint,"GetFontSize","SetFontSize");
+    $r.addProperty("Height",3,rtl.longint,"GetHeight","SetHeight");
+    $r.addProperty("HighlightActiveLine",3,rtl.boolean,"GetHighlightActiveLine","SetHighlightActiveLine");
+    $r.addProperty("Left",3,rtl.longint,"GetLeft","SetLeft");
+    $r.addProperty("Lines",3,pas.Classes.$rtti["TStringList"],"GetLines","SetLines");
+    $r.addProperty("Mode",2,rtl.string,"FMode","SetMode");
+    $r.addProperty("PersistentHorizontalScrollbar",3,rtl.boolean,"GetPersistentHorizontalScrollbar","SetPersistentHorizontalScrollbar");
+    $r.addProperty("PersistentVerticalScrollbar",3,rtl.boolean,"GetPersistentVerticalScrollbar","SetPersistentVerticalScrollbar");
+    $r.addProperty("PrintMargin",3,rtl.longint,"GetPrintMargin","SetPrintMargin",{Default: 80});
+    $r.addProperty("ReadOnly",3,rtl.boolean,"GetReadOnly","SetReadOnly");
+    $r.addProperty("SelLength",3,rtl.longint,"GetSelLength","SetSelLength");
+    $r.addProperty("SelStart",3,rtl.longint,"GetSelStart","SetSelStart");
+    $r.addProperty("ShowFoldWidgets",3,rtl.boolean,"GetShowFoldWidgets","SetShowFoldWidgets");
+    $r.addProperty("ShowGutter",3,rtl.boolean,"GetShowGutter","SetShowGutter");
+    $r.addProperty("ShowIndentGuides",3,rtl.boolean,"GetShowIndentGuides","SetShowIndentGuides");
+    $r.addProperty("ShowInvisibles",3,rtl.boolean,"GetShowInvisibles","SetShowInvisibles");
+    $r.addProperty("ShowLineNumbers",2,rtl.boolean,"FShowLineNumbers","SetShowLineNumbers");
+    $r.addProperty("ShowPrintMargin",3,rtl.boolean,"GetShowPrintMargin","SetShowPrintMargin");
+    $r.addProperty("SoftTabs",2,rtl.boolean,"FSoftTabs","SetSoftTabs",{Default: true});
+    $r.addProperty("TextDirection",2,$mod.$rtti["TSyntaxTextDirection"],"FTextDirection$1","SetTextDirection");
+    $r.addProperty("Theme",2,rtl.string,"FTheme","SetTheme");
+    $r.addProperty("TabOrder",2,rtl.longint,"FTabOrder","SetTabOrder");
+    $r.addProperty("TabSize",3,rtl.longint,"GetTabSize","SetTabSize");
+    $r.addProperty("TabStop",2,rtl.boolean,"FTabStop","SetTabStop",{Default: true});
+    $r.addProperty("Top",3,rtl.longint,"GetTop","SetTop");
+    $r.addProperty("Visible",2,rtl.boolean,"FVisible","SetVisible",{Default: true});
+    $r.addProperty("Width",3,rtl.longint,"GetWidth","SetWidth");
+    $r.addProperty("WordWrap",2,$mod.$rtti["TSyntaxWrapping"],"FWordWrap","SetWordWrap");
+    $r.addProperty("WordWrapIndented",2,rtl.boolean,"FWordWrapIndent","SetWordWrapIndent");
+    $r.addProperty("WordWrapValue",2,rtl.longint,"FWordWrapValue","SetWordWrapValue");
+    $r.addProperty("OnChange",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnChange","FOnChange");
+    $r.addProperty("OnChangeCursor",0,$mod.$rtti["TSyntaxMemoChangeCursorEvent"],"FOnChangeCursor","FOnChangeCursor");
+    $r.addProperty("OnChangeSelection",0,$mod.$rtti["TSyntaxMemoChangeSelectionEvent"],"FOnChangeSelection","FOnChangeSelection");
+    $r.addProperty("OnClick",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnClick","FOnClick");
+    $r.addProperty("OnDblClick",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnDblClick","FOnDblClick");
+    $r.addProperty("OnDragDrop",0,pas["WEBLib.Controls"].$rtti["TDragDropEvent"],"FOnDragDrop","FOnDragDrop");
+    $r.addProperty("OnDragOver",0,pas["WEBLib.Controls"].$rtti["TDragOverEvent"],"FOnDragOver","FOnDragOver");
+    $r.addProperty("OnEnter",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnEnter","FOnEnter");
+    $r.addProperty("OnExit",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnExit","FOnExit");
+    $r.addProperty("OnKeyDown",0,pas["WEBLib.Controls"].$rtti["TKeyEvent"],"FOnKeyDown","FOnKeyDown");
+    $r.addProperty("OnKeyPress",0,pas["WEBLib.Controls"].$rtti["TKeyPressEvent"],"FOnKeyPress","FOnKeyPress");
+    $r.addProperty("OnKeyUp",0,pas["WEBLib.Controls"].$rtti["TKeyEvent"],"FOnKeyUp","FOnKeyUp");
+    $r.addProperty("OnMouseDown",0,pas["WEBLib.Controls"].$rtti["TMouseEvent"],"FOnMouseDown","FOnMouseDown");
+    $r.addProperty("OnMouseEnter",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnMouseEnter","FOnMouseEnter");
+    $r.addProperty("OnMouseLeave",0,pas["WEBLib.Controls"].$rtti["TNotifyEvent"],"FOnMouseLeave","FOnMouseLeave");
+    $r.addProperty("OnMouseMove",0,pas["WEBLib.Controls"].$rtti["TMouseMoveEvent"],"FOnMouseMove","FOnMouseMove");
+    $r.addProperty("OnMouseUp",0,pas["WEBLib.Controls"].$rtti["TMouseEvent"],"FOnMouseUp","FOnMouseUp");
+  });
+  rtl.createClass(this,"TWebSyntaxMemo",this.TSyntaxMemo,function () {
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+  });
+});
+rtl.module("Unit4",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.SyntaxMemo","WEBLib.WebCtrls","WEBLib.ExtCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TForm4",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebHTMLDiv1 = null;
+      this.WebSyntaxMemo1 = null;
+      this.WebPanel1 = null;
+      this.WebButton1 = null;
+    };
+    this.$final = function () {
+      this.WebHTMLDiv1 = undefined;
+      this.WebSyntaxMemo1 = undefined;
+      this.WebPanel1 = undefined;
+      this.WebButton1 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebFormCreate = function (Sender) {
+      var i = 0;
+      var j = 0;
+      for (i = 1; i <= 100; i++) this.WebSyntaxMemo1.GetLines().Add(" ");
+      return;
+      var editor = ace.edit("editor");
+      // editor.setTheme("ace/theme/monokai");
+      // editor.session.setMode("ace/mode/javascript");
+      //  editor.gotoLine(10);
+    };
+    this.WebButton1Click = function (Sender) {
+      var editor = ace.edit("editor");
+           //editor.setTheme("ace/theme/monokai");
+           //editor.session.setMode("ace/mode/javascript");
+      
+            editor.gotoLine(10);
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["editor"]);
+      this.WebSyntaxMemo1 = pas["WEBLib.SyntaxMemo"].TSyntaxMemo.$create("Create$1",[this]);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebHTMLDiv1.BeforeLoadDFMValues();
+      this.WebSyntaxMemo1.BeforeLoadDFMValues();
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.WebButton1.BeforeLoadDFMValues();
+      try {
+        this.SetName("Form4");
+        this.SetWidth(640);
+        this.SetHeight(480);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebHTMLDiv1.SetParentComponent(this);
+        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
+        this.WebHTMLDiv1.SetLeft(0);
+        this.WebHTMLDiv1.SetTop(0);
+        this.WebHTMLDiv1.SetWidth(640);
+        this.WebHTMLDiv1.SetHeight(420);
+        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebHTMLDiv1.SetChildOrderEx(1);
+        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebHTMLDiv1.SetRole("");
+        this.WebSyntaxMemo1.SetParentComponent(this.WebHTMLDiv1);
+        this.WebSyntaxMemo1.SetName("WebSyntaxMemo1");
+        this.WebSyntaxMemo1.SetLeft(0);
+        this.WebSyntaxMemo1.SetTop(0);
+        this.WebSyntaxMemo1.SetWidth(640);
+        this.WebSyntaxMemo1.SetHeight(420);
+        this.WebSyntaxMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebSyntaxMemo1.SetTabOrder(0);
+        this.WebPanel1.SetParentComponent(this);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(420);
+        this.WebPanel1.SetWidth(640);
+        this.WebPanel1.SetHeight(60);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel1.SetChildOrderEx(1);
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel1.SetTabOrder(1);
+        this.WebButton1.SetParentComponent(this.WebPanel1);
+        this.WebButton1.SetName("WebButton1");
+        this.WebButton1.SetLeft(56);
+        this.WebButton1.SetTop(8);
+        this.WebButton1.SetWidth(96);
+        this.WebButton1.SetHeight(25);
+        this.WebButton1.SetCaption("Linea");
+        this.WebButton1.SetElementClassName("btn btn-light");
+        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton1.SetHeightPercent(100.000000000000000000);
+        this.WebButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
+      } finally {
+        this.WebHTMLDiv1.AfterLoadDFMValues();
+        this.WebSyntaxMemo1.AfterLoadDFMValues();
+        this.WebPanel1.AfterLoadDFMValues();
+        this.WebButton1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("WebSyntaxMemo1",pas["WEBLib.SyntaxMemo"].$rtti["TSyntaxMemo"]);
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.Form4 = null;
+});
 rtl.module("Unit5",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.Controls","WEBLib.Grids"],function () {
   "use strict";
   var $mod = this;
@@ -104614,7 +105154,7 @@ rtl.module("Unit6",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
   });
   this.Form6 = null;
 });
-rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6"],function () {
+rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen"],function () {
   "use strict";
   var $mod = this;
   $mod.$implcode = function () {
@@ -104637,6 +105177,11 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarCon
         return this.p.FormaLogin;
       }, set: function (v) {
         this.p.FormaLogin = v;
+      }});
+    pas["WEBLib.Forms"].Application.CreateForm(pas.ufrmAltaRen.TfrmAltaRen,{p: pas.ufrmAltaRen, get: function () {
+        return this.p.frmAltaRen;
+      }, set: function (v) {
+        this.p.frmAltaRen = v;
       }});
     pas["WEBLib.Forms"].Application.Run();
   };
