@@ -80728,13 +80728,59 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
     var selpacid = "";
     var selpacnom = "";
     var opcpdf = "";
-    var editCheck = function(cell){
+    function customEditor(cell, onRendered, success, cancel) {
+     // const input = document.createElement('input')
+      const input = document.createElement('textarea')
+    
+      //input.style.width = "100%";
+      //input.style.height = "100%";
+      //input.style.boxSizing = "border-box";
+      input.value = cell.getValue()
+      //input.selectionStart = input.value.length
+      //input.selectionEnd = input.value.length;
+    
+      input.value= input.value.trim()
+    
+      onRendered(() => {
+        input.focus()
+       // input.select()
+    
+      })
+    
+      function onChange() {
+        if (input.value != cell.getValue()) {
+          success(input.value)
+        } else {
+          cancel()
+        }
+      }
+    
+      input.addEventListener('blur', onChange)
+    
+      input.addEventListener('keydown', (e) => {
+       // alert(e.keyCode);
+        if (e.keyCode == 13) {
+          table.navigateNext()
+    
+          onChange()
+        }
+    
+        if (e.keyCode == 27) {
+          cancel()
+        }
+      })
+    
+      return input
+    }
+    
+    
+      var editCheck = function(cell){
         //cell - the cell component for the editable cell
         //get row data
         var data = cell.getRow().getData();
        // return data.age > 18; // only allow the name cell to be edited if the age is over 18
-       return false // no editable
-     // return true // editable
+      // return false // no editable
+      return true // editable
     };
     //********************************************************************************
      //********************************************************************************
@@ -80765,7 +80811,14 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
       },
     
     ];
-             var table = new Tabulator("#tabExample",
+    
+     //Tabulator.extendModule("keybindings", "bindings", {
+     //   navPrev:"shift + 9",
+     //   navNext:"9"
+    //});
+    
+     var table = new Tabulator("#tabExample",
+    
     
          {
          //footerElement: "<div class='custom-footer'>Total Items: <span id='total-items'></span></div>",
@@ -80773,6 +80826,9 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
        dependencies:{
             XLSX:XLSX,
         },
+    //keybindings:{
+     //       "redo" : "ctrl + 82", //bind redo function to ctrl + r
+    //    },
       htmlOutputConfig:{
             columnHeaders:true, //do not include column headers in HTML table
             columnGroups:false, //do not include column groups in column headers for HTML table
@@ -80876,7 +80932,10 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
       //spreadsheetRows:10,
       spreadsheetRows:0,
       spreadsheetColumns:6,
-      spreadsheetColumnDefinition:{editable:editCheck,editor:"input"},
+      //spreadsheetColumnDefinition:{editable:editCheck,editor:"input"},
+      //spreadsheetColumnDefinition:{editable:editCheck,editor:"textarea"},
+      spreadsheetColumnDefinition:{editable:editCheck,editor:customEditor},
+    
     
         spreadsheetSheets:sheets,        // DEFINICION HOJAS ARREGLO
         spreadsheetSheetTabs:true,
@@ -80886,10 +80945,15 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
       editorEmptyValue:undefined, //ensure empty values are set to undefined so they arent included in spreadsheet output data
     
       spreadsheetColumnDefinition:{editor:"input"}, //add an input editor to every cell
-            rowHeight:50, //set rows to 40px height
+       spreadsheetColumnDefinition:{editor:"textarea"}, //add an input editor to every cell
+      spreadsheetColumnDefinition:{editor:customEditor}, //add an input editor to every cell
+    
+      rowHeight:50, //set rows to 40px height
     
          index:"rc",
-      },
+      }
+    
+    
     );
     
        table.on("rowAdded", function(row){
@@ -81028,8 +81092,12 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
         negativeSign:true,
         precision:2}
         }) //change the title on the name column
-          table.updateColumnDefinition("E", {title:"P.",width:30,field:"pagado",editor:true,formatter:"tickCross", headerTooltip:"Pagado"}) //change the title on the name column
-          table.updateColumnDefinition("F", {title:"E.",width:30,field:"entregado",editor:true,formatter:"tickCross", headerTooltip:"Entregado"}) //change the title on the name column
+    
+          //table.updateColumnDefinition("E", {title:"P.",width:30,field:"pagado",editor:true,formatter:"tickCross", headerTooltip:"Pagado"}) //change the title on the name column
+          //table.updateColumnDefinition("F", {title:"E.",width:30,field:"entregado",editor:true,formatter:"tickCross", headerTooltip:"Entregado"}) //change the title on the name column
+    
+          table.updateColumnDefinition("E", {title:"P.",width:30,field:"pagado", headerTooltip:"Pagado"}) //change the title on the name column
+          table.updateColumnDefinition("F", {title:"E.",width:30,field:"entregado", headerTooltip:"Entregado"}) //change the title on the name column
           table.updateColumnDefinition("G", {title:"VD/S",field:"vds",width:68 ,resizable:false, headerTooltip:"Venta/Subasta"}) //change the title on the name column
     
     
@@ -81060,9 +81128,63 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
     
     }
     
+    
     });
      //********************************************************************************
      //********************************************************************************;
+  };
+  this.IniciarHoja2 = function () {
+    const data = [
+      { id: 1, name: 'Billy Bob', age: '12', gender: 'male', height: 1, col: 'red', dob: '', cheese: 1 },
+      { id: 2, name: 'Mary May', age: '1', gender: 'female', height: 2, col: 'blue', dob: '14/05/1982', cheese: true },
+      { id: 10, name: 'Margret Marmajuke', age: '16', gender: 'female', height: 5, col: 'yellow', dob: '31/01/1999' }
+    ]
+    
+    function customEditor(cell, onRendered, success, cancel) {
+     // const input = document.createElement('input')
+      const input = document.createElement('textarea')
+      input.value = cell.getValue()
+    
+      onRendered(() => {
+        input.focus()
+      })
+    
+      function onChange() {
+        if (input.value != cell.getValue()) {
+          success(input.value)
+        } else {
+          cancel()
+        }
+      }
+    
+      input.addEventListener('blur', onChange)
+    
+      input.addEventListener('keydown', (e) => {
+       // alert(e.keyCode);
+        if (e.keyCode == 13) {
+          table.navigateNext()
+    
+          onChange()
+        }
+    
+        if (e.keyCode == 27) {
+          cancel()
+        }
+      })
+    
+      return input
+    }
+    
+    const table = new Tabulator('#tabExample', {
+      data: data,
+      columns: [
+        { title: 'Name', field: 'name', editor: customEditor },
+        { title: 'Age', field: 'age',editor: customEditor },
+        { title: 'Gender', field: 'gender' ,editor: customEditor},
+        { title: 'Height', field: 'height' ,editor: customEditor},
+        { title: 'Color', field: 'col' }
+      ]
+    });
   };
   this.CargarVentas = function () {
     var selpacid = "";
@@ -81590,6 +81712,42 @@ rtl.module("uCargarConsultas",["System","SysUtils","Classes","JS","Web","WEBLib.
       Cookies = rtl.freeLoc(Cookies);
     };
     return Result;
+  };
+  this.miEditorColumna = function () {
+    function customEditor(cell, onRendered, success, cancel) {
+     // const input = document.createElement('input')
+      const input = document.createElement('textarea')
+      input.value = cell.getValue()
+    
+      onRendered(() => {
+        input.focus()
+      })
+    
+      function onChange() {
+        if (input.value != cell.getValue()) {
+          success(input.value)
+        } else {
+          cancel()
+        }
+      }
+    
+      input.addEventListener('blur', onChange)
+    
+      input.addEventListener('keydown', (e) => {
+       // alert(e.keyCode);
+        if (e.keyCode == 13) {
+          table.navigateNext()
+    
+          onChange()
+        }
+    
+        if (e.keyCode == 27) {
+          cancel()
+        }
+      })
+    
+      return input
+    };
   };
   $mod.$init = function () {
   };
@@ -97868,7 +98026,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
       this.WebResponsiveGrid1.FItems.GetItem$1(0).SetHTML("<p><b>Registro de Ventas y Subastas.</p>");
       this.WebResponsiveGrid1.FItems.GetItem$1(0).SetVisible(false);
       i = 0;
-      for (i = 1; i <= 50; i++) {
+      for (i = 1; i <= 500; i++) {
         this.WebResponsiveGrid1.FItems.Add$1().SetHTML(' <label for="ren"><u><strong>Renglón #' + pas.SysUtils.IntToStr(rcount + i) + "</strong></u></label> <br> <br> " + ' <label for="clie">Cliente:</label> <br> <br> <input type="text" style="height: 25px;" id="clte' + pas.SysUtils.IntToStr(i) + '" name="clie" maxlength="50" size="30"  ><br><br>' + ' <label for="art">Producto</label>  <br> <br> <input type="text" style="height: 25px;" id="prod' + pas.SysUtils.IntToStr(i) + '" name="art" maxlength="50" size="30"  ><br><br>  ' + ' <label for="imp">Importe</label>   <br> <br><input type="text" style="height: 25px;" id="impte' + pas.SysUtils.IntToStr(i) + '" name="imp" maxlength="10" size="10"  ><br><br>' + ' <label for="vs">Venta/Subasta</label> <br> <br> <input type="text" style="height: 25px;" id="vs' + pas.SysUtils.IntToStr(i) + '" name="vs" maxlength="1" size="5"  ><br><br>' + ' <label for="paga">Pagado</label> &nbsp&nbsp <input type="text" style="height: 25px;" id="pag' + pas.SysUtils.IntToStr(i) + '" name="paga" maxlength="1" size="3"  >&nbsp&nbsp' + ' <label for="entr">Entregado</label> &nbsp&nbsp <input type="text" style="height: 25px;" id="ent' + pas.SysUtils.IntToStr(i) + '" name="entr" maxlength="1" size="3"  >');
         if (1 === 0) {
           btn = pas["WEBLib.StdCtrls"].TButton.$create("Create$2",["btn" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
@@ -97965,13 +98123,15 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
       var rcount = 0;
       var maxRens = 0;
       var table = Tabulator.findTable("#tabExample")[0];
-       //console.log(tabledata);
-       var rowCount = table.getDataCount(); //+1;
-       rcount=rowCount;
-      // alert(rowCount);
-      maxRens = 50;
+            //console.log(tabledata);
+            var rowCount = table.getDataCount(); //+1;
+            rcount=rowCount;
+           // alert(rowCount);
+      
+            var sheetDataLibreta = [];
+      maxRens = 500;
       stag = "0";
-      for (i = 1; i <= 50; i++) {
+      for (i = 1; i <= 500; i++) {
         stag = pas.SysUtils.IntToStr(i);
         src = pas.SysUtils.IntToStr(rcount + i);
         var cliente = document.getElementById('clte'+stag);
@@ -97998,6 +98158,8 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
               {
               if (scliente.length > 0)
               {
+                var obj = JSON.parse(datosstr);
+                sheetDataLibreta.push(obj);
                table.addRow(datosstr)
                     .then(function(row){
                         //row - the row component for the row updated or added
@@ -98010,12 +98172,32 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
                     });
         
              }  //if  rowCount
+            //  table.addData(sheetDataLibreta,true)
+        
              } // if cliente length > 0
              cliente.value='';
              producto.value='';
              importe.value='';
              vos.value='';
       };
+      console.log('sheetDataLibreta',sheetDataLibreta);
+       var table = Tabulator.findTable("#tabExample")[0];
+       var arrayDatos = [];
+       arrayDatos = table.getData();
+       const newArray = arrayDatos.concat(sheetDataLibreta);
+       table.setData(newArray);
+       //table.redraw();
+      
+       console.log('arrayDatos',arrayDatos);
+       //table.addData(sheetDataLibreta, false)
+      //.then(function(rows){
+          //rows - array of the row components for the rows updated or added
+      
+          //run code after data has been updated
+      //})
+      //.catch(function(error){
+          //handle error updating data
+      //});
     };
     this.btnMenuClick = function (Sender) {
       var r = null;
@@ -98037,6 +98219,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
     this.btnCerrarClick = function (Sender) {
       var table = Tabulator.findTable("#tabExample")[0];
       table.clearAlert();
+      table.redraw();
       this.Close();
     };
     this.BtnClick = function (Event) {
@@ -98054,9 +98237,9 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
       var svos = "";
       var i = 0;
       var maxRens = 0;
-      maxRens = 50;
+      maxRens = 500;
       stag = "0";
-      for (i = 1; i <= 50; i++) {
+      for (i = 1; i <= 500; i++) {
         stag = pas.SysUtils.IntToStr(i);
         var cliente = document.getElementById('clte'+stag);
            var producto = document.getElementById('prod'+stag);
@@ -98159,7 +98342,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.WebResponsiveGrid1.SetElementPosition(pas["WEBLib.Controls"].TElementPosition.epRelative);
         this.WebResponsiveGrid1.FItems.Clear$1();
         var $with = this.WebResponsiveGrid1.FItems.Add$1();
-        this.WebResponsiveGrid1.FOptions.SetItemColor(15125759);
+        this.WebResponsiveGrid1.FOptions.SetItemColor(14811135);
         this.WebResponsiveGrid1.FOptions.SetItemHeight(250);
         this.WebResponsiveGrid1.FOptions.SetItemPadding(10);
         this.WebResponsiveGrid1.FOptions.SetItemWidthMin(200);
@@ -98174,9 +98357,9 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.WebPanel3.SetTabOrder(2);
         this.btnAgregarRen.SetParentComponent(this.WebPanel3);
         this.btnAgregarRen.SetName("btnAgregarRen");
-        this.btnAgregarRen.SetLeft(11);
+        this.btnAgregarRen.SetLeft(3);
         this.btnAgregarRen.SetTop(19);
-        this.btnAgregarRen.SetWidth(134);
+        this.btnAgregarRen.SetWidth(150);
         this.btnAgregarRen.SetHeight(25);
         this.btnAgregarRen.SetCaption("Agregar Renglones");
         this.btnAgregarRen.SetElementClassName("btn btn-light");
@@ -98186,9 +98369,9 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
         this.SetEvent$1(this.btnAgregarRen,this,"OnClick","btnAgregarRenClick");
         this.btnCerrar.SetParentComponent(this.WebPanel3);
         this.btnCerrar.SetName("btnCerrar");
-        this.btnCerrar.SetLeft(175);
+        this.btnCerrar.SetLeft(183);
         this.btnCerrar.SetTop(19);
-        this.btnCerrar.SetWidth(106);
+        this.btnCerrar.SetWidth(114);
         this.btnCerrar.SetHeight(25);
         this.btnCerrar.SetCaption("Cerrar");
         this.btnCerrar.SetChildOrderEx(1);
@@ -98259,7 +98442,7 @@ rtl.module("ufrmAltaRen",["System","SysUtils","Classes","JS","Web","WEBLib.Graph
   });
   this.frmAltaRen = null;
   $mod.$implcode = function () {
-    $impl.maxRenglones = 50;
+    $impl.maxRenglones = 500;
     $impl.popmenuwidth = 0.0;
   };
 },[]);
@@ -100032,6 +100215,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     this.WebDivClick = function (Sender) {
       var keyhoja = "";
       var rowcountt = 0;
+      return;
       var table = Tabulator.findTable("#tabExample")[0];
       // table.alert("Libreta digital, Tocar para agregar renglones");
        var sheet = table.getSheet();
@@ -100750,6 +100934,7 @@ rtl.module("Unit1",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var keyhoja = "";
       var rowcountt = 0;
       var Sender = null;
+      return;
       var table = Tabulator.findTable("#tabExample")[0];
        var sheet = table.getSheet();
        var key = sheet.getKey();
@@ -105155,7 +105340,338 @@ rtl.module("Unit6",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
   });
   this.Form6 = null;
 });
-rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen"],function () {
+rtl.module("ufrmAltaRen2",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Grids","WEBLib.Controls","WEBLib.ExtCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.SyntaxMemo"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TfrmAltaRen2",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebPanel1 = null;
+      this.WebResponsiveGrid1 = null;
+      this.WebMemo1 = null;
+      this.WebPanel2 = null;
+      this.WebPanel3 = null;
+      this.WebButton1 = null;
+      this.WebEdit1 = null;
+      this.WebLabel1 = null;
+    };
+    this.$final = function () {
+      this.WebPanel1 = undefined;
+      this.WebResponsiveGrid1 = undefined;
+      this.WebMemo1 = undefined;
+      this.WebPanel2 = undefined;
+      this.WebPanel3 = undefined;
+      this.WebButton1 = undefined;
+      this.WebEdit1 = undefined;
+      this.WebLabel1 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebButton1Click = function (Sender) {
+      var NewItem = null;
+      var memoBox = null;
+      var txtBox = null;
+      var i = 0;
+      var numlinea = 0;
+      var vtextBeforeCaret = "";
+      if (this.WebLabel1.FCaption === "") {
+        pas["WEBLib.Dialogs"].ShowMessage("favor de seleccionar una linea");
+        return;
+      };
+      function getCurrentLineString(textareaElement) {
+        const text = textareaElement.value;
+        const caretPos = textareaElement.selectionStart;
+      
+        // Find the start of the current line
+        let lineStart = text.lastIndexOf('\n', caretPos - 1) + 1;
+      
+        // Find the end of the current line
+        let lineEnd = text.indexOf('\n', caretPos);
+        if (lineEnd === -1) {
+          lineEnd = text.length; // If no newline found, it's the end of the text
+        }
+      
+        // Extract the line string
+        return text.substring(lineStart, lineEnd);
+      }
+      
+          const textarea = document.getElementById('textocaptura'); // Replace 'myTextarea' with your textarea's ID
+          const caretPosition = textarea.selectionStart;
+          const textBeforeCaret = textarea.value.substring(0, caretPosition);
+          vtextBeforeCaret= textBeforeCaret ; //
+          const lineNumber = textBeforeCaret.split('\n').length;
+          numlinea =  lineNumber;         //
+          const currentLine = getCurrentLineString(textarea);
+          vtextBeforeCaret  = currentLine;
+          console.log("Current line:", currentLine);
+      vtextBeforeCaret = pas.System.Copy(vtextBeforeCaret,1,pas.System.Pos(":",vtextBeforeCaret));
+      this.WebMemo1.FLines.Put(numlinea - 1,vtextBeforeCaret + this.WebEdit1.GetText());
+      this.WebLabel1.SetCaption("");
+      return;
+      this.WebResponsiveGrid1.FItems.Clear$1();
+      this.WebResponsiveGrid1.FItems.Add$1().SetHTML("");
+      i = 0;
+      memoBox = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
+      memoBox.SetParentElement(this.WebResponsiveGrid1.FItems.GetItem$1(0).FElementHandle);
+      memoBox.FTag$1 = 1;
+      memoBox.SetWidth(300);
+      memoBox.SetHeight(150);
+      memoBox.SetText("aaaaa");
+      this.WebResponsiveGrid1.FItems.GetItem$1(0).FItemObject = memoBox;
+      this.WebResponsiveGrid1.FItems.Add$1().SetHTML("<br> <br>");
+      txtBox = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      txtBox.SetParentElement(this.WebResponsiveGrid1.FItems.GetItem$1(1).FElementHandle);
+      txtBox.FTag$1 = 1;
+      txtBox.SetWidth(100);
+      txtBox.SetHeight(30);
+      txtBox.SetText("bbbb");
+      this.WebResponsiveGrid1.FItems.GetItem$1(0).FItemObject = txtBox;
+      return;
+      for (i = 0; i <= 1; i++) {
+        this.WebResponsiveGrid1.FItems.Add$1().SetHTML("Capturar " + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
+            return i;
+          }, set: function (v) {
+            i = v;
+          }}) + "OK");
+        memoBox = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
+        memoBox.SetParentElement(this.WebResponsiveGrid1.FItems.GetItem$1(i).FElementHandle);
+        memoBox.FTag$1 = 1;
+        memoBox.SetText("aaaaa");
+        this.WebResponsiveGrid1.FItems.GetItem$1(i).FItemObject = memoBox;
+      };
+    };
+    this.WebButton2Click = function (Sender) {
+      var memoctr = null;
+      var txtBox = null;
+    };
+    this.WebButton3Click = function (Sender) {
+      var i = 0;
+      var edt = null;
+      var lbl = null;
+    };
+    this.WebFormCreate = function (Sender) {
+      var i = 0;
+      var j = 0;
+      var linea = 0;
+      var milinea = "";
+      this.WebMemo1.FLines.Clear();
+      linea = 1;
+      for (i = 0; i <= 100; i++) {
+        j = i;
+        linea = i + 1;
+        this.WebMemo1.FLines.Add("Linea:" + pas.SysUtils.IntToStr(linea));
+        milinea = pas.SysUtils.Format("%3d",pas.System.VarRecs(0,linea));
+        this.WebMemo1.FLines.Add(milinea + ".-" + "Cliente:");
+        this.WebMemo1.FLines.Add(milinea + ".-" + "Producto:");
+        this.WebMemo1.FLines.Add(milinea + ".-" + "Precio:");
+        this.WebMemo1.FLines.Add(milinea + ".-" + "Venta/Subasta:");
+        this.WebMemo1.FLines.Add(milinea + ".-" + "Pagado:");
+        this.WebMemo1.FLines.Add(milinea + ".-" + "Entregado:");
+        this.WebMemo1.FLines.Add("");
+      };
+    };
+    this.WebMemo1Click = function (Sender) {
+      var vtextBeforeCaret = "";
+      var numlinea = 0;
+      var linea = 0.0;
+      function getCurrentLineString(textareaElement) {
+        const text = textareaElement.value;
+        const caretPos = textareaElement.selectionStart;
+      
+        // Find the start of the current line
+        let lineStart = text.lastIndexOf('\n', caretPos - 1) + 1;
+      
+        // Find the end of the current line
+        let lineEnd = text.indexOf('\n', caretPos);
+        if (lineEnd === -1) {
+          lineEnd = text.length; // If no newline found, it's the end of the text
+        }
+      
+        // Extract the line string
+        return text.substring(lineStart, lineEnd);
+      }
+          const textarea = document.getElementById('textocaptura'); // Replace 'myTextarea' with your textarea's ID
+          const caretPosition = textarea.selectionStart;
+          const textBeforeCaret = textarea.value.substring(0, caretPosition);
+          vtextBeforeCaret= textBeforeCaret ; //
+          const lineNumber = textBeforeCaret.split('\n').length;
+          numlinea =  lineNumber;         //
+          const currentLine = getCurrentLineString(textarea);
+          vtextBeforeCaret  = currentLine;
+          console.log("Current line:", currentLine);
+      vtextBeforeCaret = pas.System.Copy(vtextBeforeCaret,1,pas.System.Pos(":",vtextBeforeCaret));
+      this.WebLabel1.SetCaption(pas.SysUtils.FloatToStr(linea) + ".-" + vtextBeforeCaret);
+      this.WebLabel1.SetCaption(vtextBeforeCaret);
+    };
+    this.WebMemo1KeyPress = function (Sender, Key) {
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebResponsiveGrid1 = pas["WEBLib.Grids"].TResponsiveGrid.$create("Create$1",[this]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$2",["textocaptura"]);
+      this.WebPanel2 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebLabel1 = pas["WEBLib.StdCtrls"].TLabel.$create("Create$1",[this]);
+      this.WebPanel3 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebEdit1 = pas["WEBLib.StdCtrls"].TEdit.$create("Create$1",[this]);
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.WebResponsiveGrid1.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
+      this.WebPanel2.BeforeLoadDFMValues();
+      this.WebLabel1.BeforeLoadDFMValues();
+      this.WebPanel3.BeforeLoadDFMValues();
+      this.WebButton1.BeforeLoadDFMValues();
+      this.WebEdit1.BeforeLoadDFMValues();
+      try {
+        this.SetName("frmAltaRen2");
+        this.SetWidth(378);
+        this.SetHeight(527);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebPanel1.SetParentComponent(this);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(0);
+        this.WebPanel1.SetWidth(378);
+        this.WebPanel1.SetHeight(445);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebPanel1.SetCaption("WebPanel1");
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel1.SetTabOrder(0);
+        this.WebResponsiveGrid1.SetParentComponent(this.WebPanel1);
+        this.WebResponsiveGrid1.SetName("WebResponsiveGrid1");
+        this.WebResponsiveGrid1.SetLeft(0);
+        this.WebResponsiveGrid1.SetTop(0);
+        this.WebResponsiveGrid1.SetWidth(378);
+        this.WebResponsiveGrid1.SetHeight(445);
+        this.WebResponsiveGrid1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebResponsiveGrid1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebResponsiveGrid1.FItems.Clear$1();
+        var $with = this.WebResponsiveGrid1.FItems.Add$1();
+        this.WebMemo1.SetParentComponent(this.WebPanel1);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(0);
+        this.WebMemo1.SetTop(0);
+        this.WebMemo1.SetWidth(378);
+        this.WebMemo1.SetHeight(445);
+        this.WebMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebMemo1.SetElementClassName("form-control");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("WebMemo1");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(0);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebMemo1,this,"OnClick","WebMemo1Click");
+        this.WebPanel2.SetParentComponent(this);
+        this.WebPanel2.SetName("WebPanel2");
+        this.WebPanel2.SetLeft(0);
+        this.WebPanel2.SetTop(445);
+        this.WebPanel2.SetWidth(378);
+        this.WebPanel2.SetHeight(82);
+        this.WebPanel2.SetElementClassName("card");
+        this.WebPanel2.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel2.SetCaption("WebPanel2");
+        this.WebPanel2.SetChildOrderEx(1);
+        this.WebPanel2.FElementBodyClassName = "card-body";
+        this.WebPanel2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel2.SetTabOrder(1);
+        this.WebLabel1.SetParentComponent(this.WebPanel2);
+        this.WebLabel1.SetName("WebLabel1");
+        this.WebLabel1.SetLeft(8);
+        this.WebLabel1.SetTop(8);
+        this.WebLabel1.SetWidth(5);
+        this.WebLabel1.SetHeight(18);
+        this.WebLabel1.SetCaption(".");
+        this.WebLabel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebLabel1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebLabel1.SetHeightPercent(100.000000000000000000);
+        this.WebLabel1.SetWidthPercent(100.000000000000000000);
+        this.WebPanel3.SetParentComponent(this.WebPanel2);
+        this.WebPanel3.SetName("WebPanel3");
+        this.WebPanel3.SetLeft(0);
+        this.WebPanel3.SetTop(0);
+        this.WebPanel3.SetWidth(378);
+        this.WebPanel3.SetHeight(82);
+        this.WebPanel3.SetElementClassName("card");
+        this.WebPanel3.SetAlign(pas["WEBLib.Controls"].TAlign.alRight);
+        this.WebPanel3.SetChildOrderEx(3);
+        this.WebPanel3.FElementBodyClassName = "card-body";
+        this.WebPanel3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel3.SetTabOrder(0);
+        this.WebButton1.SetParentComponent(this.WebPanel3);
+        this.WebButton1.SetName("WebButton1");
+        this.WebButton1.SetLeft(312);
+        this.WebButton1.SetTop(0);
+        this.WebButton1.SetWidth(66);
+        this.WebButton1.SetHeight(82);
+        this.WebButton1.SetCaption("OK");
+        this.WebButton1.SetChildOrderEx(4);
+        this.WebButton1.SetElementClassName("btn btn-light");
+        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton1.SetHeightPercent(100.000000000000000000);
+        this.WebButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
+        this.WebEdit1.SetParentComponent(this.WebPanel2);
+        this.WebEdit1.SetName("WebEdit1");
+        this.WebEdit1.SetLeft(8);
+        this.WebEdit1.SetTop(40);
+        this.WebEdit1.SetWidth(298);
+        this.WebEdit1.SetHeight(39);
+        this.WebEdit1.SetChildOrderEx(2);
+        this.WebEdit1.SetElementClassName("form-control");
+        this.WebEdit1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebEdit1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebEdit1.SetHeightPercent(100.000000000000000000);
+        this.WebEdit1.SetWidthPercent(100.000000000000000000);
+      } finally {
+        this.WebPanel1.AfterLoadDFMValues();
+        this.WebResponsiveGrid1.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
+        this.WebPanel2.AfterLoadDFMValues();
+        this.WebLabel1.AfterLoadDFMValues();
+        this.WebPanel3.AfterLoadDFMValues();
+        this.WebButton1.AfterLoadDFMValues();
+        this.WebEdit1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebResponsiveGrid1",pas["WEBLib.Grids"].$rtti["TResponsiveGrid"]);
+    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addField("WebPanel2",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebPanel3",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebEdit1",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebLabel1",pas["WEBLib.StdCtrls"].$rtti["TLabel"]);
+    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton3Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebMemo1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebMemo1KeyPress",0,[["Sender",pas.System.$rtti["TObject"]],["Key",rtl.char,1]]);
+  });
+  this.frmAltaRen2 = null;
+});
+rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen","ufrmAltaRen2"],function () {
   "use strict";
   var $mod = this;
   $mod.$implcode = function () {
@@ -105178,6 +105694,11 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarCon
         return this.p.FormaLogin;
       }, set: function (v) {
         this.p.FormaLogin = v;
+      }});
+    pas["WEBLib.Forms"].Application.CreateForm(pas.ufrmAltaRen2.TfrmAltaRen2,{p: pas.ufrmAltaRen2, get: function () {
+        return this.p.frmAltaRen2;
+      }, set: function (v) {
+        this.p.frmAltaRen2 = v;
       }});
     pas["WEBLib.Forms"].Application.CreateForm(pas.ufrmAltaRen.TfrmAltaRen,{p: pas.ufrmAltaRen, get: function () {
         return this.p.frmAltaRen;
