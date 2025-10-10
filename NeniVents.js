@@ -105671,7 +105671,131 @@ rtl.module("ufrmAltaRen2",["System","SysUtils","Classes","JS","Web","WEBLib.Grap
   });
   this.frmAltaRen2 = null;
 });
-rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen","ufrmAltaRen2"],function () {
+rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TForm7",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebDiv = null;
+    };
+    this.$final = function () {
+      this.WebDiv = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebFormCreate = function (Sender) {
+      function customEditor(cell, onRendered, success, cancel) {
+       // const input = document.createElement('input')
+        const input = document.createElement('textarea')
+      
+        input.style.width = "100%";
+        //input.style.height = "100%";
+        input.style.boxSizing = "border-box";
+        input.value = cell.getValue()
+        //input.selectionStart = input.value.length
+        //input.selectionEnd = input.value.length;
+      
+        input.value= input.value.trim()
+      
+        onRendered(() => {
+          input.focus()
+         // input.select()
+      
+        })
+      
+        function onChange() {
+          if (input.value != cell.getValue()) {
+            success(input.value)
+          } else {
+            cancel()
+          }
+        }
+      
+        input.addEventListener('blur', onChange)
+      
+        input.addEventListener('keydown', (e) => {
+         // alert(e.keyCode);
+          if (e.keyCode == 13) {
+            table.navigateNext()
+      
+            onChange()
+          }
+      
+          if (e.keyCode == 27) {
+            cancel()
+          }
+        })
+      
+        return input
+      }
+      
+      
+      let myArray = [];
+      
+      const numberOfElements = 50;
+      
+      // 3. Iterate and add elements to the array
+      for (let i = 0; i < numberOfElements; i++) {
+        // Add an element to the array in each iteration
+       // myArray.push({id:i, campo:"Billy Bob"+i.toString(), age:"12", gender:"male", height:1, col:"red", dob:"", cheese:1},
+        myArray.push({id:i, campo:"Cliente", valor:""},);
+        myArray.push({id:i, campo:"Producto", valor:""},);
+        myArray.push({id:i, campo:"Importe", valor:""},);
+        myArray.push({id:i, campo:"Pagado", valor:""},);
+        myArray.push({id:i, campo:"Entregado", valor:""},);
+        myArray.push({id:i, campo:"Venta-Subasta", valor:""},);
+        myArray.push({id:i, campo:"", valor:""},);
+      }
+      
+      var table = new Tabulator("#tabExample", {
+          data:myArray, //set initial table data
+          columns:[
+              {title:"Campo", field:"campo", editable:false, width:"30%"},
+              {title:"Valor", field:"valor",editor:customEditor,width:"60%"},
+          ],
+      });
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
+      this.WebDiv.BeforeLoadDFMValues();
+      try {
+        this.SetName("Form7");
+        this.SetWidth(640);
+        this.SetHeight(480);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebDiv.SetParentComponent(this);
+        this.WebDiv.SetName("WebDiv");
+        this.WebDiv.SetLeft(0);
+        this.WebDiv.SetTop(0);
+        this.WebDiv.SetWidth(640);
+        this.WebDiv.SetHeight(480);
+        this.WebDiv.SetElementClassName("table-striped");
+        this.WebDiv.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebDiv.SetChildOrderEx(1);
+        this.WebDiv.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebDiv.SetRole("");
+      } finally {
+        this.WebDiv.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebDiv",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.Form7 = null;
+});
+rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen","ufrmAltaRen2","Unit7"],function () {
   "use strict";
   var $mod = this;
   $mod.$implcode = function () {
@@ -105690,6 +105814,11 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarCon
   $mod.$main = function () {
     pas["WEBLib.Forms"].Application.Initialize();
     pas["WEBLib.Forms"].Application.FMainFormOnTaskBar = true;
+    pas["WEBLib.Forms"].Application.CreateForm(pas.Unit7.TForm7,{p: pas.Unit7, get: function () {
+        return this.p.Form7;
+      }, set: function (v) {
+        this.p.Form7 = v;
+      }});
     pas["WEBLib.Forms"].Application.CreateForm(pas.uFormaLogin.TFormaLogin,{p: pas.uFormaLogin, get: function () {
         return this.p.FormaLogin;
       }, set: function (v) {
