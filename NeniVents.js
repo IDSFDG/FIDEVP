@@ -105671,19 +105671,310 @@ rtl.module("ufrmAltaRen2",["System","SysUtils","Classes","JS","Web","WEBLib.Grap
   });
   this.frmAltaRen2 = null;
 });
-rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls"],function () {
+rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls","WEBLib.ExtCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.Menus","WEBLib.Menus","WEBLib.Buttons","WEBLib.ComCtrls"],function () {
   "use strict";
   var $mod = this;
+  var $impl = $mod.$impl;
   rtl.createClass(this,"TForm7",pas["WEBLib.Forms"].TForm,function () {
     this.$init = function () {
       pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebPanel1 = null;
+      this.WebPanel2 = null;
+      this.WebButton1 = null;
+      this.WebPopupMenu1 = null;
+      this.uno1 = null;
+      this.uno11 = null;
+      this.dos1 = null;
+      this.tres1 = null;
+      this.cuatro = null;
+      this.comparte = null;
+      this.N3 = null;
+      this.Salir2 = null;
+      this.WebSpeedButton1 = null;
+      this.WebButton2 = null;
+      this.WebButton3 = null;
+      this.WebPageControl1 = null;
+      this.WebPageControl1Sheet1 = null;
+      this.WebPageControl1Sheet2 = null;
       this.WebDiv = null;
+      this.WebHTMLDiv1 = null;
     };
     this.$final = function () {
+      this.WebPanel1 = undefined;
+      this.WebPanel2 = undefined;
+      this.WebButton1 = undefined;
+      this.WebPopupMenu1 = undefined;
+      this.uno1 = undefined;
+      this.uno11 = undefined;
+      this.dos1 = undefined;
+      this.tres1 = undefined;
+      this.cuatro = undefined;
+      this.comparte = undefined;
+      this.N3 = undefined;
+      this.Salir2 = undefined;
+      this.WebSpeedButton1 = undefined;
+      this.WebButton2 = undefined;
+      this.WebButton3 = undefined;
+      this.WebPageControl1 = undefined;
+      this.WebPageControl1Sheet1 = undefined;
+      this.WebPageControl1Sheet2 = undefined;
       this.WebDiv = undefined;
+      this.WebHTMLDiv1 = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
     };
     this.WebFormCreate = function (Sender) {
+      $impl.popmenuwidth = this.maximoPopupTexto();
+      this.WebButton1.SetCaption("" + "☰");
+      this.FormaCaptura();
+      this.WebPageControl1.SetActivePageIndex(0);
+    };
+    this.WebButton1Click = function (Sender) {
+      var r = null;
+      var vpopmenuwidth = 0.0;
+      var i = 0;
+      var w = 0.0;
+      var maxw = 0.0;
+      var s = "";
+      this.WebPopupMenu1.SetVisible(true);
+      r = this.WebButton1.GetElementHandle().getBoundingClientRect();
+      this.WebPopupMenu1.Popup(Math.round(r.left - $impl.popmenuwidth),Math.round(r.bottom));
+    };
+    this.comparteClick = function (Sender) {
+      var fechahoy = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
+      sfechadia = "Ventas_del_" + sfechadia;
+      var table = Tabulator.findTable("#tabExample")[0];
+            //var htmlTable = table.getHtml("active",false);
+            var htmlTable = table.getHtml("all",false);
+            var jsonData = table.getSheetData("uno");
+           // console.log('htmlTable',  htmlTable);
+            const { jsPDF } = window.jspdf;
+            var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+      
+      
+           var specialElementHandlers = {
+           '#getPDF': function(element, renderer){
+             return true;
+           },
+           '.controls': function(element, renderer){
+             return true;
+           }
+         };
+      
+      
+         const myElement = document.getElementById('html-table');
+         myElement.innerHTML = htmlTable;
+        // console.log('myelement',myElement);
+         // OK
+         //doc.autoTable({ html: myElement.querySelector('table') });
+         //doc.save("aaa.pdf");
+         // fin ok
+       // https://phppot.com/javascript/jspdf-autotable/
+        //doc.autoTable({ html: myElement.querySelector('table') ,
+        //console.log('tablehtml',myElement.querySelector('table'));
+      
+         doc.autoTable({ html: myElement.querySelector('table')});
+         const pdfBlob = doc.output('blob');
+      
+        // const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+         const file = new File([pdfBlob], sfechadia, { type: 'application/pdf' });
+         if ( window.navigator.share) {
+            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
+            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
+      
+          window.navigator.share({
+              files: [file],
+              title: 'PDF Document',
+              text: 'Check out this PDF document!',
+          })
+         .then(() => console.log('PDF compartido correctamente'))
+         .catch((error) => console.error('Error compartir PDF:', error));
+          } else {
+          console.log('Web Share API not supported in this browser.');
+      };
+    };
+    this.WebButton2Click = function (Sender) {
+      var lnumberOfElements = 0;
+      lnumberOfElements = 3 + 1;
+      let myArray = [];
+        var table = Tabulator.findTable("#tabExample")[0];
+        var arraydat = table.getData();
+        var strdat ="";
+      //const numberOfElements = 50;
+        console.log(arraydat);
+      
+        // columnas
+        //for (let i = 0; i < lnumberOfElements; i++) {
+        //  console.log(arraydat[i].id);
+        //  console.log(arraydat[i].campo);
+        //  console.log(arraydat[i].valor);
+        //}
+      
+        strdat='';
+        console.log('---------------datos');
+          for (let i = 0; i < arraydat.length; i++) {
+          //console.log(arraydat[i].id);
+          //console.log(arraydat[i].campo);
+          //console.log(arraydat[i].valor);
+         let char34 = String.fromCharCode(34);
+          //char34 = "";
+         if (arraydat[i].campo.length > 0)
+          {
+      
+      
+           // myArray.push({id:i, campo:"Billy Bob"+i.toString(), age:"12", gender:"male", height:1, col:"red", dob:"", cheese:1},
+      
+      
+          //var str = '{"id":0, "campo":"Cliente", "valor":"c"}';
+      
+      
+        //  strdat=strdat+'{"id":'+arraydat[i].id+',"campo":'+char34+arraydat[i].campo+char34+'},';
+      
+            strdat=strdat+ '{"id":'+arraydat[i].id+',"campo":'+char34+arraydat[i].campo+char34+'},';
+      
+      
+      
+          }
+          else
+          {
+            const sub1 = strdat.substring(0, strdat.length-1); // "Hello"
+            strdat='['+sub1+']';
+            console.log('strdat:',strdat);
+            var obj =JSON.parse(strdat);
+            myArray.push(obj);
+           strdat='';
+          }
+      
+        } // for
+        console.log('myArray',myArray);
+    };
+    this.WebButton3Click = function (Sender) {
+      var lnumberOfElements = 0;
+      var str = '{"id":0, "campo":"Cliente", "valor":"c"}';
+      //{id:0, campo:"Producto", valor:"p"}{id:0, campo:"Importe", valor:"1"}{id:0, campo:"Pagado", valor:"s"}{id:0, campo:"Entregado", valor:"n"}{id:0, campo:"V/S", valor:"S"}';
+      var obj = JSON.parse(str);
+      lnumberOfElements = 3 + 1;
+      let myArray = [];
+        let myArray2 = [];
+      
+        let horizArray = [];
+        var table = Tabulator.findTable("#tabExample")[0];
+        var arraydat = table.getData();
+        var strdat ="";
+      //const numberOfElements = 50;
+        console.log(arraydat);
+      
+        // columnas
+        //for (let i = 0; i < lnumberOfElements; i++) {
+        //  console.log(arraydat[i].id);
+        //  console.log(arraydat[i].campo);
+        //  console.log(arraydat[i].valor);
+        //}
+      
+        strdat='';
+        console.log('---------------datos');
+          for (let i = 0; i < arraydat.length; i++) {
+          //console.log(arraydat[i].id);
+          //console.log(arraydat[i].campo);
+          //console.log(arraydat[i].valor);
+         let char34 = String.fromCharCode(34);
+          //char34 = "";
+         if (arraydat[i].campo.length == 0)
+          {
+      
+           const objh = new Object();
+           objh.id = horizArray.length+1;
+           objh.cliente = myArray2[0].valor.trim();
+           objh.producto = myArray2[1].valor.trim();
+           objh.importe = myArray2[2].valor.trim();
+           objh.pagado = myArray2[3].valor.trim();
+           objh.entregado = myArray2[4].valor.trim();
+           objh.ventasub = myArray2[5].valor.trim();
+           horizArray.push(objh)  ;
+      
+           myArray2 = [];
+          }
+          else
+          {
+            var obj = arraydat[i];
+            myArray2.push(obj);
+          }
+      
+        } // for
+      
+           console.log('hArray',horizArray);
+      
+           var table2 = new Tabulator("#tabExample2", {
+          columns:[
+              {title:"ID", field:"id"},
+              {title:"cliente", field:"cliente"},
+              {title:"producto", field:"producto"},
+              {title:"Importe", field:"importe"},
+              {title:"pagado", field:"pagado"},
+              {title:"entregado", field:"entregado"},
+              {title:"V-S", field:"ventasub"},
+          ],
+      });
+      
+      // 3. Set the data using the setData method
+          table2.on("tableBuilt", function(){
+          console.log("The table has been built!");
+          // Add your code here to run after the table is rendered
+             table2.setData(horizArray);
+      });
+    };
+    this.WebPageControl1Sheet2Click = function (Sender) {
+      this.FormaVistaHorizontal();
+    };
+    this.WebPageControl1Change = function (Sender) {
+      if (this.WebPageControl1.GetActivePageIndex() === 1) this.FormaVistaHorizontal();
+    };
+    this.maximoPopupTexto = function () {
+      var Result = 0.0;
+      var i = 0;
+      var l = 0;
+      var maxl = 0;
+      var s = "";
+      var maxs = "";
+      var bmp = null;
+      bmp = pas["WEBLib.Graphics"].TBitmap.$create("Create$3");
+      bmp.GetCanvas().FFont.Assign($mod.Form7.FFont);
+      Result = -1;
+      maxl = 0;
+      for (var $l = 0, $end = this.WebPopupMenu1.FItems.GetCount() - 1; $l <= $end; $l++) {
+        i = $l;
+        s = this.WebPopupMenu1.FItems.GetMenuItem(i).FCaption;
+        l = s.length;
+        if (l > maxl) {
+          maxl = l;
+          maxs = s;
+        };
+      };
+      Result = bmp.GetCanvas().TextWidth(maxs);
+      return Result;
+    };
+    this.FormaCaptura = function () {
+      var lnumberOfElements = 0;
+      lnumberOfElements = 3;
       function customEditor(cell, onRendered, success, cancel) {
        // const input = document.createElement('input')
         const input = document.createElement('textarea')
@@ -105695,11 +105986,27 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         //input.selectionStart = input.value.length
         //input.selectionEnd = input.value.length;
       
+      
         input.value= input.value.trim()
+        var data = cell.getRow().getData();
+       // if (data.campo.length ==0)
+       // {
+       //   console.log('entro')
+       //   table.navigateDown();
+       //   var row = cell.getRow();
+       //   var cell1 = row.getCell("valor");
+       //   cell1.edit();
+       // }
       
         onRendered(() => {
+      
           input.focus()
          // input.select()
+         if (data.campo.length ==0)
+        {
+          //console.log('entro')
+          table.navigateDown();
+        }
       
         })
       
@@ -105732,10 +106039,10 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
       let myArray = [];
       
-      const numberOfElements = 50;
+      //const numberOfElements = 50;
       
       // 3. Iterate and add elements to the array
-      for (let i = 0; i < numberOfElements; i++) {
+      for (let i = 0; i < lnumberOfElements; i++) {
         // Add an element to the array in each iteration
        // myArray.push({id:i, campo:"Billy Bob"+i.toString(), age:"12", gender:"male", height:1, col:"red", dob:"", cheese:1},
         myArray.push({id:i, campo:"Cliente", valor:""},);
@@ -105743,7 +106050,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         myArray.push({id:i, campo:"Importe", valor:""},);
         myArray.push({id:i, campo:"Pagado", valor:""},);
         myArray.push({id:i, campo:"Entregado", valor:""},);
-        myArray.push({id:i, campo:"Venta-Subasta", valor:""},);
+        myArray.push({id:i, campo:"V/S", valor:""},);
         myArray.push({id:i, campo:"", valor:""},);
       }
       
@@ -105755,10 +106062,123 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           ],
       });
     };
+    this.FormaVistaHorizontal = function () {
+      var lnumberOfElements = 0;
+      var str = '{"id":0, "campo":"Cliente", "valor":"c"}';
+      //{id:0, campo:"Producto", valor:"p"}{id:0, campo:"Importe", valor:"1"}{id:0, campo:"Pagado", valor:"s"}{id:0, campo:"Entregado", valor:"n"}{id:0, campo:"V/S", valor:"S"}';
+      var obj = JSON.parse(str);
+      lnumberOfElements = 3 + 1;
+      let myArray = [];
+        let myArray2 = [];
+      
+        let horizArray = [];
+        var table = Tabulator.findTable("#tabExample")[0];
+        var arraydat = table.getData();
+        var strdat ="";
+      //const numberOfElements = 50;
+        console.log(arraydat);
+      
+        // columnas
+        //for (let i = 0; i < lnumberOfElements; i++) {
+        //  console.log(arraydat[i].id);
+        //  console.log(arraydat[i].campo);
+        //  console.log(arraydat[i].valor);
+        //}
+      
+        strdat='';
+        console.log('---------------datos');
+          for (let i = 0; i < arraydat.length; i++) {
+          //console.log(arraydat[i].id);
+          //console.log(arraydat[i].campo);
+          //console.log(arraydat[i].valor);
+         let char34 = String.fromCharCode(34);
+          //char34 = "";
+         if (arraydat[i].campo.length == 0)
+          {
+      
+           const objh = new Object();
+           objh.id = horizArray.length+1;
+           objh.cliente = myArray2[0].valor.trim();
+           objh.producto = myArray2[1].valor.trim();
+           objh.importe = myArray2[2].valor.trim();
+           objh.pagado = myArray2[3].valor.trim();
+           objh.entregado = myArray2[4].valor.trim();
+           objh.ventasub = myArray2[5].valor.trim();
+           horizArray.push(objh)  ;
+      
+           myArray2 = [];
+          }
+          else
+          {
+            var obj = arraydat[i];
+            myArray2.push(obj);
+          }
+      
+        } // for
+      
+           console.log('hArray',horizArray);
+      
+           var table2 = new Tabulator("#tabExample2", {
+          columns:[
+              {title:"ID", field:"id"},
+              {title:"cliente", field:"cliente"},
+              {title:"producto", field:"producto"},
+              {title:"Importe", field:"importe"},
+              {title:"pagado", field:"pagado"},
+              {title:"entregado", field:"entregado"},
+              {title:"V-S", field:"ventasub"},
+          ],
+      });
+      
+      // 3. Set the data using the setData method
+          table2.on("tableBuilt", function(){
+          console.log("The table has been built!");
+          // Add your code here to run after the table is rendered
+             table2.setData(horizArray);
+      });
+    };
     this.LoadDFMValues = function () {
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebSpeedButton1 = pas["WEBLib.Buttons"].TSpeedButton.$create("Create$1",[this]);
+      this.WebPanel2 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebButton2 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebButton3 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
+      this.WebPageControl1 = pas["WEBLib.ComCtrls"].TPageControl.$create("Create$1",[this]);
+      this.WebPageControl1Sheet1 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
       this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
+      this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
+      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample2"]);
+      this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
+      this.uno1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.uno11 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.dos1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.tres1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.cuatro = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.comparte = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.N3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Salir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.WebPanel1.BeforeLoadDFMValues();
+      this.WebButton1.BeforeLoadDFMValues();
+      this.WebSpeedButton1.BeforeLoadDFMValues();
+      this.WebPanel2.BeforeLoadDFMValues();
+      this.WebButton2.BeforeLoadDFMValues();
+      this.WebButton3.BeforeLoadDFMValues();
+      this.WebPageControl1.BeforeLoadDFMValues();
+      this.WebPageControl1Sheet1.BeforeLoadDFMValues();
       this.WebDiv.BeforeLoadDFMValues();
+      this.WebPageControl1Sheet2.BeforeLoadDFMValues();
+      this.WebHTMLDiv1.BeforeLoadDFMValues();
+      this.WebPopupMenu1.BeforeLoadDFMValues();
+      this.uno1.BeforeLoadDFMValues();
+      this.uno11.BeforeLoadDFMValues();
+      this.dos1.BeforeLoadDFMValues();
+      this.tres1.BeforeLoadDFMValues();
+      this.cuatro.BeforeLoadDFMValues();
+      this.comparte.BeforeLoadDFMValues();
+      this.N3.BeforeLoadDFMValues();
+      this.Salir2.BeforeLoadDFMValues();
       try {
         this.SetName("Form7");
         this.SetWidth(640);
@@ -105772,29 +106192,250 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.FFont.SetStyle({});
         this.SetParentFont(false);
         this.SetEvent(this,"OnCreate","WebFormCreate");
-        this.WebDiv.SetParentComponent(this);
+        this.WebPanel1.SetParentComponent(this);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(0);
+        this.WebPanel1.SetWidth(640);
+        this.WebPanel1.SetHeight(60);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebPanel1.SetCaption("Libreta Digital");
+        this.WebPanel1.SetChildOrderEx(1);
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel1.SetTabOrder(0);
+        this.WebButton1.SetParentComponent(this.WebPanel1);
+        this.WebButton1.SetName("WebButton1");
+        this.WebButton1.SetLeft(538);
+        this.WebButton1.SetTop(0);
+        this.WebButton1.SetWidth(49);
+        this.WebButton1.SetHeight(60);
+        this.WebButton1.SetAlign(pas["WEBLib.Controls"].TAlign.alRight);
+        this.WebButton1.SetCaption("Menu");
+        this.WebButton1.SetChildOrderEx(2);
+        this.WebButton1.SetElementClassName("btn btn-light");
+        this.WebButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton1.FFont.FCharset = 1;
+        this.WebButton1.FFont.SetColor(65793);
+        this.WebButton1.FFont.SetHeight(-15);
+        this.WebButton1.FFont.SetName("Tahoma");
+        this.WebButton1.FFont.SetStyle({});
+        this.WebButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton1.SetHeightPercent(100.000000000000000000);
+        this.WebButton1.SetParentFont(false);
+        this.WebButton1.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton1,this,"OnClick","WebButton1Click");
+        this.WebSpeedButton1.SetParentComponent(this.WebPanel1);
+        this.WebSpeedButton1.SetName("WebSpeedButton1");
+        this.WebSpeedButton1.SetLeft(587);
+        this.WebSpeedButton1.SetTop(0);
+        this.WebSpeedButton1.SetWidth(53);
+        this.WebSpeedButton1.SetHeight(60);
+        this.WebSpeedButton1.SetAlign(pas["WEBLib.Controls"].TAlign.alRight);
+        this.WebSpeedButton1.SetColorEx(-1);
+        this.WebSpeedButton1.SetElementClassName("btn btn-light");
+        this.WebSpeedButton1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebSpeedButton1.SetFlat(true);
+        this.WebSpeedButton1.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebSpeedButton1.SetHeightPercent(100.000000000000000000);
+        this.WebSpeedButton1.SetTabOrder(1);
+        this.WebSpeedButton1.SetWidthPercent(100.000000000000000000);
+        this.WebPanel2.SetParentComponent(this);
+        this.WebPanel2.SetName("WebPanel2");
+        this.WebPanel2.SetLeft(0);
+        this.WebPanel2.SetTop(420);
+        this.WebPanel2.SetWidth(640);
+        this.WebPanel2.SetHeight(60);
+        this.WebPanel2.SetElementClassName("card");
+        this.WebPanel2.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebPanel2.SetChildOrderEx(2);
+        this.WebPanel2.FElementBodyClassName = "card-body";
+        this.WebPanel2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel2.SetTabOrder(1);
+        this.WebButton2.SetParentComponent(this.WebPanel2);
+        this.WebButton2.SetName("WebButton2");
+        this.WebButton2.SetLeft(136);
+        this.WebButton2.SetTop(16);
+        this.WebButton2.SetWidth(96);
+        this.WebButton2.SetHeight(25);
+        this.WebButton2.SetCaption("Horizontal");
+        this.WebButton2.SetElementClassName("btn btn-light");
+        this.WebButton2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton2.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton2.SetHeightPercent(100.000000000000000000);
+        this.WebButton2.SetVisible(false);
+        this.WebButton2.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton2,this,"OnClick","WebButton2Click");
+        this.WebButton3.SetParentComponent(this.WebPanel2);
+        this.WebButton3.SetName("WebButton3");
+        this.WebButton3.SetLeft(24);
+        this.WebButton3.SetTop(15);
+        this.WebButton3.SetWidth(96);
+        this.WebButton3.SetHeight(25);
+        this.WebButton3.SetCaption("Horizontal2");
+        this.WebButton3.SetChildOrderEx(1);
+        this.WebButton3.SetElementClassName("btn btn-light");
+        this.WebButton3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton3.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton3.SetHeightPercent(100.000000000000000000);
+        this.WebButton3.SetVisible(false);
+        this.WebButton3.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton3,this,"OnClick","WebButton3Click");
+        this.WebPageControl1.SetParentComponent(this);
+        this.WebPageControl1.SetName("WebPageControl1");
+        this.WebPageControl1.SetLeft(0);
+        this.WebPageControl1.SetTop(60);
+        this.WebPageControl1.SetWidth(640);
+        this.WebPageControl1.SetHeight(360);
+        this.WebPageControl1.SetElementClassName("nav nav-tabs");
+        this.WebPageControl1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebPageControl1.SetChildOrderEx(4);
+        this.WebPageControl1.FElementTabClassName = "nav-link";
+        this.WebPageControl1.FElementTabActiveClassName = "nav-link active";
+        this.WebPageControl1.FElementTabItemClassName = "nav-item";
+        this.WebPageControl1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPageControl1.SetTabIndex(1);
+        this.WebPageControl1.SetTabOrder(2);
+        this.SetEvent$1(this.WebPageControl1,this,"OnChange","WebPageControl1Change");
+        this.WebPageControl1Sheet1.SetParentComponent(this.WebPageControl1);
+        this.WebPageControl1Sheet1.SetName("WebPageControl1Sheet1");
+        this.WebPageControl1Sheet1.SetLeft(0);
+        this.WebPageControl1Sheet1.SetTop(20);
+        this.WebPageControl1Sheet1.SetWidth(640);
+        this.WebPageControl1Sheet1.SetHeight(340);
+        this.WebPageControl1Sheet1.SetCaption("Escribir Renglones");
+        this.WebPageControl1Sheet1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebDiv.SetParentComponent(this.WebPageControl1Sheet1);
         this.WebDiv.SetName("WebDiv");
         this.WebDiv.SetLeft(0);
         this.WebDiv.SetTop(0);
         this.WebDiv.SetWidth(640);
-        this.WebDiv.SetHeight(480);
+        this.WebDiv.SetHeight(340);
         this.WebDiv.SetElementClassName("table-striped");
         this.WebDiv.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebDiv.SetChildOrderEx(1);
         this.WebDiv.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebDiv.SetRole("");
+        this.WebPageControl1Sheet2.SetParentComponent(this.WebPageControl1);
+        this.WebPageControl1Sheet2.SetName("WebPageControl1Sheet2");
+        this.WebPageControl1Sheet2.SetLeft(0);
+        this.WebPageControl1Sheet2.SetTop(20);
+        this.WebPageControl1Sheet2.SetWidth(640);
+        this.WebPageControl1Sheet2.SetHeight(340);
+        this.WebPageControl1Sheet2.SetCaption("Pagina Libreta");
+        this.WebPageControl1Sheet2.SetChildOrderEx(1);
+        this.WebPageControl1Sheet2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.SetEvent$1(this.WebPageControl1Sheet2,this,"OnClick","WebPageControl1Sheet2Click");
+        this.WebHTMLDiv1.SetParentComponent(this.WebPageControl1Sheet2);
+        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
+        this.WebHTMLDiv1.SetLeft(0);
+        this.WebHTMLDiv1.SetTop(0);
+        this.WebHTMLDiv1.SetWidth(640);
+        this.WebHTMLDiv1.SetHeight(340);
+        this.WebHTMLDiv1.SetElementClassName("table-striped");
+        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebHTMLDiv1.SetChildOrderEx(1);
+        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebHTMLDiv1.SetRole("");
+        this.WebPopupMenu1.SetParentComponent(this);
+        this.WebPopupMenu1.SetName("WebPopupMenu1");
+        this.WebPopupMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
+        this.WebPopupMenu1.FAppearance.SetSubmenuIndicator("&#9658;");
+        this.WebPopupMenu1.FFont.FCharset = 1;
+        this.WebPopupMenu1.FFont.SetColor(65793);
+        this.WebPopupMenu1.FFont.SetHeight(-12);
+        this.WebPopupMenu1.FFont.SetName("Segoe UI");
+        this.WebPopupMenu1.FFont.SetStyle({});
+        this.WebPopupMenu1.SetLeft(540);
+        this.WebPopupMenu1.SetTop(176);
+        this.uno1.SetParentComponent(this.WebPopupMenu1);
+        this.uno1.SetName("uno1");
+        this.uno1.SetCaption("Agregar Renglón");
+        this.uno1.FVisible = false;
+        this.uno11.SetParentComponent(this.WebPopupMenu1);
+        this.uno11.SetName("uno11");
+        this.uno11.SetCaption("Agregar Renglones");
+        this.uno11.FVisible = false;
+        this.dos1.SetParentComponent(this.WebPopupMenu1);
+        this.dos1.SetName("dos1");
+        this.dos1.SetCaption("Abrir Hoja");
+        this.tres1.SetParentComponent(this.WebPopupMenu1);
+        this.tres1.SetName("tres1");
+        this.tres1.SetCaption("Guardar Hoja");
+        this.cuatro.SetParentComponent(this.WebPopupMenu1);
+        this.cuatro.SetName("cuatro");
+        this.cuatro.SetCaption("Limpiar Hoja");
+        this.comparte.SetParentComponent(this.WebPopupMenu1);
+        this.comparte.SetName("comparte");
+        this.comparte.SetCaption("Compartir");
+        this.SetEvent$1(this.comparte,this,"OnClick","comparteClick");
+        this.N3.SetParentComponent(this.WebPopupMenu1);
+        this.N3.SetName("N3");
+        this.N3.SetCaption("-");
+        this.Salir2.SetParentComponent(this.WebPopupMenu1);
+        this.Salir2.SetName("Salir2");
+        this.Salir2.SetCaption("Salir");
       } finally {
+        this.WebPanel1.AfterLoadDFMValues();
+        this.WebButton1.AfterLoadDFMValues();
+        this.WebSpeedButton1.AfterLoadDFMValues();
+        this.WebPanel2.AfterLoadDFMValues();
+        this.WebButton2.AfterLoadDFMValues();
+        this.WebButton3.AfterLoadDFMValues();
+        this.WebPageControl1.AfterLoadDFMValues();
+        this.WebPageControl1Sheet1.AfterLoadDFMValues();
         this.WebDiv.AfterLoadDFMValues();
+        this.WebPageControl1Sheet2.AfterLoadDFMValues();
+        this.WebHTMLDiv1.AfterLoadDFMValues();
+        this.WebPopupMenu1.AfterLoadDFMValues();
+        this.uno1.AfterLoadDFMValues();
+        this.uno11.AfterLoadDFMValues();
+        this.dos1.AfterLoadDFMValues();
+        this.tres1.AfterLoadDFMValues();
+        this.cuatro.AfterLoadDFMValues();
+        this.comparte.AfterLoadDFMValues();
+        this.N3.AfterLoadDFMValues();
+        this.Salir2.AfterLoadDFMValues();
       };
     };
     rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
     rtl.addIntf(this,pas.System.IUnknown);
     var $r = this.$rtti;
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebPanel2",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
+    $r.addField("WebButton1",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebPopupMenu1",pas["WEBLib.Menus"].$rtti["TPopupMenu"]);
+    $r.addField("uno1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("uno11",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("dos1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("tres1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("cuatro",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("comparte",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("N3",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Salir2",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebSpeedButton1",pas["WEBLib.Buttons"].$rtti["TSpeedButton"]);
+    $r.addField("WebButton2",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebButton3",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebPageControl1",pas["WEBLib.ComCtrls"].$rtti["TPageControl"]);
+    $r.addField("WebPageControl1Sheet1",pas["WEBLib.ComCtrls"].$rtti["TTabSheet"]);
+    $r.addField("WebPageControl1Sheet2",pas["WEBLib.ComCtrls"].$rtti["TTabSheet"]);
     $r.addField("WebDiv",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
     $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("comparteClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton3Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebPageControl1Sheet2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebPageControl1Change",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
   this.Form7 = null;
-});
+  $mod.$implcode = function () {
+    $impl.numberOfElements = 3;
+    $impl.popmenuwidth = 0.0;
+  };
+},[]);
 rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen","ufrmAltaRen2","Unit7"],function () {
   "use strict";
   var $mod = this;
