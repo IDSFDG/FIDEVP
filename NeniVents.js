@@ -2266,17 +2266,17 @@ rtl.module("System",[],function () {
     return A !== B;
   };
   this.$rtti.$DynArray("TArray<Classes.TPersistentClass>",{});
+  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<Generics.Collections.TDictionary.TKey,Generics.Collections.TDictionary.TValue>>",{});
+  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<Generics.Collections.TObjectDictionary.TKey,Generics.Collections.TObjectDictionary.TValue>>",{});
+  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<System.Longint,Generics.Collections.TPair<System.Double,System.Double>>>",{});
+  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<System.Double,System.Double>>",{});
+  this.$rtti.$DynArray("TArray<System.Longint>",{eltype: rtl.longint});
   this.$rtti.$DynArray("TArray<RTTI.TValue>",{});
   this.$rtti.$DynArray("TArray<RTTI.TRttiType>",{});
   this.$rtti.$DynArray("TArray<RTTI.TRttiField>",{});
   this.$rtti.$DynArray("TArray<RTTI.TRttiParameter>",{});
   this.$rtti.$DynArray("TArray<RTTI.TRttiMethod>",{});
   this.$rtti.$DynArray("TArray<RTTI.TRttiProperty>",{});
-  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<Generics.Collections.TDictionary.TKey,Generics.Collections.TDictionary.TValue>>",{});
-  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<Generics.Collections.TObjectDictionary.TKey,Generics.Collections.TObjectDictionary.TValue>>",{});
-  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<System.Longint,Generics.Collections.TPair<System.Double,System.Double>>>",{});
-  this.$rtti.$DynArray("TArray<Generics.Collections.TPair<System.Double,System.Double>>",{});
-  this.$rtti.$DynArray("TArray<System.Longint>",{eltype: rtl.longint});
   $mod.$implcode = function () {
     $mod.$rtti.$ExtClass("TJSObj",{jsclass: "Object"});
     $mod.$rtti.$ExtClass("TJSArray",{jsclass: "Array"});
@@ -105671,7 +105671,7 @@ rtl.module("ufrmAltaRen2",["System","SysUtils","Classes","JS","Web","WEBLib.Grap
   });
   this.frmAltaRen2 = null;
 });
-rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls","WEBLib.ExtCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.Menus","WEBLib.Menus","WEBLib.Buttons","WEBLib.ComCtrls"],function () {
+rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.WebCtrls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.ExtCtrls","WEBLib.REST","WEBLib.JQCtrls","WEBLib.SideMenu","WEBLib.Menus","WEBLib.Menus","uCargarConsultas","WEBLib.Cookies","WEBLib.Storage","WEBLib.LocalFiles","DB","WEBLib.IndexedDb","WEBLib.Imaging.pngImage","WEBLib.Buttons","WEBLib.ComCtrls"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
@@ -105698,6 +105698,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1Sheet2 = null;
       this.WebDiv = null;
       this.WebHTMLDiv1 = null;
+      this.WebLocalTextFile1 = null;
+      this.PedidosDbClientDataset1 = null;
+      this.WebMessageDlg1 = null;
     };
     this.$final = function () {
       this.WebPanel1 = undefined;
@@ -105720,13 +105723,21 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1Sheet2 = undefined;
       this.WebDiv = undefined;
       this.WebHTMLDiv1 = undefined;
+      this.WebLocalTextFile1 = undefined;
+      this.PedidosDbClientDataset1 = undefined;
+      this.WebMessageDlg1 = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
     };
     this.WebFormCreate = function (Sender) {
       $impl.popmenuwidth = this.maximoPopupTexto();
       this.WebButton1.SetCaption("" + "☰");
       this.FormaCaptura();
+      this.FormaVistaHorizontal();
       this.WebPageControl1.SetActivePageIndex(0);
+      this.PedidosDbClientDataset1.FFieldDefs.Clear();
+      this.PedidosDbClientDataset1.FFieldDefs.Add$5("id",pas.DB.TFieldType.ftInteger);
+      this.PedidosDbClientDataset1.FFieldDefs.Add$5("pedidolibreta",pas.DB.TFieldType.ftString);
+      this.PedidosDbClientDataset1.FFieldDefs.Add$5("fecha",pas.DB.TFieldType.ftString);
     };
     this.WebButton1Click = function (Sender) {
       var r = null;
@@ -105745,6 +105756,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var mes = 0;
       var dia = 0;
       var sfechadia = "";
+      var pageidx = 0;
+      pageidx = this.WebPageControl1.GetActivePageIndex();
       fechahoy = pas.SysUtils.Now();
       pas.SysUtils.DecodeDate(fechahoy,{get: function () {
           return anio;
@@ -105762,11 +105775,27 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       sfechadia = pas.SysUtils.DateToStr(fechahoy);
       sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
       sfechadia = "Ventas_del_" + sfechadia;
-      var table = Tabulator.findTable("#tabExample")[0];
+      var pagidx = pageidx;
+             if (pagidx ==0)
+             {
+               console.log('pageindex ',pagidx );
+               var table = Tabulator.findTable("#tabExample")[0];
+               var htmlTable = table.getHtml();
+               console.log(htmlTable )
+             }
+             else if (pagidx ==1)
+             {
+               console.log('pageindex ',pagidx );
+               var tableh = Tabulator.findTable("#tabExample2")[0];
+               var htmlTable = tableh.getHtml();
+               console.log(htmlTable )
+             }
+      
             //var htmlTable = table.getHtml("active",false);
-            var htmlTable = table.getHtml("all",false);
-            var jsonData = table.getSheetData("uno");
-           // console.log('htmlTable',  htmlTable);
+            //var htmlTable = table.getHtml("all",false);
+           // var jsonData = table.getSheetData("uno");
+      
+            console.log('htmlTable',  htmlTable);
             const { jsPDF } = window.jspdf;
             var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
       
@@ -105943,10 +105972,157 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       });
     };
     this.WebPageControl1Sheet2Click = function (Sender) {
-      this.FormaVistaHorizontal();
+      var lnumberOfElements = 0;
+      lnumberOfElements = 3 + 1;
+      let myArray = [];
+        let myArray2 = [];
+      
+        let horizArray = [];
+        var table = Tabulator.findTable("#tabExample")[0];
+        //var table = Tabulator.findTable("#tabExample");
+       // table.redraw(true);
+        //var arrydat = [];
+        var arraydat = table.getData();
+      //const numberOfElements = 50;
+        console.log('array dat ----',arraydat);
+        console.log('---------------datos ',arraydat.length);
+          for (let i = 0; i < arraydat.length; i++) {
+          //console.log(arraydat[i].id);
+          //console.log(arraydat[i].campo);
+          //console.log(arraydat[i].valor);
+         let char34 = String.fromCharCode(34);
+          //char34 = "";
+         if (arraydat[i].campo.length == 0)
+          {
+      
+           const objh = new Object();
+           objh.id = horizArray.length+1;
+           objh.cliente = myArray2[0].valor.trim();
+           objh.producto = myArray2[1].valor.trim();
+           objh.importe = myArray2[2].valor.trim();
+           objh.pagado = myArray2[3].valor.trim();
+           objh.entregado = myArray2[4].valor.trim();
+           objh.ventasub = myArray2[5].valor.trim();
+           horizArray.push(objh)  ;
+      
+           myArray2 = [];
+          }
+          else
+          {
+            var obj = arraydat[i];
+            myArray2.push(obj);
+          }
+      
+        } // for
+      
+           console.log('hArray',horizArray);
+            var tablev = Tabulator.findTable("#tabExample2")[0];
+           tablev.setData(horizArray);
     };
     this.WebPageControl1Change = function (Sender) {
       if (this.WebPageControl1.GetActivePageIndex() === 1) this.FormaVistaHorizontal();
+    };
+    this.cuatroClick = function (Sender) {
+      var lnumberOfElements = 0;
+      lnumberOfElements = 3;
+      this.LimpiarHoja();
+      var table = Tabulator.findTable("#tabExample")[0];
+          let myArray = [];
+        //const numberOfElements = 50;
+        // 3. Iterate and add elements to the array
+          for (let i = 0; i < lnumberOfElements; i++) {
+        // Add an element to the array in each iteration
+       // myArray.push({id:i, campo:"Billy Bob"+i.toString(), age:"12", gender:"male", height:1, col:"red", dob:"", cheese:1},
+              myArray.push({id:i, campo:"Cliente", valor:""},);
+              myArray.push({id:i, campo:"Producto", valor:""},);
+              myArray.push({id:i, campo:"Importe", valor:""},);
+              myArray.push({id:i, campo:"Pagado", valor:""},);
+              myArray.push({id:i, campo:"Entregado", valor:""},);
+              myArray.push({id:i, campo:"V/S", valor:""},);
+             myArray.push({id:i, campo:"", valor:""},);
+      }
+         table.setData(myArray);
+      this.WebPageControl1.SetActivePageIndex(0);
+    };
+    this.tres1Click = function (Sender) {
+      this.GuardarHoja();
+    };
+    this.dos1Click = function (Sender) {
+      this.AbrirHoja();
+    };
+    this.WebFormShow = function (Sender) {
+      var $Self = this;
+      this.PedidosDbClientDataset1.Init(function () {
+        $Self.PedidosDbClientDataset1.SetActive(true);
+      });
+    };
+    this.Salir2Click = async function (Sender) {
+      var mr = 0;
+      mr = await this.WebMessageDlg1.ShowDialog$2("Imprimir el resumen de su Venta Semanal?",pas["WEBLib.Dialogs"].TMsgDlgType.mtConfirmation,rtl.createSet(pas["WEBLib.Dialogs"].TMsgDlgBtn.mbYes));
+      if (mr === 6) {
+        this.btn_exportarClick(Sender);
+      };
+      this.Close();
+      pas["WEBLib.Forms"].Application.Terminate();
+    };
+    this.btn_exportarClick = function (Sender) {
+      var fechahoy = 0.0;
+      var fechafincookie = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      var nomarch = "";
+      var Cookies = null;
+      var PDFCookie = null;
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
+      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
+          return sfechadia;
+        }, set: function (v) {
+          sfechadia = v;
+        }});
+      Cookies = pas["WEBLib.Cookies"].TCookies.$create("Create$2");
+      try {
+        PDFCookie = Cookies.Find("PDF");
+        if (!(PDFCookie == null)) Cookies.Delete$2("PDF");
+        Cookies.Add$2("PDF","E");
+        Cookies.SetCookies();
+      } finally {
+        Cookies = rtl.freeLoc(Cookies);
+      };
+      Tabulator.extendModule("download", "downloaders", {
+          string:function(columns, data, options){
+              var fileContents = data.toString();
+              return 'data:application/txt;charset=utf-8,' + encodeURIComponent(fileContents);
+          }
+      });
+      
+      
+        var table = Tabulator.findTable("#tabExample")[0];
+      
+        // table.download("csv", "data.csv", {delimiter:"."}); //  OK download a CSV file that uses a fullstop (.) delimiter
+        var opcion = "E"
+      
+      
+      
+         table.download("pdf",nomarch);
+         //table.download("pdf","data.pdf");
+        // table.downloadToTab("pdf");
     };
     this.maximoPopupTexto = function () {
       var Result = 0.0;
@@ -106012,12 +106188,15 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
         function onChange() {
           if (input.value != cell.getValue()) {
+            console.log(input.value);
+            //cell.setValue(input.value);
             success(input.value)
           } else {
             cancel()
           }
         }
       
+        input.addEventListener('change', onChange)
         input.addEventListener('blur', onChange)
       
         input.addEventListener('keydown', (e) => {
@@ -106073,10 +106252,13 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
         let horizArray = [];
         var table = Tabulator.findTable("#tabExample")[0];
+        //var table = Tabulator.findTable("#tabExample");
+       // table.redraw(true);
+        //var arrydat = [];
         var arraydat = table.getData();
         var strdat ="";
       //const numberOfElements = 50;
-        console.log(arraydat);
+        console.log('array dat ----',arraydat);
       
         // columnas
         //for (let i = 0; i < lnumberOfElements; i++) {
@@ -106086,7 +106268,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         //}
       
         strdat='';
-        console.log('---------------datos');
+        console.log('---------------datos ',arraydat.length);
           for (let i = 0; i < arraydat.length; i++) {
           //console.log(arraydat[i].id);
           //console.log(arraydat[i].campo);
@@ -106137,6 +106319,238 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
              table2.setData(horizArray);
       });
     };
+    this.LimpiarHoja = function () {
+      var pageidx = 0;
+      pageidx = this.WebPageControl1.GetActivePageIndex();
+      var pagidx = pageidx;
+             console.log('pagidx',pagidx);
+      
+            // if (pagidx ==0)
+            // {
+               var tablev = Tabulator.findTable("#tabExample")[0];
+               tablev.clearData();
+              // table.setData([]);
+             //}
+            // else if (pagidx ==1)
+            // {
+               var tableh = Tabulator.findTable("#tabExample2")[0];
+               tableh.clearData();
+               //tableh.setData([]);
+            // };
+    };
+    this.GuardarHoja = function () {
+      var $Self = this;
+      var sfechadia = "";
+      var fechahoy = 0.0;
+      var fechafincookie = 0.0;
+      var p = 0;
+      var p1 = 0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var nomarch = "";
+      var nomarchcookie = "";
+      var guardarCookie = null;
+      var valorCookie = "";
+      var LLocalStorage = null;
+      var opcionGuardar = 0;
+      var filehandle = undefined;
+      var i = 0;
+      var lendatos = 0;
+      filehandle = this.WebLocalTextFile1.FFileHandle;
+      opcionGuardar = 6;
+      lendatos = 0;
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia));
+      nomarch = "Archivo-" + pas.SysUtils.TStringHelper.Trim.call({get: function () {
+          return sfechadia;
+        }, set: function (v) {
+          sfechadia = v;
+        }});
+      nomarchcookie = nomarch;
+      nomarchcookie = $impl.NomRegistroCookie;
+      valorCookie ='';
+      var table = Tabulator.findTable("#tabExample")[0];
+      var array = table.getData();
+      var json = JSON.stringify(array);
+      console.log('datos tabla',json);
+      valorCookie=json;
+      lendatos=array.length;
+      if (lendatos === 0) return;
+      var $tmp = opcionGuardar;
+      if ($tmp === 1) {
+        guardarCookie = $impl.RegistroCookie.Find(nomarchcookie);
+        console.log(guardarCookie);
+        if (!(guardarCookie == null)) {
+          $impl.RegistroCookie.Delete$2(nomarch);
+          $impl.RegistroCookie.Delete$2("nombrearchivo");
+        };
+        fechafincookie = fechahoy + 7;
+        $impl.RegistroCookie.Add$1(nomarchcookie,valorCookie,fechafincookie);
+        $impl.RegistroCookie.Add$1("nombrearchivo",nomarchcookie,fechafincookie);
+        pas.SysUtils.DecodeDate(fechafincookie,{get: function () {
+            return anio;
+          }, set: function (v) {
+            anio = v;
+          }},{get: function () {
+            return mes;
+          }, set: function (v) {
+            mes = v;
+          }},{get: function () {
+            return dia;
+          }, set: function (v) {
+            dia = v;
+          }});
+        console.log('archivo cookie guardar',nomarchcookie);
+        console.log('valor cookie guardar',valorCookie);
+        console.log('fecha expira',fechafincookie, anio, mes, dia);
+        $impl.RegistroCookie.SetCookies();
+      } else if ($tmp === 2) {
+        pas["WEBLib.Forms"].Application.DownloadTextFile(valorCookie,"PedidoSemana.txt");
+      } else if ($tmp === 3) {
+        LLocalStorage = pas["WEBLib.Storage"].TLocalStorage.$create("Create");
+        try {
+          LLocalStorage.SetValues(nomarchcookie,valorCookie);
+        } finally {
+          LLocalStorage = rtl.freeLoc(LLocalStorage);
+        };
+      } else if ($tmp === 4) {}
+      else if ($tmp === 5) {
+        valorCookie ='';
+        var table = Tabulator.findTable("#tabExample")[0];
+        var array = table.getData();
+        var json = JSON.stringify(array);
+        console.log('datos tabla',json);
+        valorCookie=json;
+        console.log('FileHandle ');
+        console.log(filehandle);
+        this.WebLocalTextFile1.FText = valorCookie;
+        if (filehandle == null) {
+          this.WebLocalTextFile1.SaveAsFile$1(function () {
+            pas["WEBLib.Dialogs"].ShowMessage("File succesfully saved");
+          });
+        } else this.WebLocalTextFile1.Save();
+      } else if ($tmp === 6) {
+        var pruebaDatos =[];
+        valorCookie ='';
+        var table = Tabulator.findTable("#tabExample")[0];
+        var array = table.getData();
+        var json = JSON.stringify(array);
+        console.log('datos tabla',json);
+        valorCookie=json;
+        if (!this.PedidosDbClientDataset1.IsEmpty()) {
+          this.PedidosDbClientDataset1.EmptyDataSet();
+          this.PedidosDbClientDataset1.ApplyUpdates();
+        };
+        window.console.log("valor Cookie",valorCookie);
+        this.PedidosDbClientDataset1.Append();
+        this.PedidosDbClientDataset1.FieldByName("pedidolibreta").SetAsString(valorCookie);
+        this.PedidosDbClientDataset1.FieldByName("fecha").SetAsString(pas.SysUtils.DateToStr(pas.SysUtils.Now()));
+        this.PedidosDbClientDataset1.Post();
+      };
+    };
+    this.AbrirHoja = function () {
+      var $Self = this;
+      var nomarch = "";
+      var nomarchcookie = "";
+      var guardarCookie = null;
+      var valorRegistroCookie = "";
+      var opcionGuardar = 0;
+      var LLocalStorage = null;
+      var jsonData = "";
+      var i = 0;
+      nomarch = "";
+      opcionGuardar = 6;
+      var $tmp = opcionGuardar;
+      if ($tmp === 1) {
+        nomarchcookie = $impl.RegistroCookie.Find("nombrearchivo").FValue;
+        if ($impl.RegistroCookie.GetCount() === 1) {
+          pas["WEBLib.Dialogs"].ShowMessage("No hay nada registrado aún");
+          return;
+        };
+        nomarchcookie = $impl.RegistroCookie.Find("nombrearchivo").FValue;
+        if (nomarchcookie.length > 0) guardarCookie = $impl.RegistroCookie.Find(nomarchcookie);
+        if (!(guardarCookie == null)) {
+          $impl.RegistroCookie.GetCookies();
+          valorRegistroCookie = pas.uCargarConsultas.GetCookie(nomarchcookie);
+          console.log('archivo cookie abrir',nomarchcookie);
+          console.log('valor cookie abrir',valorRegistroCookie);
+          var table = Tabulator.findTable("#tabExample")[0];
+          table.setData(valorRegistroCookie);
+        };
+      } else if ($tmp === 2) {
+        this.WebLocalTextFile1.FFilter.Clear();
+        this.WebLocalTextFile1.FFilter.Add$2("Text files","text/plain","*.txt");
+        this.WebLocalTextFile1.OpenFile$1(function (AText) {
+          jsonData = AText;
+          var table = Tabulator.findTable("#tabExample")[0];
+          table.setData(jsonData);
+        });
+      } else if ($tmp === 3) {
+        LLocalStorage = pas["WEBLib.Storage"].TLocalStorage.$create("Create");
+        try {
+          valorRegistroCookie = LLocalStorage.GetValues(nomarchcookie);
+        } finally {
+          LLocalStorage = rtl.freeLoc(LLocalStorage);
+        };
+        var table = Tabulator.findTable("#tabExample")[0];
+        table.setData(valorRegistroCookie);
+      } else if ($tmp === 5) {
+        var table = Tabulator.findTable("#tabExample")[0];
+              // table.import("json", ".json")
+               table.import("json",".*")
+              .then(() => {
+                  //file successfully imported
+               })
+               .catch(() => {
+            //something went wrong
+              })
+        
+        
+              table.on("importImported", function(data){
+            //data - array of row data
+              //var rowCount = table.getDataCount()+1;
+             // console.log('rowcount',rowCount);
+              console.log('data',data);
+               //data.pop();
+              //console.log('data1',data);
+              var l =data.length;
+              for (var i = 0; i < l; i++) {
+                 console.log(data[i].rc);
+                 if (data[i].rc === undefined)
+                 {
+                    data.splice(i);
+                 }
+               }
+        
+              });
+      } else if ($tmp === 6) {
+        valorRegistroCookie = "";
+        var arregs =[];
+        this.PedidosDbClientDataset1.First();
+        if (!this.PedidosDbClientDataset1.GetEOF()) {
+          valorRegistroCookie = this.PedidosDbClientDataset1.FieldByName("pedidolibreta").GetAsString();
+          // alert('registro',valorRegistroCookie);
+          //console.log('valor', valorRegistroCookie);
+          var table = Tabulator.findTable("#tabExample")[0];
+          table.setData(valorRegistroCookie);
+        };
+      };
+    };
     this.LoadDFMValues = function () {
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
       this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
@@ -106148,6 +106562,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1 = pas["WEBLib.ComCtrls"].TPageControl.$create("Create$1",[this]);
       this.WebPageControl1Sheet1 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
       this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
+      this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
       this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
       this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample2"]);
       this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
@@ -106159,6 +106574,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.comparte = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.N3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.Salir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.WebLocalTextFile1 = pas["WEBLib.LocalFiles"].TLocalTextFile.$create("Create$1",[this]);
+      this.PedidosDbClientDataset1 = pas["WEBLib.IndexedDb"].TIndexedDbClientDataset.$create("Create$1",[this]);
       this.WebPanel1.BeforeLoadDFMValues();
       this.WebButton1.BeforeLoadDFMValues();
       this.WebSpeedButton1.BeforeLoadDFMValues();
@@ -106168,6 +106585,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1.BeforeLoadDFMValues();
       this.WebPageControl1Sheet1.BeforeLoadDFMValues();
       this.WebDiv.BeforeLoadDFMValues();
+      this.WebMessageDlg1.BeforeLoadDFMValues();
       this.WebPageControl1Sheet2.BeforeLoadDFMValues();
       this.WebHTMLDiv1.BeforeLoadDFMValues();
       this.WebPopupMenu1.BeforeLoadDFMValues();
@@ -106179,6 +106597,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.comparte.BeforeLoadDFMValues();
       this.N3.BeforeLoadDFMValues();
       this.Salir2.BeforeLoadDFMValues();
+      this.WebLocalTextFile1.BeforeLoadDFMValues();
+      this.PedidosDbClientDataset1.BeforeLoadDFMValues();
       try {
         this.SetName("Form7");
         this.SetWidth(640);
@@ -106192,6 +106612,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.FFont.SetStyle({});
         this.SetParentFont(false);
         this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.SetEvent(this,"OnShow","WebFormShow");
         this.WebPanel1.SetParentComponent(this);
         this.WebPanel1.SetName("WebPanel1");
         this.WebPanel1.SetLeft(0);
@@ -106295,7 +106716,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.FElementTabActiveClassName = "nav-link active";
         this.WebPageControl1.FElementTabItemClassName = "nav-item";
         this.WebPageControl1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPageControl1.SetTabIndex(1);
+        this.WebPageControl1.SetTabIndex(0);
         this.WebPageControl1.SetTabOrder(2);
         this.SetEvent$1(this.WebPageControl1,this,"OnChange","WebPageControl1Change");
         this.WebPageControl1Sheet1.SetParentComponent(this.WebPageControl1);
@@ -106317,6 +106738,18 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebDiv.SetChildOrderEx(1);
         this.WebDiv.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebDiv.SetRole("");
+        this.WebMessageDlg1.SetParentComponent(this.WebDiv);
+        this.WebMessageDlg1.SetName("WebMessageDlg1");
+        this.WebMessageDlg1.SetLeft(551);
+        this.WebMessageDlg1.SetTop(6);
+        this.WebMessageDlg1.SetWidth(24);
+        this.WebMessageDlg1.SetHeight(24);
+        this.WebMessageDlg1.FButtons = {};
+        this.WebMessageDlg1.FOpacity = 0.200000000000000000;
+        this.WebMessageDlg1.FElementButtonClassName = "btn";
+        this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
+        this.WebMessageDlg1.FElementTitleClassName = "text-body";
+        this.WebMessageDlg1.FElementContentClassName = "text-body";
         this.WebPageControl1Sheet2.SetParentComponent(this.WebPageControl1);
         this.WebPageControl1Sheet2.SetName("WebPageControl1Sheet2");
         this.WebPageControl1Sheet2.SetLeft(0);
@@ -106360,12 +106793,15 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.dos1.SetParentComponent(this.WebPopupMenu1);
         this.dos1.SetName("dos1");
         this.dos1.SetCaption("Abrir Hoja");
+        this.SetEvent$1(this.dos1,this,"OnClick","dos1Click");
         this.tres1.SetParentComponent(this.WebPopupMenu1);
         this.tres1.SetName("tres1");
         this.tres1.SetCaption("Guardar Hoja");
+        this.SetEvent$1(this.tres1,this,"OnClick","tres1Click");
         this.cuatro.SetParentComponent(this.WebPopupMenu1);
         this.cuatro.SetName("cuatro");
         this.cuatro.SetCaption("Limpiar Hoja");
+        this.SetEvent$1(this.cuatro,this,"OnClick","cuatroClick");
         this.comparte.SetParentComponent(this.WebPopupMenu1);
         this.comparte.SetName("comparte");
         this.comparte.SetCaption("Compartir");
@@ -106376,6 +106812,19 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.Salir2.SetParentComponent(this.WebPopupMenu1);
         this.Salir2.SetName("Salir2");
         this.Salir2.SetCaption("Salir");
+        this.SetEvent$1(this.Salir2,this,"OnClick","Salir2Click");
+        this.WebLocalTextFile1.SetParentComponent(this);
+        this.WebLocalTextFile1.SetName("WebLocalTextFile1");
+        this.WebLocalTextFile1.SetLeft(408);
+        this.WebLocalTextFile1.SetTop(64);
+        this.PedidosDbClientDataset1.SetParentComponent(this);
+        this.PedidosDbClientDataset1.SetName("PedidosDbClientDataset1");
+        this.PedidosDbClientDataset1.FIDBDatabaseName = "BDPedidos";
+        this.PedidosDbClientDataset1.FIDBObjectStoreName = "Pedidos";
+        this.PedidosDbClientDataset1.FIDBKeyFieldName = "id";
+        this.PedidosDbClientDataset1.FIDBAutoIncrement = true;
+        this.PedidosDbClientDataset1.SetLeft(480);
+        this.PedidosDbClientDataset1.SetTop(376);
       } finally {
         this.WebPanel1.AfterLoadDFMValues();
         this.WebButton1.AfterLoadDFMValues();
@@ -106386,6 +106835,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.AfterLoadDFMValues();
         this.WebPageControl1Sheet1.AfterLoadDFMValues();
         this.WebDiv.AfterLoadDFMValues();
+        this.WebMessageDlg1.AfterLoadDFMValues();
         this.WebPageControl1Sheet2.AfterLoadDFMValues();
         this.WebHTMLDiv1.AfterLoadDFMValues();
         this.WebPopupMenu1.AfterLoadDFMValues();
@@ -106397,6 +106847,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.comparte.AfterLoadDFMValues();
         this.N3.AfterLoadDFMValues();
         this.Salir2.AfterLoadDFMValues();
+        this.WebLocalTextFile1.AfterLoadDFMValues();
+        this.PedidosDbClientDataset1.AfterLoadDFMValues();
       };
     };
     rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
@@ -106422,6 +106874,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addField("WebPageControl1Sheet2",pas["WEBLib.ComCtrls"].$rtti["TTabSheet"]);
     $r.addField("WebDiv",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
     $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("WebLocalTextFile1",pas["WEBLib.LocalFiles"].$rtti["TLocalTextFile"]);
+    $r.addField("PedidosDbClientDataset1",pas["WEBLib.IndexedDb"].$rtti["TIndexedDbClientDataset"]);
+    $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
     $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("comparteClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
@@ -106429,11 +106884,19 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addMethod("WebButton3Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebPageControl1Sheet2Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebPageControl1Change",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("cuatroClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("tres1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("dos1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebFormShow",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Salir2Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
+    $r.addMethod("btn_exportarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
   this.Form7 = null;
   $mod.$implcode = function () {
     $impl.numberOfElements = 3;
     $impl.popmenuwidth = 0.0;
+    $impl.RegistroCookie = null;
+    $impl.NomRegistroCookie = "";
   };
 },[]);
 rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen","ufrmAltaRen2","Unit7"],function () {
@@ -106441,16 +106904,16 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarCon
   var $mod = this;
   $mod.$implcode = function () {
     pas.System.$rtti["TArray<Classes.TPersistentClass>"].eltype = pas.Classes.$rtti["TPersistentClass"];
+    pas.System.$rtti["TArray<Generics.Collections.TPair<Generics.Collections.TDictionary.TKey,Generics.Collections.TDictionary.TValue>>"].eltype = pas["Generics.Collections"].$rtti["TPair<Generics.Collections.TDictionary.TKey,Generics.Collections.TDictionary.TValue>"];
+    pas.System.$rtti["TArray<Generics.Collections.TPair<Generics.Collections.TObjectDictionary.TKey,Generics.Collections.TObjectDictionary.TValue>>"].eltype = pas["Generics.Collections"].$rtti["TPair<Generics.Collections.TObjectDictionary.TKey,Generics.Collections.TObjectDictionary.TValue>"];
+    pas.System.$rtti["TArray<Generics.Collections.TPair<System.Longint,Generics.Collections.TPair<System.Double,System.Double>>>"].eltype = pas["Generics.Collections"].$rtti["TPair<System.Longint,Generics.Collections.TPair<System.Double,System.Double>>"];
+    pas.System.$rtti["TArray<Generics.Collections.TPair<System.Double,System.Double>>"].eltype = pas["Generics.Collections"].$rtti["TPair<System.Double,System.Double>"];
     pas.System.$rtti["TArray<RTTI.TValue>"].eltype = pas.RTTI.$rtti["TValue"];
     pas.System.$rtti["TArray<RTTI.TRttiType>"].eltype = pas.RTTI.$rtti["TRttiType"];
     pas.System.$rtti["TArray<RTTI.TRttiField>"].eltype = pas.RTTI.$rtti["TRttiField"];
     pas.System.$rtti["TArray<RTTI.TRttiParameter>"].eltype = pas.RTTI.$rtti["TRttiParameter"];
     pas.System.$rtti["TArray<RTTI.TRttiMethod>"].eltype = pas.RTTI.$rtti["TRttiMethod"];
     pas.System.$rtti["TArray<RTTI.TRttiProperty>"].eltype = pas.RTTI.$rtti["TRttiProperty"];
-    pas.System.$rtti["TArray<Generics.Collections.TPair<Generics.Collections.TDictionary.TKey,Generics.Collections.TDictionary.TValue>>"].eltype = pas["Generics.Collections"].$rtti["TPair<Generics.Collections.TDictionary.TKey,Generics.Collections.TDictionary.TValue>"];
-    pas.System.$rtti["TArray<Generics.Collections.TPair<Generics.Collections.TObjectDictionary.TKey,Generics.Collections.TObjectDictionary.TValue>>"].eltype = pas["Generics.Collections"].$rtti["TPair<Generics.Collections.TObjectDictionary.TKey,Generics.Collections.TObjectDictionary.TValue>"];
-    pas.System.$rtti["TArray<Generics.Collections.TPair<System.Longint,Generics.Collections.TPair<System.Double,System.Double>>>"].eltype = pas["Generics.Collections"].$rtti["TPair<System.Longint,Generics.Collections.TPair<System.Double,System.Double>>"];
-    pas.System.$rtti["TArray<Generics.Collections.TPair<System.Double,System.Double>>"].eltype = pas["Generics.Collections"].$rtti["TPair<System.Double,System.Double>"];
   };
   $mod.$main = function () {
     pas["WEBLib.Forms"].Application.Initialize();
@@ -106464,16 +106927,6 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarCon
         return this.p.FormaLogin;
       }, set: function (v) {
         this.p.FormaLogin = v;
-      }});
-    pas["WEBLib.Forms"].Application.CreateForm(pas.ufrmAltaRen2.TfrmAltaRen2,{p: pas.ufrmAltaRen2, get: function () {
-        return this.p.frmAltaRen2;
-      }, set: function (v) {
-        this.p.frmAltaRen2 = v;
-      }});
-    pas["WEBLib.Forms"].Application.CreateForm(pas.ufrmAltaRen.TfrmAltaRen,{p: pas.ufrmAltaRen, get: function () {
-        return this.p.frmAltaRen;
-      }, set: function (v) {
-        this.p.frmAltaRen = v;
       }});
     pas["WEBLib.Forms"].Application.Run();
   };
