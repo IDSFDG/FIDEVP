@@ -105697,7 +105697,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1Sheet1 = null;
       this.WebPageControl1Sheet2 = null;
       this.WebDiv = null;
-      this.WebHTMLDiv1 = null;
+      this.WebDiv1 = null;
       this.WebLocalTextFile1 = null;
       this.PedidosDbClientDataset1 = null;
       this.WebMessageDlg1 = null;
@@ -105722,7 +105722,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1Sheet1 = undefined;
       this.WebPageControl1Sheet2 = undefined;
       this.WebDiv = undefined;
-      this.WebHTMLDiv1 = undefined;
+      this.WebDiv1 = undefined;
       this.WebLocalTextFile1 = undefined;
       this.PedidosDbClientDataset1 = undefined;
       this.WebMessageDlg1 = undefined;
@@ -105758,88 +105758,10 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var sfechadia = "";
       var pageidx = 0;
       pageidx = this.WebPageControl1.GetActivePageIndex();
-      fechahoy = pas.SysUtils.Now();
-      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
-          return anio;
-        }, set: function (v) {
-          anio = v;
-        }},{get: function () {
-          return mes;
-        }, set: function (v) {
-          mes = v;
-        }},{get: function () {
-          return dia;
-        }, set: function (v) {
-          dia = v;
-        }});
-      sfechadia = pas.SysUtils.DateToStr(fechahoy);
-      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
-      sfechadia = "Ventas_del_" + sfechadia;
-      var pagidx = pageidx;
-             if (pagidx ==0)
-             {
-               console.log('pageindex ',pagidx );
-               var table = Tabulator.findTable("#tabExample")[0];
-               var htmlTable = table.getHtml();
-               console.log(htmlTable )
-             }
-             else if (pagidx ==1)
-             {
-               console.log('pageindex ',pagidx );
-               var tableh = Tabulator.findTable("#tabExample2")[0];
-               var htmlTable = tableh.getHtml();
-               console.log(htmlTable )
-             }
-      
-            //var htmlTable = table.getHtml("active",false);
-            //var htmlTable = table.getHtml("all",false);
-           // var jsonData = table.getSheetData("uno");
-      
-            console.log('htmlTable',  htmlTable);
-            const { jsPDF } = window.jspdf;
-            var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
-      
-      
-           var specialElementHandlers = {
-           '#getPDF': function(element, renderer){
-             return true;
-           },
-           '.controls': function(element, renderer){
-             return true;
-           }
-         };
-      
-      
-         const myElement = document.getElementById('html-table');
-         myElement.innerHTML = htmlTable;
-        // console.log('myelement',myElement);
-         // OK
-         //doc.autoTable({ html: myElement.querySelector('table') });
-         //doc.save("aaa.pdf");
-         // fin ok
-       // https://phppot.com/javascript/jspdf-autotable/
-        //doc.autoTable({ html: myElement.querySelector('table') ,
-        //console.log('tablehtml',myElement.querySelector('table'));
-      
-         doc.autoTable({ html: myElement.querySelector('table')});
-         const pdfBlob = doc.output('blob');
-      
-        // const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-         const file = new File([pdfBlob], sfechadia, { type: 'application/pdf' });
-         if ( window.navigator.share) {
-            //  const pdfBlob = new Blob([fileContents], { type: 'application/pdf' });
-            //const file = new File([pdfBlob], 'document.pdf', { type: 'application/pdf' });
-      
-          window.navigator.share({
-              files: [file],
-              title: 'PDF Document',
-              text: 'Check out this PDF document!',
-          })
-         .then(() => console.log('PDF compartido correctamente'))
-         .catch((error) => console.error('Error compartir PDF:', error));
-          } else {
-          console.log('Web Share API not supported in this browser.');
-      };
+      var $tmp = pageidx;
+      if ($tmp === 0) {
+        this.CompartirCaptura()}
+       else if ($tmp === 1) this.CompartirCapturaVertical();
     };
     this.WebButton2Click = function (Sender) {
       var lnumberOfElements = 0;
@@ -105942,17 +105864,17 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
            myArray2 = [];
           }
-          else
-          {
-            var obj = arraydat[i];
-            myArray2.push(obj);
-          }
+        //  else
+        //  {
+        //    var obj = arraydat[i];
+        //    myArray2.push(obj);
+        //  }
       
         } // for
       
            console.log('hArray',horizArray);
       
-           var table2 = new Tabulator("#tabExample2", {
+           var table2 = new Tabulator("#tablaVertical", {
           columns:[
               {title:"ID", field:"id"},
               {title:"cliente", field:"cliente"},
@@ -105969,6 +105891,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           console.log("The table has been built!");
           // Add your code here to run after the table is rendered
              table2.setData(horizArray);
+      
       });
     };
     this.WebPageControl1Sheet2Click = function (Sender) {
@@ -106016,11 +105939,11 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         } // for
       
            console.log('hArray',horizArray);
-            var tablev = Tabulator.findTable("#tabExample2")[0];
+            var tablev = Tabulator.findTable("#tablaVertical")[0];
            tablev.setData(horizArray);
     };
     this.WebPageControl1Change = function (Sender) {
-      if (this.WebPageControl1.GetActivePageIndex() === 1) this.FormaVistaHorizontal();
+      if (this.WebPageControl1.GetActivePageIndex() === 1) this.WebPageControl1Sheet2Click(Sender);
     };
     this.cuatroClick = function (Sender) {
       var lnumberOfElements = 0;
@@ -106239,6 +106162,18 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
               {title:"Campo", field:"campo", editable:false, width:"30%"},
               {title:"Valor", field:"valor",editor:customEditor,width:"60%"},
           ],
+      
+          height:"311px",
+          height:"95%",
+          htmlOutputConfig:{
+              columnHeaders:true, //do not include column headers in HTML table
+              columnGroups:false, //do not include column groups in column headers for HTML table
+              rowHeaders:true, //do not include row headers in HTML table
+              rowGroups:false, //do not include row groups in HTML table
+              columnCalcs:true, //do not include column calcs in HTML table
+              dataTree:false, //do not include data tree in HTML table
+              formatCells:false, //show raw cell values without formatter
+          },
       });
     };
     this.FormaVistaHorizontal = function () {
@@ -106300,7 +106235,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
            console.log('hArray',horizArray);
       
-           var table2 = new Tabulator("#tabExample2", {
+           var table2 = new Tabulator("#tablaVertical", {
+           data:horizArray,
           columns:[
               {title:"ID", field:"id"},
               {title:"cliente", field:"cliente"},
@@ -106310,6 +106246,18 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
               {title:"entregado", field:"entregado"},
               {title:"V-S", field:"ventasub"},
           ],
+      
+          height:"311px",
+          height:"95%",
+          htmlOutputConfig:{
+              columnHeaders:true, //do not include column headers in HTML table
+              columnGroups:false, //do not include column groups in column headers for HTML table
+              rowHeaders:true, //do not include row headers in HTML table
+              rowGroups:false, //do not include row groups in HTML table
+              columnCalcs:true, //do not include column calcs in HTML table
+              dataTree:false, //do not include data tree in HTML table
+              formatCells:false, //show raw cell values without formatter
+          },
       });
       
       // 3. Set the data using the setData method
@@ -106317,6 +106265,11 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           console.log("The table has been built!");
           // Add your code here to run after the table is rendered
              table2.setData(horizArray);
+      
+      
+           var array = table2.getData();
+           console.log('datav-------',array);
+      
       });
     };
     this.LimpiarHoja = function () {
@@ -106333,7 +106286,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
              //}
             // else if (pagidx ==1)
             // {
-               var tableh = Tabulator.findTable("#tabExample2")[0];
+               var tableh = Tabulator.findTable("#tablaVertical")[0];
                tableh.clearData();
                //tableh.setData([]);
             // };
@@ -106551,6 +106504,145 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         };
       };
     };
+    this.CompartirCaptura = function () {
+      var fechahoy = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
+      sfechadia = "Ventas_del_" + sfechadia;
+      var table = Tabulator.findTable("#tabExample")[0];
+               var array = table.getData();
+               console.log('data',array);
+            //var htmlTable = table.getHtml();
+            var htmlTable = table.getHtml("all",false);
+           console.log('htmlTable',  htmlTable);
+            const { jsPDF } = window.jspdf;
+            var doc = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+      
+      
+           var specialElementHandlers = {
+           '#getPDF': function(element, renderer){
+             return true;
+           },
+           '.controls': function(element, renderer){
+             return true;
+           }
+         };
+      
+         const myElement = document.getElementById('html-table');
+      
+      
+         myElement.innerHTML = htmlTable;
+      
+      
+         console.log('query selector',myElement.querySelector('table'));
+      
+         doc.autoTable({ html: myElement.querySelector('table')});
+      
+         console.log('doc',doc);
+         const pdfBlob = doc.output('blob');
+      
+         const file = new File([pdfBlob], sfechadia, { type: 'application/pdf' });
+         if ( window.navigator.share) {
+          window.navigator.share({
+              files: [file],
+              title: 'PDF Document',
+              text: 'Check out this PDF document!',
+          })
+         .then(() => console.log('PDF compartido correctamente'))
+         .catch((error) => console.error('Error compartir PDF:', error));
+          } else {
+          console.log('Web Share API not supported in this browser.');
+      };
+    };
+    this.CompartirCapturaVertical = function () {
+      var fechahoy = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      var pageidx = 0;
+      this.WebPageControl1Sheet2Click(this);
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
+      sfechadia = "Ventas_del_" + sfechadia;
+      var table2 = Tabulator.findTable("#tablaVertical")[0];
+           var array = table2.getData();
+           console.log('tabla',table2);
+           console.log('datav',array);
+      
+         //  var htmlTable = table.getHtml();
+           var htmlTablev = table2.getHtml("all",false);
+           console.log('htmlTable',  htmlTablev);
+           const { jsPDF } = window.jspdf;
+      
+           var docv = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+      
+      
+           var specialElementHandlers = {
+           '#getPDF': function(element, renderer){
+             return true;
+           },
+           '.controls': function(element, renderer){
+             return true;
+           }
+         };
+      
+         const myElementv = document.getElementById('html-table2');
+         myElementv.innerHTML = htmlTablev;
+         console.log('innerhtml',myElementv.innerHTML);
+      
+         console.log('query selector',myElementv.querySelector('table'));
+      
+         docv.autoTable({ html: myElementv.querySelector('table')});
+      
+         const pdfBlobv = docv.output('blob');
+         console.log('pdfBlob',pdfBlobv) ;
+         sfechadia ='document.pdf';
+         const filev = new File([pdfBlobv], sfechadia, { type: 'application/pdf' });
+         if ( window.navigator.share) {
+          window.navigator.share({
+              files: [filev],
+              title: 'PDF Document',
+              text: 'Check out this PDF document!',
+          })
+         .then(() => console.log('PDF compartido correctamente'))
+         .catch((error) => console.error('Error compartir PDF:', error));
+          } else {
+          console.log('Web Share API not supported in this browser.');
+      };
+    };
     this.LoadDFMValues = function () {
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
       this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
@@ -106564,7 +106656,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
       this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
       this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
-      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample2"]);
+      this.WebDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tablaVertical"]);
       this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
       this.uno1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.uno11 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
@@ -106587,7 +106679,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebDiv.BeforeLoadDFMValues();
       this.WebMessageDlg1.BeforeLoadDFMValues();
       this.WebPageControl1Sheet2.BeforeLoadDFMValues();
-      this.WebHTMLDiv1.BeforeLoadDFMValues();
+      this.WebDiv1.BeforeLoadDFMValues();
       this.WebPopupMenu1.BeforeLoadDFMValues();
       this.uno1.BeforeLoadDFMValues();
       this.uno11.BeforeLoadDFMValues();
@@ -106716,7 +106808,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.FElementTabActiveClassName = "nav-link active";
         this.WebPageControl1.FElementTabItemClassName = "nav-item";
         this.WebPageControl1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPageControl1.SetTabIndex(0);
+        this.WebPageControl1.SetTabIndex(1);
         this.WebPageControl1.SetTabOrder(2);
         this.SetEvent$1(this.WebPageControl1,this,"OnChange","WebPageControl1Change");
         this.WebPageControl1Sheet1.SetParentComponent(this.WebPageControl1);
@@ -106760,17 +106852,17 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1Sheet2.SetChildOrderEx(1);
         this.WebPageControl1Sheet2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.SetEvent$1(this.WebPageControl1Sheet2,this,"OnClick","WebPageControl1Sheet2Click");
-        this.WebHTMLDiv1.SetParentComponent(this.WebPageControl1Sheet2);
-        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
-        this.WebHTMLDiv1.SetLeft(0);
-        this.WebHTMLDiv1.SetTop(0);
-        this.WebHTMLDiv1.SetWidth(640);
-        this.WebHTMLDiv1.SetHeight(340);
-        this.WebHTMLDiv1.SetElementClassName("table-striped");
-        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
-        this.WebHTMLDiv1.SetChildOrderEx(1);
-        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebHTMLDiv1.SetRole("");
+        this.WebDiv1.SetParentComponent(this.WebPageControl1Sheet2);
+        this.WebDiv1.SetName("WebDiv1");
+        this.WebDiv1.SetLeft(0);
+        this.WebDiv1.SetTop(0);
+        this.WebDiv1.SetWidth(640);
+        this.WebDiv1.SetHeight(340);
+        this.WebDiv1.SetElementClassName("table-striped");
+        this.WebDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebDiv1.SetChildOrderEx(1);
+        this.WebDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebDiv1.SetRole("");
         this.WebPopupMenu1.SetParentComponent(this);
         this.WebPopupMenu1.SetName("WebPopupMenu1");
         this.WebPopupMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
@@ -106837,7 +106929,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebDiv.AfterLoadDFMValues();
         this.WebMessageDlg1.AfterLoadDFMValues();
         this.WebPageControl1Sheet2.AfterLoadDFMValues();
-        this.WebHTMLDiv1.AfterLoadDFMValues();
+        this.WebDiv1.AfterLoadDFMValues();
         this.WebPopupMenu1.AfterLoadDFMValues();
         this.uno1.AfterLoadDFMValues();
         this.uno11.AfterLoadDFMValues();
@@ -106873,7 +106965,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addField("WebPageControl1Sheet1",pas["WEBLib.ComCtrls"].$rtti["TTabSheet"]);
     $r.addField("WebPageControl1Sheet2",pas["WEBLib.ComCtrls"].$rtti["TTabSheet"]);
     $r.addField("WebDiv",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
-    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("WebDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
     $r.addField("WebLocalTextFile1",pas["WEBLib.LocalFiles"].$rtti["TLocalTextFile"]);
     $r.addField("PedidosDbClientDataset1",pas["WEBLib.IndexedDb"].$rtti["TIndexedDbClientDataset"]);
     $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
