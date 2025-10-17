@@ -105765,7 +105765,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     };
     this.WebButton2Click = function (Sender) {
       var lnumberOfElements = 0;
-      lnumberOfElements = 3 + 1;
+      lnumberOfElements = 60 + 1;
       let myArray = [];
         var table = Tabulator.findTable("#tabExample")[0];
         var arraydat = table.getData();
@@ -105823,7 +105823,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var str = '{"id":0, "campo":"Cliente", "valor":"c"}';
       //{id:0, campo:"Producto", valor:"p"}{id:0, campo:"Importe", valor:"1"}{id:0, campo:"Pagado", valor:"s"}{id:0, campo:"Entregado", valor:"n"}{id:0, campo:"V/S", valor:"S"}';
       var obj = JSON.parse(str);
-      lnumberOfElements = 3 + 1;
+      lnumberOfElements = 60 + 1;
       let myArray = [];
         let myArray2 = [];
       
@@ -105896,7 +105896,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     };
     this.WebPageControl1Sheet2Click = function (Sender) {
       var lnumberOfElements = 0;
-      lnumberOfElements = 3 + 1;
+      lnumberOfElements = 60 + 1;
       let myArray = [];
         let myArray2 = [];
       
@@ -105947,7 +105947,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     };
     this.cuatroClick = function (Sender) {
       var lnumberOfElements = 0;
-      lnumberOfElements = 3;
+      lnumberOfElements = 60;
       this.LimpiarHoja();
       var table = Tabulator.findTable("#tabExample")[0];
           let myArray = [];
@@ -106073,7 +106073,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     };
     this.FormaCaptura = function () {
       var lnumberOfElements = 0;
-      lnumberOfElements = 3;
+      lnumberOfElements = 60;
       function customEditor(cell, onRendered, success, cancel) {
        // const input = document.createElement('input')
         const input = document.createElement('textarea')
@@ -106159,8 +106159,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var table = new Tabulator("#tabExample", {
           data:myArray, //set initial table data
           columns:[
-              {title:"Campo", field:"campo", editable:false, width:"30%"},
-              {title:"Valor", field:"valor",editor:customEditor,width:"60%"},
+              {title:"Campo", field:"campo", editable:false, width:"20%"},
+              {title:"Valor", field:"valor",editor:customEditor,width:"75%"},
           ],
       
           height:"311px",
@@ -106174,6 +106174,17 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
               dataTree:false, //do not include data tree in HTML table
               formatCells:false, //show raw cell values without formatter
           },
+      
+         rowFormatter:function(row){
+      
+            // alert('rowformatter');
+            console.log(row.getData().campo);    //OK
+              if(row.getData().campo.length ==0 ) {
+                 // console.log ('rowformatter');
+              row.getElement().style.backgroundColor = "#EEEEEE"; //apply css change to row element
+      
+              }
+          },
       });
     };
     this.FormaVistaHorizontal = function () {
@@ -106181,7 +106192,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var str = '{"id":0, "campo":"Cliente", "valor":"c"}';
       //{id:0, campo:"Producto", valor:"p"}{id:0, campo:"Importe", valor:"1"}{id:0, campo:"Pagado", valor:"s"}{id:0, campo:"Entregado", valor:"n"}{id:0, campo:"V/S", valor:"S"}';
       var obj = JSON.parse(str);
-      lnumberOfElements = 3 + 1;
+      lnumberOfElements = 60 + 1;
       let myArray = [];
         let myArray2 = [];
       
@@ -106205,6 +106216,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         strdat='';
         console.log('---------------datos ',arraydat.length);
           for (let i = 0; i < arraydat.length; i++) {
+          var j = i;
           //console.log(arraydat[i].id);
           //console.log(arraydat[i].campo);
           //console.log(arraydat[i].valor);
@@ -106212,7 +106224,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           //char34 = "";
          if (arraydat[i].campo.length == 0)
           {
-      
+           alert(myArray2[0].id);
            const objh = new Object();
            objh.id = horizArray.length+1;
            objh.cliente = myArray2[0].valor.trim();
@@ -106221,6 +106233,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
            objh.pagado = myArray2[3].valor.trim();
            objh.entregado = myArray2[4].valor.trim();
            objh.ventasub = myArray2[5].valor.trim();
+           objh.rencapt = myArray2[0].id;
            horizArray.push(objh)  ;
       
            myArray2 = [];
@@ -106239,12 +106252,13 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
            data:horizArray,
           columns:[
               {title:"ID", field:"id"},
-              {title:"cliente", field:"cliente"},
-              {title:"producto", field:"producto"},
-              {title:"Importe", field:"importe"},
-              {title:"pagado", field:"pagado"},
-              {title:"entregado", field:"entregado"},
-              {title:"V-S", field:"ventasub"},
+              {title:"ID2", field:"rencapt"},
+              {title:"cliente", field:"cliente",headerFilter:true},
+              {title:"producto", field:"producto",headerFilter:true},
+              {title:"Importe", field:"importe",headerFilter:true},
+              {title:"pagado", field:"pagado",headerFilter:true},
+              {title:"entregado", field:"entregado",headerFilter:true},
+              {title:"V-S", field:"ventasub",headerFilter:true},
           ],
       
           height:"311px",
@@ -106270,6 +106284,12 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
            var array = table2.getData();
            console.log('datav-------',array);
       
+      });
+          table2.on("rowClick", function(e, row){
+          //e - the click event object
+          //row - row component
+           console.log('row',row.getData());
+           console.log('rencapt', row.getData().rencapt);
       });
     };
     this.LimpiarHoja = function () {
@@ -106768,8 +106788,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPanel2.SetTabOrder(1);
         this.WebButton2.SetParentComponent(this.WebPanel2);
         this.WebButton2.SetName("WebButton2");
-        this.WebButton2.SetLeft(136);
-        this.WebButton2.SetTop(16);
+        this.WebButton2.SetLeft(368);
+        this.WebButton2.SetTop(6);
         this.WebButton2.SetWidth(96);
         this.WebButton2.SetHeight(25);
         this.WebButton2.SetCaption("Horizontal");
@@ -106782,8 +106802,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.WebButton2,this,"OnClick","WebButton2Click");
         this.WebButton3.SetParentComponent(this.WebPanel2);
         this.WebButton3.SetName("WebButton3");
-        this.WebButton3.SetLeft(24);
-        this.WebButton3.SetTop(15);
+        this.WebButton3.SetLeft(368);
+        this.WebButton3.SetTop(37);
         this.WebButton3.SetWidth(96);
         this.WebButton3.SetHeight(25);
         this.WebButton3.SetCaption("Horizontal2");
@@ -106808,7 +106828,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.FElementTabActiveClassName = "nav-link active";
         this.WebPageControl1.FElementTabItemClassName = "nav-item";
         this.WebPageControl1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPageControl1.SetTabIndex(1);
+        this.WebPageControl1.SetTabIndex(0);
         this.WebPageControl1.SetTabOrder(2);
         this.SetEvent$1(this.WebPageControl1,this,"OnChange","WebPageControl1Change");
         this.WebPageControl1Sheet1.SetParentComponent(this.WebPageControl1);
@@ -106985,7 +107005,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
   });
   this.Form7 = null;
   $mod.$implcode = function () {
-    $impl.numberOfElements = 3;
+    $impl.numberOfElements = 60;
     $impl.popmenuwidth = 0.0;
     $impl.RegistroCookie = null;
     $impl.NomRegistroCookie = "";
