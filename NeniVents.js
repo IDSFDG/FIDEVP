@@ -106195,12 +106195,12 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       var table = new Tabulator("#tabExample", {
           data:myArray, //set initial table data
           columns:[
-              {title:"Campo", field:"campo", editable:false, width:"20%"},
-              {title:"Valor", field:"valor",editor:customEditor,width:"75%"},
+              {title:"Concepto", field:"campo", editable:false, width:"30%"},
+              {title:"Valor", field:"valor",editor:customEditor,width:"65%"},
           ],
       
           height:"311px",
-          height:"95%",
+          height:"96%",
           htmlOutputConfig:{
               columnHeaders:true, //do not include column headers in HTML table
               columnGroups:false, //do not include column groups in column headers for HTML table
@@ -106298,7 +106298,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           ],
       
           height:"311px",
-          height:"95%",
+          height:"96%",
           htmlOutputConfig:{
               columnHeaders:true, //do not include column headers in HTML table
               columnGroups:false, //do not include column groups in column headers for HTML table
@@ -106722,7 +106722,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1Sheet1 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
       this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
       this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
-      this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
+      this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$2",["paglistado"]);
       this.WebDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tablaVertical"]);
       this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
       this.uno1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
@@ -106826,9 +106826,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPanel2.SetParentComponent(this);
         this.WebPanel2.SetName("WebPanel2");
         this.WebPanel2.SetLeft(0);
-        this.WebPanel2.SetTop(420);
+        this.WebPanel2.SetTop(448);
         this.WebPanel2.SetWidth(640);
-        this.WebPanel2.SetHeight(60);
+        this.WebPanel2.SetHeight(32);
         this.WebPanel2.SetElementClassName("card");
         this.WebPanel2.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
         this.WebPanel2.SetChildOrderEx(2);
@@ -106851,8 +106851,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.SetEvent$1(this.WebButton2,this,"OnClick","WebButton2Click");
         this.WebButton3.SetParentComponent(this.WebPanel2);
         this.WebButton3.SetName("WebButton3");
-        this.WebButton3.SetLeft(368);
-        this.WebButton3.SetTop(37);
+        this.WebButton3.SetLeft(470);
+        this.WebButton3.SetTop(6);
         this.WebButton3.SetWidth(96);
         this.WebButton3.SetHeight(25);
         this.WebButton3.SetCaption("Horizontal2");
@@ -106867,7 +106867,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebButton4.SetParentComponent(this.WebPanel2);
         this.WebButton4.SetName("WebButton4");
         this.WebButton4.SetLeft(112);
-        this.WebButton4.SetTop(24);
+        this.WebButton4.SetTop(6);
         this.WebButton4.SetWidth(96);
         this.WebButton4.SetHeight(25);
         this.WebButton4.SetCaption("Goto Ren");
@@ -106882,7 +106882,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebEdit1.SetParentComponent(this.WebPanel2);
         this.WebEdit1.SetName("WebEdit1");
         this.WebEdit1.SetLeft(16);
-        this.WebEdit1.SetTop(16);
+        this.WebEdit1.SetTop(6);
         this.WebEdit1.SetWidth(73);
         this.WebEdit1.SetHeight(22);
         this.WebEdit1.SetChildOrderEx(3);
@@ -106897,7 +106897,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.SetLeft(0);
         this.WebPageControl1.SetTop(60);
         this.WebPageControl1.SetWidth(640);
-        this.WebPageControl1.SetHeight(360);
+        this.WebPageControl1.SetHeight(388);
         this.WebPageControl1.SetElementClassName("nav nav-tabs");
         this.WebPageControl1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebPageControl1.SetChildOrderEx(4);
@@ -106905,7 +106905,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.FElementTabActiveClassName = "nav-link active";
         this.WebPageControl1.FElementTabItemClassName = "nav-item";
         this.WebPageControl1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPageControl1.SetTabIndex(0);
+        this.WebPageControl1.SetTabIndex(1);
         this.WebPageControl1.SetTabOrder(2);
         this.SetEvent$1(this.WebPageControl1,this,"OnChange","WebPageControl1Change");
         this.WebPageControl1Sheet1.SetParentComponent(this.WebPageControl1);
@@ -106913,7 +106913,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1Sheet1.SetLeft(0);
         this.WebPageControl1Sheet1.SetTop(20);
         this.WebPageControl1Sheet1.SetWidth(640);
-        this.WebPageControl1Sheet1.SetHeight(340);
+        this.WebPageControl1Sheet1.SetHeight(368);
         this.WebPageControl1Sheet1.SetCaption("Escribir Renglones");
         this.WebPageControl1Sheet1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebDiv.SetParentComponent(this.WebPageControl1Sheet1);
@@ -106921,7 +106921,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebDiv.SetLeft(0);
         this.WebDiv.SetTop(0);
         this.WebDiv.SetWidth(640);
-        this.WebDiv.SetHeight(340);
+        this.WebDiv.SetHeight(368);
         this.WebDiv.SetElementClassName("table-striped");
         this.WebDiv.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebDiv.SetChildOrderEx(1);
@@ -106944,8 +106944,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1Sheet2.SetLeft(0);
         this.WebPageControl1Sheet2.SetTop(20);
         this.WebPageControl1Sheet2.SetWidth(640);
-        this.WebPageControl1Sheet2.SetHeight(340);
-        this.WebPageControl1Sheet2.SetCaption("Pagina Libreta");
+        this.WebPageControl1Sheet2.SetHeight(368);
+        this.WebPageControl1Sheet2.SetCaption("Lista de Ventas-Subastas");
         this.WebPageControl1Sheet2.SetChildOrderEx(1);
         this.WebPageControl1Sheet2.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.SetEvent$1(this.WebPageControl1Sheet2,this,"OnClick","WebPageControl1Sheet2Click");
@@ -106954,7 +106954,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebDiv1.SetLeft(0);
         this.WebDiv1.SetTop(0);
         this.WebDiv1.SetWidth(640);
-        this.WebDiv1.SetHeight(340);
+        this.WebDiv1.SetHeight(368);
         this.WebDiv1.SetElementClassName("table-striped");
         this.WebDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebDiv1.SetChildOrderEx(1);
