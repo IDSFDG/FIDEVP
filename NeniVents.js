@@ -106090,7 +106090,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
             table.scrollToRow(ren, "top", true);
     };
     this.WebButton5Click = function (Sender) {
-      this.GetTextFromUrl("https://github.com/IDSFDG/FIDEVP/blob/main/conceptos_libreta.txt");
+      this.GetTextFromUrl("https://idsfdg.github.io/FIDEVP/conceptos_libreta.txt");
     };
     this.WebHttpRequest1RequestResponse = function (Sender, ARequest, AResponse) {
       var MyTextFile = null;
