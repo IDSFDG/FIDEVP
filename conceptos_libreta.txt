@@ -1,0 +1,6 @@
+Cliente
+Producto
+Importe
+Pagado
+Entregado
+VentaSub
