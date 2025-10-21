@@ -105703,6 +105703,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebMessageDlg1 = null;
       this.WebButton4 = null;
       this.WebEdit1 = null;
+      this.WebButton5 = null;
+      this.WebHttpRequest1 = null;
+      this.WebMemo1 = null;
     };
     this.$final = function () {
       this.WebPanel1 = undefined;
@@ -105730,6 +105733,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebMessageDlg1 = undefined;
       this.WebButton4 = undefined;
       this.WebEdit1 = undefined;
+      this.WebButton5 = undefined;
+      this.WebHttpRequest1 = undefined;
+      this.WebMemo1 = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
     };
     this.WebFormCreate = function (Sender) {
@@ -106082,6 +106088,13 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
             //table.scrollToRow(ren, "center", false);
             table.scrollToRow(ren, "top", true);
+    };
+    this.WebButton5Click = function (Sender) {
+      this.GetTextFromUrl("https://github.com/IDSFDG/FIDEVP/blob/main/conceptos_libreta.txt");
+    };
+    this.WebHttpRequest1RequestResponse = function (Sender, ARequest, AResponse) {
+      var MyTextFile = null;
+      this.WebMemo1.FLines.SetTextStr(AResponse);
     };
     this.maximoPopupTexto = function () {
       var Result = 0.0;
@@ -106708,6 +106721,10 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           console.log('Web Share API not supported in this browser.');
       };
     };
+    this.GetTextFromUrl = function (AUrl) {
+      this.WebHttpRequest1.FURL = AUrl;
+      this.WebHttpRequest1.Execute(null);
+    };
     this.LoadDFMValues = function () {
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
       this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
@@ -106718,10 +106735,12 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebButton3 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebButton4 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebEdit1 = pas["WEBLib.StdCtrls"].TEdit.$create("Create$2",["rencaptura"]);
+      this.WebButton5 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebPageControl1 = pas["WEBLib.ComCtrls"].TPageControl.$create("Create$1",[this]);
       this.WebPageControl1Sheet1 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
       this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
       this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
       this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$2",["paglistado"]);
       this.WebDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tablaVertical"]);
       this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
@@ -106735,6 +106754,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.Salir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.WebLocalTextFile1 = pas["WEBLib.LocalFiles"].TLocalTextFile.$create("Create$1",[this]);
       this.PedidosDbClientDataset1 = pas["WEBLib.IndexedDb"].TIndexedDbClientDataset.$create("Create$1",[this]);
+      this.WebHttpRequest1 = pas["WEBLib.REST"].THttpRequest.$create("Create$1",[this]);
       this.WebPanel1.BeforeLoadDFMValues();
       this.WebButton1.BeforeLoadDFMValues();
       this.WebSpeedButton1.BeforeLoadDFMValues();
@@ -106743,10 +106763,12 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebButton3.BeforeLoadDFMValues();
       this.WebButton4.BeforeLoadDFMValues();
       this.WebEdit1.BeforeLoadDFMValues();
+      this.WebButton5.BeforeLoadDFMValues();
       this.WebPageControl1.BeforeLoadDFMValues();
       this.WebPageControl1Sheet1.BeforeLoadDFMValues();
       this.WebDiv.BeforeLoadDFMValues();
       this.WebMessageDlg1.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
       this.WebPageControl1Sheet2.BeforeLoadDFMValues();
       this.WebDiv1.BeforeLoadDFMValues();
       this.WebPopupMenu1.BeforeLoadDFMValues();
@@ -106760,6 +106782,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.Salir2.BeforeLoadDFMValues();
       this.WebLocalTextFile1.BeforeLoadDFMValues();
       this.PedidosDbClientDataset1.BeforeLoadDFMValues();
+      this.WebHttpRequest1.BeforeLoadDFMValues();
       try {
         this.SetName("Form7");
         this.SetWidth(640);
@@ -106892,6 +106915,20 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebEdit1.SetHeightPercent(100.000000000000000000);
         this.WebEdit1.SetVisible(false);
         this.WebEdit1.SetWidthPercent(100.000000000000000000);
+        this.WebButton5.SetParentComponent(this.WebPanel2);
+        this.WebButton5.SetName("WebButton5");
+        this.WebButton5.SetLeft(232);
+        this.WebButton5.SetTop(0);
+        this.WebButton5.SetWidth(96);
+        this.WebButton5.SetHeight(25);
+        this.WebButton5.SetCaption("Conceptos");
+        this.WebButton5.SetChildOrderEx(4);
+        this.WebButton5.SetElementClassName("btn btn-light");
+        this.WebButton5.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebButton5.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.WebButton5.SetHeightPercent(100.000000000000000000);
+        this.WebButton5.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.WebButton5,this,"OnClick","WebButton5Click");
         this.WebPageControl1.SetParentComponent(this);
         this.WebPageControl1.SetName("WebPageControl1");
         this.WebPageControl1.SetLeft(0);
@@ -106905,7 +106942,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.FElementTabActiveClassName = "nav-link active";
         this.WebPageControl1.FElementTabItemClassName = "nav-item";
         this.WebPageControl1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPageControl1.SetTabIndex(1);
+        this.WebPageControl1.SetTabIndex(0);
         this.WebPageControl1.SetTabOrder(2);
         this.SetEvent$1(this.WebPageControl1,this,"OnChange","WebPageControl1Change");
         this.WebPageControl1Sheet1.SetParentComponent(this.WebPageControl1);
@@ -106939,6 +106976,25 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
         this.WebMessageDlg1.FElementTitleClassName = "text-body";
         this.WebMessageDlg1.FElementContentClassName = "text-body";
+        this.WebMemo1.SetParentComponent(this.WebDiv);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(432);
+        this.WebMemo1.SetTop(160);
+        this.WebMemo1.SetWidth(185);
+        this.WebMemo1.SetHeight(89);
+        this.WebMemo1.SetElementClassName("form-control");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("WebMemo1");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(0);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
         this.WebPageControl1Sheet2.SetParentComponent(this.WebPageControl1);
         this.WebPageControl1Sheet2.SetName("WebPageControl1Sheet2");
         this.WebPageControl1Sheet2.SetLeft(0);
@@ -107014,6 +107070,11 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.PedidosDbClientDataset1.FIDBAutoIncrement = true;
         this.PedidosDbClientDataset1.SetLeft(480);
         this.PedidosDbClientDataset1.SetTop(376);
+        this.WebHttpRequest1.SetParentComponent(this);
+        this.WebHttpRequest1.SetName("WebHttpRequest1");
+        this.WebHttpRequest1.FURL = "https://github.com/IDSFDG/FIDEVP/blob/main/conceptos_libreta.txt";
+        this.SetEvent$1(this.WebHttpRequest1,this,"OnRequestResponse","WebHttpRequest1RequestResponse");
+        this.WebHttpRequest1.SetLeft(448);
       } finally {
         this.WebPanel1.AfterLoadDFMValues();
         this.WebButton1.AfterLoadDFMValues();
@@ -107023,10 +107084,12 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebButton3.AfterLoadDFMValues();
         this.WebButton4.AfterLoadDFMValues();
         this.WebEdit1.AfterLoadDFMValues();
+        this.WebButton5.AfterLoadDFMValues();
         this.WebPageControl1.AfterLoadDFMValues();
         this.WebPageControl1Sheet1.AfterLoadDFMValues();
         this.WebDiv.AfterLoadDFMValues();
         this.WebMessageDlg1.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
         this.WebPageControl1Sheet2.AfterLoadDFMValues();
         this.WebDiv1.AfterLoadDFMValues();
         this.WebPopupMenu1.AfterLoadDFMValues();
@@ -107040,6 +107103,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.Salir2.AfterLoadDFMValues();
         this.WebLocalTextFile1.AfterLoadDFMValues();
         this.PedidosDbClientDataset1.AfterLoadDFMValues();
+        this.WebHttpRequest1.AfterLoadDFMValues();
       };
     };
     rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
@@ -107070,6 +107134,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addField("WebMessageDlg1",pas["WEBLib.Dialogs"].$rtti["TMessageDlg"]);
     $r.addField("WebButton4",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
     $r.addField("WebEdit1",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
+    $r.addField("WebButton5",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
+    $r.addField("WebHttpRequest1",pas["WEBLib.REST"].$rtti["THttpRequest"]);
+    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
     $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("comparteClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
@@ -107084,6 +107151,8 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addMethod("Salir2Click",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
     $r.addMethod("btn_exportarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebButton4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebButton5Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("WebHttpRequest1RequestResponse",0,[["Sender",pas.System.$rtti["TObject"]],["ARequest",pas["WEBLib.Controls"].$rtti["TJSXMLHttpRequestRecord"]],["AResponse",rtl.string]]);
   });
   this.Form7 = null;
   $mod.$implcode = function () {
