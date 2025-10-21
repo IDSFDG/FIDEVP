@@ -106730,6 +106730,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
       this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebSpeedButton1 = pas["WEBLib.Buttons"].TSpeedButton.$create("Create$1",[this]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
       this.WebPanel2 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
       this.WebButton2 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebButton3 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
@@ -106740,7 +106741,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1Sheet1 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
       this.WebDiv = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tabExample"]);
       this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
-      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
       this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$2",["paglistado"]);
       this.WebDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tablaVertical"]);
       this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
@@ -106758,6 +106758,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPanel1.BeforeLoadDFMValues();
       this.WebButton1.BeforeLoadDFMValues();
       this.WebSpeedButton1.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
       this.WebPanel2.BeforeLoadDFMValues();
       this.WebButton2.BeforeLoadDFMValues();
       this.WebButton3.BeforeLoadDFMValues();
@@ -106768,7 +106769,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPageControl1Sheet1.BeforeLoadDFMValues();
       this.WebDiv.BeforeLoadDFMValues();
       this.WebMessageDlg1.BeforeLoadDFMValues();
-      this.WebMemo1.BeforeLoadDFMValues();
       this.WebPageControl1Sheet2.BeforeLoadDFMValues();
       this.WebDiv1.BeforeLoadDFMValues();
       this.WebPopupMenu1.BeforeLoadDFMValues();
@@ -106846,6 +106846,25 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebSpeedButton1.SetHeightPercent(100.000000000000000000);
         this.WebSpeedButton1.SetTabOrder(1);
         this.WebSpeedButton1.SetWidthPercent(100.000000000000000000);
+        this.WebMemo1.SetParentComponent(this.WebPanel1);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(3);
+        this.WebMemo1.SetTop(-4);
+        this.WebMemo1.SetWidth(185);
+        this.WebMemo1.SetHeight(58);
+        this.WebMemo1.SetElementClassName("form-control");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("WebMemo1");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(0);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
         this.WebPanel2.SetParentComponent(this);
         this.WebPanel2.SetName("WebPanel2");
         this.WebPanel2.SetLeft(0);
@@ -106976,25 +106995,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMessageDlg1.FElementDialogClassName = "shadow-lg p-3 mb-5 bg-white rounded";
         this.WebMessageDlg1.FElementTitleClassName = "text-body";
         this.WebMessageDlg1.FElementContentClassName = "text-body";
-        this.WebMemo1.SetParentComponent(this.WebDiv);
-        this.WebMemo1.SetName("WebMemo1");
-        this.WebMemo1.SetLeft(432);
-        this.WebMemo1.SetTop(160);
-        this.WebMemo1.SetWidth(185);
-        this.WebMemo1.SetHeight(89);
-        this.WebMemo1.SetElementClassName("form-control");
-        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebMemo1.SetHeightPercent(100.000000000000000000);
-        this.WebMemo1.FLines.BeginUpdate();
-        try {
-          this.WebMemo1.FLines.Clear();
-          this.WebMemo1.FLines.Add("WebMemo1");
-        } finally {
-          this.WebMemo1.FLines.EndUpdate();
-        };
-        this.WebMemo1.SetSelLength(0);
-        this.WebMemo1.SetSelStart(0);
-        this.WebMemo1.SetWidthPercent(100.000000000000000000);
         this.WebPageControl1Sheet2.SetParentComponent(this.WebPageControl1);
         this.WebPageControl1Sheet2.SetName("WebPageControl1Sheet2");
         this.WebPageControl1Sheet2.SetLeft(0);
@@ -107079,6 +107079,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPanel1.AfterLoadDFMValues();
         this.WebButton1.AfterLoadDFMValues();
         this.WebSpeedButton1.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
         this.WebPanel2.AfterLoadDFMValues();
         this.WebButton2.AfterLoadDFMValues();
         this.WebButton3.AfterLoadDFMValues();
@@ -107089,7 +107090,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1Sheet1.AfterLoadDFMValues();
         this.WebDiv.AfterLoadDFMValues();
         this.WebMessageDlg1.AfterLoadDFMValues();
-        this.WebMemo1.AfterLoadDFMValues();
         this.WebPageControl1Sheet2.AfterLoadDFMValues();
         this.WebDiv1.AfterLoadDFMValues();
         this.WebPopupMenu1.AfterLoadDFMValues();
