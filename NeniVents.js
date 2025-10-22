@@ -105933,14 +105933,33 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
          if (arraydat[i].campo.length == 0)
           {
       
+          // console.log('myArray2',myArray2);
+      
            const objh = new Object();
-           objh.id = horizArray.length+1;
-           objh.cliente = myArray2[0].valor.trim();
-           objh.producto = myArray2[1].valor.trim();
-           objh.importe = myArray2[2].valor.trim();
-           objh.pagado = myArray2[3].valor.trim();
-           objh.entregado = myArray2[4].valor.trim();
-           objh.ventasub = myArray2[5].valor.trim();
+      
+           // objh.id = horizArray.length+1;
+          // objh.cliente = myArray2[0].valor.trim();
+          // objh.producto = myArray2[1].valor.trim();
+          // objh.importe = myArray2[2].valor.trim();
+          //  objh.pagado = myArray2[3].valor.trim();
+          //  objh.entregado = myArray2[4].valor.trim();
+          //  objh.ventasub = myArray2[5].valor.trim();
+      
+           var nomcampo = "id";
+           objh[nomcampo] =horizArray.length+1;
+           var j= 0;
+          for (const campo of myArray2) {
+            nomcampo = campo.campo;
+           // console.log('campo',nomcampo);
+            objh[nomcampo] = myArray2[j].valor.trim();
+            j=j+1;
+       }
+      
+      
+      
+      
+      
+           console.log('objh',objh);
            horizArray.push(objh)  ;
       
            myArray2 = [];
