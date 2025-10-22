@@ -1,6 +1,6 @@
 Cliente
 Producto
-Importe
+Importe$
 Pagado
 Entregado
-VentaSub
+VentaySub
