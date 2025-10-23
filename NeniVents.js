@@ -105705,7 +105705,14 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebEdit1 = null;
       this.btnConceptos = null;
       this.WebHttpRequest1 = null;
+      this.CompartirRenglones1 = null;
+      this.CompartirTexto1 = null;
+      this.Importar1 = null;
+      this.WebPageControl1Sheet3 = null;
+      this.WebHTMLDiv1 = null;
+      this.panelimportar = null;
       this.WebMemo1 = null;
+      this.btnImportar = null;
     };
     this.$final = function () {
       this.WebPanel1 = undefined;
@@ -105735,7 +105742,14 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebEdit1 = undefined;
       this.btnConceptos = undefined;
       this.WebHttpRequest1 = undefined;
+      this.CompartirRenglones1 = undefined;
+      this.CompartirTexto1 = undefined;
+      this.Importar1 = undefined;
+      this.WebPageControl1Sheet3 = undefined;
+      this.WebHTMLDiv1 = undefined;
+      this.panelimportar = undefined;
       this.WebMemo1 = undefined;
+      this.btnImportar = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
     };
     this.WebFormCreate = function (Sender) {
@@ -105977,6 +105991,20 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
          //  alert('setdata WebPageControl1Sheet2Click '+ren);
            tablev.setData(horizArray);
            tablev.scrollToRow(ren, "top", true);
+      
+            var cols = tablev.getColumns(true) //get array of column components
+           console.log('columnas',cols);
+            for (let c = 0; c < cols.length; c++) {
+              var columna = cols[c];
+              var campocol = columna.getField();
+              console.log('campo',campocol);
+              console.log(campocol.indexOf("Importe") );
+              var index = campocol.indexOf("Importe");
+              if (index != -1) {
+                 tablev.updateColumnDefinition(campocol, {bottomCalc:"sum"})
+              }
+      
+            };
     };
     this.WebPageControl1Change = function (Sender) {
       var ren = 0;
@@ -106112,10 +106140,33 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     };
     this.WebHttpRequest1RequestResponse = function (Sender, ARequest, AResponse) {
       var MyTextFile = null;
-      this.WebMemo1.FLines.SetTextStr(AResponse);
       $impl.lstConceptosCap = pas.Classes.TStringList.$create("Create$1");
       $impl.lstConceptosCap.SetTextStr(AResponse);
       this.FormaCaptura();
+    };
+    this.CompartirRenglones1Click = function (Sender) {
+      this.CompartirCapturaVerticalRen();
+    };
+    this.CompartirTexto1Click = function (Sender) {
+      this.CompartirCapturaVerticalTexto();
+    };
+    this.btnImportarClick = function (Sender) {
+      var txtMemo = "";
+      txtMemo = this.WebMemo1.GetText();
+      // Define table
+      
+      
+           var csvData = txtMemo;
+      
+          var table = new Tabulator("#tablaImportar", {
+              data: csvData,
+              importFormat: "csv",
+              autoColumns: true, // Optional: automatically generate columns from the first row
+          });
+      this.panelimportar.SetVisible(false);
+    };
+    this.Importar1Click = function (Sender) {
+      this.panelimportar.SetVisible(true);
     };
     this.maximoPopupTexto = function () {
       var Result = 0.0;
@@ -106287,7 +106338,37 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       //{id:0, campo:"Producto", valor:"p"}{id:0, campo:"Importe", valor:"1"}{id:0, campo:"Pagado", valor:"s"}{id:0, campo:"Entregado", valor:"n"}{id:0, campo:"V/S", valor:"S"}';
       var obj = JSON.parse(str);
       lnumberOfElements = 60 + 1;
-      let myArray = [];
+      async function shareText(shareData) {
+              const textToShare = shareData;
+      
+          if (navigator.share) {
+              navigator.share({
+                  text: textToShare,
+                  // You can also include a title and URL if desired
+                  // title: 'My Awesome Share',
+                  // url: window.location.href
+              })
+              .then(() => console.log('String shared successfully'))
+              .catch((error) => console.error('Error sharing string:', error));
+          } else {
+              console.log('Web Share API not supported in this browser.');
+              // Provide a fallback mechanism, e.g., copying to clipboard
+          }
+         }
+         async function shareTextFile(shareData) {
+              if (navigator.share && navigator.canShare(shareData)) {
+                  try {
+                      await navigator.share(shareData);
+                      console.log("Text file shared successfully.");
+                  } catch (error) {
+                      console.error("Error sharing text file:", error);
+                  }
+              } else {
+                  console.log("Web Share API or file sharing not supported.");
+                  // Implement a fallback for unsupported browsers/devices
+              }
+          }
+        let myArray = [];
         let myArray2 = [];
       
         let horizArray = [];
@@ -106344,6 +106425,38 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
       
            var table2 = new Tabulator("#tablaVertical", {
+            downloadConfig:{
+              columnHeaders:true, //do not include column headers in downloaded table
+              columnGroups:false, //do not include column groups in column headers for downloaded table
+              rowHeaders:false, //do not include row headers in downloaded table
+              rowGroups:false, //do not include row groups in downloaded table
+              columnCalcs:true, //do not include column calcs in downloaded table
+              dataTree:false, //do not include data tree in downloaded table
+          },
+             downloadEncoder:function(fileContents, mimeType){
+              //alert('downloadEncoder');
+              //fileContents - the unencoded contents of the file
+              //mimeType - the suggested mime type for the output
+      
+              //custom action to send blob to server could be included here
+              console.log('fileContents',fileContents);
+      
+                 const blob = new Blob([fileContents], { type: "text/plain" });
+                 const textFile = new File([blob], "my_text_file.txt", { type: "text/plain" });
+                 const shareData = {
+                          files: [textFile],
+                          title: "Share this text file",
+                          text: "Here's a text file I'm sharing.",
+                      };
+      
+                //shareTextFile(shareData);   //  OK Comparte el CSV como archivo de texto.
+      
+      
+                shareText(fileContents);
+      
+             //   return new Blob([fileContents], {type:mimeType}); //must return a blob to proceed with the download, return false to abort download
+               return false;
+         },
            data:horizArray,
            autoColumns:true,
            autoColumnsDefinitions: function(definitions) {
@@ -106387,6 +106500,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       
            var array = table2.getData();
            console.log('datav-------',array);
+      
       
       });
           table2.on("rowClick", function(e, row){
@@ -106776,6 +106890,92 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
           console.log('Web Share API not supported in this browser.');
       };
     };
+    this.CompartirCapturaVerticalRen = function () {
+      var fechahoy = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      var pageidx = 0;
+      var table2 = Tabulator.findTable("#tablaVertical")[0];
+      //table2.download("csv", "data.csv", {delimiter:";"});
+      table2.download("csv", "data.csv", {delimiter:"\t"});     // tab;
+      return;
+      this.WebPageControl1Sheet2Click(this);
+      fechahoy = pas.SysUtils.Now();
+      pas.SysUtils.DecodeDate(fechahoy,{get: function () {
+          return anio;
+        }, set: function (v) {
+          anio = v;
+        }},{get: function () {
+          return mes;
+        }, set: function (v) {
+          mes = v;
+        }},{get: function () {
+          return dia;
+        }, set: function (v) {
+          dia = v;
+        }});
+      sfechadia = pas.SysUtils.DateToStr(fechahoy);
+      sfechadia = pas.SysUtils.Format("%.4d%.2d%.2d",pas.System.VarRecs(0,anio,0,mes,0,dia)) + ".pdf";
+      sfechadia = "Ventas_del_" + sfechadia;
+      var table2 = Tabulator.findTable("#tablaVertical")[0];
+           var array = table2.getData();
+           console.log('tabla',table2);
+           console.log('datav',array);
+      
+         //  var htmlTable = table.getHtml();
+           var htmlTablev = table2.getHtml("all",false);
+           console.log('htmlTable',  htmlTablev);
+           const { jsPDF } = window.jspdf;
+      
+           var docv = new jsPDF('l', 'pt'); //set document to landscape, better for most tables
+      
+      
+           var specialElementHandlers = {
+           '#getPDF': function(element, renderer){
+             return true;
+           },
+           '.controls': function(element, renderer){
+             return true;
+           }
+         };
+      
+         const myElementv = document.getElementById('html-table2');
+         myElementv.innerHTML = htmlTablev;
+         console.log('innerhtml',myElementv.innerHTML);
+      
+         console.log('query selector',myElementv.querySelector('table'));
+      
+         docv.autoTable({ html: myElementv.querySelector('table')});
+      
+         const pdfBlobv = docv.output('blob');
+         console.log('pdfBlob',pdfBlobv) ;
+         sfechadia ='document.pdf';
+         const filev = new File([pdfBlobv], sfechadia, { type: 'application/pdf' });
+         if ( window.navigator.share) {
+          window.navigator.share({
+              files: [filev],
+              title: 'PDF Document',
+              text: 'Check out this PDF document!',
+          })
+         .then(() => console.log('PDF compartido correctamente'))
+         .catch((error) => console.error('Error compartir PDF:', error));
+          } else {
+          console.log('Web Share API not supported in this browser.');
+      };
+    };
+    this.CompartirCapturaVerticalTexto = function () {
+      var fechahoy = 0.0;
+      var anio = 0;
+      var mes = 0;
+      var dia = 0;
+      var sfechadia = "";
+      var pageidx = 0;
+      var table2 = Tabulator.findTable("#tablaVertical")[0];
+      //table2.download("csv", "data.csv", {delimiter:";"});
+      table2.download("csv", "data.csv", {delimiter:","});     // tab;
+    };
     this.GetTextFromUrl = async function (AUrl) {
       this.WebHttpRequest1.FURL = AUrl;
       await this.WebHttpRequest1.Execute(null);
@@ -106785,7 +106985,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
       this.WebButton1 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebSpeedButton1 = pas["WEBLib.Buttons"].TSpeedButton.$create("Create$1",[this]);
-      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
       this.WebPanel2 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
       this.WebButton2 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebButton3 = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
@@ -106798,6 +106997,11 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebMessageDlg1 = pas["WEBLib.Dialogs"].TMessageDlg.$create("Create$1",[this]);
       this.WebPageControl1Sheet2 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$2",["paglistado"]);
       this.WebDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tablaVertical"]);
+      this.WebPageControl1Sheet3 = pas["WEBLib.ComCtrls"].TTabSheet.$create("Create$1",[this]);
+      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$2",["tablaImportar"]);
+      this.panelimportar = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$1",[this]);
+      this.btnImportar = pas["WEBLib.StdCtrls"].TButton.$create("Create$1",[this]);
       this.WebPopupMenu1 = pas["WEBLib.Menus"].TPopupMenu.$create("Create$1",[this]);
       this.uno1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.uno11 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
@@ -106805,6 +107009,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.tres1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.cuatro = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.comparte = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.CompartirRenglones1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.CompartirTexto1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
+      this.Importar1 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.N3 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.Salir2 = pas["WEBLib.Menus"].TMenuItem.$create("Create$1",[this]);
       this.WebLocalTextFile1 = pas["WEBLib.LocalFiles"].TLocalTextFile.$create("Create$1",[this]);
@@ -106813,7 +107020,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebPanel1.BeforeLoadDFMValues();
       this.WebButton1.BeforeLoadDFMValues();
       this.WebSpeedButton1.BeforeLoadDFMValues();
-      this.WebMemo1.BeforeLoadDFMValues();
       this.WebPanel2.BeforeLoadDFMValues();
       this.WebButton2.BeforeLoadDFMValues();
       this.WebButton3.BeforeLoadDFMValues();
@@ -106826,6 +107032,11 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.WebMessageDlg1.BeforeLoadDFMValues();
       this.WebPageControl1Sheet2.BeforeLoadDFMValues();
       this.WebDiv1.BeforeLoadDFMValues();
+      this.WebPageControl1Sheet3.BeforeLoadDFMValues();
+      this.WebHTMLDiv1.BeforeLoadDFMValues();
+      this.panelimportar.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
+      this.btnImportar.BeforeLoadDFMValues();
       this.WebPopupMenu1.BeforeLoadDFMValues();
       this.uno1.BeforeLoadDFMValues();
       this.uno11.BeforeLoadDFMValues();
@@ -106833,6 +107044,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       this.tres1.BeforeLoadDFMValues();
       this.cuatro.BeforeLoadDFMValues();
       this.comparte.BeforeLoadDFMValues();
+      this.CompartirRenglones1.BeforeLoadDFMValues();
+      this.CompartirTexto1.BeforeLoadDFMValues();
+      this.Importar1.BeforeLoadDFMValues();
       this.N3.BeforeLoadDFMValues();
       this.Salir2.BeforeLoadDFMValues();
       this.WebLocalTextFile1.BeforeLoadDFMValues();
@@ -106901,26 +107115,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebSpeedButton1.SetHeightPercent(100.000000000000000000);
         this.WebSpeedButton1.SetTabOrder(1);
         this.WebSpeedButton1.SetWidthPercent(100.000000000000000000);
-        this.WebMemo1.SetParentComponent(this.WebPanel1);
-        this.WebMemo1.SetName("WebMemo1");
-        this.WebMemo1.SetLeft(3);
-        this.WebMemo1.SetTop(-4);
-        this.WebMemo1.SetWidth(185);
-        this.WebMemo1.SetHeight(58);
-        this.WebMemo1.SetElementClassName("form-control");
-        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebMemo1.SetHeightPercent(100.000000000000000000);
-        this.WebMemo1.FLines.BeginUpdate();
-        try {
-          this.WebMemo1.FLines.Clear();
-          this.WebMemo1.FLines.Add("WebMemo1");
-        } finally {
-          this.WebMemo1.FLines.EndUpdate();
-        };
-        this.WebMemo1.SetSelLength(0);
-        this.WebMemo1.SetSelStart(0);
-        this.WebMemo1.SetVisible(false);
-        this.WebMemo1.SetWidthPercent(100.000000000000000000);
         this.WebPanel2.SetParentComponent(this);
         this.WebPanel2.SetName("WebPanel2");
         this.WebPanel2.SetLeft(0);
@@ -107073,6 +107267,71 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebDiv1.SetChildOrderEx(1);
         this.WebDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebDiv1.SetRole("");
+        this.WebPageControl1Sheet3.SetParentComponent(this.WebPageControl1);
+        this.WebPageControl1Sheet3.SetName("WebPageControl1Sheet3");
+        this.WebPageControl1Sheet3.SetLeft(0);
+        this.WebPageControl1Sheet3.SetTop(20);
+        this.WebPageControl1Sheet3.SetWidth(640);
+        this.WebPageControl1Sheet3.SetHeight(368);
+        this.WebPageControl1Sheet3.SetCaption("Importar Datos");
+        this.WebPageControl1Sheet3.SetChildOrderEx(2);
+        this.WebPageControl1Sheet3.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebHTMLDiv1.SetParentComponent(this.WebPageControl1Sheet3);
+        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
+        this.WebHTMLDiv1.SetLeft(0);
+        this.WebHTMLDiv1.SetTop(0);
+        this.WebHTMLDiv1.SetWidth(640);
+        this.WebHTMLDiv1.SetHeight(368);
+        this.WebHTMLDiv1.SetElementClassName("table-striped");
+        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebHTMLDiv1.SetChildOrderEx(1);
+        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebHTMLDiv1.SetRole("");
+        this.panelimportar.SetParentComponent(this.WebPageControl1Sheet3);
+        this.panelimportar.SetName("panelimportar");
+        this.panelimportar.SetLeft(23);
+        this.panelimportar.SetTop(24);
+        this.panelimportar.SetWidth(370);
+        this.panelimportar.SetHeight(249);
+        this.panelimportar.SetElementClassName("card");
+        this.panelimportar.SetChildOrderEx(2);
+        this.panelimportar.FElementBodyClassName = "card-body";
+        this.panelimportar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.panelimportar.SetTabOrder(1);
+        this.panelimportar.SetVisible(false);
+        this.WebMemo1.SetParentComponent(this.panelimportar);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(15);
+        this.WebMemo1.SetTop(3);
+        this.WebMemo1.SetWidth(290);
+        this.WebMemo1.SetHeight(197);
+        this.WebMemo1.SetElementClassName("form-control");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(2);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
+        this.btnImportar.SetParentComponent(this.panelimportar);
+        this.btnImportar.SetName("btnImportar");
+        this.btnImportar.SetLeft(128);
+        this.btnImportar.SetTop(208);
+        this.btnImportar.SetWidth(96);
+        this.btnImportar.SetHeight(25);
+        this.btnImportar.SetCaption("Importar");
+        this.btnImportar.SetChildOrderEx(1);
+        this.btnImportar.SetElementClassName("btn btn-light");
+        this.btnImportar.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.btnImportar.SetHeightStyle(pas["WEBLib.Controls"].TSizeStyle.ssAuto);
+        this.btnImportar.SetHeightPercent(100.000000000000000000);
+        this.btnImportar.SetWidthPercent(100.000000000000000000);
+        this.SetEvent$1(this.btnImportar,this,"OnClick","btnImportarClick");
         this.WebPopupMenu1.SetParentComponent(this);
         this.WebPopupMenu1.SetName("WebPopupMenu1");
         this.WebPopupMenu1.FAppearance.FHamburgerMenu.SetCaption("Menu");
@@ -107108,6 +107367,18 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.comparte.SetName("comparte");
         this.comparte.SetCaption("Compartir");
         this.SetEvent$1(this.comparte,this,"OnClick","comparteClick");
+        this.CompartirRenglones1.SetParentComponent(this.WebPopupMenu1);
+        this.CompartirRenglones1.SetName("CompartirRenglones1");
+        this.CompartirRenglones1.SetCaption("Compartir Renglones");
+        this.SetEvent$1(this.CompartirRenglones1,this,"OnClick","CompartirRenglones1Click");
+        this.CompartirTexto1.SetParentComponent(this.WebPopupMenu1);
+        this.CompartirTexto1.SetName("CompartirTexto1");
+        this.CompartirTexto1.SetCaption("Compartir Texto");
+        this.SetEvent$1(this.CompartirTexto1,this,"OnClick","CompartirTexto1Click");
+        this.Importar1.SetParentComponent(this.WebPopupMenu1);
+        this.Importar1.SetName("Importar1");
+        this.Importar1.SetCaption("Importar");
+        this.SetEvent$1(this.Importar1,this,"OnClick","Importar1Click");
         this.N3.SetParentComponent(this.WebPopupMenu1);
         this.N3.SetName("N3");
         this.N3.SetCaption("-");
@@ -107136,7 +107407,6 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPanel1.AfterLoadDFMValues();
         this.WebButton1.AfterLoadDFMValues();
         this.WebSpeedButton1.AfterLoadDFMValues();
-        this.WebMemo1.AfterLoadDFMValues();
         this.WebPanel2.AfterLoadDFMValues();
         this.WebButton2.AfterLoadDFMValues();
         this.WebButton3.AfterLoadDFMValues();
@@ -107149,6 +107419,11 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMessageDlg1.AfterLoadDFMValues();
         this.WebPageControl1Sheet2.AfterLoadDFMValues();
         this.WebDiv1.AfterLoadDFMValues();
+        this.WebPageControl1Sheet3.AfterLoadDFMValues();
+        this.WebHTMLDiv1.AfterLoadDFMValues();
+        this.panelimportar.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
+        this.btnImportar.AfterLoadDFMValues();
         this.WebPopupMenu1.AfterLoadDFMValues();
         this.uno1.AfterLoadDFMValues();
         this.uno11.AfterLoadDFMValues();
@@ -107156,6 +107431,9 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.tres1.AfterLoadDFMValues();
         this.cuatro.AfterLoadDFMValues();
         this.comparte.AfterLoadDFMValues();
+        this.CompartirRenglones1.AfterLoadDFMValues();
+        this.CompartirTexto1.AfterLoadDFMValues();
+        this.Importar1.AfterLoadDFMValues();
         this.N3.AfterLoadDFMValues();
         this.Salir2.AfterLoadDFMValues();
         this.WebLocalTextFile1.AfterLoadDFMValues();
@@ -107193,7 +107471,14 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addField("WebEdit1",pas["WEBLib.StdCtrls"].$rtti["TEdit"]);
     $r.addField("btnConceptos",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
     $r.addField("WebHttpRequest1",pas["WEBLib.REST"].$rtti["THttpRequest"]);
+    $r.addField("CompartirRenglones1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("CompartirTexto1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("Importar1",pas["WEBLib.Menus"].$rtti["TMenuItem"]);
+    $r.addField("WebPageControl1Sheet3",pas["WEBLib.ComCtrls"].$rtti["TTabSheet"]);
+    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("panelimportar",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
     $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addField("btnImportar",pas["WEBLib.StdCtrls"].$rtti["TButton"]);
     $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("WebButton1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("comparteClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
@@ -107210,6 +107495,10 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $r.addMethod("WebButton4Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
     $r.addMethod("btnConceptosClick",0,[["Sender",pas.System.$rtti["TObject"]]],null,16,{attr: [pas.JS.AsyncAttribute,"Create"]});
     $r.addMethod("WebHttpRequest1RequestResponse",0,[["Sender",pas.System.$rtti["TObject"]],["ARequest",pas["WEBLib.Controls"].$rtti["TJSXMLHttpRequestRecord"]],["AResponse",rtl.string]]);
+    $r.addMethod("CompartirRenglones1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("CompartirTexto1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("btnImportarClick",0,[["Sender",pas.System.$rtti["TObject"]]]);
+    $r.addMethod("Importar1Click",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
   this.Form7 = null;
   $mod.$implcode = function () {
