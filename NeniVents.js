@@ -107562,9 +107562,9 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMemo1.SetParentComponent(this.WebHTMLDiv1);
         this.WebMemo1.SetName("WebMemo1");
         this.WebMemo1.SetLeft(0);
-        this.WebMemo1.SetTop(247);
+        this.WebMemo1.SetTop(416);
         this.WebMemo1.SetWidth(640);
-        this.WebMemo1.SetHeight(233);
+        this.WebMemo1.SetHeight(64);
         this.WebMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
         this.WebMemo1.SetElementClassName("ltextarea");
         this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
@@ -107584,14 +107584,15 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMemo1.SetParentFont(false);
         this.WebMemo1.SetSelLength(0);
         this.WebMemo1.SetSelStart(2);
+        this.WebMemo1.SetVisible(false);
         this.WebMemo1.SetWidthPercent(100.000000000000000000);
         this.WebSyntaxMemo1.SetParentComponent(this.WebHTMLDiv1);
         this.WebSyntaxMemo1.SetName("WebSyntaxMemo1");
         this.WebSyntaxMemo1.SetLeft(0);
         this.WebSyntaxMemo1.SetTop(0);
         this.WebSyntaxMemo1.SetWidth(640);
-        this.WebSyntaxMemo1.SetHeight(241);
-        this.WebSyntaxMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebSyntaxMemo1.SetHeight(416);
+        this.WebSyntaxMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebSyntaxMemo1.SetTabOrder(1);
       } finally {
         this.WebHTMLDiv1.AfterLoadDFMValues();
