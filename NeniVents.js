@@ -107509,7 +107509,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $impl.lstConceptosCap = null;
   };
 },[]);
-rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.WebCtrls"],function () {
+rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.WebCtrls","WEBLib.SyntaxMemo"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TForm8",pas["WEBLib.Forms"].TForm,function () {
@@ -107517,21 +107517,26 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       pas["WEBLib.Forms"].TForm.$init.call(this);
       this.WebHTMLDiv1 = null;
       this.WebMemo1 = null;
+      this.WebSyntaxMemo1 = null;
     };
     this.$final = function () {
       this.WebHTMLDiv1 = undefined;
       this.WebMemo1 = undefined;
+      this.WebSyntaxMemo1 = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
     };
     this.WebFormCreate = function (Sender) {
       this.WebMemo1.SetElementClassName("ltextarea");
+      this.WebSyntaxMemo1.SetElementClassName("ltextarea");
     };
     this.LoadDFMValues = function () {
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
       this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$1",[this]);
       this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$2",["mitexto"]);
+      this.WebSyntaxMemo1 = pas["WEBLib.SyntaxMemo"].TSyntaxMemo.$create("Create$2",["mitexto2"]);
       this.WebHTMLDiv1.BeforeLoadDFMValues();
       this.WebMemo1.BeforeLoadDFMValues();
+      this.WebSyntaxMemo1.BeforeLoadDFMValues();
       try {
         this.SetName("Form8");
         this.SetWidth(640);
@@ -107557,10 +107562,10 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMemo1.SetParentComponent(this.WebHTMLDiv1);
         this.WebMemo1.SetName("WebMemo1");
         this.WebMemo1.SetLeft(0);
-        this.WebMemo1.SetTop(0);
+        this.WebMemo1.SetTop(247);
         this.WebMemo1.SetWidth(640);
-        this.WebMemo1.SetHeight(480);
-        this.WebMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebMemo1.SetHeight(233);
+        this.WebMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
         this.WebMemo1.SetElementClassName("ltextarea");
         this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebMemo1.FFont.FCharset = 1;
@@ -107580,9 +107585,18 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebMemo1.SetSelLength(0);
         this.WebMemo1.SetSelStart(2);
         this.WebMemo1.SetWidthPercent(100.000000000000000000);
+        this.WebSyntaxMemo1.SetParentComponent(this.WebHTMLDiv1);
+        this.WebSyntaxMemo1.SetName("WebSyntaxMemo1");
+        this.WebSyntaxMemo1.SetLeft(0);
+        this.WebSyntaxMemo1.SetTop(0);
+        this.WebSyntaxMemo1.SetWidth(640);
+        this.WebSyntaxMemo1.SetHeight(241);
+        this.WebSyntaxMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebSyntaxMemo1.SetTabOrder(1);
       } finally {
         this.WebHTMLDiv1.AfterLoadDFMValues();
         this.WebMemo1.AfterLoadDFMValues();
+        this.WebSyntaxMemo1.AfterLoadDFMValues();
       };
     };
     rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
@@ -107590,6 +107604,7 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     var $r = this.$rtti;
     $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
     $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addField("WebSyntaxMemo1",pas["WEBLib.SyntaxMemo"].$rtti["TSyntaxMemo"]);
     $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
   this.Form8 = null;
