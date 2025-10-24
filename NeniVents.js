@@ -107212,7 +107212,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebPageControl1.FElementTabActiveClassName = "nav-link active";
         this.WebPageControl1.FElementTabItemClassName = "nav-item";
         this.WebPageControl1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
-        this.WebPageControl1.SetTabIndex(0);
+        this.WebPageControl1.SetTabIndex(2);
         this.WebPageControl1.SetTabOrder(2);
         this.SetEvent$1(this.WebPageControl1,this,"OnChange","WebPageControl1Change");
         this.WebPageControl1Sheet1.SetParentComponent(this.WebPageControl1);
@@ -107509,7 +107509,92 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $impl.lstConceptosCap = null;
   };
 },[]);
-rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen","ufrmAltaRen2","Unit7"],function () {
+rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.WebCtrls"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TForm8",pas["WEBLib.Forms"].TForm,function () {
+    this.$init = function () {
+      pas["WEBLib.Forms"].TForm.$init.call(this);
+      this.WebHTMLDiv1 = null;
+      this.WebMemo1 = null;
+    };
+    this.$final = function () {
+      this.WebHTMLDiv1 = undefined;
+      this.WebMemo1 = undefined;
+      pas["WEBLib.Forms"].TForm.$final.call(this);
+    };
+    this.WebFormCreate = function (Sender) {
+      this.WebMemo1.SetElementClassName("ltextarea");
+    };
+    this.LoadDFMValues = function () {
+      pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
+      this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$1",[this]);
+      this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$2",["mitexto"]);
+      this.WebHTMLDiv1.BeforeLoadDFMValues();
+      this.WebMemo1.BeforeLoadDFMValues();
+      try {
+        this.SetName("Form8");
+        this.SetWidth(640);
+        this.SetHeight(480);
+        this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
+        this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.FFont.FCharset = 1;
+        this.FFont.SetColor(65793);
+        this.FFont.SetHeight(-15);
+        this.FFont.SetName("Tahoma");
+        this.FFont.SetStyle({});
+        this.SetParentFont(false);
+        this.SetEvent(this,"OnCreate","WebFormCreate");
+        this.WebHTMLDiv1.SetParentComponent(this);
+        this.WebHTMLDiv1.SetName("WebHTMLDiv1");
+        this.WebHTMLDiv1.SetLeft(0);
+        this.WebHTMLDiv1.SetTop(0);
+        this.WebHTMLDiv1.SetWidth(640);
+        this.WebHTMLDiv1.SetHeight(480);
+        this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebHTMLDiv1.SetRole("");
+        this.WebMemo1.SetParentComponent(this.WebHTMLDiv1);
+        this.WebMemo1.SetName("WebMemo1");
+        this.WebMemo1.SetLeft(0);
+        this.WebMemo1.SetTop(0);
+        this.WebMemo1.SetWidth(640);
+        this.WebMemo1.SetHeight(480);
+        this.WebMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
+        this.WebMemo1.SetElementClassName("ltextarea");
+        this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebMemo1.FFont.FCharset = 1;
+        this.WebMemo1.FFont.SetColor(65793);
+        this.WebMemo1.FFont.SetHeight(-15);
+        this.WebMemo1.FFont.SetName("Arial");
+        this.WebMemo1.FFont.SetStyle({});
+        this.WebMemo1.SetHeightPercent(100.000000000000000000);
+        this.WebMemo1.FLines.BeginUpdate();
+        try {
+          this.WebMemo1.FLines.Clear();
+          this.WebMemo1.FLines.Add("");
+        } finally {
+          this.WebMemo1.FLines.EndUpdate();
+        };
+        this.WebMemo1.SetParentFont(false);
+        this.WebMemo1.SetSelLength(0);
+        this.WebMemo1.SetSelStart(2);
+        this.WebMemo1.SetWidthPercent(100.000000000000000000);
+      } finally {
+        this.WebHTMLDiv1.AfterLoadDFMValues();
+        this.WebMemo1.AfterLoadDFMValues();
+      };
+    };
+    rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
+    rtl.addIntf(this,pas.System.IUnknown);
+    var $r = this.$rtti;
+    $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
+    $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
+  });
+  this.Form8 = null;
+});
+rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarConsultas","uFormaLogin","Unit2","Unit3","Unit4","Unit5","Unit6","ufrmAltaRen","ufrmAltaRen2","Unit7","Unit8"],function () {
   "use strict";
   var $mod = this;
   $mod.$implcode = function () {
@@ -107528,6 +107613,11 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarCon
   $mod.$main = function () {
     pas["WEBLib.Forms"].Application.Initialize();
     pas["WEBLib.Forms"].Application.FMainFormOnTaskBar = true;
+    pas["WEBLib.Forms"].Application.CreateForm(pas.Unit8.TForm8,{p: pas.Unit8, get: function () {
+        return this.p.Form8;
+      }, set: function (v) {
+        this.p.Form8 = v;
+      }});
     pas["WEBLib.Forms"].Application.CreateForm(pas.Unit7.TForm7,{p: pas.Unit7, get: function () {
         return this.p.Form7;
       }, set: function (v) {
