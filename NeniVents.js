@@ -107509,7 +107509,7 @@ rtl.module("Unit7",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     $impl.lstConceptosCap = null;
   };
 },[]);
-rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.WebCtrls","WEBLib.SyntaxMemo"],function () {
+rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","WEBLib.Controls","WEBLib.Forms","WEBLib.Dialogs","WEBLib.Controls","WEBLib.StdCtrls","WEBLib.StdCtrls","WEBLib.WebCtrls","WEBLib.SyntaxMemo","WEBLib.ExtCtrls"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TForm8",pas["WEBLib.Forms"].TForm,function () {
@@ -107517,11 +107517,13 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       pas["WEBLib.Forms"].TForm.$init.call(this);
       this.WebHTMLDiv1 = null;
       this.WebMemo1 = null;
+      this.WebPanel1 = null;
       this.WebSyntaxMemo1 = null;
     };
     this.$final = function () {
       this.WebHTMLDiv1 = undefined;
       this.WebMemo1 = undefined;
+      this.WebPanel1 = undefined;
       this.WebSyntaxMemo1 = undefined;
       pas["WEBLib.Forms"].TForm.$final.call(this);
     };
@@ -107533,14 +107535,16 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
       pas["WEBLib.Forms"].TCustomForm.LoadDFMValues.call(this);
       this.WebHTMLDiv1 = pas["WEBLib.WebCtrls"].THTMLDiv.$create("Create$1",[this]);
       this.WebMemo1 = pas["WEBLib.StdCtrls"].TMemo.$create("Create$2",["mitexto"]);
-      this.WebSyntaxMemo1 = pas["WEBLib.SyntaxMemo"].TSyntaxMemo.$create("Create$2",["mitexto2"]);
+      this.WebSyntaxMemo1 = pas["WEBLib.SyntaxMemo"].TSyntaxMemo.$create("Create$1",[this]);
+      this.WebPanel1 = pas["WEBLib.ExtCtrls"].TPanel.$create("Create$1",[this]);
       this.WebHTMLDiv1.BeforeLoadDFMValues();
       this.WebMemo1.BeforeLoadDFMValues();
       this.WebSyntaxMemo1.BeforeLoadDFMValues();
+      this.WebPanel1.BeforeLoadDFMValues();
       try {
         this.SetName("Form8");
         this.SetWidth(640);
-        this.SetHeight(480);
+        this.SetHeight(479);
         this.SetCSSLibrary(pas["WEBLib.Controls"].TCSSLibrary.cssBootstrap);
         this.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.FFont.FCharset = 1;
@@ -107553,19 +107557,18 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebHTMLDiv1.SetParentComponent(this);
         this.WebHTMLDiv1.SetName("WebHTMLDiv1");
         this.WebHTMLDiv1.SetLeft(0);
-        this.WebHTMLDiv1.SetTop(0);
+        this.WebHTMLDiv1.SetTop(60);
         this.WebHTMLDiv1.SetWidth(640);
-        this.WebHTMLDiv1.SetHeight(480);
+        this.WebHTMLDiv1.SetHeight(419);
         this.WebHTMLDiv1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebHTMLDiv1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebHTMLDiv1.SetRole("");
         this.WebMemo1.SetParentComponent(this.WebHTMLDiv1);
         this.WebMemo1.SetName("WebMemo1");
         this.WebMemo1.SetLeft(0);
-        this.WebMemo1.SetTop(416);
+        this.WebMemo1.SetTop(368);
         this.WebMemo1.SetWidth(640);
-        this.WebMemo1.SetHeight(64);
-        this.WebMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alBottom);
+        this.WebMemo1.SetHeight(52);
         this.WebMemo1.SetElementClassName("ltextarea");
         this.WebMemo1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
         this.WebMemo1.FFont.FCharset = 1;
@@ -107591,13 +107594,27 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
         this.WebSyntaxMemo1.SetLeft(0);
         this.WebSyntaxMemo1.SetTop(0);
         this.WebSyntaxMemo1.SetWidth(640);
-        this.WebSyntaxMemo1.SetHeight(416);
+        this.WebSyntaxMemo1.SetHeight(419);
         this.WebSyntaxMemo1.SetAlign(pas["WEBLib.Controls"].TAlign.alClient);
         this.WebSyntaxMemo1.SetTabOrder(1);
+        this.WebPanel1.SetParentComponent(this);
+        this.WebPanel1.SetName("WebPanel1");
+        this.WebPanel1.SetLeft(0);
+        this.WebPanel1.SetTop(0);
+        this.WebPanel1.SetWidth(640);
+        this.WebPanel1.SetHeight(60);
+        this.WebPanel1.SetElementClassName("card");
+        this.WebPanel1.SetAlign(pas["WEBLib.Controls"].TAlign.alTop);
+        this.WebPanel1.SetCaption("Libreta Digital");
+        this.WebPanel1.SetChildOrderEx(1);
+        this.WebPanel1.FElementBodyClassName = "card-body";
+        this.WebPanel1.SetElementFont(pas["WEBLib.Controls"].TElementFont.efCSS);
+        this.WebPanel1.SetTabOrder(1);
       } finally {
         this.WebHTMLDiv1.AfterLoadDFMValues();
         this.WebMemo1.AfterLoadDFMValues();
         this.WebSyntaxMemo1.AfterLoadDFMValues();
+        this.WebPanel1.AfterLoadDFMValues();
       };
     };
     rtl.addIntf(this,pas["WEBLib.Controls"].IControl);
@@ -107605,6 +107622,7 @@ rtl.module("Unit8",["System","SysUtils","Classes","JS","Web","WEBLib.Graphics","
     var $r = this.$rtti;
     $r.addField("WebHTMLDiv1",pas["WEBLib.WebCtrls"].$rtti["THTMLDiv"]);
     $r.addField("WebMemo1",pas["WEBLib.StdCtrls"].$rtti["TMemo"]);
+    $r.addField("WebPanel1",pas["WEBLib.ExtCtrls"].$rtti["TPanel"]);
     $r.addField("WebSyntaxMemo1",pas["WEBLib.SyntaxMemo"].$rtti["TSyntaxMemo"]);
     $r.addMethod("WebFormCreate",0,[["Sender",pas.System.$rtti["TObject"]]]);
   });
@@ -107629,11 +107647,6 @@ rtl.module("program",["System","WEBLib.Forms","WEBLib.Forms","Unit1","uCargarCon
   $mod.$main = function () {
     pas["WEBLib.Forms"].Application.Initialize();
     pas["WEBLib.Forms"].Application.FMainFormOnTaskBar = true;
-    pas["WEBLib.Forms"].Application.CreateForm(pas.Unit8.TForm8,{p: pas.Unit8, get: function () {
-        return this.p.Form8;
-      }, set: function (v) {
-        this.p.Form8 = v;
-      }});
     pas["WEBLib.Forms"].Application.CreateForm(pas.Unit7.TForm7,{p: pas.Unit7, get: function () {
         return this.p.Form7;
       }, set: function (v) {
